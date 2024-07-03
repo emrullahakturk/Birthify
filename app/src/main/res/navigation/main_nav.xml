@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/mainPageFragment">
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.yargisoft.birthify.fragments.RegisterFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/loginPageFragment"
+        android:name="com.yargisoft.birthify.fragments.LoginPageFragment"
+        android:label="fragment_login_page"
+        tools:layout="@layout/fragment_login_page" />
+    <fragment
+        android:id="@+id/mainPageFragment"
+        android:name="com.yargisoft.birthify.fragments.MainPageFragment"
+        android:label="fragment_main_page"
+        tools:layout="@layout/fragment_main_page" >
+        <action
+            android:id="@+id/mainToLogin"
+            app:destination="@id/loginPageFragment" />
+        <action
+            android:id="@+id/mainToRegister"
+            app:destination="@id/registerFragment" />
+    </fragment>
+</navigation>

@@ -1,0 +1,13 @@
+<!-- res/drawable/semi_transparent_button.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="#80FFFFFF"/> <!-- Basıldığında yarı saydam beyaz -->
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="#80FFFFFF"/> <!-- Normal durumda yarı saydam beyaz -->
+        </shape>
+    </item>
+</selector>
