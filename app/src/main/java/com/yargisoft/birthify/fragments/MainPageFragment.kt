@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentMainPageBinding
+import java.sql.RowId
 
 
 class MainPageFragment : Fragment() {
@@ -24,6 +25,9 @@ class MainPageFragment : Fragment() {
             it.findNavController().navigate(R.id.mainToLogin)
         }
 
+        binding.crAccountTv.setOnClickListener {
+            it.findNavController().navigate(R.id.mainToRegister)
+        }
 
 
         return  binding.root

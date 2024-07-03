@@ -22,10 +22,9 @@ class LoginPageFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login_page, container, false)
 
-        binding.signUpTv.setOnClickListener{
-            it.findNavController().navigate(R.id.loginToRegister)
-        }
-
+        binding.signUpTv.setOnClickListener{it.findNavController().navigate(R.id.loginToRegister)}
+        binding.fabWelcome.setOnClickListener{it.findNavController().navigate(R.id.loginToMain)}
+        binding.forgotPassLoginTv.setOnClickListener { it.findNavController().navigate(R.id.loginToForgot) }
 
         return binding.root
     }

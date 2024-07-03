@@ -20,11 +20,9 @@ class RegisterFragment : Fragment() {
         // Inflate the layout for this fragment
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_register, container, false)
-
-
-        binding.signInRegisterTv.setOnClickListener {
-            it.findNavController().navigate(R.id.registerToLogin)
-        }
+        binding.signInRegisterTv.setOnClickListener {it.findNavController().navigate(R.id.registerToLogin)}
+        binding.fabSignIn.setOnClickListener { it.findNavController().navigate(R.id.registerToMain) }
+        binding.forgotPassRegisterTv.setOnClickListener { it.findNavController().navigate(R.id.registerToForgot) }
 
         return binding.root
     }

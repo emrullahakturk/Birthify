@@ -28,7 +28,7 @@
                 android:id="@+id/wBackTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="180dp"
                 android:text="@string/welcome_back"
                 android:textColor="@color/green_login"
                 android:textSize="40sp"
@@ -65,6 +65,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loginToTv"
                 app:startIconDrawable="@drawable/ic_account"
+
                 app:startIconTint="@color/green_login">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -73,7 +74,9 @@
                     android:background="@drawable/rounded_edit_text"
                     android:hint="@string/e_mail"
                     android:paddingStart="40dp"
-                    android:paddingEnd="0dp" />
+                    android:paddingEnd="0dp"
+                    android:maxLines="1"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,7 +100,8 @@
                     android:hint="@string/password"
                     android:inputType="textPassword"
                     android:paddingStart="40dp"
-                    android:paddingEnd="0dp" />
+                    android:paddingEnd="0dp"
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <CheckBox
@@ -105,13 +109,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="30dp"
                 android:text="@string/remember_me"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/passwordTextInput" />
 
             <TextView
-                android:id="@+id/forgotPassTv"
+                android:id="@+id/forgotPassLoginTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -129,15 +133,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="50dp"
                 android:backgroundTint="@color/green_login"
                 android:text="@string/login"
-                app:layout_constraintBottom_toTopOf="@+id/dontHaveTv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/forgotPassTv" />
+                app:layout_constraintTop_toBottomOf="@+id/forgotPassLoginTv" />
 
             <TextView
                 android:id="@+id/dontHaveTv"
