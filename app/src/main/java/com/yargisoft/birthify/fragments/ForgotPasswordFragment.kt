@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentForgotPasswordBinding
 
@@ -18,9 +19,8 @@ class ForgotPasswordFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding=  DataBindingUtil.inflate(inflater,R.layout.fragment_forgot_password, container, false)
-
-
-
+        binding.fabForgotPassword.setOnClickListener { parentFragmentManager.popBackStack() }
+        binding.forgotPassSignInTv.setOnClickListener { it.findNavController().navigate(R.id.forgotToLogin) }
 
         return binding.root
 

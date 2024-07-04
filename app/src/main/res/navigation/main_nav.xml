@@ -57,9 +57,9 @@
     </fragment>
     <fragment
         android:id="@+id/mainPageFragment"
-        android:name="com.yargisoft.birthify.fragments.MainPageFragment"
+        android:name="com.yargisoft.birthify.fragments.FirstPageFragment"
         android:label="fragment_main_page"
-        tools:layout="@layout/fragment_main_page" >
+        tools:layout="@layout/fragment_first_page" >
         <action
             android:id="@+id/mainToLogin"
             app:destination="@id/loginPageFragment"
@@ -78,5 +78,9 @@
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="com.yargisoft.birthify.fragments.ForgotPasswordFragment"
-        android:label="ForgotPasswordFragment" />
+        android:label="ForgotPasswordFragment" >
+        <action
+            android:id="@+id/forgotToLogin"
+            app:destination="@id/loginPageFragment" />
+    </fragment>
 </navigation>

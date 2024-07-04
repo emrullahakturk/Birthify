@@ -16,7 +16,10 @@
     <string name="sign_up">Sign Up</string>
     <string name="welcome_back">Welcome Back</string>
     <string name="e_mail">E-Mail</string>
+    <string name="enter_e_mail">Please enter your e-mail to reset password</string>
+    <string name="reset_password">Reset Password</string>
     <string name="password">Password</string>
+    <string name="remembered_password">Remembered your password?</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

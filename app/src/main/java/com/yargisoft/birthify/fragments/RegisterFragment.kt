@@ -21,7 +21,7 @@ class RegisterFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_register, container, false)
         binding.signInRegisterTv.setOnClickListener {it.findNavController().navigate(R.id.registerToLogin)}
-        binding.fabSignIn.setOnClickListener { it.findNavController().navigate(R.id.registerToMain) }
+        binding.fabSignIn.setOnClickListener { parentFragmentManager.popBackStack() }
         binding.forgotPassRegisterTv.setOnClickListener { it.findNavController().navigate(R.id.registerToForgot) }
 
         return binding.root
