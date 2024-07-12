@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "54009638005",
+    "project_id": "birthify-app",
+    "storage_bucket": "birthify-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54009638005:android:fbe55323b0f7870644dc3c",
+        "android_client_info": {
+          "package_name": "com.yargisoft.birthify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf-nz2F9vdgyFXEq4VVIh3_lccR6YmfJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
