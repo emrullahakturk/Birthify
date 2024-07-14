@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.FirstPageFragment"
+        tools:context=".view.FirstPageFragment"
         android:background="@drawable/welcome_background">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,15 +26,13 @@
                 android:id="@+id/theBestAppTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
                 android:layout_marginTop="180dp"
+                android:gravity="center"
                 android:text="@string/login_string1"
                 android:textColor="@color/green_login"
                 android:textSize="50sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button

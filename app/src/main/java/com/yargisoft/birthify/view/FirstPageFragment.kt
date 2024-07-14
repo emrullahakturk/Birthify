@@ -1,4 +1,4 @@
-package com.yargisoft.birthify.fragments
+package com.yargisoft.birthify.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -20,11 +20,11 @@ class FirstPageFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_first_page, container, false)
 
         binding.signInButton.setOnClickListener {
-            it.findNavController().navigate(R.id.mainToLogin)
+            it.findNavController().navigate(R.id.firstToLogin)
         }
 
         binding.crAccountTv.setOnClickListener {
-            it.findNavController().navigate(R.id.mainToRegister)
+            it.findNavController().navigate(R.id.firstToRegister)
         }
 
 

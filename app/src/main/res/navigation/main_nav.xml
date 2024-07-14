@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/mainPageFragment">
+    app:startDestination="@id/firstPageFragment">
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.yargisoft.birthify.fragments.RegisterFragment"
+        android:name="com.yargisoft.birthify.view.RegisterFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_register" >
         <action
@@ -18,8 +18,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/registerToMain"
-            app:destination="@id/mainPageFragment"
+            android:id="@+id/registerToFirst"
+            app:destination="@id/firstPageFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -34,15 +34,15 @@
     </fragment>
     <fragment
         android:id="@+id/loginPageFragment"
-        android:name="com.yargisoft.birthify.fragments.LoginPageFragment"
+        android:name="com.yargisoft.birthify.view.LoginPageFragment"
         android:label="fragment_login_page"
         tools:layout="@layout/fragment_login_page" >
         <action
             android:id="@+id/loginToRegister"
             app:destination="@id/registerFragment" />
         <action
-            android:id="@+id/loginToMain"
-            app:destination="@id/mainPageFragment"
+            android:id="@+id/loginToFirst"
+            app:destination="@id/firstPageFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -54,21 +54,24 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/loginToMain"
+            app:destination="@id/mainPageFragment" />
     </fragment>
     <fragment
-        android:id="@+id/mainPageFragment"
-        android:name="com.yargisoft.birthify.fragments.FirstPageFragment"
+        android:id="@+id/firstPageFragment"
+        android:name="com.yargisoft.birthify.view.FirstPageFragment"
         android:label="fragment_main_page"
         tools:layout="@layout/fragment_first_page" >
         <action
-            android:id="@+id/mainToLogin"
+            android:id="@+id/firstToLogin"
             app:destination="@id/loginPageFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/mainToRegister"
+            android:id="@+id/firstToRegister"
             app:destination="@id/registerFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -77,10 +80,22 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.yargisoft.birthify.fragments.ForgotPasswordFragment"
+        android:name="com.yargisoft.birthify.view.ForgotPasswordFragment"
         android:label="ForgotPasswordFragment" >
         <action
             android:id="@+id/forgotToLogin"
             app:destination="@id/loginPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addBirthdayFragment"
+        android:name="com.yargisoft.birthify.view.AddBirthdayFragment"
+        android:label="AddBirthdayFragment" />
+    <fragment
+        android:id="@+id/mainPageFragment"
+        android:name="com.yargisoft.birthify.view.MainPageFragment"
+        android:label="MainPageFragment" >
+        <action
+            android:id="@+id/mainToAddBirthday"
+            app:destination="@id/addBirthdayFragment" />
     </fragment>
 </navigation>

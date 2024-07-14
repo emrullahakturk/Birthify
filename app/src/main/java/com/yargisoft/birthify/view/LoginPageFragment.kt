@@ -1,4 +1,4 @@
-package com.yargisoft.birthify.fragments
+package com.yargisoft.birthify.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -43,7 +43,7 @@ class LoginPageFragment : Fragment() {
 
             viewModel.loginState.observe(viewLifecycleOwner, Observer { isSuccess ->
                 if (isSuccess) {
-                it.findNavController().navigate(R.id.loginToForgot)                    // Başarılı girişten sonra yapılacak işlemler
+                it.findNavController().navigate(R.id.loginToMain)                    // Başarılı girişten sonra yapılacak işlemler
                 } else {
                     Toast.makeText(context, "Login Failed", Toast.LENGTH_SHORT).show()
                 }

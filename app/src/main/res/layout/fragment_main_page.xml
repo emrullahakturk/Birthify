@@ -13,6 +13,16 @@
         android:background="@color/white">
 
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabMainPageAddBDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green_login"
+            android:clickable="true"
+            android:src="@android:drawable/ic_input_add"
+            tools:layout_editor_absoluteX="317dp"
+            tools:layout_editor_absoluteY="663dp" />
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar2"
             android:layout_width="match_parent"
@@ -59,32 +69,8 @@
             app:layout_constraintEnd_toEndOf="@+id/toolbar2"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/main_page_bottom_menu" />
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar2"
-            app:layout_constraintVertical_bias="0.5">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

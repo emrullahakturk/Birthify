@@ -15,11 +15,16 @@
     <string name="dont_have_account">Don\'t have account?</string>
     <string name="sign_up">Sign Up</string>
     <string name="welcome_back">Welcome Back</string>
+    <string name="name">Name</string>
     <string name="e_mail">E-Mail</string>
     <string name="enter_e_mail">Please enter your e-mail to reset password</string>
     <string name="reset_password">Reset Password</string>
     <string name="password">Password</string>
+    <string name="save_birthday">Save Birthday</string>
+    <string name="celebration_note">Celebration Note</string>
+    <string name="birthday_date">Birthday Date (yyyy-MM-dd)</string>
     <string name="remembered_password">Remembered your password?</string>
+    <string name="record_birthday">Record the birthday of your dear one</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
