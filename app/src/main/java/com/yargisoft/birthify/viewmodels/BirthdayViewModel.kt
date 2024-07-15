@@ -4,26 +4,35 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yargisoft.birthify.model.Birthday
+import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class BirthdayViewModel() : ViewModel() {
+class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel() {
     private val _saveBirthdayState = MutableLiveData<Boolean>()
     val saveBirthdayState: LiveData<Boolean> get() = _saveBirthdayState
-    private val repository = BirthdayRepository()
 
-    fun saveBirthday(name: String, birthdayDate: String, note: String) {
+    private val _birthdays = MutableLiveData<List<Birthday>>()
+    val birthdays: LiveData<List<Birthday>> get() = _birthdays
 
-        val recordedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-        val birthday = Birthday(name = name, birthdayDate = birthdayDate, recordedDate = recordedDate, note = note)
+    fun saveBirthday(name: String, birthdayDate: String, note: String,userId: String) {
 
+        val recordedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
+        val birthday = Birthday(name = name, birthdayDate = birthdayDate, recordedDate = recordedDate, note = note, userId = userId)
 
         viewModelScope.launch {
             val result = repository.saveBirthday(birthday)
             _saveBirthdayState.postValue(result)
+        }
+    }
+
+    fun getUserBirthdays(userId: String) {
+        viewModelScope.launch {
+            val result = repository.getUserBirthdays(userId).sortedByDescending { it.recordedDate }
+            _birthdays.postValue(result)
         }
     }
 }

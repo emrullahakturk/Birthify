@@ -1,10 +1,11 @@
 package com.yargisoft.birthify.repositories
 
+import android.content.Context
 import com.google.firebase.firestore.FirebaseFirestore
-import com.yargisoft.birthify.model.Birthday
+import com.yargisoft.birthify.models.Birthday
 import kotlinx.coroutines.tasks.await
 
-class BirthdayRepository {
+class BirthdayRepository (private val context: Context){
     private val firestore = FirebaseFirestore.getInstance()
 
     suspend fun saveBirthday(birthday: Birthday): Boolean {
@@ -18,4 +19,20 @@ class BirthdayRepository {
             false
         }
     }
+
+    suspend fun getUserBirthdays(userId: String): List<Birthday> {
+        return try {
+            val snapshot = firestore.collection("birthdays")
+                .whereEqualTo("userId", userId)
+                .get()
+                .await()
+
+            snapshot.toObjects(Birthday::class.java)
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+
+
 }

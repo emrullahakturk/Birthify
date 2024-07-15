@@ -1,4 +1,4 @@
-package com.yargisoft.birthify.view
+package com.yargisoft.birthify.views.AuthViews
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,7 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentForgotPasswordBinding
+import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.viewmodels.AuthViewModel
+import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 
 
 class ForgotPasswordFragment : Fragment() {
@@ -23,7 +25,15 @@ class ForgotPasswordFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this  ).get(AuthViewModel::class.java)
+
+
+        //viewModel tanımlama için gerekli kodlar
+        val repository = AuthRepository(requireContext())
+        val factory= AuthViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, factory ).get(AuthViewModel::class.java)
+
+
+
 
         // Inflate the layout for this fragment
         binding=  DataBindingUtil.inflate(inflater,R.layout.fragment_forgot_password, container, false)

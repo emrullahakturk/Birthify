@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/firstPageFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.yargisoft.birthify.view.RegisterFragment"
+        android:name="com.yargisoft.birthify.views.AuthViews.RegisterFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_register" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginPageFragment"
-        android:name="com.yargisoft.birthify.view.LoginPageFragment"
+        android:name="com.yargisoft.birthify.views.AuthViews.LoginPageFragment"
         android:label="fragment_login_page"
         tools:layout="@layout/fragment_login_page" >
         <action
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/firstPageFragment"
-        android:name="com.yargisoft.birthify.view.FirstPageFragment"
+        android:name="com.yargisoft.birthify.views.AuthViews.FirstPageFragment"
         android:label="fragment_main_page"
         tools:layout="@layout/fragment_first_page" >
         <action
@@ -80,7 +80,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.yargisoft.birthify.view.ForgotPasswordFragment"
+        android:name="com.yargisoft.birthify.views.AuthViews.ForgotPasswordFragment"
         android:label="ForgotPasswordFragment" >
         <action
             android:id="@+id/forgotToLogin"
@@ -88,14 +88,25 @@
     </fragment>
     <fragment
         android:id="@+id/addBirthdayFragment"
-        android:name="com.yargisoft.birthify.view.AddBirthdayFragment"
+        android:name="com.yargisoft.birthify.views.AddBirthdayFragment"
         android:label="AddBirthdayFragment" />
     <fragment
         android:id="@+id/mainPageFragment"
-        android:name="com.yargisoft.birthify.view.MainPageFragment"
+        android:name="com.yargisoft.birthify.views.MainPageFragment"
         android:label="MainPageFragment" >
         <action
             android:id="@+id/mainToAddBirthday"
             app:destination="@id/addBirthdayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.yargisoft.birthify.views.AuthViews.SplashFragment"
+        android:label="SplashFragment" >
+        <action
+            android:id="@+id/splashToFirstPage"
+            app:destination="@id/firstPageFragment" />
+        <action
+            android:id="@+id/splashToMainPage"
+            app:destination="@id/mainPageFragment" />
     </fragment>
 </navigation>

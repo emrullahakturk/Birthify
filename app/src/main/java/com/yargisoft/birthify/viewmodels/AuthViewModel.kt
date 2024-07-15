@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.yargisoft.birthify.repositories.AuthRepository
 import kotlinx.coroutines.launch
 
-class AuthViewModel : ViewModel() {
+class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
     private val _loginState = MutableLiveData<Boolean>()
     val loginState: LiveData<Boolean> get() = _loginState
 
@@ -18,9 +18,6 @@ class AuthViewModel : ViewModel() {
     private val _resetPasswordState = MutableLiveData<Boolean>()
     val resetPasswordState: LiveData<Boolean> get() = _resetPasswordState
 
-    private val repository = AuthRepository()
-
-
     fun resetPassword(email: String) {
         viewModelScope.launch {
             val result = repository.resetPassword(email)
@@ -28,9 +25,9 @@ class AuthViewModel : ViewModel() {
         }
     }
 
-    fun loginUser(email: String, password: String) {
+    fun loginUser(email: String, password: String,isChecked: Boolean) {
         viewModelScope.launch {
-            val result = repository.loginUser(email, password)
+            val result = repository.loginUser(email, password,isChecked)
             _loginState.postValue(result)
         }
     }

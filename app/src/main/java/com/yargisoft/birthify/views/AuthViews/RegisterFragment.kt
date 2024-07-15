@@ -1,4 +1,4 @@
-package com.yargisoft.birthify.view
+package com.yargisoft.birthify.views.AuthViews
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,14 +13,14 @@ import androidx.navigation.findNavController
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentRegisterBinding
 
-import com.google.firebase.auth.FirebaseAuth
+import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.viewmodels.AuthViewModel
+import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 
 class RegisterFragment : Fragment() {
 
     private lateinit var binding : FragmentRegisterBinding
     private lateinit var viewModel : AuthViewModel
-    val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
 
     override fun onCreateView(
@@ -29,7 +29,12 @@ class RegisterFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
+
+        val repository = AuthRepository(requireContext())
+        val factory= AuthViewModelFactory(repository)
+        viewModel = ViewModelProvider(this,factory).get(AuthViewModel::class.java)
+
+
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_register, container, false)
         binding.signInRegisterTv.setOnClickListener {it.findNavController().navigate(R.id.registerToLogin)}
