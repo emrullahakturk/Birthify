@@ -29,6 +29,16 @@ class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel(
         }
     }
 
+    fun updateBirthday(birthday: Birthday, onComplete: (Boolean) -> Unit) {
+        repository.updateBirthday(birthday, onComplete)
+    }
+
+
+    fun deleteBirthday(birthdayId: String, onComplete: (Boolean) -> Unit) {
+        repository.deleteBirthday(birthdayId, onComplete)
+    }
+
+
     fun getUserBirthdays(userId: String) {
         viewModelScope.launch {
             val result = repository.getUserBirthdays(userId).sortedByDescending { it.recordedDate }

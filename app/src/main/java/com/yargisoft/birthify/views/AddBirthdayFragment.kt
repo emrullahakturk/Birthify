@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAddBirthdayBinding
@@ -27,7 +28,7 @@ import java.util.Calendar
 class AddBirthdayFragment : Fragment() {
     private lateinit var viewModel: BirthdayViewModel
     private lateinit var binding : FragmentAddBirthdayBinding
-    private lateinit var sharedPreferencesManager: SharedPreferencesManager
+    private lateinit var sharedPreferences: SharedPreferencesManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -35,7 +36,7 @@ class AddBirthdayFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_add_birthday, container, false)
 
 
-        sharedPreferencesManager = SharedPreferencesManager(requireContext())
+        sharedPreferences = SharedPreferencesManager(requireContext())
 
         val repository = BirthdayRepository(requireContext())
         val factory = BirthdayViewModelFactory(repository)
@@ -47,10 +48,11 @@ class AddBirthdayFragment : Fragment() {
             val name = binding.nameAddBirthdayEditText.text.toString()
             val birthdayDate = binding.birthdayDateEditText.text.toString()
             val note = binding.noteAddBirthdayEditText.text.toString()
-            val userId =  sharedPreferencesManager.getUserId()
+            val userId =  sharedPreferences.getUserId()
 
             if (name.isNotEmpty() && birthdayDate.isNotEmpty() && note.isNotEmpty()) {
                 viewModel.saveBirthday(name, birthdayDate, note, userId = userId)
+                findNavController().popBackStack()
             } else {
                 Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
@@ -91,8 +93,8 @@ class AddBirthdayFragment : Fragment() {
                     true
                 }
                 R.id.nav_item2 -> {
-                    // İlgili menü öğesi seçildiğinde yapılacak işlemler
-                    true
+                    sharedPreferences.clearUserSession()
+                    findNavController().navigate(R.id.firstPageFragment)
                 }
                 // Diğer menü öğeleri için gerektiği kadar case ekleyebilirsiniz
                 else -> false

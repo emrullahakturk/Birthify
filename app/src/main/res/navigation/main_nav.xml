@@ -97,6 +97,9 @@
         <action
             android:id="@+id/mainToAddBirthday"
             app:destination="@id/addBirthdayFragment" />
+        <action
+            android:id="@+id/mainToEditBirthday"
+            app:destination="@id/birthdayEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -108,5 +111,16 @@
         <action
             android:id="@+id/splashToMainPage"
             app:destination="@id/mainPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/birthdayEditFragment"
+        android:name="com.yargisoft.birthify.views.BirthdayEditFragment"
+        android:label="fragment_birthday_edit"
+        tools:layout="@layout/fragment_birthday_edit" >
+
+        <argument
+            android:name="birthday"
+            app:argType="com.yargisoft.birthify.models.Birthday"
+            />
     </fragment>
 </navigation>

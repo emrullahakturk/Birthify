@@ -13,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.R
@@ -48,7 +49,10 @@ class MainPageFragment : Fragment() {
         viewModel = ViewModelProvider(this,factory)[BirthdayViewModel::class]
 
         //adapter initialization
-        adapter = BirthdayAdapter(listOf())
+        adapter = BirthdayAdapter(listOf()){ birthday ->
+            val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
+            findNavController().navigate(action)
+        }
         binding.birthdayRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.birthdayRecyclerView.adapter = adapter
 
@@ -56,7 +60,10 @@ class MainPageFragment : Fragment() {
 
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
         viewModel.birthdays.observe(viewLifecycleOwner, Observer { birthdays ->
-            adapter = BirthdayAdapter(birthdays)
+            adapter = BirthdayAdapter(birthdays) { birthday ->
+                val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
+                findNavController().navigate(action)
+            }
             binding.birthdayRecyclerView.adapter = adapter
             adapter.updateData(birthdays)
         })
@@ -101,6 +108,7 @@ class MainPageFragment : Fragment() {
 
 
         binding.fabMainPageAddBDay.setOnClickListener { it.findNavController().navigate(R.id.mainToAddBirthday) }
+
 
         // Inflate the layout for this fragment
         return binding.root

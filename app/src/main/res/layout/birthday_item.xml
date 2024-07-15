@@ -36,7 +36,7 @@
         android:textSize="16sp"
         android:fontFamily="@font/wittgenstein_font"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/editBirthdayButtonMainPage"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5" />
 
@@ -59,7 +59,7 @@
         android:visibility="gone" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/editBirthdayButtonMainPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="7dp"
@@ -80,7 +80,7 @@
         android:text="Birth Date"
         android:fontFamily="@font/wittgenstein_font"
         app:layout_constraintBottom_toTopOf="@+id/birthdayDateCardTv"
-        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/editBirthdayButtonMainPage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -91,7 +91,7 @@
         android:layout_marginEnd="7dp"
         android:fontFamily="@font/wittgenstein_font"
         android:text="Edit"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintBottom_toTopOf="@+id/editBirthdayButtonMainPage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -33,6 +33,19 @@ class BirthdayRepository (private val context: Context){
         }
     }
 
+    fun updateBirthday(birthday: Birthday, onComplete: (Boolean) -> Unit) {
+        val birthdayRef = firestore.collection("birthdays").document(birthday.id!!)
+        birthdayRef.set(birthday)
+            .addOnSuccessListener { onComplete(true) }
+            .addOnFailureListener { onComplete(false) }
+    }
+
+    fun deleteBirthday(birthdayId: String, onComplete: (Boolean) -> Unit) {
+        val birthdayRef = firestore.collection("birthdays").document(birthdayId)
+        birthdayRef.delete()
+            .addOnSuccessListener { onComplete(true) }
+            .addOnFailureListener { onComplete(false) }
+    }
 
 
 }

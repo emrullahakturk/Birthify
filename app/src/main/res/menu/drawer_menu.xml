@@ -13,8 +13,8 @@
             android:title="Hesabım"/>
         <item
             android:id="@+id/nav_item2"
-            android:icon="@drawable/ic_account"
-            android:title="Hesabım" />
+            android:icon="@drawable/ic_logout"
+            android:title="Çıkış Yap" />
         <!-- İhtiyaca göre diğer menü öğelerini buraya ekleyebilirsiniz -->
     </group>
 </menu>
