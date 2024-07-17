@@ -92,7 +92,7 @@ class BirthdayEditFragment : Fragment() {
             .setTitle("Delete Birthday")
             .setMessage("Are you sure you want to delete this birthday?")
             .setPositiveButton("Yes") { dialog, which ->
-                viewModel.deleteBirthday(editedBirthday.birthday.id!!) { isSuccess ->
+                viewModel.deleteBirthday(editedBirthday.birthday.id) { isSuccess ->
                     if (isSuccess) {
                         Toast.makeText(context, "Birthday deleted successfully", Toast.LENGTH_SHORT).show()
                         findNavController().popBackStack()

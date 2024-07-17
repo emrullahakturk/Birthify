@@ -8,14 +8,11 @@
     android:id="@+id/birthdayCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="1dp"
-    android:layout_marginBottom="1dp"
-    android:layout_marginLeft="2dp"
-    android:layout_marginRight="2dp"
-    card_view:cardCornerRadius="10dp"
-    card_view:cardElevation="0dp"
+   android:layout_margin="4dp"
+    card_view:cardCornerRadius="35dp"
+    card_view:cardElevation="8dp"
     card_view:cardBackgroundColor="#F6F5F5"
-    card_view:cardUseCompatPadding="true">
+    >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +21,6 @@
         android:background="?attr/selectableItemBackground"
         android:orientation="vertical"
         android:padding="16dp"
-        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="61dp">
 
