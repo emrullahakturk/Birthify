@@ -1,20 +1,22 @@
 <!-- res/menu/drawer_menu.xml -->
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/app_bar_search"
-        android:icon="@drawable/ic_search"
-        android:title="Search"
-        app:actionViewClass="android.widget.SearchView" />
+
+
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_item1"
+            android:id="@+id/navMenuAccount"
             android:icon="@drawable/ic_account"
-            android:title="Hesabım"/>
+            android:title="@string/my_account"/>
         <item
-            android:id="@+id/nav_item2"
+            android:id="@+id/navMenuBirthdays"
+            android:icon="@drawable/ic_account"
+            android:title="@string/birthdays"/>
+
+        <item
+            android:id="@+id/navMenuLogout"
             android:icon="@drawable/ic_logout"
-            android:title="Çıkış Yap" />
+            android:title="@string/logout" />
         <!-- İhtiyaca göre diğer menü öğelerini buraya ekleyebilirsiniz -->
     </group>
 </menu>

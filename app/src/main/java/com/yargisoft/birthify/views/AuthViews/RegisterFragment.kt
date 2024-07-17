@@ -1,6 +1,9 @@
 package com.yargisoft.birthify.views.AuthViews
 
+import android.opengl.Visibility
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentRegisterBinding
 
@@ -42,22 +46,42 @@ class RegisterFragment : Fragment() {
         binding.forgotPassRegisterTv.setOnClickListener { it.findNavController().navigate(R.id.registerToForgot) }
 
         binding.registerButton.setOnClickListener {
-           val name = binding.registerFullNameTv.text.toString()
-           val email = binding.registerEmailTv.text.toString()
-           val password = binding.registerPassTv.text.toString()
-           viewModel.registerUser(name,email,password)
+            val name = binding.registerFullNameTv.text.toString()
+            val email = binding.registerEmailTv.text.toString()
+            val password = binding.registerPassTv.text.toString()
+            viewModel.registerUser(name,email,password)
+
+            binding.registerFragmentProgress.visibility = View.VISIBLE
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                viewModel.registrationState.observe(viewLifecycleOwner, Observer { isSuccess ->
+                    if (isSuccess) {
+                        Toast.makeText(context, "Registration succesfully", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.registerToLogin)
+                    } else {
+                        Toast.makeText(context, "Registration Failed", Toast.LENGTH_SHORT).show()
+                    }
+                })
+                // Observe işleminden sonra observe'ı kaldır
+                viewModel.registrationState.removeObservers(viewLifecycleOwner)
+                binding.registerFragmentProgress.visibility = View.INVISIBLE
+
+            }, 5000)
+
+
+
+
 
         }
 
-        viewModel.registrationState.observe(viewLifecycleOwner, Observer { isSuccess ->
-            if (isSuccess) {
 
-            } else {
-                Toast.makeText(context, "Registration Failed", Toast.LENGTH_SHORT).show()
-            }
-        })
+
+
 
 
         return binding.root
     }
+
+
+
 }

@@ -12,7 +12,7 @@
     <string name="login_to_account">Login to your account</string>
     <string name="remember_me">Remember Me</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="dont_have_account">Don\'t have account?</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
     <string name="sign_up">Sign Up</string>
     <string name="welcome_back">Welcome Back</string>
     <string name="name">Name</string>
@@ -28,6 +28,9 @@
     <string name="remembered_password">Remembered your password?</string>
     <string name="record_birthday">Record the birthday of your dear one</string>
     <string name="edit_birthday">Edit the birthday of your dear one</string>
+    <string name="birthdays">Birthdays</string>
+    <string name="my_account">My Account</string>
+    <string name="logout">Logout</string>
 
 
     <string name="navigation_drawer_open">Aç</string>

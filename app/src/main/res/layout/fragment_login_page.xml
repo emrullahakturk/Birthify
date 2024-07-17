@@ -94,6 +94,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/signInPassTextInput"
                 app:startIconDrawable="@drawable/ic_lock"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/green_login"
                 app:startIconTint="@color/green_login">
 
                 <com.google.android.material.textfield.TextInputEditText

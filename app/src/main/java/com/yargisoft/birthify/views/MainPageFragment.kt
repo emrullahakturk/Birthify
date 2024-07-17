@@ -83,11 +83,11 @@ class MainPageFragment : Fragment() {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             // Menü öğelerine tıklandığında yapılacak işlemler
             when (menuItem.itemId) {
-                R.id.nav_item1 -> {
+                R.id.navMenuAccount -> {
                     // İlgili menü öğesi seçildiğinde yapılacak işlemler
                     true
                 }
-                R.id.nav_item2 -> {
+                R.id.navMenuLogout -> {
                     // İlgili menü öğesi seçildiğinde yapılacak işlemler
                     true
                 }
@@ -102,8 +102,8 @@ class MainPageFragment : Fragment() {
 
 
         // Toolbar üzerindeki menü ikonu ile menüyü açma
-        binding.menuButtonMainPage.setOnClickListener {
-                drawerLayout.openDrawer(GravityCompat.START)
+        binding.includeMainPage.findViewById<View>(R.id.menuButtonToolbar).setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
         }
 
 

@@ -3,6 +3,7 @@ package com.yargisoft.birthify.views.AuthViews
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,10 @@ class SplashFragment : Fragment() {
 
         checkSession()
 
+        Log.e("usercred", " ${sharedPreferencesManager.getUserCredentials()}")
+        Log.e("usercred", " ${sharedPreferencesManager.checkIsUserLoggedIn()}")
+
+
         return view
     }
 
@@ -34,8 +39,9 @@ class SplashFragment : Fragment() {
                 findNavController().navigate(R.id.splashToMainPage)
             } else {
                 // Oturum bilgileri yoksa LoginFragment'a yönlendir
+                sharedPreferencesManager.clearUserSession()
                 findNavController().navigate(R.id.splashToFirstPage)
             }
-        }, 1000) // 2 saniye bekletme
+        }, 2000) // 2 saniye bekletme
     }
 }

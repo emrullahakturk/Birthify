@@ -76,7 +76,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/registerMailTextInput"
                 app:startIconDrawable="@drawable/ic_lock"
-                app:startIconTint="@color/green_login">
+                app:startIconTint="@color/green_login"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/green_login" >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/registerPassTv"
@@ -200,5 +202,19 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/registerFragmentProgress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

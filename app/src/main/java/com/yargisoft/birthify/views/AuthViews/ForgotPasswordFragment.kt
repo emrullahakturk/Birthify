@@ -18,7 +18,7 @@ import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 
 
 class ForgotPasswordFragment : Fragment() {
-     private lateinit var binding: FragmentForgotPasswordBinding
+    private lateinit var binding: FragmentForgotPasswordBinding
     private lateinit var viewModel: AuthViewModel
 
     override fun onCreateView(
@@ -52,6 +52,9 @@ class ForgotPasswordFragment : Fragment() {
                     Toast.makeText(context, "Password reset failed", Toast.LENGTH_SHORT).show()
                 }
             })
+
+            // Observe işleminden sonra observe'ı kaldır
+            viewModel.loginState.removeObservers(viewLifecycleOwner)
         }
 
         return binding.root

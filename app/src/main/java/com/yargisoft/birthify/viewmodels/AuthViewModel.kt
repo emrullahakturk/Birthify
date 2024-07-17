@@ -11,12 +11,14 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
     private val _loginState = MutableLiveData<Boolean>()
     val loginState: LiveData<Boolean> get() = _loginState
 
-
     private val _registrationState = MutableLiveData<Boolean>()
     val registrationState: LiveData<Boolean> get() = _registrationState
 
     private val _resetPasswordState = MutableLiveData<Boolean>()
     val resetPasswordState: LiveData<Boolean> get() = _resetPasswordState
+
+    private val _emailVerificationState = MutableLiveData<Boolean>()
+    val emailVerificationState: LiveData<Boolean> get() = _emailVerificationState
 
     fun resetPassword(email: String) {
         viewModelScope.launch {
@@ -25,11 +27,13 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
         }
     }
 
-    fun loginUser(email: String, password: String,isChecked: Boolean) {
+    fun loginUser(email: String, password: String, isChecked: Boolean) {
         viewModelScope.launch {
-            val result = repository.loginUser(email, password,isChecked)
+            val result = repository.loginUser(email, password, isChecked)
             _loginState.postValue(result)
+
         }
+
     }
 
     fun registerUser(name: String, email: String, password: String) {
@@ -39,7 +43,10 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
         }
     }
 
-
-
-
+    private fun isEmailVerified() {
+        viewModelScope.launch {
+            val result = repository.isEmailVerified()
+            _emailVerificationState.postValue(result)
+        }
+    }
 }
