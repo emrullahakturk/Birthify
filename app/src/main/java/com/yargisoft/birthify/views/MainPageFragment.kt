@@ -42,7 +42,9 @@ class MainPageFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_main_page, container, false)
 
+/*
         binding.fabMainPageAddBDay.setOnClickListener { it.findNavController().navigate(R.id.mainToAddBirthday) }
+*/
 
         //user SharedPreferences
         preferences = SharedPreferencesManager(requireContext())

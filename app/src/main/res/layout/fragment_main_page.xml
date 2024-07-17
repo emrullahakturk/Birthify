@@ -7,100 +7,110 @@
 
     </data>
 
-
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_nav_menu"
+            android:background="@drawable/bottom_nav_background"
+            app:itemIconTint="@color/green_login"
+            app:itemTextColor="@color/green_login"
 
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabMainPageAddBDay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="7dp"
-                android:layout_marginBottom="7dp"
-                android:backgroundTint="@color/green_login"
-                android:clickable="true"
-                android:src="@android:drawable/ic_input_add"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <include android:id="@+id/includeMainPage"
-                layout="@layout/custom_toolbar" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/wittgenstein_font"
-                android:text="@string/birthdays"
-                android:textColor="@color/green_login"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/includeMainPage" />
-
-            <View
-                android:id="@+id/lineView"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/green_login"
-                app:layout_constraintTop_toBottomOf="@+id/textView2"
-                tools:layout_editor_absoluteX="0dp" />
-
-            <ScrollView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/lineView2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lineView">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/birthdayRecyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </ScrollView>
-
-            <View
-                android:id="@+id/lineView2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="7dp"
-                android:background="@color/green_login"
-                app:layout_constraintBottom_toTopOf="@+id/fabMainPageAddBDay"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navViewMainPage"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:menu="@menu/drawer_menu"
             />
-    </androidx.drawerlayout.widget.DrawerLayout>
+
+        <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/drawer_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
 
 
+                <include
+                    android:id="@+id/includeMainPage"
+                    layout="@layout/custom_toolbar" />
 
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/wittgenstein_font"
+                    android:text="@string/birthdays"
+                    android:textColor="@color/green_login"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/includeMainPage" />
+
+                <View
+                    android:id="@+id/lineView"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/green_login"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <ScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lineView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/birthdayRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </ScrollView>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/navViewMainPage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                app:menu="@menu/drawer_menu">
+
+            </com.google.android.material.navigation.NavigationView>
+
+
+        </androidx.drawerlayout.widget.DrawerLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </layout>
