@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/birthdayCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="1dp"
@@ -13,7 +14,7 @@
     android:layout_marginRight="2dp"
     card_view:cardCornerRadius="10dp"
     card_view:cardElevation="0dp"
-    card_view:cardBackgroundColor="#E0FBE2"
+    card_view:cardBackgroundColor="#F6F5F5"
     card_view:cardUseCompatPadding="true">
 
 

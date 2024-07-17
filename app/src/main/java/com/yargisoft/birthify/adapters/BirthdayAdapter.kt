@@ -7,18 +7,22 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.models.Birthday
 
 class BirthdayAdapter(private var birthdayList: List<Birthday>,
-                      private val onEditClick: (Birthday) -> Unit) : RecyclerView.Adapter<BirthdayAdapter.BirthdayViewHolder>() {
+                      private val onEditClick: (Birthday) -> Unit,
+                      private val onDetailClick: (Birthday) -> Unit,
+    ) : RecyclerView.Adapter<BirthdayAdapter.BirthdayViewHolder>() {
 
     class BirthdayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameCardTv)
         val birthdayDateTextView: TextView = itemView.findViewById(R.id.birthdayDateCardTv)
         val noteTextView: TextView = itemView.findViewById(R.id.noteCardTv)
         val editButton: ImageView = itemView.findViewById(R.id.editBirthdayButtonMainPage)
+        val toDetailView: CardView = itemView.findViewById(R.id.birthdayCardView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BirthdayViewHolder {
@@ -33,6 +37,9 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
          holder.noteTextView.text = birthday.note
         holder.editButton.setOnClickListener {
             onEditClick(birthday)
+        }
+        holder.toDetailView.setOnClickListener{
+            onDetailClick(birthday)
         }
     }
 

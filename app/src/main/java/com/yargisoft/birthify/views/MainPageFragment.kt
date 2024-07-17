@@ -49,10 +49,16 @@ class MainPageFragment : Fragment() {
         viewModel = ViewModelProvider(this,factory)[BirthdayViewModel::class]
 
         //adapter initialization
-        adapter = BirthdayAdapter(listOf()){ birthday ->
+        adapter = BirthdayAdapter(listOf(),{birthday ->
+
             val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
             findNavController().navigate(action)
-        }
+        }, { birthday ->
+            val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
+            findNavController().navigate(action)
+        })
+
+
         binding.birthdayRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.birthdayRecyclerView.adapter = adapter
 
@@ -60,10 +66,14 @@ class MainPageFragment : Fragment() {
 
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
         viewModel.birthdays.observe(viewLifecycleOwner, Observer { birthdays ->
-            adapter = BirthdayAdapter(birthdays) { birthday ->
-                val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
-                findNavController().navigate(action)
-            }
+            adapter = BirthdayAdapter(birthdays,
+                {birthday ->
+                    val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
+                    findNavController().navigate(action)
+                }, { birthday ->
+                    val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
+                    findNavController().navigate(action)
+                })
             binding.birthdayRecyclerView.adapter = adapter
             adapter.updateData(birthdays)
         })

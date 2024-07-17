@@ -31,6 +31,7 @@
     <string name="birthdays">Birthdays</string>
     <string name="my_account">My Account</string>
     <string name="logout">Logout</string>
+    <string name="birthday_detail">Birthday Detail</string>
 
 
     <string name="navigation_drawer_open">Aç</string>

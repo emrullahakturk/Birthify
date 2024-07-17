@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="birthday"
+            type="com.yargisoft.birthify.models.Birthday" />
     </data>
 
 
     <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+        android:id="@+id/drawerLayoutBirthdayDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -19,55 +21,60 @@
             android:background="@color/white">
 
             <include
-                android:id="@+id/includeAddBirthday"
+                android:id="@+id/includeDetailBirthday"
                 layout="@layout/custom_toolbar" />
 
 
             <TextView
-                android:id="@+id/recordBirthdayTv"
+                android:id="@+id/birthdayDetailTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:gravity="center"
-                android:text="@string/record_birthday"
+                android:text="@string/birthday_detail"
                 android:textColor="@color/green_login"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/includeAddBirthday" />
+                app:layout_constraintTop_toBottomOf="@+id/includeDetailBirthday" />
 
             <LinearLayout
-                android:id="@+id/linearLayoutAddBirthday"
+                android:id="@+id/linearLayoutDetailBirthday"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="7dp"
                 android:orientation="vertical"
                 android:padding="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/fabSaveBirthday"
+                app:layout_constraintBottom_toTopOf="@+id/fabDetailBirthday"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recordBirthdayTv"
+                app:layout_constraintTop_toBottomOf="@+id/birthdayDetailTv"
                 tools:context=".ui.addbirthday.AddBirthdayFragment">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
+                    android:clickable="false"
+                    android:focusable="false"
                     app:boxBackgroundMode="outline"
                     app:startIconDrawable="@drawable/ic_account"
                     app:startIconTint="@color/green_login">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/nameAddBirthdayEditText"
+                        android:id="@+id/nameDetailBirthdayTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edit_text"
-                        android:hint="@string/name"
                         android:maxLines="1"
-                        android:paddingStart="40dp" />
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:paddingStart="40dp"
+                        android:paddingEnd="0dp"
+                        android:text="@{birthday.name}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -75,56 +82,54 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
+                    android:clickable="false"
+                    android:focusable="false"
                     app:boxBackgroundMode="outline"
                     app:startIconDrawable="@drawable/ic_date"
                     app:startIconTint="@color/green_login">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/birthdayDateEditText"
+                        android:id="@+id/birthdayDateDetail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edit_text"
-                        android:clickable="true"
+                        android:clickable="false"
                         android:focusable="false"
-                        android:hint="@string/birthday_date"
                         android:inputType="none"
                         android:maxLines="1"
                         android:paddingStart="40dp"
-                        android:paddingEnd="0dp" />
+                        android:paddingEnd="0dp"
+                        android:text="@{birthday.birthdayDate}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
+                    android:clickable="false"
+                    android:focusable="false"
                     app:boxBackgroundMode="outline"
                     app:startIconDrawable="@drawable/ic_note"
                     app:startIconTint="@color/green_login">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/noteAddBirthdayEditText"
+                        android:id="@+id/noteDetailBirthdayTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edit_text"
-                        android:hint="@string/celebration_note"
-                        android:maxLines="10"
-                        android:minLines="10"
+                        android:minLines="15"
+                        android:clickable="false"
+                        android:focusable="false"
                         android:paddingStart="40dp"
-                        android:paddingEnd="0dp" />
+                        android:paddingEnd="0dp"
+                        android:text="@{birthday.note}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/saveBirthdayButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/green_login"
-                    android:text="@string/save_birthday"
-                    android:textColor="@android:color/white" />
 
             </LinearLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabSaveBirthday"
+                android:id="@+id/fabDetailBirthday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="7dp"
@@ -139,7 +144,7 @@
 
 
         <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navViewAddBDay"
+            android:id="@+id/navViewDetailBDay"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
