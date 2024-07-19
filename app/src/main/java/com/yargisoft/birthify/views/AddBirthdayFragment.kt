@@ -88,11 +88,11 @@ class AddBirthdayFragment : Fragment() {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             // Menü öğelerine tıklandığında yapılacak işlemler
             when (menuItem.itemId) {
-                R.id.navMenuAccount -> {
+                R.id.labelProfile -> {
                     // İlgili menü öğesi seçildiğinde yapılacak işlemler
                     true
                 }
-                R.id.navMenuLogout -> {
+                R.id.labelLogOut -> {
                     sharedPreferences.clearUserSession()
                     findNavController().navigate(R.id.firstPageFragment)
                 }

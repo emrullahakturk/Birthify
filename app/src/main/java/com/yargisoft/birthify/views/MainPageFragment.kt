@@ -31,7 +31,7 @@ import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
 class MainPageFragment : Fragment() {
     private lateinit var binding: FragmentMainPageBinding
     private lateinit var viewModel: BirthdayViewModel
-    private lateinit var preferences: SharedPreferencesManager
+    private lateinit var sharedPreferences: SharedPreferencesManager
     private lateinit var adapter: BirthdayAdapter
 
 
@@ -47,7 +47,7 @@ class MainPageFragment : Fragment() {
 */
 
         //user SharedPreferences
-        preferences = SharedPreferencesManager(requireContext())
+        sharedPreferences = SharedPreferencesManager(requireContext())
 
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.drawerLayout
@@ -102,7 +102,7 @@ class MainPageFragment : Fragment() {
 
         })
 
-        viewModel.getUserBirthdays(preferences.getUserId())
+        viewModel.getUserBirthdays(sharedPreferences.getUserId())
 
 
 
@@ -118,13 +118,13 @@ class MainPageFragment : Fragment() {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             // Menü öğelerine tıklandığında yapılacak işlemler
             when (menuItem.itemId) {
-                R.id.navMenuAccount -> {
+                R.id.labelProfile -> {
                     // İlgili menü öğesi seçildiğinde yapılacak işlemler
                     true
                 }
-                R.id.navMenuLogout -> {
-                    // İlgili menü öğesi seçildiğinde yapılacak işlemler
-                    true
+                R.id.labelLogOut -> {
+                    sharedPreferences.clearUserSession()
+                    findNavController().navigate(R.id.firstPageFragment)
                 }
                 // Diğer menü öğeleri için gerektiği kadar case ekleyebilirsiniz
                 else -> false

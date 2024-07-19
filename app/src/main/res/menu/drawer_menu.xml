@@ -1,22 +1,35 @@
-<!-- res/menu/drawer_menu.xml -->
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Birthify">
+        <menu>
+            <item
+                android:id="@+id/labelBirthdays"
+                android:icon="@drawable/ic_cake"
+                android:title="@string/birthdays" />
 
+            <item
+                android:id="@+id/labelTrashBin"
+                android:icon="@drawable/ic_delete"
+                android:iconTint="@color/green_login"
+                android:title="@string/trash_bin" />
+        </menu>
+    </item>
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/navMenuAccount"
-            android:icon="@drawable/ic_account"
-            android:title="@string/my_account"/>
-        <item
-            android:id="@+id/navMenuBirthdays"
-            android:icon="@drawable/ic_account"
-            android:title="@string/birthdays"/>
+    <item android:title="@string/account_menu">
+        <menu>
+            <item
+                android:id="@+id/labelProfile"
+                android:icon="@drawable/ic_account"
+                android:title="@string/profile" />
 
-        <item
-            android:id="@+id/navMenuLogout"
-            android:icon="@drawable/ic_logout"
-            android:title="@string/logout" />
-        <!-- İhtiyaca göre diğer menü öğelerini buraya ekleyebilirsiniz -->
-    </group>
+            <item
+                android:id="@+id/labelSettings"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/settings" />
+            <item
+                android:id="@+id/labelLogOut"
+                android:icon="@drawable/ic_logout"
+                android:title="@string/log_out" />
+        </menu>
+    </item>
 </menu>
