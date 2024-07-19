@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
     <item android:title="Birthify">
+
         <menu>
             <item
                 android:id="@+id/labelBirthdays"
@@ -12,11 +15,6 @@
                 android:icon="@drawable/ic_delete"
                 android:iconTint="@color/green_login"
                 android:title="@string/trash_bin" />
-        </menu>
-    </item>
-
-    <item android:title="@string/account_menu">
-        <menu>
             <item
                 android:id="@+id/labelProfile"
                 android:icon="@drawable/ic_account"

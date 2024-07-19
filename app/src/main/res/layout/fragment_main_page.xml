@@ -18,22 +18,23 @@
         app:layout_constraintVertical_bias="0.5">
 
 
+
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:background="@drawable/bottom_nav_background"
+            app:itemIconTint="@color/green_login"
+            app:itemTextAppearanceActive="@style/CustomNavigationViewTextAppearance"
+            app:itemTextAppearanceActiveBoldEnabled="true"
+            app:itemTextAppearanceInactive="@style/CustomNavigationViewTextAppearance"
+            app:itemTextColor="@color/green_login"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/bottom_nav_menu"
-            android:background="@drawable/bottom_nav_background"
-            app:itemIconTint="@color/green_login"
-            app:itemTextColor="@color/green_login"
-            app:itemTextAppearanceActive="@style/CustomNavigationViewTextAppearance"
-            app:itemTextAppearanceInactive="@style/CustomNavigationViewTextAppearance"
-            app:itemTextAppearanceActiveBoldEnabled="true"
-            />
+            app:menu="@menu/bottom_nav_menu" />
 
         <androidx.drawerlayout.widget.DrawerLayout
             android:id="@+id/drawer_layout"
@@ -49,13 +50,34 @@
                 android:layout_height="match_parent"
                 android:background="@color/white">
 
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/clickToAddBirthdayTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_a_birthday_of_your_dear_one"
+                    android:textAlignment="center"
+                    android:textSize="35sp"
+                    android:gravity="center"
+                    android:fontFamily="@font/wittgenstein_font"
+                    android:textColor="@color/green_login"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5" />
+
 
                 <include
                     android:id="@+id/includeMainPage"
-                    layout="@layout/custom_toolbar" />
+                    layout="@layout/custom_toolbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/mainPageBirthdaysTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/wittgenstein_font"
@@ -72,13 +94,14 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="2dp"
                     android:background="@color/green_login"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    app:layout_constraintTop_toBottomOf="@+id/mainPageBirthdaysTv"
                     tools:layout_editor_absoluteX="0dp" />
 
                 <ScrollView
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -104,12 +127,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                app:subheaderColor="@color/green_login"
-                app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance"
-                app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
                 android:background="@color/white"
                 app:itemIconTint="@color/green_login"
-                app:menu="@menu/drawer_menu">
+                app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
+                app:menu="@menu/drawer_menu"
+                app:subheaderColor="@color/green_login"
+                app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
 
             </com.google.android.material.navigation.NavigationView>
 

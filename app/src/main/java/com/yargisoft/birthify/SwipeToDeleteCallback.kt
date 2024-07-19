@@ -24,7 +24,7 @@ class SwipeToDeleteCallback(
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val position = viewHolder.adapterPosition
         if (position >= 0 || position < adapter.itemCount) {
-             adapter.showDeleteDialog(position)
+//             adapter.showDeleteDialog(position)
         }
     }
 

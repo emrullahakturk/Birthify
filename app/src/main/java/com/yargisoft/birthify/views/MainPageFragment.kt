@@ -1,6 +1,7 @@
 package com.yargisoft.birthify.views
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -78,12 +79,17 @@ class MainPageFragment : Fragment() {
         val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(adapter))
         itemTouchHelper.attachToRecyclerView(binding.birthdayRecyclerView)
 
+        viewModel.getUserBirthdays(sharedPreferences.getUserId())
+
 
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
-        viewModel.birthdays.observe(viewLifecycleOwner) { birthdays ->
+        viewModel.birthdays.observe(viewLifecycleOwner) {   birthdays ->
+
+            binding.clickToAddBirthdayTv.visibility = if (birthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
 
             adapter = BirthdayAdapter(birthdays,
                 { birthday ->
+
                     val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
                     findNavController().navigate(action)
                 }, { birthday ->
@@ -93,13 +99,16 @@ class MainPageFragment : Fragment() {
 
                 requireContext(),
                 viewModel
+
             )
 
             binding.birthdayRecyclerView.adapter = adapter
 
+            adapter.updateData(birthdays)
+            Log.d("MainPageFragment", "Fetched birthdays: ${birthdays.size}")
+
         }
 
-        viewModel.getUserBirthdays(sharedPreferences.getUserId())
 
 
 
@@ -146,6 +155,12 @@ class MainPageFragment : Fragment() {
         // Toolbar üzerindeki menü ikonu ile menüyü açma
         binding.includeMainPage.findViewById<View>(R.id.menuButtonToolbar).setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        binding.includeMainPage.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
+
+            findNavController().navigate(R.id.mainToAddBirthday)
+
         }
 
 

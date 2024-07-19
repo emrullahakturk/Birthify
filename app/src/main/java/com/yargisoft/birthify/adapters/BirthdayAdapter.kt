@@ -35,6 +35,7 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BirthdayViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.birthday_item, parent, false)
+
             return BirthdayViewHolder(view)
         }
 
@@ -42,7 +43,7 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
             val birthday = birthdayList[position]
             holder.nameTextView.text = birthday.name
             holder.birthdayDateTextView.text = birthday.birthdayDate
-             holder.noteTextView.text = birthday.note
+            holder.noteTextView.text = birthday.note
             holder.editButton.setOnClickListener {
                 onEditClick(birthday)
             }
@@ -50,19 +51,19 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
                 onDetailClick(birthday)
             }
 
-
         }
 
         override fun getItemCount(): Int {
-
             return birthdayList.size
         }
 
-        fun liste(){
-            Log.e("liste","liste : ${birthdayList}")
-        }
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(newBirthdayList: List<Birthday>) {
+        birthdayList = newBirthdayList
+        notifyDataSetChanged()
+    }
 
-        fun showDeleteDialog(position: Int){
+     /*   fun showDeleteDialog(position: Int){
             if (birthdayList.isEmpty()){
                val birthday = birthdayList[position]
                 Toast.makeText(context, "Showing delete confirmation", Toast.LENGTH_SHORT).show()
@@ -85,7 +86,7 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
                     }
                     .show()
             }
-        }
+        }*/
 
 
     }
