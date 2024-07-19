@@ -3,19 +3,15 @@
 
 
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/bottomNavBirthdays"
+        android:icon="@drawable/ic_cake"
+        android:title="@string/birthdays" />
+    <item
+        android:id="@+id/bottomNavSearch"
         android:icon="@drawable/ic_search"
-        android:iconTint="@color/green_login"
-
-        android:title="Home" />
+        android:title="@string/search" />
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/bottomNavProfile"
         android:icon="@drawable/ic_account"
-        android:iconTint="@color/green_login"
-
-        android:title="Profile" />
-    <item
-        android:id="@+id/settingsFragment"
-        android:icon="@drawable/ic_mail"
-        android:title="Settings" />
+        android:title="@string/profile" />
 </menu>

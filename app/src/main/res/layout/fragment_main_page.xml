@@ -30,7 +30,9 @@
             android:background="@drawable/bottom_nav_background"
             app:itemIconTint="@color/green_login"
             app:itemTextColor="@color/green_login"
-
+            app:itemTextAppearanceActive="@style/CustomNavigationViewTextAppearance"
+            app:itemTextAppearanceInactive="@style/CustomNavigationViewTextAppearance"
+            app:itemTextAppearanceActiveBoldEnabled="true"
             />
 
         <androidx.drawerlayout.widget.DrawerLayout
@@ -102,6 +104,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
+                app:subheaderColor="@color/green_login"
+                app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance"
+                app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
+                android:background="@color/white"
+                app:itemIconTint="@color/green_login"
                 app:menu="@menu/drawer_menu">
 
             </com.google.android.material.navigation.NavigationView>

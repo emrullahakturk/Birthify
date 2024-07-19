@@ -42,6 +42,7 @@
     <string name="log_out">Log Out</string>
     <string name="trash_bin">Trash Bin</string>
     <string name="account_menu">Account Menu</string>
+    <string name="search">Search</string>
 
 
 </resources>

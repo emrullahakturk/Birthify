@@ -98,6 +98,9 @@
             android:id="@+id/mainToAddBirthday"
             app:destination="@id/addBirthdayFragment" />
         <action
+            android:id="@+id/mainToMain"
+            app:destination="@id/mainPageFragment" />
+        <action
             android:id="@+id/mainToEditBirthday"
             app:destination="@id/birthdayEditFragment" />
         <action

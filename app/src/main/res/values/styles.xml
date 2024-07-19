@@ -7,4 +7,12 @@
         <item name="colorPrimaryDark">@color/green_login</item>
         <item name="colorAccent">@color/green_login</item>
     </style>
+
+    <!-- Custom style for NavigationView items -->
+    <style name="CustomNavigationViewTextAppearance" parent="TextAppearance.AppCompat.Body1">
+        <item name="fontFamily">@font/wittgenstein_font</item>
+    </style>
+
+
+
 </resources>

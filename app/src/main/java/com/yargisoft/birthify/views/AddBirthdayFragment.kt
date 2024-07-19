@@ -88,15 +88,25 @@ class AddBirthdayFragment : Fragment() {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             // Menü öğelerine tıklandığında yapılacak işlemler
             when (menuItem.itemId) {
-                R.id.labelProfile -> {
-                    // İlgili menü öğesi seçildiğinde yapılacak işlemler
-                    true
+                R.id.labelBirthdays -> {
+                    findNavController().navigate(R.id.mainToMain)
                 }
                 R.id.labelLogOut -> {
                     sharedPreferences.clearUserSession()
                     findNavController().navigate(R.id.firstPageFragment)
                 }
-                // Diğer menü öğeleri için gerektiği kadar case ekleyebilirsiniz
+                R.id.labelTrashBin -> {
+                    sharedPreferences.clearUserSession()
+                    findNavController().navigate(R.id.firstPageFragment)
+                }
+                R.id.labelSettings -> {
+                    sharedPreferences.clearUserSession()
+                    findNavController().navigate(R.id.firstPageFragment)
+                }
+                R.id.labelProfile -> {
+                    sharedPreferences.clearUserSession()
+                    findNavController().navigate(R.id.firstPageFragment)
+                }
                 else -> false
             }
 
@@ -104,6 +114,7 @@ class AddBirthdayFragment : Fragment() {
             drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
+
 
 
         // Toolbar üzerindeki menü ikonu ile menüyü açma
