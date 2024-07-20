@@ -176,6 +176,9 @@
             android:id="@+id/trashToSettings"
             app:destination="@id/settingsFragment" />
         <action
+            android:id="@+id/trashToDetail"
+            app:destination="@id/birthdayDetailFragment" />
+        <action
             android:id="@+id/trashToFirstPage"
             app:destination="@id/firstPageFragment" />
         <action

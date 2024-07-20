@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.BirthdayAdapter
+import com.yargisoft.birthify.adapters.DeletedBrithdayAdapter
 import com.yargisoft.birthify.databinding.FragmentMainPageBinding
 import com.yargisoft.birthify.databinding.FragmentTrashBinBinding
 import com.yargisoft.birthify.repositories.BirthdayRepository
@@ -31,7 +32,7 @@ class TrashBinFragment : Fragment() {
     private lateinit var binding: FragmentTrashBinBinding
     private lateinit var viewModel: BirthdayViewModel
     private lateinit var sharedPreferences: SharedPreferencesManager
-    private lateinit var adapter: BirthdayAdapter
+    private lateinit var adapter: DeletedBrithdayAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,14 +56,10 @@ class TrashBinFragment : Fragment() {
 
 
         //adapter initialization
-        adapter = BirthdayAdapter(listOf(),
+        adapter = DeletedBrithdayAdapter(listOf(),
 
-            {birthday ->
-
-                val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
-                findNavController().navigate(action)
-            }, { birthday ->
-                val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
+            { birthday ->
+                val action = TrashBinFragmentDirections.trashToDetail(birthday)
                 findNavController().navigate(action)
             },
             requireContext(),
@@ -86,12 +83,9 @@ class TrashBinFragment : Fragment() {
             Log.e("tag","$deletedBirthdays")
 
             // Adapter initialization
-            adapter = BirthdayAdapter(deletedBirthdays,
+            adapter = DeletedBrithdayAdapter(deletedBirthdays,
                 { birthday ->
-                    val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
-                    findNavController().navigate(action)
-                }, { birthday ->
-                    val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
+                    val action = TrashBinFragmentDirections.trashToDetail(birthday)
                     findNavController().navigate(action)
                 },
                 requireContext(),
