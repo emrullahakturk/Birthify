@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.yargisoft.birthify.R
@@ -69,6 +71,8 @@ class BirthdayEditFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+
+
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -89,17 +93,17 @@ class BirthdayEditFragment : Fragment() {
 
     private fun showDeleteConfirmationDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Delete Birthday")
+            .setTitle("Confirm Deletion")
             .setMessage("Are you sure you want to delete this birthday?")
-            .setPositiveButton("Yes") { dialog, which ->
-                viewModel.deleteBirthday(editedBirthday.birthday.id) { isSuccess ->
+            .setPositiveButton("Yes") { _, _ ->
+                viewModel.deleteBirthday(editedBirthday.birthday.id, editedBirthday.birthday)
+                viewModel.deleteBirthdayState.observe(viewLifecycleOwner, Observer { isSuccess ->
                     if (isSuccess) {
-                        Toast.makeText(context, "Birthday deleted successfully", Toast.LENGTH_SHORT).show()
-                        findNavController().popBackStack()
+                        findNavController().navigateUp()
                     } else {
                         Toast.makeText(context, "Failed to delete birthday", Toast.LENGTH_SHORT).show()
                     }
-                }
+                })
             }
             .setNegativeButton("No", null)
             .show()

@@ -106,6 +106,15 @@
         <action
             android:id="@+id/mainToDetailBirthday"
             app:destination="@id/birthdayDetailFragment" />
+        <action
+            android:id="@+id/mainToProfile"
+            app:destination="@id/myAccountFragment" />
+        <action
+            android:id="@+id/mainToSettings"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/mainToTrashBin"
+            app:destination="@id/trashBinFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -136,5 +145,50 @@
         <argument
             android:name="birthday"
             app:argType="com.yargisoft.birthify.models.Birthday" />
+    </fragment>
+    <fragment
+        android:id="@+id/myAccountFragment"
+        android:name="com.yargisoft.birthify.views.MyAccountFragment"
+        android:label="fragment_my_account"
+        tools:layout="@layout/fragment_my_account" >
+        <action
+            android:id="@+id/profileToSettings"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.yargisoft.birthify.views.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/settingsToProfile"
+            app:destination="@id/myAccountFragment" />
+        <action
+            android:id="@+id/settingsToMainPage"
+            app:destination="@id/mainPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trashBinFragment"
+        android:name="com.yargisoft.birthify.views.TrashBinFragment"
+        android:label="fragment_trash_bin"
+        tools:layout="@layout/fragment_trash_bin" >
+        <action
+            android:id="@+id/trashToSettings"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/trashToFirstPage"
+            app:destination="@id/firstPageFragment" />
+        <action
+            android:id="@+id/trashToTrashBin"
+            app:destination="@id/trashBinFragment" />
+        <action
+            android:id="@+id/trashToProfile"
+            app:destination="@id/myAccountFragment" />
+        <action
+            android:id="@+id/trashToMainPage"
+            app:destination="@id/mainPageFragment" />
+        <action
+            android:id="@+id/trashToAddBirthday"
+            app:destination="@id/addBirthdayFragment" />
     </fragment>
 </navigation>

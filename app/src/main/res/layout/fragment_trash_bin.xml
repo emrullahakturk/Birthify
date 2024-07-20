@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".views.TrashBinFragment">
+
+        <include
+            android:id="@+id/trashBinToolbar"
+            layout="@layout/custom_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/trashBinBottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/bottom_nav_background"
+            app:itemIconTint="@color/green_login"
+            app:itemTextAppearanceActive="@style/CustomNavigationViewTextAppearance"
+            app:itemTextAppearanceActiveBoldEnabled="true"
+            app:itemTextAppearanceInactive="@style/CustomNavigationViewTextAppearance"
+            app:itemTextColor="@color/green_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_nav_menu" />
+
+        <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/trashBinDrawerLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/trashBinBottomNavigationView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trashBinToolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/trashBinMainTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/wittgenstein_font"
+                    android:gravity="center"
+                    android:text="@string/trash_bin_main_textView"
+                    android:textAlignment="center"
+                    android:textColor="@color/green_login"
+                    android:textSize="35sp"
+                    android:visibility="gone" />
+
+
+                <View
+                    android:id="@+id/trashBinLineView"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/green_login"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/trashBinDeletedBirthdaysTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/wittgenstein_font"
+                    android:text="@string/deleted_birthdays"
+                    android:textColor="@color/green_login"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/trashBinDeletedBirthdaysTv">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/trashBinRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </ScrollView>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.navigation.NavigationView
+                android:id="@+id/trashBinNavigationView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:background="@color/white"
+                app:itemIconTint="@color/green_login"
+                app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
+                app:menu="@menu/drawer_menu"
+                app:subheaderColor="@color/green_login"
+                app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
+
+            </com.google.android.material.navigation.NavigationView>
+
+
+        </androidx.drawerlayout.widget.DrawerLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

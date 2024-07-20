@@ -40,11 +40,30 @@ class BirthdayRepository (private val context: Context){
             .addOnFailureListener { onComplete(false) }
     }
 
-    fun deleteBirthday(birthdayId: String, onComplete: (Boolean) -> Unit) {
+
+
+    fun deleteBirthday(birthdayId: String, birthday: Birthday, onComplete: (Boolean) -> Unit) {
         val birthdayRef = firestore.collection("birthdays").document(birthdayId)
-        birthdayRef.delete()
-            .addOnSuccessListener { onComplete(true) }
+        val deletedBirthdaysRef = firestore.collection("deleted_birthdays").document(birthdayId)
+
+        firestore.runTransaction { transaction ->
+            transaction.delete(birthdayRef)
+            transaction.set(deletedBirthdaysRef, birthday)
+        }.addOnSuccessListener { onComplete(true) }
             .addOnFailureListener { onComplete(false) }
+    }
+
+    suspend fun getDeletedBirthdays(userId: String): List<Birthday> {
+        return try {
+            val snapshot = firestore.collection("deleted_birthdays")
+                .whereEqualTo("userId", userId)
+                .get()
+                .await()
+
+            snapshot.toObjects(Birthday::class.java)
+        } catch (e: Exception) {
+            emptyList()
+        }
     }
 
 

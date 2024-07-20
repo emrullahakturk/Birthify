@@ -1,5 +1,6 @@
 package com.yargisoft.birthify.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,6 +19,16 @@ class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel(
     private val _birthdays = MutableLiveData<List<Birthday>>()
     val birthdays: LiveData<List<Birthday>> get() = _birthdays
 
+
+    private val _deletedBirthdayList = MutableLiveData<List<Birthday>>()
+    val deletedBirthdayList: LiveData<List<Birthday>> get() = _deletedBirthdayList
+
+
+
+    private val _deleteBirthdayState = MutableLiveData<Boolean>()
+    val deleteBirthdayState: LiveData<Boolean> get() = _deleteBirthdayState
+
+
     fun saveBirthday(name: String, birthdayDate: String, note: String,userId: String) {
 
         val recordedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
@@ -34,8 +45,10 @@ class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel(
     }
 
 
-    fun deleteBirthday(birthdayId: String, onComplete: (Boolean) -> Unit) {
-        repository.deleteBirthday(birthdayId, onComplete)
+    fun deleteBirthday(birthdayId: String, birthday: Birthday) {
+        repository.deleteBirthday(birthdayId, birthday) { isSuccess ->
+            _deleteBirthdayState.postValue(isSuccess)
+        }
     }
 
 
@@ -43,6 +56,13 @@ class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel(
         viewModelScope.launch {
             val result = repository.getUserBirthdays(userId).sortedByDescending { it.recordedDate }
             _birthdays.postValue(result)
+        }
+    }
+
+    fun getDeletedBirthdays(userId: String) {
+         viewModelScope.launch {
+            val result = repository.getDeletedBirthdays(userId).sortedByDescending { it.recordedDate }
+             _deletedBirthdayList.postValue(result)
         }
     }
 }

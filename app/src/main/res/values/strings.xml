@@ -29,6 +29,7 @@
     <string name="record_birthday">Record the birthday of your dear one</string>
     <string name="edit_birthday">Edit the birthday of your dear one</string>
     <string name="birthdays">Birthdays</string>
+    <string name="deleted_birthdays">Deleted Birthdays</string>
     <string name="profile">Profile</string>
     <string name="logout">Logout</string>
     <string name="birthday_detail">Birthday Detail</string>
@@ -44,6 +45,7 @@
     <string name="account_menu">Account Menu</string>
     <string name="search">Search</string>
     <string name="add_a_birthday_of_your_dear_one">Click "+"\nTo Add a Birthday of Your Dear One</string>
+    <string name="trash_bin_main_textView">There is no deleted birthdays</string>
 
 
 </resources>
