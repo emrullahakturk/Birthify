@@ -1,6 +1,7 @@
 package com.yargisoft.birthify.repositories
 
 import android.content.Context
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.yargisoft.birthify.models.Birthday
 import kotlinx.coroutines.tasks.await
@@ -49,6 +50,17 @@ class BirthdayRepository (private val context: Context){
         firestore.runTransaction { transaction ->
             transaction.delete(birthdayRef)
             transaction.set(deletedBirthdaysRef, birthday)
+        }.addOnSuccessListener { onComplete(true) }
+            .addOnFailureListener { onComplete(false) }
+    }
+
+    fun reSaveDeletedBirthday(birthdayId: String, birthday: Birthday, onComplete: (Boolean) -> Unit) {
+        val birthdayRef = firestore.collection("birthdays").document(birthdayId)
+        val deletedBirthdaysRef = firestore.collection("deleted_birthdays").document(birthdayId)
+        Log.e("fonki", "fonksiyon çalıştı")
+        firestore.runTransaction { transaction ->
+            transaction.delete(deletedBirthdaysRef)
+            transaction.set(birthdayRef, birthday)
         }.addOnSuccessListener { onComplete(true) }
             .addOnFailureListener { onComplete(false) }
     }

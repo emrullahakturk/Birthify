@@ -59,7 +59,7 @@ class TrashBinFragment : Fragment() {
         adapter = DeletedBrithdayAdapter(listOf(),
 
             { birthday ->
-                val action = TrashBinFragmentDirections.trashToDetail(birthday)
+                val action = TrashBinFragmentDirections.trashToDeletedDetail(birthday)
                 findNavController().navigate(action)
             },
             requireContext(),
@@ -85,7 +85,7 @@ class TrashBinFragment : Fragment() {
             // Adapter initialization
             adapter = DeletedBrithdayAdapter(deletedBirthdays,
                 { birthday ->
-                    val action = TrashBinFragmentDirections.trashToDetail(birthday)
+                    val action = TrashBinFragmentDirections.trashToDeletedDetail(birthday)
                     findNavController().navigate(action)
                 },
                 requireContext(),

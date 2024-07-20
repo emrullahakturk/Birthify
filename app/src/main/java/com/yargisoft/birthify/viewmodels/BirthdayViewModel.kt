@@ -28,6 +28,9 @@ class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel(
     private val _deleteBirthdayState = MutableLiveData<Boolean>()
     val deleteBirthdayState: LiveData<Boolean> get() = _deleteBirthdayState
 
+    private val _reSaveDeletedBirthdayState = MutableLiveData<Boolean>()
+    val reSaveDeletedBirthdayState: LiveData<Boolean> get() = _reSaveDeletedBirthdayState
+
 
     fun saveBirthday(name: String, birthdayDate: String, note: String,userId: String) {
 
@@ -65,4 +68,16 @@ class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel(
              _deletedBirthdayList.postValue(result)
         }
     }
+
+    fun reSaveDeletedBirthday(birthdayId: String , birthday: Birthday) {
+        viewModelScope.launch {
+            repository.reSaveDeletedBirthday(birthdayId,birthday){isSuccess ->
+                _reSaveDeletedBirthdayState.postValue(isSuccess)
+            }
+
+        }
+    }
+
+
+
 }

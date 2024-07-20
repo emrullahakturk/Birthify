@@ -176,8 +176,8 @@
             android:id="@+id/trashToSettings"
             app:destination="@id/settingsFragment" />
         <action
-            android:id="@+id/trashToDetail"
-            app:destination="@id/birthdayDetailFragment" />
+            android:id="@+id/trashToDeletedDetail"
+            app:destination="@id/deletedBirthdayDetailFragment" />
         <action
             android:id="@+id/trashToFirstPage"
             app:destination="@id/firstPageFragment" />
@@ -193,5 +193,13 @@
         <action
             android:id="@+id/trashToAddBirthday"
             app:destination="@id/addBirthdayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deletedBirthdayDetailFragment"
+        android:name="com.yargisoft.birthify.views.DeletedBirthdayDetailFragment"
+        android:label="DeletedBirthdayDetailFragment" >
+        <argument
+            android:name="birthday"
+            app:argType="com.yargisoft.birthify.models.Birthday" />
     </fragment>
 </navigation>
