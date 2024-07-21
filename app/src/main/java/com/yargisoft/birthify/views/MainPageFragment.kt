@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -31,6 +33,7 @@ class MainPageFragment : Fragment() {
     private lateinit var viewModel: BirthdayViewModel
     private lateinit var sharedPreferences: SharedPreferencesManager
     private lateinit var adapter: BirthdayAdapter
+    private lateinit var progressBar: ProgressBar
 
 
     override fun onCreateView(
@@ -40,6 +43,9 @@ class MainPageFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_main_page, container, false)
 
+        progressBar =  binding.progressBarMainPage
+
+
 /*
         binding.fabMainPageAddBDay.setOnClickListener { it.findNavController().navigate(R.id.mainToAddBirthday) }
 */
@@ -48,7 +54,7 @@ class MainPageFragment : Fragment() {
         sharedPreferences = SharedPreferencesManager(requireContext())
 
         // DrawerLayout ve NavigationView tanımlamaları
-        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val drawerLayout: DrawerLayout = binding.mainPageDrawerLayout
         val navigationView: NavigationView = binding.navViewMainPage
 
         //viewModel Tanımlama için gerekenler
@@ -68,7 +74,11 @@ class MainPageFragment : Fragment() {
             findNavController().navigate(action)
         },
             requireContext(),
-            viewModel)
+            viewModel,
+            lifeCycleOwnner = viewLifecycleOwner,
+            binding.lottieAnimationView,
+            progressBar,
+            binding.mainPageTopLayout)
 
 
 
@@ -76,9 +86,14 @@ class MainPageFragment : Fragment() {
         binding.birthdayRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.birthdayRecyclerView.adapter = adapter
 
-        // ItemTouchHelper'ın RecyclerView'a doğru şekilde eklendiğinden emin olun
-        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(adapter))
-        itemTouchHelper.attachToRecyclerView(binding.birthdayRecyclerView)
+        viewModel.birthdays.observe(viewLifecycleOwner, Observer { birthdays ->
+            // ItemTouchHelper'ın RecyclerView'a doğru şekilde eklendiğinden emin olun
+            val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(adapter, birthdays))
+            itemTouchHelper.attachToRecyclerView(binding.birthdayRecyclerView)
+
+
+        })
+
 
         viewModel.getUserBirthdays(sharedPreferences.getUserId())
 
@@ -99,14 +114,15 @@ class MainPageFragment : Fragment() {
                 },
 
                 requireContext(),
-                viewModel
-
-            )
+                viewModel,
+                viewLifecycleOwner,
+                binding.lottieAnimationView,
+                progressBar,
+                binding.mainPageTopLayout)
 
             binding.birthdayRecyclerView.adapter = adapter
 
             adapter.updateData(birthdays)
-            Log.d("MainPageFragment", "Fetched birthdays: ${birthdays.size}")
 
         }
 
