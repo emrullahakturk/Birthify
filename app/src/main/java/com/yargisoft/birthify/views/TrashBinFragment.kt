@@ -17,9 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.R
-import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.adapters.DeletedBrithdayAdapter
-import com.yargisoft.birthify.databinding.FragmentMainPageBinding
 import com.yargisoft.birthify.databinding.FragmentTrashBinBinding
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.SharedPreferencesManager
@@ -80,7 +78,6 @@ class TrashBinFragment : Fragment() {
 
             binding.trashBinMainTv.visibility = if (deletedBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
 
-            Log.e("tag","$deletedBirthdays")
 
             // Adapter initialization
             adapter = DeletedBrithdayAdapter(deletedBirthdays,
