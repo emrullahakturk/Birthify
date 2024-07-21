@@ -1,12 +1,12 @@
 package com.yargisoft.birthify.views
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAddBirthdayBinding
 import com.yargisoft.birthify.repositories.BirthdayRepository
@@ -32,7 +33,7 @@ class AddBirthdayFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_add_birthday, container, false)
 
 
@@ -40,7 +41,7 @@ class AddBirthdayFragment : Fragment() {
 
         val repository = BirthdayRepository(requireContext())
         val factory = BirthdayViewModelFactory(repository)
-        viewModel = ViewModelProvider(this,factory).get(BirthdayViewModel::class.java)
+        viewModel = ViewModelProvider(this,factory)[BirthdayViewModel::class.java]
 
 
 
@@ -50,21 +51,32 @@ class AddBirthdayFragment : Fragment() {
             val note = binding.noteAddBirthdayEditText.text.toString()
             val userId =  sharedPreferences.getUserId()
 
+            binding.progressBarAddBirthday.visibility = View.VISIBLE
+            binding.addBirthdayTopLayout.isEnabled = false
+
+            val view = (context as Activity).findViewById<View>(android.R.id.content)
             if (name.isNotEmpty() && birthdayDate.isNotEmpty() && note.isNotEmpty()) {
                 viewModel.saveBirthday(name, birthdayDate, note, userId = userId)
-                findNavController().popBackStack()
+                viewModel.saveBirthdayState.observe(viewLifecycleOwner, Observer { isSuccess ->
+                    if (isSuccess) {
+                            binding.progressBarAddBirthday.visibility = View.INVISIBLE
+                            binding.addBirthdayTopLayout.isEnabled = true
+
+                            Snackbar.make(view,"Birthday saved successfully",Snackbar.LENGTH_SHORT).show()
+                            findNavController().popBackStack()
+                        } else {
+                            binding.progressBarAddBirthday.visibility = View.INVISIBLE
+                            binding.addBirthdayTopLayout.isEnabled = true
+                            Snackbar.make(view,"Failed to save birthday",Snackbar.LENGTH_SHORT).show()
+                        }
+                })
             } else {
-                Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                Snackbar.make(view,"Please fill in all fields",Snackbar.LENGTH_SHORT).show()
+
             }
         }
 
-        viewModel.saveBirthdayState.observe(viewLifecycleOwner, Observer { isSuccess ->
-            if (isSuccess) {
-                Toast.makeText(context, "Birthday saved successfully", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(context, "Failed to save birthday", Toast.LENGTH_SHORT).show()
-            }
-        })
+
 
         binding.birthdayDateEditText.setOnClickListener {
             showDatePickerDialog()
@@ -75,7 +87,7 @@ class AddBirthdayFragment : Fragment() {
 
 
         // DrawerLayout ve NavigationView tanımlamaları
-        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val drawerLayout: DrawerLayout = binding.addBirthdayTopLayout
         val navigationView: NavigationView = binding.navViewAddBDay
 
 

@@ -4,13 +4,16 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
+import android.widget.ProgressBar
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.yargisoft.birthify.adapters.BirthdayAdapter
+import com.yargisoft.birthify.models.Birthday
 
 class SwipeToDeleteCallback(
-    private val adapter: BirthdayAdapter
+    private val adapter: BirthdayAdapter,
+    private val birthdayList: List<Birthday>,
 ) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
     override fun onMove(
@@ -24,7 +27,10 @@ class SwipeToDeleteCallback(
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val position = viewHolder.adapterPosition
         if (position >= 0 || position < adapter.itemCount) {
-//             adapter.showDeleteDialog(position)
+
+            adapter.updateData(birthdayList)
+            adapter.showDeleteDialog(position)
+
         }
     }
 
@@ -44,11 +50,16 @@ class SwipeToDeleteCallback(
             paint.isAntiAlias = true
 
             val background = RectF(
-                itemView.right + dX,
-                itemView.top.toFloat(),
-                itemView.right.toFloat(),
+                itemView.right + dX + 100,
+                itemView.top.toFloat() ,
+                itemView.right.toFloat()+ 100 ,
                 itemView.bottom.toFloat()
             )
+
+            /*// Background sadece card'ın genişliği kadar olacak şekilde ayarlanır
+            if (dX < -itemView.width) {
+                background.right = itemView.left.toFloat()
+            }*/
 
             val cornerRadius = 100f  // Border radius değerini burada ayarlayabilirsiniz
             c.drawRoundRect(background, cornerRadius, cornerRadius, paint)

@@ -1,7 +1,6 @@
 package com.yargisoft.birthify.repositories
 
 import android.content.Context
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.yargisoft.birthify.models.Birthday
 import kotlinx.coroutines.tasks.await
@@ -9,29 +8,32 @@ import kotlinx.coroutines.tasks.await
 class BirthdayRepository (private val context: Context){
     private val firestore = FirebaseFirestore.getInstance()
 
-    suspend fun saveBirthday(birthday: Birthday): Boolean {
-        return try {
+
+    suspend fun saveBirthday(birthday: Birthday, onComplete: (Boolean) -> Unit) {
+        try {
             val document = firestore.collection("birthdays").document()
             val id = document.id
             val birthdayWithId = birthday.copy(id = id)
             document.set(birthdayWithId).await()
-            true
+            onComplete(true)
+
         } catch (e: Exception) {
-            false
+            onComplete(false)
         }
     }
 
-    suspend fun getUserBirthdays(userId: String): List<Birthday> {
-        return try {
-            val snapshot = firestore.collection("birthdays")
-                .whereEqualTo("userId", userId)
-                .get()
-                .await()
+    fun getUserBirthdays(userId: String, onComplete: (List<Birthday>) -> Unit) {
 
-            snapshot.toObjects(Birthday::class.java)
-        } catch (e: Exception) {
-            emptyList()
-        }
+        firestore.collection("birthdays")
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val birthdays = snapshot.toObjects(Birthday::class.java)
+                onComplete(birthdays)
+            }
+            .addOnFailureListener {
+                onComplete(emptyList())
+            }
     }
 
     fun updateBirthday(birthday: Birthday, onComplete: (Boolean) -> Unit) {
@@ -40,7 +42,6 @@ class BirthdayRepository (private val context: Context){
             .addOnSuccessListener { onComplete(true) }
             .addOnFailureListener { onComplete(false) }
     }
-
 
 
     fun deleteBirthday(birthdayId: String, birthday: Birthday, onComplete: (Boolean) -> Unit) {
@@ -54,10 +55,22 @@ class BirthdayRepository (private val context: Context){
             .addOnFailureListener { onComplete(false) }
     }
 
+
+
+
+    fun deleteBirthdayPermanently(birthdayId: String, onComplete: (Boolean) -> Unit) {
+        val birthdayRef = firestore.collection("deleted_birthdays").document(birthdayId)
+        firestore.runTransaction { transaction ->
+            transaction.delete(birthdayRef)
+        }.addOnSuccessListener { onComplete(true) }
+            .addOnFailureListener { onComplete(false) }
+    }
+
+
+
     fun reSaveDeletedBirthday(birthdayId: String, birthday: Birthday, onComplete: (Boolean) -> Unit) {
         val birthdayRef = firestore.collection("birthdays").document(birthdayId)
         val deletedBirthdaysRef = firestore.collection("deleted_birthdays").document(birthdayId)
-        Log.e("fonki", "fonksiyon çalıştı")
         firestore.runTransaction { transaction ->
             transaction.delete(deletedBirthdaysRef)
             transaction.set(birthdayRef, birthday)
@@ -65,18 +78,17 @@ class BirthdayRepository (private val context: Context){
             .addOnFailureListener { onComplete(false) }
     }
 
-    suspend fun getDeletedBirthdays(userId: String): List<Birthday> {
-        return try {
-            val snapshot = firestore.collection("deleted_birthdays")
-                .whereEqualTo("userId", userId)
-                .get()
-                .await()
 
-            snapshot.toObjects(Birthday::class.java)
-        } catch (e: Exception) {
-            emptyList()
-        }
+    fun getDeletedBirthdays(userId: String, onComplete: (List<Birthday>) -> Unit) {
+        firestore.collection("deleted_birthdays")
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val birthdays = snapshot.toObjects(Birthday::class.java)
+                onComplete(birthdays)
+            }
+            .addOnFailureListener {
+                onComplete(emptyList())
+            }
     }
-
-
 }

@@ -53,6 +53,8 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.3")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3")
 
+    implementation ("com.airbnb.android:lottie:6.0.0")
+
 
     //Firebase
     implementation ("com.google.firebase:firebase-auth:23.0.0")
