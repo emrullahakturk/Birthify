@@ -1,5 +1,7 @@
 package com.yargisoft.birthify.views
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -9,12 +11,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentBirthdayEditBinding
 import com.yargisoft.birthify.repositories.BirthdayRepository
@@ -30,6 +35,7 @@ class BirthdayEditFragment : Fragment() {
     private lateinit var repository: BirthdayRepository
     private lateinit var factory: BirthdayViewModelFactory
 
+    @SuppressLint("ShowToast")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,14 +56,25 @@ class BirthdayEditFragment : Fragment() {
                 note = binding.noteEditBirthdayTv.text.toString()
             )
 
-            viewModel.updateBirthday(updatedBirthday) { isSuccess ->
-                if (isSuccess) {
-                    Toast.makeText(context, "Birthday updated successfully", Toast.LENGTH_SHORT).show()
+            binding.progressBarEditBirthday.visibility = View.VISIBLE
+            binding.birthdayEditTopLayout.isEnabled = false
+
+            viewModel.updateBirthday(updatedBirthday)
+            viewModel.updateBirthdayState.observe(viewLifecycleOwner, Observer { isSuccess ->
+                val view = (context as Activity).findViewById<View>(android.R.id.content)
+                if(isSuccess){
+                    binding.progressBarEditBirthday.visibility = View.INVISIBLE
+                    binding.birthdayEditTopLayout.isEnabled = true
+
                     findNavController().popBackStack()
-                } else {
-                    Toast.makeText(context, "Failed to update birthday", Toast.LENGTH_SHORT).show()
+                    Snackbar.make(view,"Birthday updated successfully", LENGTH_SHORT).show()
+                }else{
+                    binding.progressBarEditBirthday.visibility = View.INVISIBLE
+                    binding.birthdayEditTopLayout.isEnabled = true
+                    findNavController().popBackStack()
+                    Snackbar.make(view,"Failed to update the birthday", LENGTH_SHORT).show()
                 }
-            }
+            })
         }
 
         binding.birthdayDateEditBirthdayTv.setOnClickListener {
@@ -96,16 +113,24 @@ class BirthdayEditFragment : Fragment() {
             .setTitle("Confirm Deletion")
             .setMessage("Are you sure you want to delete this birthday?")
             .setPositiveButton("Yes") { _, _ ->
+                binding.progressBarEditBirthday.visibility = View.VISIBLE
+                binding.birthdayEditTopLayout.isEnabled = false
                 viewModel.deleteBirthday(editedBirthday.birthday.id, editedBirthday.birthday)
                 viewModel.deleteBirthdayState.observe(viewLifecycleOwner, Observer { isSuccess ->
+                    val view = (context as Activity).findViewById<View>(android.R.id.content)
                     if (isSuccess) {
+                        binding.progressBarEditBirthday.visibility = View.INVISIBLE
+                        binding.birthdayEditTopLayout.isEnabled = true
                         findNavController().navigateUp()
+                        Snackbar.make(view,"Birthday deleted successfully", LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(context, "Failed to delete birthday", Toast.LENGTH_SHORT).show()
+                        binding.progressBarEditBirthday.visibility = View.INVISIBLE
+                        binding.birthdayEditTopLayout.isEnabled = true
+                        Snackbar.make(view,"Failed to delete birthday", LENGTH_SHORT).show()
                     }
                 })
             }
-            .setNegativeButton("No", null)
+            .setNegativeButton("No",null)
             .show()
     }
 }
