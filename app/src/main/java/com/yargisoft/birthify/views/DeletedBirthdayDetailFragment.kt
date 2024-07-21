@@ -1,5 +1,6 @@
 package com.yargisoft.birthify.views
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.DeletedBrithdayAdapter
 import com.yargisoft.birthify.databinding.FragmentDeletedBirthdayDetailBinding
@@ -43,6 +45,9 @@ class DeletedBirthdayDetailFragment : Fragment() {
 
 
         binding.reSaveDeletedBirthday.setOnClickListener {
+            showReSaveConfirmationDialog()
+        }
+        binding.permanentlyDeleteButton.setOnClickListener {
             showDeleteConfirmationDialog()
         }
 
@@ -51,18 +56,55 @@ class DeletedBirthdayDetailFragment : Fragment() {
         return binding.root
     }
 
-    private fun showDeleteConfirmationDialog() {
+    private fun showReSaveConfirmationDialog() {
         AlertDialog.Builder(requireContext())
             .setTitle("Confirm Re Saving")
             .setMessage("Are you sure you want to re save this birthday?")
             .setPositiveButton("Yes") { _, _ ->
+                binding.progressBarDeletedBirthdayDetail.visibility = View.VISIBLE
+                binding.topLayoutDeletedBirthday.isEnabled = false
                 viewModel.reSaveDeletedBirthday(deletedBirthday.birthday.id, deletedBirthday.birthday)
                 viewModel.reSaveDeletedBirthdayState.observe(viewLifecycleOwner, Observer { isSuccess ->
+                    val view = (context as Activity).findViewById<View>(android.R.id.content)
                     if (isSuccess) {
-                        Toast.makeText(context, "Successfully re saved", Toast.LENGTH_SHORT).show()
+                        binding.progressBarDeletedBirthdayDetail.visibility = View.INVISIBLE
+                        binding.topLayoutDeletedBirthday.isEnabled = true
+                        Snackbar.make(view,"Birthday re saved successfully", Snackbar.LENGTH_SHORT).show()
                         findNavController().navigateUp()
                     } else {
-                        Toast.makeText(context, "Failed to re save deleted birthday", Toast.LENGTH_SHORT).show()
+                        binding.progressBarDeletedBirthdayDetail.visibility = View.INVISIBLE
+                        binding.topLayoutDeletedBirthday.isEnabled = true
+                        Snackbar.make(view,"Failed to re save birthday",Snackbar.LENGTH_SHORT).show()
+                    }
+                })
+            }
+            .setNegativeButton("No", null)
+            .show()
+    }
+    private fun showDeleteConfirmationDialog() {
+        binding.progressBarDeletedBirthdayDetail.visibility = View.VISIBLE
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Confirm Deleting Permanently")
+            .setMessage("Are you sure you want to permanently delete this birthday?")
+            .setPositiveButton("Yes") { _, _ ->
+                binding.progressBarDeletedBirthdayDetail.visibility = View.VISIBLE
+                binding.topLayoutDeletedBirthday.isEnabled = false
+
+                viewModel.reSaveDeletedBirthday(deletedBirthday.birthday.id, deletedBirthday.birthday)
+                viewModel.reSaveDeletedBirthdayState.observe(viewLifecycleOwner, Observer { isSuccess ->
+                    val view = (context as Activity).findViewById<View>(android.R.id.content)
+                    if (isSuccess) {
+                        binding.progressBarDeletedBirthdayDetail.visibility = View.INVISIBLE
+                        binding.topLayoutDeletedBirthday.isEnabled = true
+
+                        Snackbar.make(view,"Birthday deleted successfully", Snackbar.LENGTH_SHORT).show()
+                        findNavController().navigateUp()
+                    } else {
+                        binding.progressBarDeletedBirthdayDetail.visibility = View.INVISIBLE
+                        binding.topLayoutDeletedBirthday.isEnabled = true
+
+                        Snackbar.make(view,"Failed to delete birthday",Snackbar.LENGTH_SHORT).show()
                     }
                 })
             }
