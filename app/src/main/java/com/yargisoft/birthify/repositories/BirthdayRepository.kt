@@ -3,11 +3,12 @@ package com.yargisoft.birthify.repositories
 import android.content.Context
 import com.google.firebase.firestore.FirebaseFirestore
 import com.yargisoft.birthify.models.Birthday
+import com.yargisoft.birthify.sharedpreferences.BirthdaySharedPreferencesManager
 import kotlinx.coroutines.tasks.await
 
 class BirthdayRepository (private val context: Context){
     private val firestore = FirebaseFirestore.getInstance()
-
+    private val birthdayPreferences = BirthdaySharedPreferencesManager(context)
 
     suspend fun saveBirthday(birthday: Birthday, onComplete: (Boolean) -> Unit) {
         try {
@@ -22,17 +23,17 @@ class BirthdayRepository (private val context: Context){
         }
     }
 
-    fun getUserBirthdays(userId: String, onComplete: (List<Birthday>) -> Unit) {
-
+    fun getUserBirthdays(userId: String, onComplete: (List<Birthday>, Boolean) -> Unit) {
         firestore.collection("birthdays")
             .whereEqualTo("userId", userId)
             .get()
             .addOnSuccessListener { snapshot ->
                 val birthdays = snapshot.toObjects(Birthday::class.java)
-                onComplete(birthdays)
+                birthdayPreferences.saveBirthday(birthdays)
+                onComplete(birthdays, true)
             }
             .addOnFailureListener {
-                onComplete(emptyList())
+                onComplete(emptyList(), false)
             }
     }
 
@@ -79,16 +80,16 @@ class BirthdayRepository (private val context: Context){
     }
 
 
-    fun getDeletedBirthdays(userId: String, onComplete: (List<Birthday>) -> Unit) {
+    fun getDeletedBirthdays(userId: String, onComplete: (List<Birthday>,Boolean) -> Unit) {
         firestore.collection("deleted_birthdays")
             .whereEqualTo("userId", userId)
             .get()
             .addOnSuccessListener { snapshot ->
                 val birthdays = snapshot.toObjects(Birthday::class.java)
-                onComplete(birthdays)
+                onComplete(birthdays,true)
             }
             .addOnFailureListener {
-                onComplete(emptyList())
+                onComplete(emptyList(),false)
             }
     }
 }

@@ -6,7 +6,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
-import android.text.Layout
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +13,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +22,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.snackbar.Snackbar
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.models.Birthday
-import com.yargisoft.birthify.sharedpreferences.SharedPreferencesManager
+import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.BirthdayViewModel
 
 class BirthdayAdapter(private var birthdayList: List<Birthday>,
@@ -49,7 +46,7 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
         val toDetailView: CardView = itemView.findViewById(R.id.birthdayCardView)
     }
 
-    private  val preferences = SharedPreferencesManager(context)
+    private  val preferences = UserSharedPreferencesManager(context)
 
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BirthdayViewHolder {

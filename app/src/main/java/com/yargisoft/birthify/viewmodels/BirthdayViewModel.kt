@@ -15,6 +15,12 @@ class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel(
     private val _saveBirthdayState = MutableLiveData<Boolean>()
     val saveBirthdayState: LiveData<Boolean> get() = _saveBirthdayState
 
+    private val _getUserBirthdaysState = MutableLiveData<Boolean>()
+    val getUserBirthdaysState: LiveData<Boolean> get() = _getUserBirthdaysState
+
+    private val _getDeletedBirthdaysState = MutableLiveData<Boolean>()
+    val getDeletedBirthdaysState: LiveData<Boolean> get() = _getDeletedBirthdaysState
+
     private val _updateBirthdayState = MutableLiveData<Boolean>()
     val updateBirthdayState: LiveData<Boolean> get() = _updateBirthdayState
 
@@ -59,16 +65,18 @@ class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel(
 
     fun getUserBirthdays(userId: String) {
         viewModelScope.launch {
-            repository.getUserBirthdays(userId) { birthdays ->
+            repository.getUserBirthdays(userId) { birthdays, isSuccess ->
                 _birthdays.postValue(birthdays.sortedByDescending { it.recordedDate })
+                _getUserBirthdaysState.postValue(isSuccess)
             }
         }
     }
 
     fun getDeletedBirthdays(userId: String) {
         viewModelScope.launch {
-            repository.getDeletedBirthdays(userId) { birthdays ->
+            repository.getDeletedBirthdays(userId) { birthdays, isSuccess->
                 _deletedBirthdayList.postValue(birthdays.sortedByDescending { it.recordedDate })
+                _getDeletedBirthdaysState.postValue(isSuccess)
             }
         }
     }

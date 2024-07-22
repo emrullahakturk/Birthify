@@ -1,18 +1,17 @@
 package com.yargisoft.birthify.repositories
 
 import android.content.Context
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
-import com.yargisoft.birthify.sharedpreferences.SharedPreferencesManager
+import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import kotlinx.coroutines.tasks.await
 
 class AuthRepository(private val context: Context) {
     private val auth = FirebaseAuth.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
-    private  val sharedPreferencesManager = SharedPreferencesManager(context)
+    private  val userSharedPreferencesManager = UserSharedPreferencesManager(context)
 
 
     // Kullanıcıyı kayıt et ve doğrulama e-postası gönder
@@ -58,7 +57,7 @@ class AuthRepository(private val context: Context) {
     suspend fun loginUser(email: String, password: String, isChecked: Boolean): Boolean {
         return try {
             val result = auth.signInWithEmailAndPassword(email, password).await()
-            sharedPreferencesManager.saveUserSession(email, result.user?.uid!!, isChecked)
+            userSharedPreferencesManager.saveUserSession(email, result.user?.uid!!, isChecked)
             result.user != null
         } catch (e: Exception) {
             false

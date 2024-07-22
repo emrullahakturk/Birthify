@@ -30,9 +30,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="180dp"
                 android:gravity="center"
+                android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/login_string1"
                 android:textColor="@color/green_login"
-                android:textSize="50sp"
+                android:textSize="40sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,6 +47,7 @@
                 android:layout_marginEnd="30dp"
                 android:backgroundTint="#3F744C"
                 android:text="@string/sign_in"
+                android:fontFamily="@font/wittgenstein_font"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -58,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:focusable="true"
+                android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/create_account"
                 android:textColor="@color/green_login"
                 android:textSize="25sp"
@@ -65,7 +68,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/orTv" />
+                app:layout_constraintTop_toBottomOf="@+id/signInButton" />
+
 
             <TextView
                 android:id="@+id/orTv"
@@ -76,9 +80,24 @@
                 android:textColor="@color/green_login"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/crAccountTv" />
+
+            <TextView
+                android:id="@+id/continueWithoutTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/wittgenstein_font"
+                android:text="@string/continue_without_signing_in"
+                android:textColor="@color/green_login"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signInButton" />
+                app:layout_constraintTop_toBottomOf="@+id/orTv" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
