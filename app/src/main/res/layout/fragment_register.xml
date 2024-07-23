@@ -10,10 +10,27 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.AuthViews.RegisterFragment"
-        android:background="@drawable/welcome_background">
+        android:background="@drawable/welcome_background"
+        tools:context=".views.auth_views.RegisterFragment">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/registerLottieAnimation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/register_animation" />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/registerFragmentTopLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -32,11 +49,12 @@
                 android:clickable="true"
                 android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/registerMailTextInput"
+                android:id="@+id/emailRegisterTextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
@@ -51,11 +69,12 @@
                 app:startIconTint="@color/green_login">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/registerEmailTv"
+                    android:id="@+id/emailRegisterEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_edit_text"
                     android:hint="@string/e_mail"
+                    android:fontFamily="@font/wittgenstein_font"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:paddingStart="40dp"
@@ -71,20 +90,21 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="30dp"
                 app:boxBackgroundMode="outline"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/green_login"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/registerMailTextInput"
+                app:layout_constraintTop_toBottomOf="@+id/emailRegisterTextInputLayout"
                 app:startIconDrawable="@drawable/ic_lock"
-                app:startIconTint="@color/green_login"
-                app:endIconMode="password_toggle"
-                app:endIconTint="@color/green_login" >
+                app:startIconTint="@color/green_login">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/registerPassTv"
+                    android:id="@+id/registerPasswordEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_edit_text"
+                    android:fontFamily="@font/wittgenstein_font"
                     android:hint="@string/password"
                     android:inputType="textPassword"
                     android:maxLines="1"
@@ -114,6 +134,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_edit_text"
                     android:hint="@string/full_name"
+                    android:fontFamily="@font/wittgenstein_font"
                     android:inputType="textPersonName"
                     android:maxLines="1"
                     android:paddingStart="40dp"
@@ -128,8 +149,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="120dp"
                 android:text="@string/register"
+                android:fontFamily="@font/wittgenstein_font"
                 android:textColor="@color/green_login"
-                android:textSize="50sp"
+                android:textSize="48sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -141,6 +163,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
+                android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/register_new_account"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -156,6 +179,7 @@
                 android:layout_marginEnd="30dp"
                 android:backgroundTint="@color/green_login"
                 android:text="@string/register"
+                android:fontFamily="@font/wittgenstein_font"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -169,6 +193,7 @@
                 android:layout_marginEnd="40dp"
                 android:clickable="true"
                 android:focusable="true"
+                android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/forgot_password"
                 android:textColor="@color/green_login"
                 android:textStyle="bold"
@@ -180,6 +205,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/already_have_an_account"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -192,6 +218,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:layout_marginBottom="15dp"
+                android:fontFamily="@font/wittgenstein_font"
                 android:clickable="true"
                 android:focusable="true"
                 android:text="@string/sign_in"
@@ -202,14 +229,14 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout
             android:id="@+id/registerFragmentProgress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="gone"
-            >
+            android:visibility="gone">
 
             <ProgressBar
                 android:layout_width="wrap_content"
