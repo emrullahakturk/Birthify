@@ -10,11 +10,26 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.AuthViews.LoginPageFragment"
-        tools:layout_editor_absoluteY="25dp"
-        android:background="@drawable/welcome_background">
+        android:background="@drawable/welcome_background"
+        tools:context=".views.auth_views.LoginPageFragment"
+        tools:layout_editor_absoluteY="25dp">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loginPageLottieAnimation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/login_animatin" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loginPageTopLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +68,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/wBackTv" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/signInPassTextInput"
+                android:id="@+id/loginEmailTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -69,7 +84,7 @@
                 app:startIconTint="@color/green_login">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/loginPageEmailTv"
+                    android:id="@+id/loginEmailEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_edit_text"
@@ -82,24 +97,24 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passwordTextInput"
+                android:id="@+id/loginPasswordTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 app:boxBackgroundMode="outline"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/green_login"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signInPassTextInput"
+                app:layout_constraintTop_toBottomOf="@+id/loginEmailTextInput"
                 app:startIconDrawable="@drawable/ic_lock"
-                app:endIconMode="password_toggle"
-                app:endIconTint="@color/green_login"
                 app:startIconTint="@color/green_login">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/loginPagePassTv"
+                    android:id="@+id/loginPassEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_edit_text"
@@ -118,7 +133,7 @@
                 android:layout_marginStart="30dp"
                 android:text="@string/remember_me"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/passwordTextInput" />
+                app:layout_constraintTop_toBottomOf="@+id/loginPasswordTextInput" />
 
             <TextView
                 android:id="@+id/forgotPassLoginTv"
@@ -128,11 +143,12 @@
                 android:layout_marginEnd="40dp"
                 android:clickable="true"
                 android:focusable="true"
+                android:minHeight="48dp"
                 android:text="@string/forgot_password"
                 android:textColor="@color/green_login"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/passwordTextInput" />
+                app:layout_constraintTop_toBottomOf="@+id/loginPasswordTextInput" />
 
             <Button
                 android:id="@+id/loginButton"
@@ -171,19 +187,20 @@
                 android:textColor="@color/green_login"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/dontHaveTv" />
+                app:layout_constraintStart_toEndOf="@+id/dontHaveTv"
+                tools:ignore="TouchTargetSizeCheck" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabWelcome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
-                android:backgroundTint="@color/green_login"
-                android:clickable="true"
-                android:src="@drawable/ic_back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                android:id="@+id/fabWelcome"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="30dp"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                android:backgroundTint="@color/green_login"-->
+<!--                android:clickable="true"-->
+<!--                android:src="@drawable/ic_back"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

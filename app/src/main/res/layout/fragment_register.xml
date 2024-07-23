@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
             app:lottie_autoPlay="false"
-            app:lottie_loop="false"
+            app:lottie_loop="true"
             app:lottie_rawRes="@raw/register_animation" />
 
 
@@ -38,19 +38,6 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
-                android:backgroundTint="@color/green_login"
-                android:clickable="true"
-                android:src="@drawable/ic_back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck" />
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -178,12 +165,13 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
                 android:backgroundTint="@color/green_login"
-                android:text="@string/register"
                 android:fontFamily="@font/wittgenstein_font"
+                android:text="@string/register"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/registerPassTextInput" />
+                app:layout_constraintTop_toBottomOf="@+id/registerPassTextInput"
+                tools:ignore="DuplicateSpeakableTextCheck" />
 
             <TextView
                 android:id="@+id/forgotPassRegisterTv"
@@ -198,7 +186,8 @@
                 android:textColor="@color/green_login"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/registerButton" />
+                app:layout_constraintTop_toBottomOf="@+id/registerButton"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/alreadyHaveAccountTv"
@@ -218,14 +207,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:layout_marginBottom="15dp"
-                android:fontFamily="@font/wittgenstein_font"
                 android:clickable="true"
                 android:focusable="true"
+                android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/sign_in"
                 android:textColor="@color/green_login"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/alreadyHaveAccountTv" />
+                app:layout_constraintStart_toEndOf="@+id/alreadyHaveAccountTv"
+                tools:ignore="TouchTargetSizeCheck" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

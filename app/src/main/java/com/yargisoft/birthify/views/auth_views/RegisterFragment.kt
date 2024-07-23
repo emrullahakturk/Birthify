@@ -2,8 +2,6 @@ package com.yargisoft.birthify.views.auth_views
 
 import android.app.Activity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -13,7 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
@@ -21,10 +22,11 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentRegisterBinding
-
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
+import kotlinx.coroutines.launch
+import java.util.Locale
 
 class RegisterFragment : Fragment() {
 
@@ -63,7 +65,7 @@ class RegisterFragment : Fragment() {
 
 
         binding.signInRegisterTv.setOnClickListener {it.findNavController().navigate(R.id.registerToLogin)}
-        binding.fabRegister.setOnClickListener { parentFragmentManager.popBackStack() }
+//        binding.fabRegister.setOnClickListener { parentFragmentManager.popBackStack() }
         binding.forgotPassRegisterTv.setOnClickListener { it.findNavController().navigate(R.id.registerToForgot) }
 
 
@@ -83,7 +85,14 @@ class RegisterFragment : Fragment() {
                 }
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                val cursorPosition = binding.emailRegisterEditText.selectionStart
+                val lowerCaseText = s.toString().lowercase(Locale.getDefault())
+                if (s.toString() != lowerCaseText) {
+                    binding.emailRegisterEditText.setText(lowerCaseText)
+                    binding.emailRegisterEditText.setSelection(cursorPosition)
+                }
+            }
         })
         //Kutucuk üstünden focus kaldırıldığında hata mesajı da kalkar
         emailEditText.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
@@ -138,7 +147,17 @@ class RegisterFragment : Fragment() {
                 }
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                s?.let {
+                    val formattedText = it.toString().split(" ").joinToString(" ") { word ->
+                        word.lowercase().replaceFirstChar { char -> char.uppercase() }
+                    }
+                    if (formattedText != it.toString()) {
+                        binding.registerFullNameEditText.setText(formattedText)
+                        binding.registerFullNameEditText.setSelection(formattedText.length)
+                    }
+                }
+            }
         })
 
         //Kutucuk üstünden focus kaldırıldığında hata mesajı da kalkar
@@ -154,45 +173,57 @@ class RegisterFragment : Fragment() {
 
 
         binding.registerButton.setOnClickListener {
+
             val name = binding.registerFullNameEditText.text.toString()
             val email = binding.emailRegisterEditText.text.toString()
             val password = binding.registerPasswordEditText.text.toString()
 
-            if( isValidPassword(password)
+            if(
+                isValidPassword(password)
                 && isValidEmail(email)
                 && isValidFullName(name)
                 ){
 
                 //user kaydetme fonksiyonunu viewmodeldan çağırıyoruz
                 viewModel.registerUser(name,email,password)
-
-                //user kaydedilene kadar view'i invisible edip lottie animasyonunu başlatıyoruz
                 binding.registerFragmentTopLayout.visibility = View.INVISIBLE
                 binding.registerLottieAnimation.visibility = View.VISIBLE
                 binding.registerLottieAnimation.playAnimation()
 
-                Handler(Looper.getMainLooper()).postDelayed({
-                    Log.e("tagım", "handler")
-                    viewModel.registrationState.observe(viewLifecycleOwner) { isSuccess ->
-                        Log.e("tagım", "observer")
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel.isLoading.collect { isLoading ->
+//                            Log.e("tagımıs", " yüklenme durumu fragment: $isLoading")
 
-                        if (isSuccess) {
-                            Snackbar.make(view,"Registration successfully, please verify your email",Snackbar.LENGTH_SHORT).show()
-                            findNavController().navigate(R.id.registerToLogin)
-                        } else {
-                            Snackbar.make(view,"Registration failed",Snackbar.LENGTH_SHORT).show()
+                            if(!isLoading){
+                                //animasyonu durdurup view'i visible yapıyoruz
+                                binding.registerLottieAnimation.cancelAnimation()
+                                binding.registerLottieAnimation.visibility = View.INVISIBLE
+                                binding.registerFragmentTopLayout.visibility = View.VISIBLE
+
+                            }
                         }
                     }
+                }
 
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel.registrationResult.collect { result ->
+                            Log.e("tagımıs", " kayıt sonucu: $result")
 
-                    // Observe işleminden sonra observe'ı kaldırır
-                    viewModel.registrationState.removeObservers(viewLifecycleOwner)
+                            if (result == true) {
+                                // Kayıt başarılı
+                                Snackbar.make(view,"Registration successfully, please verify your email",Snackbar.LENGTH_SHORT).show()
+                                val action = RegisterFragmentDirections.registerToLogin(email,password,"Register")
+                                findNavController().navigate(action)
+                            } else if (result == false) {
+                                // Kayıt başarısız
+                                Snackbar.make(view,"Registration failed",Snackbar.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
 
-                    //animasyonu durdurup view'i visible yapıyoruz
-                    binding.registerLottieAnimation.cancelAnimation()
-                    binding.registerLottieAnimation.visibility = View.INVISIBLE
-                    binding.registerFragmentTopLayout.visibility = View.VISIBLE
-                }, 3000)
             }else{
                 Snackbar.make(view,"Please correctly fill in all fields",Snackbar.LENGTH_SHORT).show()
             }
@@ -234,11 +265,8 @@ class RegisterFragment : Fragment() {
 
         // Kelimelerde rakam veya noktalama işareti olmamalı
         val namePattern = Regex("^[a-zA-Z]+$")
-        if (words.any { !namePattern.matches(it) }) {
-            return false
-        }
 
-        return true
+        return !words.any { !namePattern.matches(it) }
     }
 
 

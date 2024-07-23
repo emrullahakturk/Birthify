@@ -14,11 +14,19 @@ class UserSharedPreferencesManager(private val context: Context) {
         }
     }
 
+    fun saveIsChecked(isChecked:Boolean){
+        with(preferences.edit()) {
+            putBoolean(UserConstants.PREF_CHECK, isChecked)
+            apply()
+        }
+    }
+
     fun getUserCredentials(): Pair<String?, String?> {
         val email = preferences.getString(UserConstants.PREF_EMAIL, null)
         val userId = preferences.getString(UserConstants.KEY_USER_ID, null)
         return Pair(email, userId)
     }
+
 
     fun getUserId(): String {
         return preferences.getString(UserConstants.KEY_USER_ID, "").toString()

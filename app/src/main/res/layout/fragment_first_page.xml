@@ -28,9 +28,9 @@
                 android:id="@+id/theBestAppTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="180dp"
-                android:gravity="center"
+                android:layout_marginTop="224dp"
                 android:fontFamily="@font/wittgenstein_font"
+                android:gravity="center"
                 android:text="@string/login_string1"
                 android:textColor="@color/green_login"
                 android:textSize="40sp"
@@ -43,23 +43,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="44dp"
                 android:layout_marginEnd="30dp"
                 android:backgroundTint="#3F744C"
-                android:text="@string/sign_in"
                 android:fontFamily="@font/wittgenstein_font"
+                android:text="@string/sign_in"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/theBestAppTv" />
 
+            <TextView
+                android:id="@+id/orTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/or_string"
+                android:textColor="@color/green_login"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/signInButton" />
 
             <TextView
                 android:id="@+id/crAccountTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="12dp"
                 android:focusable="true"
                 android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/create_account"
@@ -71,20 +83,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/orTv" />
 
-            <TextView
-                android:id="@+id/orTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/or_string"
-                android:textColor="@color/green_login"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signInButton" />
 
-<!--            <TextView-->
+            <!--            <TextView-->
 <!--                android:id="@+id/continueWithoutTv"-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"-->
