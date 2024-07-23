@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -33,6 +34,8 @@ class RegisterFragment : Fragment() {
     private lateinit var emailEditText: TextInputEditText
     private lateinit var registerPassTextInput: TextInputLayout
     private lateinit var registerPasswordEditText: TextInputEditText
+    private lateinit var registerFullNameTextInput: TextInputLayout
+    private lateinit var registerFullNameEditText: TextInputEditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,11 +52,23 @@ class RegisterFragment : Fragment() {
         val view = (context as Activity).findViewById<View>(android.R.id.content)
 
 
+        registerPassTextInput = binding.registerPassTextInput
+        registerPasswordEditText = binding.registerPasswordEditText
+
+        emailTextInputLayout = binding.emailRegisterTextInputLayout
+        emailEditText = binding.emailRegisterEditText
+
+        registerFullNameTextInput= binding.registerFullNameTextInput
+        registerFullNameEditText = binding.registerFullNameEditText
+
+
+        binding.signInRegisterTv.setOnClickListener {it.findNavController().navigate(R.id.registerToLogin)}
+        binding.fabRegister.setOnClickListener { parentFragmentManager.popBackStack() }
+        binding.forgotPassRegisterTv.setOnClickListener { it.findNavController().navigate(R.id.registerToForgot) }
+
 
 
         // Register fragment sayfasında girilen e-mail formatını kontrol ediyoruz
-        emailTextInputLayout = binding.emailRegisterTextInputLayout
-        emailEditText = binding.emailRegisterEditText
         emailEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -82,8 +97,6 @@ class RegisterFragment : Fragment() {
 
 
         // Register fragment sayfasında girilen şifre formatını kontrol ediyoruz
-        registerPassTextInput = binding.registerPassTextInput
-        registerPasswordEditText = binding.registerPasswordEditText
         registerPasswordEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -110,21 +123,44 @@ class RegisterFragment : Fragment() {
 
 
 
+        // Register fragment sayfasında girilen Full Name formatını kontrol ediyoruz
+        registerFullNameEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-        binding.signInRegisterTv.setOnClickListener {it.findNavController().navigate(R.id.registerToLogin)}
-        binding.fabRegister.setOnClickListener { parentFragmentManager.popBackStack() }
-        binding.forgotPassRegisterTv.setOnClickListener { it.findNavController().navigate(R.id.registerToForgot) }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val fullName = s.toString()
+                if (isValidFullName(fullName)) {
+                    registerFullNameTextInput.error = ""
+                    registerFullNameTextInput.isErrorEnabled = false
+                } else {
+                    registerFullNameTextInput.error = "Full Name must be at least two words, without punctuation or numbers. Every words must contain at least 2 letter"
+                    registerFullNameTextInput.isErrorEnabled = true
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        //Kutucuk üstünden focus kaldırıldığında hata mesajı da kalkar
+        registerFullNameEditText.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                registerFullNameTextInput.error = ""
+                registerFullNameTextInput.isErrorEnabled = false
+            }
+        }
+        // Register fragment sayfasında girilen Full Name formatını kontrol ediyoruz
+
+
+
 
         binding.registerButton.setOnClickListener {
-            val name = binding.registerFullNameTv.text.toString()
+            val name = binding.registerFullNameEditText.text.toString()
             val email = binding.emailRegisterEditText.text.toString()
             val password = binding.registerPasswordEditText.text.toString()
 
-            if( name.isNotEmpty()
-                && email.isNotEmpty()
-                && password.isNotEmpty()
+            if( isValidPassword(password)
                 && isValidEmail(email)
-                && isValidPassword(password)
+                && isValidFullName(name)
                 ){
 
                 //user kaydetme fonksiyonunu viewmodeldan çağırıyoruz
@@ -136,7 +172,10 @@ class RegisterFragment : Fragment() {
                 binding.registerLottieAnimation.playAnimation()
 
                 Handler(Looper.getMainLooper()).postDelayed({
+                    Log.e("tagım", "handler")
                     viewModel.registrationState.observe(viewLifecycleOwner) { isSuccess ->
+                        Log.e("tagım", "observer")
+
                         if (isSuccess) {
                             Snackbar.make(view,"Registration successfully, please verify your email",Snackbar.LENGTH_SHORT).show()
                             findNavController().navigate(R.id.registerToLogin)
@@ -153,7 +192,7 @@ class RegisterFragment : Fragment() {
                     binding.registerLottieAnimation.cancelAnimation()
                     binding.registerLottieAnimation.visibility = View.INVISIBLE
                     binding.registerFragmentTopLayout.visibility = View.VISIBLE
-                }, 5000)
+                }, 3000)
             }else{
                 Snackbar.make(view,"Please correctly fill in all fields",Snackbar.LENGTH_SHORT).show()
             }
@@ -166,13 +205,42 @@ class RegisterFragment : Fragment() {
     }
 
     private fun isValidEmail(email: String): Boolean {
+        if (email.isBlank()) {
+            return false
+        }
         val emailPattern = Patterns.EMAIL_ADDRESS
         return emailPattern.matcher(email).matches()
     }
     private fun isValidPassword(password: String): Boolean {
-        val passwordPattern = Regex("^(?=.*[A-Z])(?=.*[0-9])(?=.*\\W).{6,}$")
+        if (password.isBlank()) {
+            return false
+        }
+        val passwordPattern = Regex("^(?=.*[A-Z])(?=.*[0-9])(?=.*\\W)(?=.{6,})\\S*$")
         return passwordPattern.matches(password)
     }
+    private fun isValidFullName(fullName: String): Boolean {
+        // Boş olup olmadığını kontrol et
+        if (fullName.isBlank()) {
+            return false
+        }
+
+        // Kelimeleri ayır
+        val words = fullName.trim().split("\\s+".toRegex())
+
+        // En az iki kelime ve her kelimenin en az 3 harf uzunluğunda olması gerekiyor
+        if (words.size < 2 || words.any { it.length < 2 }) {
+            return false
+        }
+
+        // Kelimelerde rakam veya noktalama işareti olmamalı
+        val namePattern = Regex("^[a-zA-Z]+$")
+        if (words.any { !namePattern.matches(it) }) {
+            return false
+        }
+
+        return true
+    }
+
 
 
 }
