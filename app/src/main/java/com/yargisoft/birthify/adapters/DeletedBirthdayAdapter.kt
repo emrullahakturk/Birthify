@@ -1,26 +1,21 @@
 package com.yargisoft.birthify.adapters
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.viewmodels.BirthdayViewModel
 
-class DeletedBrithdayAdapter(private var deletedBirthdayList: List<Birthday>,
-                      private val onDetailClick: (Birthday) -> Unit,
-                      val context : Context,
-                      private val viewModel: BirthdayViewModel,
-) : RecyclerView.Adapter<DeletedBrithdayAdapter.DeletedBirthdayViewHolder>() {
+class DeletedBirthdayAdapter(private var deletedBirthdayList: List<Birthday>,
+                             private val onDetailClick: (Birthday) -> Unit,
+                             val context : Context,
+                             private val viewModel: BirthdayViewModel,
+) : RecyclerView.Adapter<DeletedBirthdayAdapter.DeletedBirthdayViewHolder>() {
 
 
 

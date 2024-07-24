@@ -1,7 +1,6 @@
 package com.yargisoft.birthify.views
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,31 +9,31 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.R
-import com.yargisoft.birthify.adapters.DeletedBrithdayAdapter
+import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentTrashBinBinding
 import com.yargisoft.birthify.repositories.BirthdayRepository
-import com.yargisoft.birthify.sharedpreferences.SharedPreferencesManager
+import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.BirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
 
 
+@Suppress("UNUSED_EXPRESSION")
 class TrashBinFragment : Fragment() {
 
     private lateinit var binding: FragmentTrashBinBinding
     private lateinit var viewModel: BirthdayViewModel
-    private lateinit var sharedPreferences: SharedPreferencesManager
-    private lateinit var adapter: DeletedBrithdayAdapter
+    private lateinit var sharedPreferences: UserSharedPreferencesManager
+    private lateinit var adapter: DeletedBirthdayAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trash_bin, container, false)
 
 
@@ -45,17 +44,15 @@ class TrashBinFragment : Fragment() {
 
 
         //user SharedPreferences
-        sharedPreferences = SharedPreferencesManager(requireContext())
+        sharedPreferences = UserSharedPreferencesManager(requireContext())
 
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.trashBinDrawerLayout
         val navigationView: NavigationView = binding.trashBinNavigationView
 
 
-
         //adapter initialization
-        adapter = DeletedBrithdayAdapter(listOf(),
-
+        adapter = DeletedBirthdayAdapter(listOf(),
             { birthday ->
                 val action = TrashBinFragmentDirections.trashToDeletedDetail(birthday)
                 findNavController().navigate(action)
@@ -74,13 +71,13 @@ class TrashBinFragment : Fragment() {
 
 
 
-        viewModel.deletedBirthdayList.observe(viewLifecycleOwner, Observer { deletedBirthdays ->
+        viewModel.deletedBirthdayList.observe(viewLifecycleOwner) { deletedBirthdays ->
 
             binding.trashBinMainTv.visibility = if (deletedBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
 
 
             // Adapter initialization
-            adapter = DeletedBrithdayAdapter(deletedBirthdays,
+            adapter = DeletedBirthdayAdapter(deletedBirthdays,
                 { birthday ->
                     val action = TrashBinFragmentDirections.trashToDeletedDetail(birthday)
                     findNavController().navigate(action)
@@ -89,9 +86,7 @@ class TrashBinFragment : Fragment() {
                 viewModel)
 
             binding.trashBinRecyclerView.adapter = adapter
-        })
-
-
+        }
 
 
 
