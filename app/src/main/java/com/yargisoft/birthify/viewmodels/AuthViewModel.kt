@@ -15,34 +15,30 @@ import java.time.format.DateTimeFormatter
 class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 
 
-
-    var isResetMailSended = false
     var isEmailVerifiedResult: Boolean? = null
 
     private val _isLoading = MutableStateFlow(false)
-
     val isLoading: StateFlow<Boolean> get() = _isLoading
+
     private val _registrationResult = MutableStateFlow<Boolean?>(null)
-
     val registrationResult: StateFlow<Boolean?> get() = _registrationResult
-    private val _loginResult = MutableStateFlow<Boolean?>(null)
 
+
+    private val _isResetMailSent = MutableStateFlow<Boolean?>(null)
+    val isResetMailSent: StateFlow<Boolean?> get() = _isResetMailSent
+
+    private val _loginResult = MutableStateFlow<Boolean?>(null)
     val loginResult: StateFlow<Boolean?> get() = _loginResult
 
-    fun resetPassword(email: String):Boolean {
+
+    fun resetPassword(email: String) {
         viewModelScope.launch {
-            _isLoading.value = true
-
             try {
-                isResetMailSended= repository.resetPassword(email)
-
+                _isResetMailSent.value= repository.resetPassword(email)
             }catch (e:Exception){
-                //hata mesajı
-            }finally {
-                _isLoading.value = false
+                Log.e("exception","$e")
             }
         }
-        return isResetMailSended
     }
 
     fun loginUser(email: String, password: String, isChecked: Boolean) {
