@@ -23,7 +23,7 @@ class BirthdayRepository (private val context: Context){
         }
     }
 
-    fun getUserBirthdays(userId: String, onComplete: (List<Birthday>, Boolean) -> Unit) {
+     fun getUserBirthdays(userId: String, onComplete: (List<Birthday>, Boolean) -> Unit) {
         firestore.collection("birthdays")
             .whereEqualTo("userId", userId)
             .get()

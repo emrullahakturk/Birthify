@@ -1,12 +1,10 @@
 package com.yargisoft.birthify.views
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -14,7 +12,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
@@ -32,6 +29,7 @@ import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
 
 
+@Suppress("UNUSED_EXPRESSION")
 class MainPageFragment : Fragment() {
     private lateinit var binding: FragmentMainPageBinding
     private lateinit var birthdayViewModel: BirthdayViewModel
@@ -39,7 +37,6 @@ class MainPageFragment : Fragment() {
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var birthdaySharedPreferences: BirthdaySharedPreferencesManager
     private lateinit var adapter: BirthdayAdapter
-
 
 
     override fun onCreateView(
@@ -72,9 +69,8 @@ class MainPageFragment : Fragment() {
         authViewModel = ViewModelProvider(this,authFactory)[AuthViewModel::class]
 
 
-
+        //Firebase üzerinden doğum günleri çekilir ve hem viewModel birthday listesi hem sharedPreferences olarak saklanan birthday listesi güncellenir
         birthdayViewModel.getUserBirthdays(userSharedPreferences.getUserId())
-
 
 
         //adapter initialization
@@ -83,15 +79,18 @@ class MainPageFragment : Fragment() {
             {birthday ->
             val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
             findNavController().navigate(action)
-        }, { birthday ->
+        },
+            { birthday ->
             val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
             findNavController().navigate(action)
         },
             requireContext(),
             birthdayViewModel,
-            lifeCycleOwnner = viewLifecycleOwner,
-            binding.lottieAnimationView,
-            binding.mainPageTopLayout)
+            viewLifecycleOwner,
+            binding.mainPageDeleteLottieAnimation,
+            binding.mainPageThreePointLottieAnim,
+            binding.root,
+            binding.clickToAddBirthdayTv)
 
         binding.birthdayRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.birthdayRecyclerView.adapter = adapter
@@ -101,21 +100,30 @@ class MainPageFragment : Fragment() {
         val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(adapter))
         itemTouchHelper.attachToRecyclerView(binding.birthdayRecyclerView)
 
-
-
-
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
         birthdayViewModel.birthdays.observe(viewLifecycleOwner) {   birthdays ->
-
-            binding.clickToAddBirthdayTv.visibility = if (birthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
-
             adapter.updateData(birthdays)
+           /* //adapter initialization
+            adapter = BirthdayAdapter(
+                birthdays.sortedByDescending { it.recordedDate },
+                {birthday ->
+                    val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
+                    findNavController().navigate(action)
+                },
+                { birthday ->
+                    val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
+                    findNavController().navigate(action)
+                },
+                requireContext(),
+                birthdayViewModel,
+                viewLifecycleOwner,
+                binding.mainPageDeleteLottieAnimation,
+                binding.mainPageThreePointLottieAnim,
+                binding.root,
+                binding.clickToAddBirthdayTv)
 
-            binding.progressBarMainPage.visibility = View.INVISIBLE
-
+            binding.birthdayRecyclerView.adapter = adapter*/
         }
-
-
 
         // ActionBarDrawerToggle ile Drawer'ı ActionBar ile senkronize etme
         val toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)

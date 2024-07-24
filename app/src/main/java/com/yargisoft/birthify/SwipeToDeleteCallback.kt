@@ -13,7 +13,7 @@ import com.yargisoft.birthify.models.Birthday
 
 class SwipeToDeleteCallback(
     private val adapter: BirthdayAdapter,
-    private val birthdayList: List<Birthday>,
+    //private val birthdayList: List<Birthday>,
 ) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
     override fun onMove(
@@ -28,8 +28,10 @@ class SwipeToDeleteCallback(
         val position = viewHolder.adapterPosition
         if (position >= 0 || position < adapter.itemCount) {
 
-            adapter.updateData(birthdayList)
+            //adapter.updateData(birthdayList)
             adapter.showDeleteDialog(position)
+            // Swipe işlemini sıfırla
+            adapter.notifyItemChanged(position)
 
         }
     }
@@ -50,16 +52,16 @@ class SwipeToDeleteCallback(
             paint.isAntiAlias = true
 
             val background = RectF(
-                itemView.right + dX + 100,
+                itemView.right + dX ,
                 itemView.top.toFloat() ,
-                itemView.right.toFloat()+ 100 ,
+                itemView.right.toFloat() ,
                 itemView.bottom.toFloat()
             )
 
-            /*// Background sadece card'ın genişliği kadar olacak şekilde ayarlanır
+            // Background sadece card'ın genişliği kadar olacak şekilde ayarlanır
             if (dX < -itemView.width) {
-                background.right = itemView.left.toFloat()
-            }*/
+                background.left = itemView.left.toFloat()
+            }
 
             val cornerRadius = 100f  // Border radius değerini burada ayarlayabilirsiniz
             c.drawRoundRect(background, cornerRadius, cornerRadius, paint)
@@ -77,4 +79,5 @@ class SwipeToDeleteCallback(
         }
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }
+
 }
