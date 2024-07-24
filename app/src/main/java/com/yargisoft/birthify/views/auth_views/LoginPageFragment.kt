@@ -113,22 +113,22 @@ class LoginPageFragment : Fragment() {
 
             if (isValidEmail(email) && password.isNotEmpty()) {
                 viewModel.loginUser(email, password,isChecked)
-                binding.loginPageTopLayout.visibility = View.INVISIBLE
+
                 binding.loginPageLottieAnimation.visibility = View.VISIBLE
                 binding.loginPageLottieAnimation.playAnimation()
+                setViewAndChildrenEnabled(requireView(),false)
+
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     viewLifecycleOwner.lifecycleScope.launch {
                         viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                             viewModel.isLoading.collect { isLoading ->
-                                Log.e("tagımıs", " login yüklenme durumu fragment: $isLoading")
 
                                 if(!isLoading){
                                     //animasyonu durdurup view'i visible yapıyoruz
                                     binding.loginPageLottieAnimation.cancelAnimation()
                                     binding.loginPageLottieAnimation.visibility = View.INVISIBLE
-                                    binding.loginPageTopLayout.visibility = View.VISIBLE
-
+                                    setViewAndChildrenEnabled(requireView(),true)
                                 }
                             }
                         }
@@ -179,5 +179,13 @@ class LoginPageFragment : Fragment() {
         return emailPattern.matcher(email).matches()
     }
 
+    private fun setViewAndChildrenEnabled(view: View, enabled: Boolean) {
+        view.isEnabled = enabled
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                setViewAndChildrenEnabled(view.getChildAt(i), enabled)
+            }
+        }
+    }
 
 }

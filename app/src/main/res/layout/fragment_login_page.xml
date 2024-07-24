@@ -25,8 +25,10 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
             app:lottie_autoPlay="false"
+            android:elevation="5dp"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/login_animatin" />
+            android:visibility="gone"
+            app:lottie_rawRes="@raw/three_point_animation" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/loginPageTopLayout"
@@ -122,7 +124,8 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:paddingStart="40dp"
-                    android:paddingEnd="0dp" />
+                    android:paddingEnd="0dp"
+                    tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <CheckBox
