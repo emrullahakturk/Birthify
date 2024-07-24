@@ -79,6 +79,9 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
         }
     }
 
+    fun logoutUser() {
+        repository.logout()
+    }
 
     fun loggedUserId() : String {
         var result = ""

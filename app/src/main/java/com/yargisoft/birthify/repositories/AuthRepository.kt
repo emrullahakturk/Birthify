@@ -82,17 +82,10 @@ class AuthRepository(private val context: Context) {
         }
     }
 
-    //TODO
-    // buraya logout user eklenecek
-//    suspend fun logOutUser(email: String, password: String, isChecked: Boolean): Boolean {
-//        return try {
-//            val result = auth.signInWithEmailAndPassword(email, password).await()
-//            userSharedPreferencesManager.saveUserSession(email, result.user?.uid!!, isChecked)
-//            result.user != null
-//        } catch (e: Exception) {
-//            false
-//        }
-//    }
+
+    fun logout() {
+        auth.signOut()
+    }
 
     suspend fun resetPassword(email: String): Boolean {
         return try {
