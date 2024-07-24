@@ -5,18 +5,15 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.os.postDelayed
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -34,6 +31,7 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 
 
+@Suppress("UNUSED_EXPRESSION")
 class AddBirthdayFragment : Fragment() {
     private lateinit var viewModel: BirthdayViewModel
     private lateinit var binding : FragmentAddBirthdayBinding
@@ -51,7 +49,6 @@ class AddBirthdayFragment : Fragment() {
         val factory = BirthdayViewModelFactory(repository)
         viewModel = ViewModelProvider(this,factory)[BirthdayViewModel::class.java]
 
-
         binding.saveBirthdayButton.setOnClickListener {
 
             val name = binding.nameAddBirthdayEditText.text.toString()
@@ -59,14 +56,14 @@ class AddBirthdayFragment : Fragment() {
             val note = binding.noteAddBirthdayEditText.text.toString()
             val userId =  sharedPreferences.getUserId()
 
-            binding.addBirthdayTopLayout.visibility = View.INVISIBLE
-            binding.addBirthdayConsLayout.setBackgroundResource(R.drawable.welcome_background)
-            binding.addBirthdayLottieAnimation.visibility = View.VISIBLE
-            binding.addBirthdayLottieAnimation.playAnimation()
-
 
             val view = (context as Activity).findViewById<View>(android.R.id.content)
+
             if (name.isNotEmpty() && birthdayDate.isNotEmpty() && note.isNotEmpty()) {
+                binding.addBirthdayTopLayout.visibility = View.INVISIBLE
+                binding.addBirthdayConsLayout.setBackgroundResource(R.drawable.welcome_background)
+                binding.addBirthdayLottieAnimation.visibility = View.VISIBLE
+                binding.addBirthdayLottieAnimation.playAnimation()
 
                 viewModel.saveBirthday(name, birthdayDate, note, userId = userId)
 
@@ -74,8 +71,6 @@ class AddBirthdayFragment : Fragment() {
                     viewLifecycleOwner.lifecycleScope.launch {
                         viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                             viewModel.isLoading.collect { isLoading ->
-                                Log.e("tagımıs", " login yüklenme durumu fragment: $isLoading")
-
                                 if (!isLoading) {
                                     //animasyonu durdurup view'i visible yapıyoruz
                                     binding.addBirthdayLottieAnimation.cancelAnimation()
@@ -90,12 +85,9 @@ class AddBirthdayFragment : Fragment() {
                     viewLifecycleOwner.lifecycleScope.launch {
                         viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                             viewModel.saveBirthdayState.collect { isSaved ->
-                                Log.e("tagımıs", " bday kayıt durumu fragment: $isSaved")
                                 if(isSaved){
                                     Snackbar.make(view,"Birthday saved successfully",Snackbar.LENGTH_SHORT).show()
-                                    Handler(Looper.getMainLooper()).postDelayed({
-                                        findNavController().popBackStack()
-                                    },1000)
+                                    findNavController().popBackStack()
                                 }else{
                                     Snackbar.make(view,"Failed to save birthday",Snackbar.LENGTH_SHORT).show()
 
@@ -112,15 +104,11 @@ class AddBirthdayFragment : Fragment() {
             }
         }
 
-
-
         binding.birthdayDateEditText.setOnClickListener {
             showDatePickerDialog()
         }
 
         binding.fabSaveBirthday.setOnClickListener { it.findNavController().popBackStack() }
-
-
 
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.addBirthdayDrawerLayout
@@ -163,13 +151,10 @@ class AddBirthdayFragment : Fragment() {
             true
         }
 
-
-
         // Toolbar üzerindeki menü ikonu ile menüyü açma
         binding.includeAddBirthday.findViewById<View>(R.id.menuButtonToolbar).setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
-
 
         return binding.root
     }
