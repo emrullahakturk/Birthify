@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
@@ -127,6 +126,12 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
                 setViewAndChildrenEnabled(view.getChildAt(i), enabled)
             }
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun submitList(newBirthdays: List<Birthday>) {
+        birthdayList = newBirthdays
+        notifyDataSetChanged()
     }
 
     }

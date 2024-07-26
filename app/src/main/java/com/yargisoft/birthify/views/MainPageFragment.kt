@@ -1,6 +1,8 @@
 package com.yargisoft.birthify.views
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +21,7 @@ import com.yargisoft.birthify.R
 import com.yargisoft.birthify.SwipeToDeleteCallback
 import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentMainPageBinding
+import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.BirthdaySharedPreferencesManager
@@ -37,6 +40,8 @@ class MainPageFragment : Fragment() {
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var birthdaySharedPreferences: BirthdaySharedPreferencesManager
     private lateinit var adapter: BirthdayAdapter
+    private var filteredBirthdays: List<Birthday> = listOf() // Filtrelenmiş doğum günleri listesi
+
 
 
     override fun onCreateView(
@@ -125,6 +130,20 @@ class MainPageFragment : Fragment() {
              binding.birthdayRecyclerView.adapter = adapter*/
         }
 
+
+        //Search edittext'i ile doğum günü arama ekliyoruz
+        binding.mainPageSearchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filterBirthdays(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+
+
         // ActionBarDrawerToggle ile Drawer'ı ActionBar ile senkronize etme
         val toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawerLayout.addDrawerListener(toggle)
@@ -172,5 +191,15 @@ class MainPageFragment : Fragment() {
         }
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    private fun filterBirthdays(query: String) {
+        filteredBirthdays = if (query.isEmpty()) {
+            birthdayViewModel.birthdays.value!!
+        } else {
+            birthdayViewModel.birthdays.value!!
+                .filter { it.name.contains(query, ignoreCase = true) }
+        }
+        adapter.submitList(filteredBirthdays)
     }
 }
