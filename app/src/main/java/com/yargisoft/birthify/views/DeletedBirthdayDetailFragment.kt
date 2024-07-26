@@ -164,7 +164,7 @@ class DeletedBirthdayDetailFragment : Fragment() {
                             }
                         }
                     }
-                },10000)
+                },3000)
             }
             .setNegativeButton("No"){_,_->
                 //animasyonu durdurup view'i visible yapıyoruz
@@ -217,7 +217,7 @@ class DeletedBirthdayDetailFragment : Fragment() {
                     }
 
 
-                },10000)
+                },3000)
 
             }
             .setNegativeButton("No"){_,_->

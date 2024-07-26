@@ -77,13 +77,13 @@ class MainPageFragment : Fragment() {
         adapter = BirthdayAdapter(
             birthdaySharedPreferences.getBirthdays().sortedByDescending { it.recordedDate },
             {birthday ->
-            val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
-            findNavController().navigate(action)
-        },
+                val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
+                findNavController().navigate(action)
+            },
             { birthday ->
-            val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
-            findNavController().navigate(action)
-        },
+                val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
+                findNavController().navigate(action)
+            },
             requireContext(),
             birthdayViewModel,
             viewLifecycleOwner,
@@ -103,26 +103,26 @@ class MainPageFragment : Fragment() {
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
         birthdayViewModel.birthdays.observe(viewLifecycleOwner) {   birthdays ->
             adapter.updateData(birthdays)
-           /* //adapter initialization
-            adapter = BirthdayAdapter(
-                birthdays.sortedByDescending { it.recordedDate },
-                {birthday ->
-                    val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
-                    findNavController().navigate(action)
-                },
-                { birthday ->
-                    val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
-                    findNavController().navigate(action)
-                },
-                requireContext(),
-                birthdayViewModel,
-                viewLifecycleOwner,
-                binding.mainPageDeleteLottieAnimation,
-                binding.mainPageThreePointLottieAnim,
-                binding.root,
-                binding.clickToAddBirthdayTv)
+            /* //adapter initialization
+             adapter = BirthdayAdapter(
+                 birthdays.sortedByDescending { it.recordedDate },
+                 {birthday ->
+                     val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
+                     findNavController().navigate(action)
+                 },
+                 { birthday ->
+                     val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
+                     findNavController().navigate(action)
+                 },
+                 requireContext(),
+                 birthdayViewModel,
+                 viewLifecycleOwner,
+                 binding.mainPageDeleteLottieAnimation,
+                 binding.mainPageThreePointLottieAnim,
+                 binding.root,
+                 binding.clickToAddBirthdayTv)
 
-            binding.birthdayRecyclerView.adapter = adapter*/
+             binding.birthdayRecyclerView.adapter = adapter*/
         }
 
         // ActionBarDrawerToggle ile Drawer'ı ActionBar ile senkronize etme
@@ -152,7 +152,7 @@ class MainPageFragment : Fragment() {
                 R.id.labelProfile -> {
                     findNavController().navigate(R.id.mainToProfile)
                 }
-                 else -> false
+                else -> false
             }
 
             // Drawer'ı kapatmak için

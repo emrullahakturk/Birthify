@@ -164,9 +164,9 @@
     </fragment>
     <fragment
         android:id="@+id/myAccountFragment"
-        android:name="com.yargisoft.birthify.views.MyAccountFragment"
+        android:name="com.yargisoft.birthify.views.ProfileFragment"
         android:label="fragment_my_account"
-        tools:layout="@layout/fragment_my_account" >
+        tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/profileToSettings"
             app:destination="@id/settingsFragment" />
