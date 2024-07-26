@@ -4,6 +4,7 @@ plugins {
     id("com.google.gms.google-services")
     id("androidx.navigation.safeargs")
 
+
 }
 
 android {
@@ -50,8 +51,8 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
     implementation ("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation ("androidx.navigation:navigation-ui-ktx:2.7.7")
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.3")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.4")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")
 
     //Lottie Animation
     implementation ("com.airbnb.android:lottie:6.0.0")
@@ -64,6 +65,8 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
     implementation("com.google.firebase:firebase-analytics")
     implementation ("com.google.firebase:firebase-firestore:25.0.0")
+    implementation ("com.google.firebase:firebase-messaging:24.0.0")
+
 
 
 

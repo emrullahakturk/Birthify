@@ -103,6 +103,7 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
                                             threePointLottieAnimationView.cancelAnimation()
                                             Snackbar.make(view, "Birthday successfully deleted", Snackbar.LENGTH_LONG).show()
                                         }else{
+
                                             Snackbar.make(view, "Birthday deleting failed", Snackbar.LENGTH_LONG).show()
                                         }
 
@@ -128,10 +129,5 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun submitList(newBirthdays: List<Birthday>) {
-        birthdayList = newBirthdays
-        notifyDataSetChanged()
-    }
 
     }

@@ -2,13 +2,18 @@ package com.yargisoft.birthify.views
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.SpannableString
 import android.text.TextWatcher
+import android.text.style.ForegroundColorSpan
+import android.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
+import android.widget.PopupMenu
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -190,8 +195,16 @@ class MainPageFragment : Fragment() {
         binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays).setOnClickListener{
             it.findNavController().navigate(R.id.mainToMain)
         }
-        // Inflate the layout for this fragment
+
+        binding.sortButtonMainPage.setOnClickListener {
+            showSortMenu(it)
+        }
+
+
+
+
         return binding.root
+
     }
 
     private fun filterBirthdays(query: String) {
@@ -201,6 +214,41 @@ class MainPageFragment : Fragment() {
             birthdayViewModel.birthdays.value!!
                 .filter { it.name.contains(query, ignoreCase = true) }
         }
-        adapter.submitList(filteredBirthdays)
+        adapter.updateData(filteredBirthdays)
+    }
+
+
+    private fun showSortMenu(view: View) {
+        val contextThemeWrapper = ContextThemeWrapper(requireContext(), R.style.CustomPopupMenu)
+        val popupMenu = PopupMenu(contextThemeWrapper, view)
+        popupMenu.menuInflater.inflate(R.menu.sorting_birthday_menu, popupMenu.menu)
+
+        // Menü öğelerine özel stil uygulama
+        for (i in 0 until popupMenu.menu.size()) {
+            val menuItem = popupMenu.menu.getItem(i)
+            val spanString = SpannableString(menuItem.title)
+            spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.green_login)), 0, spanString.length, 0)
+            menuItem.title = spanString
+        }
+
+        popupMenu.setOnMenuItemClickListener { menuItem: MenuItem ->
+            handleSortOptionSelected(menuItem)
+            true
+        }
+        popupMenu.show()
+    }
+
+    private fun handleSortOptionSelected(menuItem: MenuItem) {
+        val sortedList = when (menuItem.itemId) {
+            R.id.sort_by_name_asc -> birthdayViewModel.sortBirthdaysByNameAsc()
+            R.id.sort_by_birth_date_asc -> birthdayViewModel.sortBirthdaysByBirthdayDateAsc()
+            R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortBirthdaysByRecordedDateAsc()
+            R.id.sort_by_name_dsc -> birthdayViewModel.sortBirthdaysByNameDsc()
+            R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortBirthdaysByBirthdayDateDsc()
+            R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortBirthdaysByRecordedDateDsc()
+            else -> emptyList()
+        }
+
+        adapter.updateData(sortedList)
     }
 }

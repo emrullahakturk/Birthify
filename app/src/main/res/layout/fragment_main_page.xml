@@ -89,6 +89,21 @@
                     android:layout_height="match_parent"
                     android:background="@color/white">
 
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/sortButtonMainPage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="4dp"
+                        android:backgroundTint="@color/white"
+                        android:drawableEnd="@drawable/ic_dots"
+                        android:text="@string/sort_options"
+                        android:textColor="@color/green_login"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lineView" />
+
                     <TextView
                         android:id="@+id/clickToAddBirthdayTv"
                         android:layout_width="wrap_content"
@@ -139,13 +154,12 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/mainPageSearchTextInputLayout"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="10dp"
+                        android:visibility="visible"
                         app:boxBackgroundMode="outline"
-                        android:layout_marginRight="18dp"
-                        android:layout_marginLeft="18dp"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/sortButtonMainPage"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/lineView"
                         app:startIconDrawable="@drawable/ic_search"
@@ -171,6 +185,7 @@
                         android:layout_height="0dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
+                        android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"

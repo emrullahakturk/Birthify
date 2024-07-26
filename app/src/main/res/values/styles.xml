@@ -13,6 +13,14 @@
         <item name="fontFamily">@font/wittgenstein_font</item>
     </style>
 
+    <!-- PopupMenu stili -->
+    <style name="CustomPopupMenu" parent="Theme.AppCompat.Light">
+        <item name="popupMenuStyle">@style/Widget.CustomPopupMenu</item>
+    </style>
+
+    <style name="Widget.CustomPopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/pop_up_menu_background</item>
+    </style>
 
 
 </resources>
