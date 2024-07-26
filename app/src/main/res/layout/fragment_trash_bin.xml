@@ -85,7 +85,7 @@
                     android:id="@+id/trashBinDeletedBirthdaysTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:fontFamily="@font/wittgenstein_font"
                     android:text="@string/deleted_birthdays"
                     android:textColor="@color/green_login"
@@ -94,13 +94,43 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/trashBinSearchTextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
+                    app:boxBackgroundMode="outline"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/trashBinDeletedBirthdaysTv"
+                    app:startIconDrawable="@drawable/ic_search"
+                    app:startIconTint="@color/green_login">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/trashBinSearchEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
+                        android:background="@drawable/rounded_edit_text"
+                        android:hint="@string/search"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:paddingStart="40dp"
+                        android:paddingEnd="0dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
                 <ScrollView
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/trashBinDeletedBirthdaysTv">
+                    app:layout_constraintTop_toBottomOf="@+id/trashBinSearchTextInputLayout">
 
                     <LinearLayout
                         android:layout_width="match_parent"

@@ -107,6 +107,8 @@ class DeletedBirthdayDetailFragment : Fragment() {
             true
         }
 
+        binding.fabDetailDeletedBirthday.setOnClickListener { findNavController().popBackStack() }
+
         // Toolbar üzerindeki menü ikonu ile menüyü açma
         binding.includeDeletedDetailBirthday.findViewById<View>(R.id.menuButtonToolbar).setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)

@@ -1,10 +1,13 @@
 package com.yargisoft.birthify.views
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -17,6 +20,7 @@ import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentTrashBinBinding
+import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.BirthdayViewModel
@@ -30,6 +34,9 @@ class TrashBinFragment : Fragment() {
     private lateinit var viewModel: BirthdayViewModel
     private lateinit var sharedPreferences: UserSharedPreferencesManager
     private lateinit var adapter: DeletedBirthdayAdapter
+    private var filteredBirthdays: List<Birthday> = listOf() // Filtrelenmiş doğum günleri listesi
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -128,6 +135,21 @@ class TrashBinFragment : Fragment() {
 
 
 
+        //Search edittext'i ile doğum günü arama ekliyoruz
+        binding.trashBinSearchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filterBirthdays(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+
+
+
+
 
         // Toolbar üzerindeki menü ikonu ile menüyü açma
         binding.trashBinToolbar.findViewById<View>(R.id.menuButtonToolbar).setOnClickListener {
@@ -148,6 +170,16 @@ class TrashBinFragment : Fragment() {
 
         return binding.root
 
+    }
+
+    private fun filterBirthdays(query: String) {
+        filteredBirthdays = if (query.isEmpty()) {
+            viewModel.deletedBirthdayList.value!!
+        } else {
+            viewModel.deletedBirthdayList.value!!
+                .filter { it.name.contains(query, ignoreCase = true) }
+        }
+        adapter.submitList(filteredBirthdays)
     }
 
 

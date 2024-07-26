@@ -1,5 +1,6 @@
 package com.yargisoft.birthify.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -48,6 +49,11 @@ class DeletedBirthdayAdapter(private var deletedBirthdayList: List<Birthday>,
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun submitList(newBirthdays: List<Birthday>) {
+        deletedBirthdayList = newBirthdays
+        notifyDataSetChanged()
+    }
 
 
 
