@@ -50,7 +50,7 @@ class DeletedBirthdayAdapter(private var deletedBirthdayList: List<Birthday>,
 
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitList(newBirthdays: List<Birthday>) {
+    fun updateData(newBirthdays: List<Birthday>) {
         deletedBirthdayList = newBirthdays
         notifyDataSetChanged()
     }

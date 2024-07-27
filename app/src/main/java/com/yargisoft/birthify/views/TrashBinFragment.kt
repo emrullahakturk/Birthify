@@ -17,6 +17,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
+import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentTrashBinBinding
@@ -140,14 +141,11 @@ class TrashBinFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                filterBirthdays(s.toString())
+                FrequentlyUsedFunctions.filterBirthdays(s.toString(),viewModel,adapter)
             }
 
             override fun afterTextChanged(s: Editable?) {}
         })
-
-
-
 
 
 
@@ -162,27 +160,10 @@ class TrashBinFragment : Fragment() {
 
         }
 
-
         binding.trashBinBottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays).setOnClickListener{
             it.findNavController().navigate(R.id.trashToMainPage)
         }
 
-
         return binding.root
-
     }
-
-    private fun filterBirthdays(query: String) {
-        val birthdays = viewModel.birthdays.value
-        if (birthdays != null) {
-            filteredBirthdays = if (query.isEmpty()) {
-                birthdays
-            } else {
-                birthdays.filter { it.name.contains(query, ignoreCase = true) }
-            }
-            adapter.submitList(filteredBirthdays)
-        }
-    }
-
-
 }

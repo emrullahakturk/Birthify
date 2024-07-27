@@ -2,18 +2,12 @@ package com.yargisoft.birthify.views
 
 import android.os.Bundle
 import android.text.Editable
-import android.text.SpannableString
 import android.text.TextWatcher
-import android.text.style.ForegroundColorSpan
-import android.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -23,11 +17,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
+import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.SwipeToDeleteCallback
 import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentMainPageBinding
-import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.BirthdaySharedPreferencesManager
@@ -46,8 +40,6 @@ class MainPageFragment : Fragment() {
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var birthdaySharedPreferences: BirthdaySharedPreferencesManager
     private lateinit var adapter: BirthdayAdapter
-    private var filteredBirthdays: List<Birthday> = listOf() // Filtrelenmiş doğum günleri listesi
-
 
 
     override fun onCreateView(
@@ -55,7 +47,7 @@ class MainPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_main_page, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_page, container, false)
 
         //user SharedPreferences
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
@@ -71,13 +63,13 @@ class MainPageFragment : Fragment() {
         //Birthday viewModel Tanımlama için gerekenler
         val birthdayRepository = BirthdayRepository(requireContext())
         val birthdayFactory = BirthdayViewModelFactory(birthdayRepository)
-        birthdayViewModel = ViewModelProvider(this,birthdayFactory)[BirthdayViewModel::class]
+        birthdayViewModel = ViewModelProvider(this, birthdayFactory)[BirthdayViewModel::class]
 
 
         //Auth ViewModel Tanımlama için gerekenler
         val authRepository = AuthRepository(requireContext())
         val authFactory = AuthViewModelFactory(authRepository)
-        authViewModel = ViewModelProvider(this,authFactory)[AuthViewModel::class]
+        authViewModel = ViewModelProvider(this, authFactory)[AuthViewModel::class]
 
 
         //Firebase üzerinden doğum günleri çekilir ve hem viewModel birthday listesi hem sharedPreferences olarak saklanan birthday listesi güncellenir
@@ -87,7 +79,7 @@ class MainPageFragment : Fragment() {
         //adapter initialization
         adapter = BirthdayAdapter(
             birthdaySharedPreferences.getBirthdays().sortedByDescending { it.recordedDate },
-            {birthday ->
+            { birthday ->
                 val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
                 findNavController().navigate(action)
             },
@@ -96,23 +88,31 @@ class MainPageFragment : Fragment() {
                 findNavController().navigate(action)
             },
             requireContext(),
-            birthdayViewModel,
-            viewLifecycleOwner,
-            binding.mainPageDeleteLottieAnimation,
-            binding.mainPageThreePointLottieAnim,
-            binding.root,
-            binding.clickToAddBirthdayTv)
+            binding.clickToAddBirthdayTv
+        )
 
         binding.birthdayRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.birthdayRecyclerView.adapter = adapter
 
 
+
         // ItemTouchHelper'ın RecyclerView'a doğru şekilde eklendiğinden emin olun
-        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(adapter))
+        val birthdaysItemTouch= birthdayViewModel.birthdays.value ?: emptyList()
+        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(
+                    adapter,
+                    requireContext(),
+                    birthdayViewModel,
+                    viewLifecycleOwner,
+                    binding.mainPageDeleteLottieAnimation,
+                    binding.mainPageThreePointLottieAnim,
+                    userSharedPreferences,
+                    binding.root,
+            birthdaysItemTouch
+                ))
         itemTouchHelper.attachToRecyclerView(binding.birthdayRecyclerView)
 
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
-        birthdayViewModel.birthdays.observe(viewLifecycleOwner) {   birthdays ->
+        birthdayViewModel.birthdays.observe(viewLifecycleOwner) { birthdays ->
             adapter.updateData(birthdays)
             /* //adapter initialization
              adapter = BirthdayAdapter(
@@ -142,16 +142,20 @@ class MainPageFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                filterBirthdays(s.toString())
+                FrequentlyUsedFunctions.filterBirthdays(s.toString(), birthdayViewModel, adapter)
             }
 
             override fun afterTextChanged(s: Editable?) {}
         })
 
 
-
         // ActionBarDrawerToggle ile Drawer'ı ActionBar ile senkronize etme
-        val toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        val toggle = ActionBarDrawerToggle(
+            requireActivity(),
+            drawerLayout,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -163,20 +167,25 @@ class MainPageFragment : Fragment() {
                 R.id.labelBirthdays -> {
                     findNavController().navigate(R.id.mainToMain)
                 }
+
                 R.id.labelLogOut -> {
                     userSharedPreferences.clearUserSession()
                     authViewModel.logoutUser()
                     findNavController().navigate(R.id.firstPageFragment)
                 }
+
                 R.id.labelTrashBin -> {
                     findNavController().navigate(R.id.mainToTrashBin)
                 }
+
                 R.id.labelSettings -> {
                     findNavController().navigate(R.id.mainToSettings)
                 }
+
                 R.id.labelProfile -> {
                     findNavController().navigate(R.id.mainToProfile)
                 }
+
                 else -> false
             }
 
@@ -192,65 +201,17 @@ class MainPageFragment : Fragment() {
         binding.includeMainPage.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
             findNavController().navigate(R.id.mainToAddBirthday)
         }
-        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays).setOnClickListener{
-            it.findNavController().navigate(R.id.mainToMain)
-        }
+        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)
+            .setOnClickListener {
+                it.findNavController().navigate(R.id.mainToMain)
+            }
 
         binding.sortButtonMainPage.setOnClickListener {
-            showSortMenu(it)
+            FrequentlyUsedFunctions.showSortMenu(it, requireContext(), adapter, birthdayViewModel)
         }
-
-
-
-
         return binding.root
-
-    }
-
-    private fun filterBirthdays(query: String) {
-        val birthdays = birthdayViewModel.birthdays.value
-        if (birthdays != null) {
-            filteredBirthdays = if (query.isEmpty()) {
-                birthdays
-            } else {
-                birthdays.filter { it.name.contains(query, ignoreCase = true) }
-            }
-            adapter.updateData(filteredBirthdays)
-        }
-    }
-
-
-    private fun showSortMenu(view: View) {
-        val contextThemeWrapper = ContextThemeWrapper(requireContext(), R.style.CustomPopupMenu)
-        val popupMenu = PopupMenu(contextThemeWrapper, view)
-        popupMenu.menuInflater.inflate(R.menu.sorting_birthday_menu, popupMenu.menu)
-
-        // Menü öğelerine özel stil uygulama
-        for (i in 0 until popupMenu.menu.size()) {
-            val menuItem = popupMenu.menu.getItem(i)
-            val spanString = SpannableString(menuItem.title)
-            spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.green_login)), 0, spanString.length, 0)
-            menuItem.title = spanString
-        }
-
-        popupMenu.setOnMenuItemClickListener { menuItem: MenuItem ->
-            handleSortOptionSelected(menuItem)
-            true
-        }
-        popupMenu.show()
-    }
-
-    private fun handleSortOptionSelected(menuItem: MenuItem) {
-        val sortedList = when (menuItem.itemId) {
-            R.id.sort_by_name_asc -> birthdayViewModel.sortBirthdaysByNameAsc()
-            R.id.sort_by_birth_date_asc -> birthdayViewModel.sortBirthdaysByBirthdayDateAsc()
-            R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortBirthdaysByRecordedDateAsc()
-            R.id.sort_by_name_dsc -> birthdayViewModel.sortBirthdaysByNameDsc()
-            R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortBirthdaysByBirthdayDateDsc()
-            R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortBirthdaysByRecordedDateDsc()
-            else -> emptyList()
-        }
-
-        adapter.updateData(sortedList)
     }
 }
+
+
+

@@ -31,9 +31,8 @@ class UserSharedPreferencesManager(private val context: Context) {
     fun getUserId(): String {
         return preferences.getString(UserConstants.KEY_USER_ID, "").toString()
     }
-    fun checkIsUserLoggedIn(): Boolean{
-        val isChecked = preferences.getBoolean(UserConstants.PREF_CHECK,false)
-        return isChecked
+    fun checkIsUserLoggedIn(): Boolean {
+        return preferences.getBoolean(UserConstants.PREF_CHECK, false)
     }
     fun clearUserSession() {
         with(preferences.edit()) {

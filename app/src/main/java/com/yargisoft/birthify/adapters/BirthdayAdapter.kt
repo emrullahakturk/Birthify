@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,18 +27,8 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
                       private val onEditClick: (Birthday) -> Unit,
                       private val onDetailClick: (Birthday) -> Unit,
                       val context : Context,
-                      private val viewModel: BirthdayViewModel,
-                      private val lifeCycleOwner:LifecycleOwner,
-                      private val deleteLottieAnimationView: LottieAnimationView,
-                      private val threePointLottieAnimationView: LottieAnimationView,
-                      private val fragmentView: View,
                       private val clickToAddTextView: TextView
     ) : RecyclerView.Adapter<BirthdayAdapter.BirthdayViewHolder>() {
-
-
-        private  val userPreferences = UserSharedPreferencesManager(context)
-
-
 
         class BirthdayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val nameTextView: TextView = itemView.findViewById(R.id.nameCardTv)
@@ -54,6 +42,7 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
             val view = LayoutInflater.from(parent.context).inflate(R.layout.birthday_item, parent, false)
             return BirthdayViewHolder(view)
         }
+
         override fun onBindViewHolder(holder: BirthdayViewHolder, position: Int) {
             val birthday = birthdayList[position]
             holder.nameTextView.text = birthday.name
@@ -64,6 +53,7 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
         }
         override fun getItemCount(): Int {return birthdayList.size}
 
+
         @SuppressLint("NotifyDataSetChanged")
         fun updateData(newBirthdayList: List<Birthday>) {
             clickToAddTextView.visibility = if (newBirthdayList.isEmpty()) View.VISIBLE else View.INVISIBLE
@@ -71,63 +61,7 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
             notifyDataSetChanged()
         }
 
-        @SuppressLint("NotifyDataSetChanged")
-        fun showDeleteDialog(position: Int){
-            val view = (context as Activity).findViewById<View>(android.R.id.content)
-            if (birthdayList.isNotEmpty()){
-               val birthday = birthdayList[position]
-                AlertDialog.Builder(context)
-                    .setTitle("Delete Birthday")
-                    .setMessage("Are you sure you want to delete this birthday?")
-                    .setPositiveButton("Yes") { _, _ ->
 
-                        deleteLottieAnimationView.visibility = View.VISIBLE
-                        deleteLottieAnimationView.playAnimation()
-                        threePointLottieAnimationView.visibility = View.VISIBLE
-                        threePointLottieAnimationView.playAnimation()
-                        setViewAndChildrenEnabled(fragmentView, false)
-
-                        // Silme işlemini yap
-                        viewModel.deleteBirthday(birthday.id,birthday)
-
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            lifeCycleOwner.lifecycleScope.launch {
-                                lifeCycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
-                                    viewModel.deleteBirthdayState.collect{isDeleted ->
-                                        if (isDeleted){
-                                            viewModel.getUserBirthdays(userPreferences.getUserId())
-                                            setViewAndChildrenEnabled(fragmentView, true)
-                                            deleteLottieAnimationView.visibility = View.INVISIBLE
-                                            deleteLottieAnimationView.cancelAnimation()
-                                            threePointLottieAnimationView.visibility = View.INVISIBLE
-                                            threePointLottieAnimationView.cancelAnimation()
-                                            Snackbar.make(view, "Birthday successfully deleted", Snackbar.LENGTH_LONG).show()
-                                        }else{
-
-                                            Snackbar.make(view, "Birthday deleting failed", Snackbar.LENGTH_LONG).show()
-                                        }
-
-                                    }
-                                }
-                            }
-                        },2000)
-
-                    }
-                    .setNegativeButton("No") { _, _ ->
-                        // Eğer silme iptal edilirse öğeyi geri yerleştir
-                        viewModel.getUserBirthdays(userPreferences.getUserId())
-                    }
-                    .show()
-            }
-        }
-        private fun setViewAndChildrenEnabled(view: View, enabled: Boolean) {
-        view.isEnabled = enabled
-        if (view is ViewGroup) {
-            for (i in 0 until view.childCount) {
-                setViewAndChildrenEnabled(view.getChildAt(i), enabled)
-            }
-        }
-    }
 
 
     }

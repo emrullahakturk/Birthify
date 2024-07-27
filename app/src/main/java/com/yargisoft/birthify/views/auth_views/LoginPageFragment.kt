@@ -1,34 +1,25 @@
 package com.yargisoft.birthify.views.auth_views
 
-import android.app.Activity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentLoginPageBinding
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
-import kotlinx.coroutines.launch
 import java.util.Locale
 
 
@@ -60,7 +51,7 @@ class LoginPageFragment : Fragment() {
 
 
         // Snackbar için view
-        val view = (context as Activity).findViewById<View>(android.R.id.content)
+        //val view = (context as Activity).findViewById<View>(android.R.id.content)
 
         //repo factory ve viewmodel tanımlamaları
         val repository = AuthRepository(requireContext())
@@ -74,7 +65,7 @@ class LoginPageFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val email = s.toString()
-                if (isValidEmail(email)) {
+                if (FrequentlyUsedFunctions.isValidEmail(email)) {
                     loginEmailTextInput.error = null
                     loginEmailTextInput.isErrorEnabled = false //error yazıdı gittiğinde yazıdan kalan boşluk bu kod ile gider
                 } else {
@@ -102,7 +93,6 @@ class LoginPageFragment : Fragment() {
         // Login fragment sayfasında girilen e-mail formatını kontrol ediyoruz
 
 
-
         binding.forgotPassLoginTv.setOnClickListener { it.findNavController().navigate(R.id.loginToForgot) }
         binding.signUpLoginTv.setOnClickListener { it.findNavController().navigate(R.id.loginToRegister) }
 
@@ -110,82 +100,18 @@ class LoginPageFragment : Fragment() {
             val email = binding.loginEmailEditText.text.toString()
             val password = binding.loginPassEditText.text.toString()
             val isChecked = binding.rememberCBox.isChecked
-
-            if (isValidEmail(email) && password.isNotEmpty()) {
-                viewModel.loginUser(email, password,isChecked)
-
-                binding.loginPageLottieAnimation.visibility = View.VISIBLE
-                binding.loginPageLottieAnimation.playAnimation()
-                setViewAndChildrenEnabled(requireView(),false)
-
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                            viewModel.isLoading.collect { isLoading ->
-
-                                if(!isLoading){
-                                    //animasyonu durdurup view'i visible yapıyoruz
-                                    binding.loginPageLottieAnimation.cancelAnimation()
-                                    binding.loginPageLottieAnimation.visibility = View.INVISIBLE
-                                    setViewAndChildrenEnabled(requireView(),true)
-                                }
-                            }
-                        }
-                    }
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                            viewModel.loginResult.collect { result ->
-                                if (result == true) {
-                                    if (viewModel.isEmailVerifiedResult != true){
-                                        userSharedPreferences.clearUserSession()
-                                        Snackbar.make(view,"Please verify your e-mail",Snackbar.LENGTH_SHORT).show()
-                                    }
-                                    else{
-                                        if(isChecked){
-                                            userSharedPreferences.saveIsChecked(true )
-                                        }else{
-                                            userSharedPreferences.saveIsChecked(false )
-                                        }
-
-                                        Snackbar.make(view,"You successfully logged in",Snackbar.LENGTH_SHORT).show()
-                                        findNavController().navigate(R.id.loginToMain)
-                                    }
-                                }else{
-                                    Snackbar.make(view,"Login failed",Snackbar.LENGTH_SHORT).show()
-                                }
-                            }
-                        }
-                    }
-                }, 5000) // 2 saniye bekletme
-
-
-            }else {
-                Snackbar.make(view,"Please fill in all fields",Snackbar.LENGTH_SHORT).show()
-            }
-
-
+            FrequentlyUsedFunctions.loginValidationFunction(
+                requireView(),
+                email,
+                password,
+                isChecked,
+                viewModel,
+                binding.loginPageLottieAnimation,
+                viewLifecycleOwner,
+                userSharedPreferences,
+                findNavController()
+                )
         }
-
         return binding.root
     }
-
-
-    private fun isValidEmail(email: String): Boolean {
-        if (email.isBlank()) {
-            return false
-        }
-        val emailPattern = Patterns.EMAIL_ADDRESS
-        return emailPattern.matcher(email).matches()
-    }
-
-    private fun setViewAndChildrenEnabled(view: View, enabled: Boolean) {
-        view.isEnabled = enabled
-        if (view is ViewGroup) {
-            for (i in 0 until view.childCount) {
-                setViewAndChildrenEnabled(view.getChildAt(i), enabled)
-            }
-        }
-    }
-
 }

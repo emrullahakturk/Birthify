@@ -1,10 +1,7 @@
 package com.yargisoft.birthify.views
 
 import android.app.Activity
-import android.app.DatePickerDialog
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,22 +10,18 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAddBirthdayBinding
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.BirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
-import kotlinx.coroutines.launch
-import java.util.Calendar
 
 
 @Suppress("UNUSED_EXPRESSION")
@@ -67,36 +60,13 @@ class AddBirthdayFragment : Fragment() {
 
                 viewModel.saveBirthday(name, birthdayDate, note, userId = userId)
 
-                Handler(Looper.getMainLooper()).postDelayed({
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                            viewModel.isLoading.collect { isLoading ->
-                                if (!isLoading) {
-                                    //animasyonu durdurup view'i visible yapıyoruz
-                                    binding.addBirthdayLottieAnimation.cancelAnimation()
-                                    binding.addBirthdayLottieAnimation.visibility = View.INVISIBLE
-                                    binding.addBirthdayConsLayout.setBackgroundResource(0)
-                                    binding.addBirthdayTopLayout.visibility = View.VISIBLE
-                                }
-
-                            }
-                        }
-                    }
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                            viewModel.saveBirthdayState.collect { isSaved ->
-                                if(isSaved){
-                                    Snackbar.make(view,"Birthday saved successfully",Snackbar.LENGTH_SHORT).show()
-                                    findNavController().popBackStack()
-                                }else{
-                                    Snackbar.make(view,"Failed to save birthday",Snackbar.LENGTH_SHORT).show()
-
-                                }
-
-                            }
-                        }
-                    }
-                },2000)
+                FrequentlyUsedFunctions.addBirthdayValidation(viewLifecycleOwner,
+                    viewModel,
+                    binding.addBirthdayLottieAnimation,
+                    binding.root,
+                    findNavController(),
+                    binding.addBirthdayTopLayout,
+                    binding.addBirthdayConsLayout)
 
             }
             else{
@@ -105,7 +75,7 @@ class AddBirthdayFragment : Fragment() {
         }
 
         binding.birthdayDateEditText.setOnClickListener {
-            showDatePickerDialog()
+            FrequentlyUsedFunctions.showDatePickerDialog(requireContext(),binding.birthdayDateEditText)
         }
 
         binding.fabSaveBirthday.setOnClickListener { it.findNavController().popBackStack() }
@@ -158,17 +128,5 @@ class AddBirthdayFragment : Fragment() {
 
         return binding.root
     }
-    private fun showDatePickerDialog() {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-            val selectedDate = "$selectedYear-${String.format("%02d", selectedMonth + 1)}-${String.format("%02d", selectedDay)}"
-            binding.birthdayDateEditText.setText(selectedDate)
-        }, year, month, day)
-
-        datePickerDialog.show()
-    }
 }

@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentBirthdayDetailBinding
-import com.yargisoft.birthify.viewmodels.BirthdayViewModel
 
 class BirthdayDetailFragment : Fragment() {
 

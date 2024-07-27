@@ -1,19 +1,33 @@
 package com.yargisoft.birthify
 
+import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
+import android.view.View
 import android.widget.ProgressBar
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.models.Birthday
+import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
+import com.yargisoft.birthify.viewmodels.BirthdayViewModel
+
 
 class SwipeToDeleteCallback(
     private val adapter: BirthdayAdapter,
-    //private val birthdayList: List<Birthday>,
+    private val context: Context,
+    private val viewModel: BirthdayViewModel,
+    private val lifeCycleOwner: LifecycleOwner,
+    private val deleteLottieAnimationView: LottieAnimationView,
+    private val threePointLottieAnimationView: LottieAnimationView,
+    private val userPreferences: UserSharedPreferencesManager,
+    private val fragmentView: View,
+    private val birthdayList: List<Birthday>,
 ) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
     override fun onMove(
@@ -29,7 +43,17 @@ class SwipeToDeleteCallback(
         if (position >= 0 || position < adapter.itemCount) {
 
             //adapter.updateData(birthdayList)
-            adapter.showDeleteDialog(position)
+            FrequentlyUsedFunctions.showDeleteDialogBirthdayAdapter(
+                position,
+                fragmentView,
+                context,
+                birthdayList,
+                deleteLottieAnimationView,
+                threePointLottieAnimationView,
+                viewModel,
+                lifeCycleOwner,
+                userPreferences)
+
             // Swipe işlemini sıfırla
             adapter.notifyItemChanged(position)
 
