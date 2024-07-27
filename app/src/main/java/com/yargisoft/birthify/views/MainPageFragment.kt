@@ -208,13 +208,15 @@ class MainPageFragment : Fragment() {
     }
 
     private fun filterBirthdays(query: String) {
-        filteredBirthdays = if (query.isEmpty()) {
-            birthdayViewModel.birthdays.value!!
-        } else {
-            birthdayViewModel.birthdays.value!!
-                .filter { it.name.contains(query, ignoreCase = true) }
+        val birthdays = birthdayViewModel.birthdays.value
+        if (birthdays != null) {
+            filteredBirthdays = if (query.isEmpty()) {
+                birthdays
+            } else {
+                birthdays.filter { it.name.contains(query, ignoreCase = true) }
+            }
+            adapter.updateData(filteredBirthdays)
         }
-        adapter.updateData(filteredBirthdays)
     }
 
 

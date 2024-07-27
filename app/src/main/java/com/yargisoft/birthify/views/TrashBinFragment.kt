@@ -173,13 +173,15 @@ class TrashBinFragment : Fragment() {
     }
 
     private fun filterBirthdays(query: String) {
-        filteredBirthdays = if (query.isEmpty()) {
-            viewModel.deletedBirthdayList.value!!
-        } else {
-            viewModel.deletedBirthdayList.value!!
-                .filter { it.name.contains(query, ignoreCase = true) }
+        val birthdays = viewModel.birthdays.value
+        if (birthdays != null) {
+            filteredBirthdays = if (query.isEmpty()) {
+                birthdays
+            } else {
+                birthdays.filter { it.name.contains(query, ignoreCase = true) }
+            }
+            adapter.submitList(filteredBirthdays)
         }
-        adapter.submitList(filteredBirthdays)
     }
 
 
