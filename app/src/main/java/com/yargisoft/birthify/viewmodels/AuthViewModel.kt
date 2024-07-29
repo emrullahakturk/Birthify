@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yargisoft.birthify.repositories.AuthRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -17,61 +18,78 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
 
     var isEmailVerifiedResult: Boolean? = null
 
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading: StateFlow<Boolean> get() = _isLoading
+    private val _isLoaded = MutableStateFlow<Boolean?>(null)
+    val isLoaded: StateFlow<Boolean?> get() = _isLoaded
 
-    private val _registrationResult = MutableStateFlow<Boolean?>(null)
-    val registrationResult: StateFlow<Boolean?> get() = _registrationResult
+    private var _authViewModelState: Boolean?  = null
+    val authViewModelState: Boolean? get() = _authViewModelState
+
 
 
     private val _isResetMailSent = MutableStateFlow<Boolean?>(null)
     val isResetMailSent: StateFlow<Boolean?> get() = _isResetMailSent
 
-    private val _loginResult = MutableStateFlow<Boolean?>(null)
-    val loginResult: StateFlow<Boolean?> get() = _loginResult
+
 
 
     fun resetPassword(email: String) {
         viewModelScope.launch {
+
             try {
-                _isResetMailSent.value= repository.resetPassword(email)
+                _isResetMailSent.value = repository.resetPassword(email)
+                delay(2000)
+                _isLoaded.value = true
             }catch (e:Exception){
                 Log.e("exception","$e")
             }
+
+            _isResetMailSent.value = null
+            _isLoaded.value = null
         }
     }
 
     fun loginUser(email: String, password: String, isChecked: Boolean) {
         viewModelScope.launch {
-            _isLoading.value = true
             try {
-                val result = repository.loginUser(email, password, isChecked)
 
-                _loginResult.value = result.first
+                val result = repository.loginUser(email, password, isChecked)
+                _authViewModelState = result.first
                 isEmailVerifiedResult = result.second
+
+                delay(3000)
+
+                _isLoaded.value = true
+
+
             } catch (e: Exception) {
                 Log.e("exception","$e")
-                _loginResult.value = false
-            } finally {
-                _isLoading.value = false
+                _authViewModelState = false
             }
+
+            _isLoaded.value = null
+            _authViewModelState = null
+
         }
     }
 
 
     fun registerUser(name: String, email: String, password: String) {
         viewModelScope.launch {
-            _isLoading.value = true
             try {
                 val recordedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
                 val result = repository.registerUser(name, email, password, recordedDate)
-                _registrationResult.value = result
+                _authViewModelState = result
+
+                _isLoaded.value = true
+
             } catch (e: Exception) {
                 Log.e("exception","$e")
-                _registrationResult.value = false
-            } finally {
-                _isLoading.value = false
+                _authViewModelState = false
             }
+
+            _isLoaded.value = null
+            _authViewModelState = null
+
         }
     }
 

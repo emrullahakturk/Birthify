@@ -25,7 +25,7 @@ class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel(
     val birthdayViewModelState :Boolean? get() = _birthdayViewModelState
 
 
-    private val _birthdayList = MutableLiveData<List<Birthday>>(emptyList())
+    private val _birthdayList = MutableLiveData<List<Birthday>>()
     val birthdayList: LiveData<List<Birthday>> get() = _birthdayList
 
     private val _deletedBirthdayList = MutableLiveData<List<Birthday>>(emptyList())
