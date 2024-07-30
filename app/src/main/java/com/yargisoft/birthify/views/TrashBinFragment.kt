@@ -173,6 +173,13 @@ class TrashBinFragment : Fragment() {
             it.findNavController().navigate(R.id.trashToMainPage)
         }
 
+        binding.sortButtonTrashBin.setOnClickListener{
+
+            FrequentlyUsedFunctions.showSortMenu(it,requireContext(),adapter,birthdayViewModel)
+
+        }
+
+
         return binding.root
     }
 }

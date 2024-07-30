@@ -248,7 +248,7 @@ class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel(
 */
 
     @SuppressLint("CheckResult")
-    fun sortBirthdays(sort: String): List<Birthday>{
+    fun sortBirthdaysMainPage(sort: String): List<Birthday>{
         when(sort){
             "sortBirthdaysByNameAsc"-> return birthdayList.value?.sortedBy { it.name } ?: emptyList()
             "sortBirthdaysByNameDsc" -> return birthdayList.value?.sortedByDescending { it.name } ?: emptyList()
@@ -256,6 +256,17 @@ class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel(
             "sortBirthdaysByBirthdayDateDsc" -> return birthdayList.value?.sortedByDescending { it.birthdayDate } ?: emptyList()
             "sortBirthdaysByRecordedDateAsc" ->  return birthdayList.value?.sortedBy { it.recordedDate } ?: emptyList()
             "sortBirthdaysByRecordedDateDsc" -> return birthdayList.value?.sortedByDescending { it.recordedDate } ?: emptyList()
+        }
+        return emptyList()
+    }
+    fun sortBirthdaysTrashBin(sort: String): List<Birthday>{
+        when(sort){
+            "sortBirthdaysByNameAsc"-> return deletedBirthdayList.value?.sortedBy { it.name } ?: emptyList()
+            "sortBirthdaysByNameDsc" -> return deletedBirthdayList.value?.sortedByDescending { it.name } ?: emptyList()
+            "sortBirthdaysByBirthdayDateAsc" -> return deletedBirthdayList.value?.sortedBy { it.birthdayDate } ?: emptyList()
+            "sortBirthdaysByBirthdayDateDsc" -> return deletedBirthdayList.value?.sortedByDescending { it.birthdayDate } ?: emptyList()
+            "sortBirthdaysByRecordedDateAsc" ->  return deletedBirthdayList.value?.sortedBy { it.recordedDate } ?: emptyList()
+            "sortBirthdaysByRecordedDateDsc" -> return deletedBirthdayList.value?.sortedByDescending { it.recordedDate } ?: emptyList()
         }
         return emptyList()
     }

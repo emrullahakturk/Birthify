@@ -113,12 +113,12 @@ object FrequentlyUsedFunctions {
                                               birthdayViewModel: BirthdayViewModel) {
 
                 val sortedList = when (menuItem.itemId) {
-                    R.id.sort_by_name_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByNameAsc")
-                    R.id.sort_by_birth_date_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByBirthdayDateAsc")
-                    R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByRecordedDateAsc")
-                    R.id.sort_by_name_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByNameDsc")
-                    R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByBirthdayDateDsc")
-                    R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByRecordedDateDsc")
+                    R.id.sort_by_name_asc -> birthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByNameAsc")
+                    R.id.sort_by_birth_date_asc -> birthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByBirthdayDateAsc")
+                    R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByRecordedDateAsc")
+                    R.id.sort_by_name_dsc -> birthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByNameDsc")
+                    R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByBirthdayDateDsc")
+                    R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByRecordedDateDsc")
                     else -> emptyList()
                 }
 
@@ -149,12 +149,12 @@ object FrequentlyUsedFunctions {
     }
         private fun handleSortOptionSelected(menuItem: MenuItem, adapter: DeletedBirthdayAdapter, birthdayViewModel: BirthdayViewModel) {
         val sortedList = when (menuItem.itemId) {
-            R.id.sort_by_name_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByNameAsc")
-            R.id.sort_by_birth_date_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByBirthdayDateAsc")
-            R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByRecordedDateAsc")
-            R.id.sort_by_name_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByNameDsc")
-            R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByBirthdayDateDsc")
-            R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByRecordedDateDsc")
+            R.id.sort_by_name_asc -> birthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByNameAsc")
+            R.id.sort_by_birth_date_asc -> birthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByBirthdayDateAsc")
+            R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByRecordedDateAsc")
+            R.id.sort_by_name_dsc -> birthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByNameDsc")
+            R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByBirthdayDateDsc")
+            R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByRecordedDateDsc")
             else -> emptyList()
         }
 

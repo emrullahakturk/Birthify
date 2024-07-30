@@ -14,14 +14,6 @@
         tools:context=".views.TrashBinFragment">
 
 
-
-        <include
-            android:id="@+id/trashBinToolbar"
-            layout="@layout/custom_toolbar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/trashBinBottomNavigationView"
             android:layout_width="match_parent"
@@ -42,16 +34,31 @@
             android:id="@+id/trashBinDrawerLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toTopOf="@+id/trashBinBottomNavigationView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trashBinToolbar">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white">
+                android:background="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5">
+
+                <include
+                    android:id="@+id/trashBinToolbar"
+                    layout="@layout/custom_toolbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/trashBinMainTv"
@@ -77,34 +84,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/green_login"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/trashBinDeletedBirthdaysTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:text="@string/deleted_birthdays"
-                    android:textColor="@color/green_login"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                    app:layout_constraintTop_toBottomOf="@+id/trashBinDeletedBirthdaysTv"
+                    tools:layout_editor_absoluteX="0dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/trashBinSearchTextInputLayout"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="18dp"
-                    android:layout_marginRight="18dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
                     app:boxBackgroundMode="outline"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/sortButtonTrashBin"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/trashBinDeletedBirthdaysTv"
+                    app:layout_constraintTop_toBottomOf="@+id/trashBinLineView"
                     app:startIconDrawable="@drawable/ic_search"
                     app:startIconTint="@color/green_login">
 
@@ -112,9 +104,9 @@
                         android:id="@+id/trashBinSearchEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:imeOptions="actionDone"
                         android:background="@drawable/rounded_edit_text"
                         android:hint="@string/search"
+                        android:imeOptions="actionDone"
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:paddingStart="40dp"
@@ -122,6 +114,17 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/sortButtonTrashBin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:backgroundTint="@color/white"
+                    android:drawableEnd="@drawable/ic_dots"
+                    android:text="@string/sort_options"
+                    android:textColor="@color/green_login"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/trashBinLineView" />
 
                 <ScrollView
                     android:layout_width="0dp"
@@ -129,6 +132,7 @@
                     android:layout_marginTop="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/trashBinSearchTextInputLayout">
 
@@ -143,6 +147,19 @@
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                 </ScrollView>
+
+                <TextView
+                    android:id="@+id/trashBinDeletedBirthdaysTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/wittgenstein_font"
+                    android:text="@string/deleted_birthdays"
+                    android:textColor="@color/green_login"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/trashBinToolbar" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
