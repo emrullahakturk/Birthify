@@ -60,7 +60,8 @@
                 android:clickable="true"
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/back_button" />
 
             <include
                 android:id="@+id/includeBirthdayEdit"

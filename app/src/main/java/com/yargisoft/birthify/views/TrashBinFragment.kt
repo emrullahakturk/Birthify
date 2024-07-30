@@ -1,6 +1,5 @@
 package com.yargisoft.birthify.views
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -22,10 +20,8 @@ import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentTrashBinBinding
-import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
-import com.yargisoft.birthify.sharedpreferences.UserConstants
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.BirthdayViewModel
@@ -74,7 +70,7 @@ class TrashBinFragment : Fragment() {
                 findNavController().navigate(action)
             },
             requireContext(),
-            birthdayViewModel)
+            )
 
 
         //Recyckerview Tanımlamaları
@@ -96,8 +92,8 @@ class TrashBinFragment : Fragment() {
                     val action = TrashBinFragmentDirections.trashToDeletedDetail(birthday)
                     findNavController().navigate(action)
                 },
-                requireContext(),
-                birthdayViewModel)
+                requireContext()
+            )
 
             binding.trashBinRecyclerView.adapter = adapter
         }

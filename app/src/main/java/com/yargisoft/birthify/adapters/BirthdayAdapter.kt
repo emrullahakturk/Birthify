@@ -1,8 +1,6 @@
 package com.yargisoft.birthify.adapters
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -10,18 +8,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
-import com.airbnb.lottie.LottieAnimationView
-import com.google.android.material.snackbar.Snackbar
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.models.Birthday
-import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
-import com.yargisoft.birthify.viewmodels.BirthdayViewModel
-import kotlinx.coroutines.launch
 
 class BirthdayAdapter(private var birthdayList: List<Birthday>,
                       private val onEditClick: (Birthday) -> Unit,

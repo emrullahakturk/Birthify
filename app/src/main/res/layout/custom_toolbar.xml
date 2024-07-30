@@ -38,7 +38,8 @@
         android:layout_marginTop="20dp"
         android:src="@drawable/ic_menu_line"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/toolbar_menu_three_lines" />
 
     <ImageView
         android:id="@+id/addButtonToolbar"
@@ -48,6 +49,7 @@
         android:layout_marginEnd="20dp"
         android:src="@drawable/ic_add"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/add_a_new_birthday" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

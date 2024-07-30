@@ -58,4 +58,6 @@
     <string name="sort_by_birth_date_dsc">Sort by Birth Date (Dsc)</string>
     <string name="back_button">Back Button</string>
     <string name="edit">Edit</string>
+    <string name="add_a_new_birthday">Add A New Birthday</string>
+    <string name="toolbar_menu_three_lines">Toolbar Menu Three Lines</string>
 </resources>

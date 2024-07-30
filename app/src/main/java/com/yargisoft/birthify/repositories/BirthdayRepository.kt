@@ -7,7 +7,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.yargisoft.birthify.models.Birthday
 
-class BirthdayRepository (private val context: Context){
+class BirthdayRepository (context: Context){
 //    private val firestore = FirebaseFirestore.getInstance()
     private val gson = Gson()
     private val birthdayPreferences: SharedPreferences = context.getSharedPreferences("birthdays", Context.MODE_PRIVATE)
@@ -16,12 +16,6 @@ class BirthdayRepository (private val context: Context){
 
     private fun <T> SharedPreferences.putList(key: String, list: List<T>) {
         edit().putString(key, gson.toJson(list)).apply()
-    }
-
-    private inline fun <reified T> SharedPreferences.getList(key: String): List<T> {
-        val json = getString(key, null) ?: return emptyList()
-        val type = object : TypeToken<List<T>>() {}.type
-        return gson.fromJson(json, type)
     }
 
 

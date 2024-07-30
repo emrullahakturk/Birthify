@@ -2,7 +2,7 @@ package com.yargisoft.birthify.sharedpreferences
 
 import android.content.Context
 
-class UserSharedPreferencesManager(private val context: Context) {
+class UserSharedPreferencesManager(context: Context) {
     private val preferences = context.getSharedPreferences(UserConstants.PREFS_NAME, Context.MODE_PRIVATE)
 
     fun saveUserSession(email: String, userId: String, isChecked: Boolean) {

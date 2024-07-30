@@ -9,7 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import kotlinx.coroutines.tasks.await
 
-class AuthRepository(private val context: Context) {
+class AuthRepository(context: Context) {
     private val auth = FirebaseAuth.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
     private  val userSharedPreferencesManager = UserSharedPreferencesManager(context)

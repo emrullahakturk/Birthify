@@ -10,12 +10,10 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.models.Birthday
-import com.yargisoft.birthify.viewmodels.BirthdayViewModel
 
 class DeletedBirthdayAdapter(private var deletedBirthdayList: List<Birthday>,
                              private val onDetailClick: (Birthday) -> Unit,
                              val context : Context,
-                             private val viewModel: BirthdayViewModel,
 ) : RecyclerView.Adapter<DeletedBirthdayAdapter.DeletedBirthdayViewHolder>() {
 
 
