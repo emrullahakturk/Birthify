@@ -22,14 +22,18 @@
 
             <include
                 android:id="@+id/includeDetailBirthday"
-                layout="@layout/custom_toolbar" />
+                layout="@layout/custom_toolbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <TextView
                 android:id="@+id/birthdayDetailTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="@string/birthday_detail"
                 android:textColor="@color/green_login"
@@ -44,10 +48,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="7dp"
                 android:orientation="vertical"
                 android:padding="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/fabDetailBirthday"
+                app:layout_constraintBottom_toTopOf="@+id/editButtonBirthdayDetail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -69,9 +72,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edit_text"
-                        android:maxLines="1"
                         android:clickable="false"
                         android:focusable="false"
+                        android:maxLines="1"
                         android:paddingStart="40dp"
                         android:paddingEnd="0dp"
                         android:text="@{birthday.name}" />
@@ -117,9 +120,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edit_text"
-                        android:minLines="15"
                         android:clickable="false"
                         android:focusable="false"
+                        android:minLines="15"
                         android:paddingStart="40dp"
                         android:paddingEnd="0dp"
                         android:text="@{birthday.note}" />
@@ -127,6 +130,21 @@
 
 
             </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/editButtonBirthdayDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/green_login"
+                android:text="@string/edit"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/fabDetailBirthday"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabDetailBirthday"
@@ -136,6 +154,7 @@
                 android:layout_marginBottom="7dp"
                 android:backgroundTint="@color/green_login"
                 android:clickable="true"
+                android:contentDescription="@string/back_button"
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />

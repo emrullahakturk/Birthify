@@ -56,4 +56,6 @@
     <string name="sort_by_name_dsc">Sort by Name Dsc)</string>
     <string name="sort_by_recorded_date_dsc">Sort by Recorded Date (Dsc)</string>
     <string name="sort_by_birth_date_dsc">Sort by Birth Date (Dsc)</string>
+    <string name="back_button">Back Button</string>
+    <string name="edit">Edit</string>
 </resources>

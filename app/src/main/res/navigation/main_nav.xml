@@ -157,6 +157,9 @@
         android:id="@+id/birthdayDetailFragment"
         android:name="com.yargisoft.birthify.views.BirthdayDetailFragment"
         android:label="BirthdayDetailFragment" >
+        <action
+            android:id="@+id/detailToEdit"
+            app:destination="@id/birthdayEditFragment" />
         <argument
             android:name="birthday"
             app:argType="com.yargisoft.birthify.models.Birthday" />

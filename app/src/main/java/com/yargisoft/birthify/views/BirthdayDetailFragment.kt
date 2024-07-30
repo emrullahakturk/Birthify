@@ -24,6 +24,10 @@ class BirthdayDetailFragment : Fragment() {
 
         binding.birthday = detailedBirthday.birthday
         binding.fabDetailBirthday.setOnClickListener { findNavController().popBackStack() }
+        binding.editButtonBirthdayDetail.setOnClickListener {
+            val action = BirthdayDetailFragmentDirections.detailToEdit(detailedBirthday.birthday)
+            findNavController().navigate(action)
+        }
 
         // Inflate the layout for this fragment
         return binding.root
