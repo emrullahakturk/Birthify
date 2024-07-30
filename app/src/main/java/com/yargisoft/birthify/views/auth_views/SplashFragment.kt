@@ -9,13 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.yargisoft.birthify.R
-import com.yargisoft.birthify.sharedpreferences.BirthdaySharedPreferencesManager
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 
 
 class SplashFragment : Fragment() {
     private lateinit var userSharedPreferencesManager: UserSharedPreferencesManager
-    private lateinit var birthdaySharedPreferencesManager: BirthdaySharedPreferencesManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -23,8 +21,6 @@ class SplashFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_splash, container, false)
 
         userSharedPreferencesManager = UserSharedPreferencesManager(requireContext())
-        birthdaySharedPreferencesManager = BirthdaySharedPreferencesManager(requireContext())
-
         checkSession()
 
         return view
@@ -37,9 +33,8 @@ class SplashFragment : Fragment() {
                 findNavController().navigate(R.id.splashToMainPage)
             } else {
                 userSharedPreferencesManager.clearUserSession()
-                birthdaySharedPreferencesManager.clearBirthdays()
                 findNavController().navigate(R.id.splashToFirstPage)
             }
-        }, 2500) // 2 saniye bekletme
+        }, 3000) // 3 saniye bekletme
     }
 }

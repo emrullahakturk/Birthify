@@ -17,6 +17,51 @@ import java.time.format.DateTimeFormatter
 
 class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel() {
 
+
+
+
+    private val _birthdayList = MutableLiveData<List<Birthday>>()
+    val birthdayList: LiveData<List<Birthday>> get() = _birthdayList
+
+    private val _deletedBirthdayList = MutableLiveData<List<Birthday>>()
+    val deletedBirthdayList: LiveData<List<Birthday>> get() = _deletedBirthdayList
+
+
+    fun saveBirthday(birthday: Birthday){
+        repository.saveBirthday(birthday)
+    }
+    fun deleteBirthday(birthdayId:String){
+        repository.deleteBirthday(birthdayId )
+    }
+    fun updateBirthday(birthday: Birthday){
+        repository.updateBirthday(birthday)
+    }
+    fun getBirthdays(){
+       _birthdayList.value =  repository.getBirthdays()
+    }
+    fun clearBirthdays(){
+        repository.clearBirthdays()
+    }
+
+
+    fun permanentlyDeleteBirthday(birthdayId: String){
+        repository.permanentlyDeleteBirthday(birthdayId )
+    }
+    fun reSaveDeletedBirthday(birthdayId: String){
+        repository.reSaveDeletedBirthday(birthdayId)
+    }
+    fun getDeletedBirthdays(){
+       _deletedBirthdayList.value =  repository.getDeletedBirthdays()
+    }
+    fun clearDeletedBirthdays(){
+        repository.clearDeletedBirthdays()
+    }
+
+
+
+
+/*
+
     private val _isLoaded = MutableStateFlow<Boolean?>(null)
     val isLoaded: StateFlow<Boolean?> get() = _isLoaded
 
@@ -25,13 +70,13 @@ class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel(
     val birthdayViewModelState :Boolean? get() = _birthdayViewModelState
 
 
-    private val _birthdayList = MutableLiveData<List<Birthday>>()
-    val birthdayList: LiveData<List<Birthday>> get() = _birthdayList
-
     private val _deletedBirthdayList = MutableLiveData<List<Birthday>>(emptyList())
     val deletedBirthdayList: LiveData<List<Birthday>> get() = _deletedBirthdayList
 
 
+    fun saveBirthdayPref(name: String, birthdayDate: String, note: String, userId: String){
+        repository.saveBirthdayPref(name,birthdayDate, note, userId)
+    }
 
     fun saveBirthday(name: String, birthdayDate: String, note: String, userId: String) {
         viewModelScope.launch {
@@ -45,11 +90,14 @@ class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel(
                 delay(3000)
 
                 _isLoaded.value = true
-                /*isSuccess bir değer dönderene kadar burası ve bir üstümüzdeki isLoaded kodu
+                */
+/*isSuccess bir değer dönderene kadar burası ve bir üstümüzdeki isLoaded kodu
                  çalışmaz. isSuccess bir yanıt dönderdiğinde isLoaded kodu  true olur, UI güncellenir
                  ve hemen ardından state ve isLoaded değeri null yapılır (aşağıdaki gibi)
                  Çünkü null yapılmazsa bu fonksiyonun bir sonraki çağrılışında doğru değer dönmeyecek ve UI
                  işlemleri sağlıklı şekilde tamamlanmayacak. */
+    /*
+
 
             } catch (e: Exception) {
                 Log.e("HATA", "$e")
@@ -197,6 +245,7 @@ class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel(
         }
     }
 
+*/
 
     @SuppressLint("CheckResult")
     fun sortBirthdays(sort: String): List<Birthday>{
