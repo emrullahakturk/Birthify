@@ -43,7 +43,7 @@ object FrequentlyUsedFunctions {
 
     //EditText ile arama yaparken aramayı filtrelemek için kullanılan fonksiyon
      fun filterBirthdays(query: String,viewModel:BirthdayViewModel,adapter: DeletedBirthdayAdapter) {
-        val birthdays = viewModel.birthdayList.value
+        val birthdays = viewModel.deletedBirthdayList.value
         if (birthdays != null) {
             val filteredBirthdays = if (query.isEmpty()) {
                 birthdays
@@ -53,6 +53,7 @@ object FrequentlyUsedFunctions {
             adapter.updateData(filteredBirthdays)
         }
     }
+
     //EditText ile arama yaparken aramayı filtrelemek için kullanılan fonksiyon
      fun filterBirthdays(query: String,viewModel:BirthdayViewModel,adapter: BirthdayAdapter) {
         val birthdays = viewModel.birthdayList.value
@@ -83,39 +84,48 @@ object FrequentlyUsedFunctions {
     }
 
     //Main Page için sort menüsünü açma fonksiyonları
-        fun showSortMenu(view: View,context:Context, adapter: BirthdayAdapter, birthdayViewModel: BirthdayViewModel) {
-        val contextThemeWrapper = ContextThemeWrapper(context, R.style.CustomPopupMenu)
-        val popupMenu = PopupMenu(contextThemeWrapper, view)
-        popupMenu.menuInflater.inflate(R.menu.sorting_birthday_menu, popupMenu.menu)
+        fun showSortMenu( view: View,
+                          context:Context,
+                          adapter: BirthdayAdapter,
+                          birthdayViewModel: BirthdayViewModel){
 
-        // Menü öğelerine özel stil uygulama
-        for (i in 0 until popupMenu.menu.size()) {
-            val menuItem = popupMenu.menu.getItem(i)
-            val spanString = SpannableString(menuItem.title)
-            spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.green_login)), 0, spanString.length, 0)
-            menuItem.title = spanString
-        }
+                val contextThemeWrapper = ContextThemeWrapper(context, R.style.CustomPopupMenu)
+                val popupMenu = PopupMenu(contextThemeWrapper, view)
+                popupMenu.menuInflater.inflate(R.menu.sorting_birthday_menu, popupMenu.menu)
 
-        popupMenu.setOnMenuItemClickListener { menuItem: MenuItem ->
-            handleSortOptionSelected(menuItem,adapter,birthdayViewModel)
-            true
-        }
-        popupMenu.show()
-    }
-        private fun handleSortOptionSelected(menuItem: MenuItem, adapter: BirthdayAdapter, birthdayViewModel: BirthdayViewModel) {
-        val sortedList = when (menuItem.itemId) {
-            R.id.sort_by_name_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByNameAsc")
-            R.id.sort_by_birth_date_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByBirthdayDateAsc")
-            R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByRecordedDateAsc")
-            R.id.sort_by_name_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByNameDsc")
-            R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByBirthdayDateDsc")
-            R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByRecordedDateDsc")
-            else -> emptyList()
-        }
+                // Menü öğelerine özel stil uygulama
+                for (i in 0 until popupMenu.menu.size()) {
+                    val menuItem = popupMenu.menu.getItem(i)
+                    val spanString = SpannableString(menuItem.title)
+                    spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.green_login)), 0, spanString.length, 0)
+                    menuItem.title = spanString
+                }
 
-        adapter.updateData(sortedList)
-    }
+                popupMenu.setOnMenuItemClickListener { menuItem: MenuItem ->
+                    handleSortOptionSelected(menuItem,adapter,birthdayViewModel)
+                    true
+                }
+                popupMenu.show()
+
+        }
+        private fun handleSortOptionSelected( menuItem: MenuItem,
+                                              adapter: BirthdayAdapter,
+                                              birthdayViewModel: BirthdayViewModel) {
+
+                val sortedList = when (menuItem.itemId) {
+                    R.id.sort_by_name_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByNameAsc")
+                    R.id.sort_by_birth_date_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByBirthdayDateAsc")
+                    R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByRecordedDateAsc")
+                    R.id.sort_by_name_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByNameDsc")
+                    R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByBirthdayDateDsc")
+                    R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByRecordedDateDsc")
+                    else -> emptyList()
+                }
+
+                adapter.updateData(sortedList)
+         }
     //Main Page için sort menüsünü açma fonksiyonları
+
 
     // Deleted (Trash Bin) Page için sort menüsünü açma fonksiyonları
         fun showSortMenu(view: View,context:Context, adapter: DeletedBirthdayAdapter, birthdayViewModel: BirthdayViewModel) {

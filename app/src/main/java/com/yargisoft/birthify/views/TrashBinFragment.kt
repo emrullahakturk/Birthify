@@ -1,5 +1,6 @@
 package com.yargisoft.birthify.views
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -22,9 +23,13 @@ import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentTrashBinBinding
 import com.yargisoft.birthify.models.Birthday
+import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
+import com.yargisoft.birthify.sharedpreferences.UserConstants
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
+import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.BirthdayViewModel
+import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
 
 
@@ -32,12 +37,10 @@ import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
 class TrashBinFragment : Fragment() {
 
     private lateinit var binding: FragmentTrashBinBinding
-    private lateinit var viewModel: BirthdayViewModel
-    private lateinit var sharedPreferences: UserSharedPreferencesManager
+    private lateinit var birthdayViewModel: BirthdayViewModel
+    private lateinit var authViewModel: AuthViewModel
+    private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var adapter: DeletedBirthdayAdapter
-    private var filteredBirthdays: List<Birthday> = listOf() // Filtrelenmiş doğum günleri listesi
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,14 +48,19 @@ class TrashBinFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trash_bin, container, false)
 
 
-        //ViewModel Initialization
-        val repository = BirthdayRepository(requireContext())
-        val factory = BirthdayViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, factory)[BirthdayViewModel::class]
+        //Birthday ViewModel Initialization
+        val birthdayRepository = BirthdayRepository(requireContext())
+        val birthdayViewModelFactory = BirthdayViewModelFactory(birthdayRepository)
+        birthdayViewModel = ViewModelProvider(this, birthdayViewModelFactory)[BirthdayViewModel::class]
+
+        //Birthday ViewModel Initialization
+        val authRepository = AuthRepository(requireContext())
+        val authViewModelFactory = AuthViewModelFactory(authRepository)
+        authViewModel = ViewModelProvider(this, authViewModelFactory)[AuthViewModel::class]
 
 
         //user SharedPreferences
-        sharedPreferences = UserSharedPreferencesManager(requireContext())
+        userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.trashBinDrawerLayout
@@ -66,7 +74,7 @@ class TrashBinFragment : Fragment() {
                 findNavController().navigate(action)
             },
             requireContext(),
-            viewModel)
+            birthdayViewModel)
 
 
         //Recyckerview Tanımlamaları
@@ -75,14 +83,12 @@ class TrashBinFragment : Fragment() {
 
 
         //deletedBirthdays' listesini güncelleme
-        viewModel.getDeletedBirthdays(sharedPreferences.getUserId())
+        birthdayViewModel.getDeletedBirthdays()
 
 
-
-        viewModel.deletedBirthdayList.observe(viewLifecycleOwner) { deletedBirthdays ->
+        birthdayViewModel.deletedBirthdayList.observe(viewLifecycleOwner) { deletedBirthdays ->
 
             binding.trashBinMainTv.visibility = if (deletedBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
-
 
             // Adapter initialization
             adapter = DeletedBirthdayAdapter(deletedBirthdays,
@@ -91,7 +97,7 @@ class TrashBinFragment : Fragment() {
                     findNavController().navigate(action)
                 },
                 requireContext(),
-                viewModel)
+                birthdayViewModel)
 
             binding.trashBinRecyclerView.adapter = adapter
         }
@@ -114,7 +120,10 @@ class TrashBinFragment : Fragment() {
                     findNavController().navigate(R.id.trashToMainPage)
                 }
                 R.id.labelLogOut -> {
-                    sharedPreferences.clearUserSession()
+                    authViewModel.logoutUser()
+                    userSharedPreferences.clearUserSession()
+                    birthdayRepository.clearBirthdays()
+                    birthdayRepository.clearDeletedBirthdays()
                     findNavController().navigate(R.id.trashToFirstPage)
                 }
                 R.id.labelTrashBin -> {
@@ -141,7 +150,7 @@ class TrashBinFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                FrequentlyUsedFunctions.filterBirthdays(s.toString(),viewModel,adapter)
+                FrequentlyUsedFunctions.filterBirthdays(s.toString(), birthdayViewModel, adapter)
             }
 
             override fun afterTextChanged(s: Editable?) {}

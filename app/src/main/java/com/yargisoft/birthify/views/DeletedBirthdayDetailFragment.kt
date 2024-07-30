@@ -1,6 +1,5 @@
 package com.yargisoft.birthify.views
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -42,8 +41,6 @@ class DeletedBirthdayDetailFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_deleted_birthday_detail , container, false)
 
-        //Snackbar için view
-         val  view = (context as Activity).findViewById<View>(android.R.id.content)
 
 
         //Birthday viewModel Tanımlama için gerekenler
@@ -110,25 +107,32 @@ class DeletedBirthdayDetailFragment : Fragment() {
 
 
         binding.reSaveDeletedBirthday.setOnClickListener {
-            FrequentlyUsedFunctions.showReSaveConfirmationDialog(view,
+            FrequentlyUsedFunctions.showConfirmationDialog(
+                binding.root,
                 requireContext(),
                 birthdayViewModel,
+                deletedBirthday.birthday,
                 binding.deletedBirthdayDetailLottieAnimation,
-                 viewLifecycleOwner,
-                 deletedBirthday.birthday,
-                 findNavController()
+                viewLifecycleOwner,
+                "re_save",
+                findNavController(),
+                R.id.deletedDetailToTrashBin
             )
         }
 
+
         binding.permanentlyDeleteButton.setOnClickListener {
-            FrequentlyUsedFunctions.showPermanentlyDeleteConfirmationDialog(
-                requireView(),
+            FrequentlyUsedFunctions.showConfirmationDialog(
+                binding.root,
                 requireContext(),
                 birthdayViewModel,
+                deletedBirthday.birthday,
                 binding.deletedBirthdayDetailLottieAnimation,
                 viewLifecycleOwner,
-                deletedBirthday.birthday,
-                findNavController())
+                "permanently",
+                findNavController(),
+                R.id.deletedDetailToTrashBin
+                )
         }
         return binding.root
     }

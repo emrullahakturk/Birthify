@@ -5,10 +5,12 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
@@ -24,10 +26,10 @@ class SwipeToDeleteCallback(
     private val viewModel: BirthdayViewModel,
     private val lifeCycleOwner: LifecycleOwner,
     private val deleteLottieAnimationView: LottieAnimationView,
-    private val threePointLottieAnimationView: LottieAnimationView,
-    private val userPreferences: UserSharedPreferencesManager,
+    private val findNavController: NavController,
     private val fragmentView: View,
     private val birthdayList: List<Birthday>,
+    private val action: Int
 ) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
     override fun onMove(
@@ -42,17 +44,17 @@ class SwipeToDeleteCallback(
         val position = viewHolder.adapterPosition
         if (position >= 0 || position < adapter.itemCount) {
 
-            //adapter.updateData(birthdayList)
             FrequentlyUsedFunctions.showDeleteDialogBirthdayAdapter(
                 position,
                 fragmentView,
                 context,
                 birthdayList,
                 deleteLottieAnimationView,
-                threePointLottieAnimationView,
                 viewModel,
                 lifeCycleOwner,
-                userPreferences)
+                findNavController,
+                action
+                )
 
             // Swipe işlemini sıfırla
             adapter.notifyItemChanged(position)

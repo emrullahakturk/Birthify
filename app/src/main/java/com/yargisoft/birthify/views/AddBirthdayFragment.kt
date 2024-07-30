@@ -18,25 +18,29 @@ import com.google.android.material.snackbar.Snackbar
 import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAddBirthdayBinding
+import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.BirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.UUID
 
 
 @Suppress("UNUSED_EXPRESSION")
 class AddBirthdayFragment : Fragment() {
     private lateinit var viewModel: BirthdayViewModel
     private lateinit var binding : FragmentAddBirthdayBinding
-    private lateinit var sharedPreferences: UserSharedPreferencesManager
+    private lateinit var userSharedPreferences: UserSharedPreferencesManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_add_birthday, container, false)
+        val view = (context as Activity).findViewById<View>(android.R.id.content)
 
-
-        sharedPreferences = UserSharedPreferencesManager(requireContext())
+        userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
         val repository = BirthdayRepository(requireContext())
         val factory = BirthdayViewModelFactory(repository)
@@ -47,32 +51,20 @@ class AddBirthdayFragment : Fragment() {
             val name = binding.nameAddBirthdayEditText.text.toString()
             val birthdayDate = binding.birthdayDateEditText.text.toString()
             val note = binding.noteAddBirthdayEditText.text.toString()
-            val userId =  sharedPreferences.getUserId()
+            val userId =  userSharedPreferences.getUserId()
+            val recordedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
 
-
-            val view = (context as Activity).findViewById<View>(android.R.id.content)
+            val bDay = Birthday(UUID.randomUUID().toString(), name, birthdayDate, recordedDate, note , userId )
 
             if (name.isNotEmpty() && birthdayDate.isNotEmpty() && note.isNotEmpty()) {
-                binding.addBirthdayTopLayout.visibility = View.INVISIBLE
-                binding.addBirthdayConsLayout.setBackgroundResource(R.drawable.welcome_background)
-                binding.addBirthdayLottieAnimation.visibility = View.VISIBLE
-                binding.addBirthdayLottieAnimation.playAnimation()
-
-                viewModel.saveBirthday(name, birthdayDate, note, userId = userId)
-
-                FrequentlyUsedFunctions.addBirthdayValidation(viewLifecycleOwner,
-                    viewModel,
-                    binding.addBirthdayLottieAnimation,
-                    binding.root,
-                    findNavController(),
-                    binding.addBirthdayTopLayout,
-                    binding.addBirthdayConsLayout)
-
+                viewModel.saveBirthday(bDay)
+                FrequentlyUsedFunctions.loadAndStateOperation(viewLifecycleOwner, viewModel, binding.addBirthdayLottieAnimation, binding.root, findNavController(), R.id.addToMain)
             }
             else{
                 Snackbar.make(view,"Please fill in all fields",Snackbar.LENGTH_SHORT).show()
             }
         }
+
 
         binding.birthdayDateEditText.setOnClickListener {
             FrequentlyUsedFunctions.showDatePickerDialog(requireContext(),binding.birthdayDateEditText)
@@ -98,19 +90,16 @@ class AddBirthdayFragment : Fragment() {
                     findNavController().navigate(R.id.mainToMain)
                 }
                 R.id.labelLogOut -> {
-                    sharedPreferences.clearUserSession()
+                    userSharedPreferences.clearUserSession()
                     findNavController().navigate(R.id.firstPageFragment)
                 }
                 R.id.labelTrashBin -> {
-                    sharedPreferences.clearUserSession()
                     findNavController().navigate(R.id.firstPageFragment)
                 }
                 R.id.labelSettings -> {
-                    sharedPreferences.clearUserSession()
                     findNavController().navigate(R.id.firstPageFragment)
                 }
                 R.id.labelProfile -> {
-                    sharedPreferences.clearUserSession()
                     findNavController().navigate(R.id.firstPageFragment)
                 }
                 else -> false

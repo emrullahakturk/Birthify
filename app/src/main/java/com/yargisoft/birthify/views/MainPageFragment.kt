@@ -3,6 +3,7 @@ package com.yargisoft.birthify.views
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +25,6 @@ import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentMainPageBinding
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
-import com.yargisoft.birthify.sharedpreferences.BirthdaySharedPreferencesManager
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.BirthdayViewModel
@@ -38,8 +38,8 @@ class MainPageFragment : Fragment() {
     private lateinit var birthdayViewModel: BirthdayViewModel
     private lateinit var authViewModel: AuthViewModel
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
-    private lateinit var birthdaySharedPreferences: BirthdaySharedPreferencesManager
     private lateinit var adapter: BirthdayAdapter
+    private lateinit var itemTouchHelper: ItemTouchHelper
 
 
     override fun onCreateView(
@@ -51,8 +51,6 @@ class MainPageFragment : Fragment() {
 
         //user SharedPreferences
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
-        //birthday SharedPreferences
-        birthdaySharedPreferences = BirthdaySharedPreferencesManager(requireContext())
 
 
         // DrawerLayout ve NavigationView tanımlamaları
@@ -72,14 +70,18 @@ class MainPageFragment : Fragment() {
         authViewModel = ViewModelProvider(this, authFactory)[AuthViewModel::class]
 
 
-        //Firebase üzerinden doğum günleri çekilir ve hem viewModel birthday listesi hem sharedPreferences olarak saklanan birthday listesi güncellenir
-        birthdayViewModel.getUserBirthdays(userSharedPreferences.getUserId())
+        //doğum günlerini liveDataya çekiyoruz
+        birthdayViewModel.getBirthdays()
 
 
-        //adapter initialization
+
+
+         val adapterList= birthdayViewModel.birthdayList.value ?: emptyList()
+
+        //Adapter'ı initialize etme
         adapter = BirthdayAdapter(
-            birthdaySharedPreferences.getBirthdays().sortedByDescending { it.recordedDate },
-            { birthday ->
+            adapterList.sortedByDescending { it.recordedDate },
+            {birthday ->
                 val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
                 findNavController().navigate(action)
             },
@@ -88,53 +90,31 @@ class MainPageFragment : Fragment() {
                 findNavController().navigate(action)
             },
             requireContext(),
-            binding.clickToAddBirthdayTv
-        )
+            binding.clickToAddBirthdayTv)
+
+        //ItemTouchHelper initialize etme
+        itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(
+            adapter,
+            requireContext(),
+            birthdayViewModel,
+            viewLifecycleOwner,
+            binding.mainPageDeleteLottieAnimation,
+            findNavController(),
+            binding.root,
+            adapterList,
+            R.id.mainToMain
+        ))
+        itemTouchHelper.attachToRecyclerView(binding.birthdayRecyclerView)
+
+        //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
+        birthdayViewModel.birthdayList.observe(viewLifecycleOwner) { birthdays ->
+            adapter.updateData(birthdays)
+        }
 
         binding.birthdayRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.birthdayRecyclerView.adapter = adapter
 
 
-
-        // ItemTouchHelper'ın RecyclerView'a doğru şekilde eklendiğinden emin olun
-        val birthdaysItemTouch= birthdayViewModel.birthdays.value ?: emptyList()
-        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(
-                    adapter,
-                    requireContext(),
-                    birthdayViewModel,
-                    viewLifecycleOwner,
-                    binding.mainPageDeleteLottieAnimation,
-                    binding.mainPageThreePointLottieAnim,
-                    userSharedPreferences,
-                    binding.root,
-            birthdaysItemTouch
-                ))
-        itemTouchHelper.attachToRecyclerView(binding.birthdayRecyclerView)
-
-        //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
-        birthdayViewModel.birthdays.observe(viewLifecycleOwner) { birthdays ->
-            adapter.updateData(birthdays)
-            /* //adapter initialization
-             adapter = BirthdayAdapter(
-                 birthdays.sortedByDescending { it.recordedDate },
-                 {birthday ->
-                     val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
-                     findNavController().navigate(action)
-                 },
-                 { birthday ->
-                     val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
-                     findNavController().navigate(action)
-                 },
-                 requireContext(),
-                 birthdayViewModel,
-                 viewLifecycleOwner,
-                 binding.mainPageDeleteLottieAnimation,
-                 binding.mainPageThreePointLottieAnim,
-                 binding.root,
-                 binding.clickToAddBirthdayTv)
-
-             binding.birthdayRecyclerView.adapter = adapter*/
-        }
 
 
         //Search edittext'i ile doğum günü arama ekliyoruz
@@ -169,8 +149,10 @@ class MainPageFragment : Fragment() {
                 }
 
                 R.id.labelLogOut -> {
-                    userSharedPreferences.clearUserSession()
                     authViewModel.logoutUser()
+                    userSharedPreferences.clearUserSession()
+                    birthdayRepository.clearBirthdays()
+                    birthdayRepository.clearDeletedBirthdays()
                     findNavController().navigate(R.id.firstPageFragment)
                 }
 

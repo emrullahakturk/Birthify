@@ -18,6 +18,7 @@ import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
 
 
 class BirthdayEditFragment : Fragment() {
+
     private lateinit var binding : FragmentBirthdayEditBinding
     private val editedBirthday : BirthdayEditFragmentArgs by navArgs()
     private lateinit var viewModel: BirthdayViewModel
@@ -53,12 +54,13 @@ class BirthdayEditFragment : Fragment() {
 
             viewModel.updateBirthday(updatedBirthday)
 
-           FrequentlyUsedFunctions.updateBirthdayEditPage(
-               binding.root,
-               binding.editBirthdayLottieAnimation,
+           FrequentlyUsedFunctions.loadAndStateOperation(
                viewLifecycleOwner,
                viewModel,
-               findNavController()
+               binding.editBirthdayLottieAnimation,
+               binding.root,
+               findNavController(),
+               R.id.editToMain
                )
 
         }
@@ -68,14 +70,17 @@ class BirthdayEditFragment : Fragment() {
         }
 
         binding.deleteBirthdayButton.setOnClickListener {
-           FrequentlyUsedFunctions.showDeleteConfirmationDialog(
+           FrequentlyUsedFunctions.showConfirmationDialog(
                binding.root,
                requireContext(),
                viewModel,
                editedBirthday.birthday,
                binding.editBirthdayLottieAnimation,
                viewLifecycleOwner,
-               findNavController())
+               "soft_delete",
+               findNavController(),
+               action = R.id.editToMain
+           )
         }
 
         binding.fabEditBirthday.setOnClickListener {
