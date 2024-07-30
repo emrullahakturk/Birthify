@@ -1,7 +1,6 @@
 package com.yargisoft.birthify
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
@@ -15,12 +14,12 @@ import android.view.ContextThemeWrapper
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
@@ -44,7 +43,7 @@ object FrequentlyUsedFunctions {
 
     //EditText ile arama yaparken aramayı filtrelemek için kullanılan fonksiyon
      fun filterBirthdays(query: String,viewModel:BirthdayViewModel,adapter: DeletedBirthdayAdapter) {
-        val birthdays = viewModel.birthdays.value
+        val birthdays = viewModel.birthdayList.value
         if (birthdays != null) {
             val filteredBirthdays = if (query.isEmpty()) {
                 birthdays
@@ -56,7 +55,7 @@ object FrequentlyUsedFunctions {
     }
     //EditText ile arama yaparken aramayı filtrelemek için kullanılan fonksiyon
      fun filterBirthdays(query: String,viewModel:BirthdayViewModel,adapter: BirthdayAdapter) {
-        val birthdays = viewModel.birthdays.value
+        val birthdays = viewModel.birthdayList.value
         if (birthdays != null) {
             val filteredBirthdays = if (query.isEmpty()) {
                 birthdays
@@ -67,7 +66,21 @@ object FrequentlyUsedFunctions {
         }
     }
 
+    //Ekranı tıklanabilir hale getiren ve lottie animasyonunu durduran fonksiyon
+    private fun enableViewDisableLottie(lottieAnimationView: LottieAnimationView, view: View)
+    {
+        lottieAnimationView.cancelAnimation()
+        lottieAnimationView.visibility = View.INVISIBLE
+        setViewAndChildrenEnabled(view,true)
+    }
 
+    //Ekranı tıklanamaz hale getiren ve lottie animasyonunu başlatan fonksiyon
+    private fun disableViewEnableLottie(lottieAnimationView:LottieAnimationView, view: View)
+    {
+        lottieAnimationView.visibility = View.VISIBLE
+        lottieAnimationView.playAnimation()
+        setViewAndChildrenEnabled(view, false)
+    }
 
     //Main Page için sort menüsünü açma fonksiyonları
         fun showSortMenu(view: View,context:Context, adapter: BirthdayAdapter, birthdayViewModel: BirthdayViewModel) {
@@ -91,20 +104,18 @@ object FrequentlyUsedFunctions {
     }
         private fun handleSortOptionSelected(menuItem: MenuItem, adapter: BirthdayAdapter, birthdayViewModel: BirthdayViewModel) {
         val sortedList = when (menuItem.itemId) {
-            R.id.sort_by_name_asc -> birthdayViewModel.sortBirthdaysByNameAsc()
-            R.id.sort_by_birth_date_asc -> birthdayViewModel.sortBirthdaysByBirthdayDateAsc()
-            R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortBirthdaysByRecordedDateAsc()
-            R.id.sort_by_name_dsc -> birthdayViewModel.sortBirthdaysByNameDsc()
-            R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortBirthdaysByBirthdayDateDsc()
-            R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortBirthdaysByRecordedDateDsc()
+            R.id.sort_by_name_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByNameAsc")
+            R.id.sort_by_birth_date_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByBirthdayDateAsc")
+            R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByRecordedDateAsc")
+            R.id.sort_by_name_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByNameDsc")
+            R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByBirthdayDateDsc")
+            R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByRecordedDateDsc")
             else -> emptyList()
         }
 
         adapter.updateData(sortedList)
     }
     //Main Page için sort menüsünü açma fonksiyonları
-
-
 
     // Deleted (Trash Bin) Page için sort menüsünü açma fonksiyonları
         fun showSortMenu(view: View,context:Context, adapter: DeletedBirthdayAdapter, birthdayViewModel: BirthdayViewModel) {
@@ -128,20 +139,18 @@ object FrequentlyUsedFunctions {
     }
         private fun handleSortOptionSelected(menuItem: MenuItem, adapter: DeletedBirthdayAdapter, birthdayViewModel: BirthdayViewModel) {
         val sortedList = when (menuItem.itemId) {
-            R.id.sort_by_name_asc -> birthdayViewModel.sortBirthdaysByNameAsc()
-            R.id.sort_by_birth_date_asc -> birthdayViewModel.sortBirthdaysByBirthdayDateAsc()
-            R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortBirthdaysByRecordedDateAsc()
-            R.id.sort_by_name_dsc -> birthdayViewModel.sortBirthdaysByNameDsc()
-            R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortBirthdaysByBirthdayDateDsc()
-            R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortBirthdaysByRecordedDateDsc()
+            R.id.sort_by_name_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByNameAsc")
+            R.id.sort_by_birth_date_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByBirthdayDateAsc")
+            R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortBirthdays("sortBirthdaysByRecordedDateAsc")
+            R.id.sort_by_name_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByNameDsc")
+            R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByBirthdayDateDsc")
+            R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortBirthdays("sortBirthdaysByRecordedDateDsc")
             else -> emptyList()
         }
 
         adapter.updateData(sortedList)
     }
     //Deleted (Trash Bin) Page için sort menüsünü açma fonksiyonları
-
-
 
 
     // Tarih seçme ekranı için gereken fonksiyon
@@ -159,10 +168,8 @@ object FrequentlyUsedFunctions {
         datePickerDialog.show()
     }
 
-
-
     //parametre olarak gelen view'i devre dışı bırakmak ve tekrar aktif etmek için kullanılan fonksiyon
-     fun setViewAndChildrenEnabled(view: View, enabled: Boolean) {
+    private fun setViewAndChildrenEnabled(view: View, enabled: Boolean) {
         view.isEnabled = enabled
         if (view is ViewGroup) {
             for (i in 0 until view.childCount) {
@@ -170,6 +177,8 @@ object FrequentlyUsedFunctions {
             }
         }
     }
+    //parametre olarak gelen view'i devre dışı bırakmak ve tekrar aktif etmek için kullanılan fonksiyon
+
 
     //Email, password ve fullname validation için kullanılan fonksiyonlar
      fun isValidEmail(email: String): Boolean {
@@ -179,7 +188,6 @@ object FrequentlyUsedFunctions {
         val emailPattern = Patterns.EMAIL_ADDRESS
         return emailPattern.matcher(email).matches()
     }
-
      fun isValidPassword(password: String): Boolean {
         if (password.isBlank()) {
             return false
@@ -210,127 +218,38 @@ object FrequentlyUsedFunctions {
 
 
 
-    //Doğum gününü kalıcı olarak silmek için onay diyaloğu çıkaran fonksiyon
-    fun showPermanentlyDeleteConfirmationDialog(
-        view: View, context: Context,
-        birthdayViewModel: BirthdayViewModel,
-        lottieAnimationView: LottieAnimationView,
-        viewLifecycleOwner: LifecycleOwner,
-        birthday: Birthday,
-        findNavController: NavController
-    ) {
-
+/*
+    silme , yeniden kaydetme ve tamamen silme işlemlerimiz
+    için kullandığımız onaylama diyaloğumu çağıran fonksiyon
+*/
+    fun showConfirmationDialog(view: View, context: Context, birthdayViewModel:BirthdayViewModel, editedBirthday:Birthday, lottieAnimationView: LottieAnimationView, viewLifecycleOwner:LifecycleOwner, condition: String,findNavController: NavController, action:Int )
+    {
         AlertDialog.Builder(context)
-            .setTitle("Confirm Deleting Permanently")
-            .setMessage("Are you sure you want to permanently delete this birthday?")
+            .setTitle("Confirm Operation")
+            .setMessage("Are you sure you want to do this operation?")
             .setPositiveButton("Yes") { _, _ ->
 
-                birthdayViewModel.deleteBirthdayPermanently(birthday.id)
-
-                lottieAnimationView.playAnimation()
-                lottieAnimationView.visibility = View.VISIBLE
-                setViewAndChildrenEnabled(view,false)
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                            birthdayViewModel.isLoaded.collect { isLoaded ->
-                                if(isLoaded ==true){
-                                    //animasyonu durdurup view'i visible yapıyoruz
-                                    lottieAnimationView.cancelAnimation()
-                                    lottieAnimationView.visibility = View.INVISIBLE
-                                    setViewAndChildrenEnabled(view,true)
-                                }
-                            }
-                        }
+                when (condition) {
+                    "permanently" -> {
+                        birthdayViewModel.permanentlyDeleteBirthday(editedBirthday.id)
                     }
-
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
-                            birthdayViewModel.permanentlyDeleteBirthdayState.collect{ isPermanentlyDeleted->
-                                if (isPermanentlyDeleted == true){
-                                    Snackbar.make(view,"Birthday permanently deleted successfully", Snackbar.LENGTH_SHORT).show()
-                                    findNavController.navigateUp()
-                                }
-                                if (isPermanentlyDeleted == false){
-
-                                    Snackbar.make(view,"Failed to permanently delete birthday",
-                                        Snackbar.LENGTH_SHORT).show()
-                                }
-                            }
-                        }
+                    "soft_delete" -> {
+                       birthdayViewModel.deleteBirthday(editedBirthday.id)
                     }
+                    "re_save" -> {
+                      birthdayViewModel.reSaveDeletedBirthday(editedBirthday.id)
+                    }
+                }
 
-
-                },3000)
-
+                loadAndStateOperation(viewLifecycleOwner,birthdayViewModel,lottieAnimationView,view,findNavController,action)
             }
             .setNegativeButton("No"){_,_->
                 //animasyonu durdurup view'i visible yapıyoruz
-                lottieAnimationView.cancelAnimation()
-                lottieAnimationView.visibility = View.INVISIBLE
-                setViewAndChildrenEnabled(view,true)
+                enableViewDisableLottie(lottieAnimationView,view)
             }
             .show()
     }
 
-
-    //Doğum gününü geri kaydetmek için onay diyaloğu çıkaran fonksiyon
-     fun showReSaveConfirmationDialog(view:View,
-                                      context: Context,
-                                      birthdayViewModel: BirthdayViewModel,
-                                      lottieAnimationView: LottieAnimationView,
-                                      viewLifecycleOwner: LifecycleOwner,
-                                      birthday: Birthday,
-                                      findNavController: NavController) {
-        AlertDialog.Builder(context)
-            .setTitle("Confirm Re Saving")
-            .setMessage("Are you sure you want to re save this birthday?")
-            .setPositiveButton("Yes") { _, _ ->
-
-                birthdayViewModel.reSaveDeletedBirthday(birthday.id, birthday)
-
-                 lottieAnimationView.playAnimation()
-                 lottieAnimationView.visibility = View.VISIBLE
-                 setViewAndChildrenEnabled(view,false)
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                            birthdayViewModel.isLoaded.collect { isLoaded ->
-                                if(isLoaded == true){
-                                    //animasyonu durdurup view'i visible yapıyoruz
-                                   lottieAnimationView.cancelAnimation()
-                                    lottieAnimationView.visibility = View.INVISIBLE
-                                    FrequentlyUsedFunctions.setViewAndChildrenEnabled(view,true)
-                                }
-                            }
-                        }
-                    }
-
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
-                            birthdayViewModel.reSaveDeletedBirthdayState.collect{ isResaved->
-                                if (isResaved == true){
-                                    Snackbar.make(view,"Birthday re saved successfully", Snackbar.LENGTH_SHORT).show()
-                                    findNavController.navigateUp()
-                                }
-                                if (isResaved == false){
-                                    Snackbar.make(view,"Failed to re save birthday",Snackbar.LENGTH_SHORT).show()
-                                }
-                            }
-                        }
-                    }
-                },3000)
-            }
-            .setNegativeButton("No"){_,_->
-                //animasyonu durdurup view'i visible yapıyoruz
-                lottieAnimationView.cancelAnimation()
-                lottieAnimationView.visibility = View.INVISIBLE
-                setViewAndChildrenEnabled(view,true)
-            }
-            .show()
-    }
 
 
     /*Login page içerisinde login butonuna tıkladığımızda, verilen email validasyonunu yapan,
@@ -343,55 +262,46 @@ object FrequentlyUsedFunctions {
                                 lottieAnimationView: LottieAnimationView,
                                 viewLifecycleOwner: LifecycleOwner,
                                 userSharedPreferences: UserSharedPreferencesManager,
-                                findNavController: NavController
+                                findNavController: NavController,
+                                action: Int
                                 ){
+
         if (isValidEmail(email) && password.isNotEmpty()) {
+
             authViewModel.loginUser(email, password,isChecked)
 
-            lottieAnimationView.visibility = View.VISIBLE
-            lottieAnimationView.playAnimation()
-            setViewAndChildrenEnabled(view,false)
+            disableViewEnableLottie(lottieAnimationView,view)
 
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    authViewModel.isLoaded.collect { isLoaded ->
+                        if(isLoaded == true){
+                            Log.e("tagımıs","is loaded işlemi")
 
-            Handler(Looper.getMainLooper()).postDelayed({
-                viewLifecycleOwner.lifecycleScope.launch {
-                    viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                        authViewModel.isLoading.collect { isLoading ->
+                            if(authViewModel.authViewModelState == true){
+                                if (authViewModel.isEmailVerifiedResult == true) {
+                                    userSharedPreferences.saveIsChecked(isChecked)
+                                    Snackbar.make(view, "You successfully logged in", Snackbar.LENGTH_SHORT).show()
+                                    Log.e("tagımıs","navigate işlemi")
+                                    findNavController.navigate(action)
 
-                            if(!isLoading){
-                                //animasyonu durdurup view'i visible yapıyoruz
-                                lottieAnimationView.cancelAnimation()
-                                lottieAnimationView.visibility = View.INVISIBLE
-                                setViewAndChildrenEnabled(view,true)
-                            }
-                        }
-                    }
-                }
-                viewLifecycleOwner.lifecycleScope.launch {
-                    viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                        authViewModel.loginResult.collect { result ->
-                            if (result == true) {
-                                if (authViewModel.isEmailVerifiedResult != true){
-                                    userSharedPreferences.clearUserSession()
-                                    Snackbar.make(view,"Please verify your e-mail",Snackbar.LENGTH_SHORT).show()
-                                }
-                                else{
-                                    if(isChecked){
-                                        userSharedPreferences.saveIsChecked(true )
-                                    }else{
-                                        userSharedPreferences.saveIsChecked(false )
+                                } else {
+                                    userSharedPreferences.apply {
+                                        clearUserSession()
+                                        saveIsChecked(false)
                                     }
-
-                                    Snackbar.make(view,"You successfully logged in",Snackbar.LENGTH_SHORT).show()
-                                    findNavController.navigate(R.id.loginToMain)
+                                    Snackbar.make(view, "Please verify your e-mail", Snackbar.LENGTH_LONG).show()
+                                    enableViewDisableLottie(lottieAnimationView,view)
                                 }
-                            }else{
-                                Snackbar.make(view,"Login failed",Snackbar.LENGTH_SHORT).show()
+                            }
+                            if(authViewModel.authViewModelState == false){
+                                Snackbar.make(view,"Login Failed",Snackbar.LENGTH_SHORT).show()
+                                enableViewDisableLottie(lottieAnimationView,view)
                             }
                         }
                     }
                 }
-            }, 5000) // 2 saniye bekletme
+            }
 
         }else {
             Snackbar.make(view,"Please fill in all fields",Snackbar.LENGTH_SHORT).show()
@@ -399,59 +309,25 @@ object FrequentlyUsedFunctions {
     }
 
 
-    fun registerValidationFunction(email:String,password: String,name:String,
+    fun registerValidationFunction(email:String, password: String, name:String,
                                    viewModel:AuthViewModel,
                                    lottieAnimationView: LottieAnimationView,
                                    viewLifecycleOwner:LifecycleOwner,
                                    view:View,
                                    findNavController:NavController,
-                                   topLayout: ConstraintLayout){
-        if(
-            isValidPassword(password)
-            && isValidEmail(email)
-            && isValidFullName(name)
-        ){
+                                   action: Int
+                                   ){
+
+        if(isValidPassword(password) && isValidEmail(email) && isValidFullName(name) )
+        {
 
             //user kaydetme fonksiyonunu viewmodeldan çağırıyoruz
             viewModel.registerUser(name,email,password)
 
-            topLayout.visibility = View.INVISIBLE
-            lottieAnimationView.visibility = View.VISIBLE
-            lottieAnimationView.playAnimation()
+            disableViewEnableLottie(lottieAnimationView,view)
 
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.isLoading.collect { isLoading ->
-//                            Log.e("tagımıs", " yüklenme durumu fragment: $isLoading")
+            isLoadingCheck(viewLifecycleOwner,viewModel,lottieAnimationView,view,findNavController,action)
 
-                        if(!isLoading){
-                            //animasyonu durdurup view'i visible yapıyoruz
-                            lottieAnimationView.cancelAnimation()
-                            lottieAnimationView.visibility = View.INVISIBLE
-                            topLayout.visibility = View.VISIBLE
-
-                        }
-                    }
-                }
-            }
-
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.registrationResult.collect { result ->
-                        Log.e("tagımıs", " kayıt sonucu: $result")
-
-                        if (result == true) {
-                            // Kayıt başarılı
-                            Snackbar.make(view,"Registration successfully, please verify your email",Snackbar.LENGTH_SHORT).show()
-                            val action = RegisterFragmentDirections.registerToLogin(email,password,"Register")
-                            findNavController.navigate(action)
-                        } else if (result == false) {
-                            // Kayıt başarısız
-                            Snackbar.make(view,"Registration failed",Snackbar.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }
 
         }else{
             Snackbar.make(view,"Please correctly fill in all fields",Snackbar.LENGTH_SHORT).show()
@@ -460,69 +336,15 @@ object FrequentlyUsedFunctions {
 
 
 
-//Swipe ederek silme işlemi yaparken SwipeToDeleteCallback sınıfından bu fonksiyon çağrılır ve silme işlemi başlatılır
+    //Swipe ederek silme işlemi yaparken SwipeToDeleteCallback sınıfından bu fonksiyon çağrılır ve silme işlemi başlatılır
     @SuppressLint("NotifyDataSetChanged")
-    fun showDeleteDialogBirthdayAdapter(position: Int,
-                                        view: View,
-                                        context: Context,
-                                        birthdayList:List<Birthday>,
-                                        lottieAnimationViewDelete: LottieAnimationView,
-                                        lottieAnimationViewThreePoint: LottieAnimationView,
-                                        birthdayViewModel: BirthdayViewModel,
-                                        lifeCycleOwner: LifecycleOwner,
-                                        userPreferences:UserSharedPreferencesManager
+    fun showDeleteDialogBirthdayAdapter(position: Int, view: View, context: Context, birthdayList:List<Birthday>, lottieAnimationView: LottieAnimationView, birthdayViewModel: BirthdayViewModel, lifeCycleOwner: LifecycleOwner, findNavController: NavController, action: Int
     ){
-      //  val view = (context as Activity).findViewById<View>(android.R.id.content)
+        Log.e("HATA","$birthdayList")
+
         if (birthdayList.isNotEmpty()){
             val birthday = birthdayList[position]
-            AlertDialog.Builder(context)
-                .setTitle("Delete Birthday")
-                .setMessage("Are you sure you want to delete this birthday?")
-                .setPositiveButton("Yes") { _, _ ->
-
-                    lottieAnimationViewDelete.visibility = View.VISIBLE
-                    lottieAnimationViewDelete.playAnimation()
-                    lottieAnimationViewThreePoint.visibility = View.VISIBLE
-                    lottieAnimationViewThreePoint.playAnimation()
-                    setViewAndChildrenEnabled(view, false)
-
-                    // Silme işlemini yap
-                    birthdayViewModel.deleteBirthday(birthday.id,birthday)
-
-//                        Handler(Looper.getMainLooper()).postDelayed({
-                    lifeCycleOwner.lifecycleScope.launch {
-                        lifeCycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
-                            birthdayViewModel.deleteBirthdayState.collect{isDeleted ->
-                                if (isDeleted == true){ birthdayViewModel.getUserBirthdays(userPreferences.getUserId())
-                                    Snackbar.make(view, "Birthday successfully deleted", Snackbar.LENGTH_LONG).show()
-                                }
-                                if (isDeleted == false){
-                                    Snackbar.make(view, "Birthday deleting failed", Snackbar.LENGTH_LONG).show()
-                                }
-
-                            }
-                        }
-                    }
-                    lifeCycleOwner.lifecycleScope.launch{
-                        lifeCycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
-                            birthdayViewModel.isLoaded.collect{ isLoaded ->
-                                if(isLoaded == true){
-                                    setViewAndChildrenEnabled(view, true)
-                                    lottieAnimationViewDelete.visibility = View.INVISIBLE
-                                    lottieAnimationViewDelete.cancelAnimation()
-                                    lottieAnimationViewThreePoint.visibility = View.INVISIBLE
-                                    lottieAnimationViewThreePoint.cancelAnimation()
-                                }
-                            }
-                        }
-                    }
-//                        },2000)
-                }
-                .setNegativeButton("No") { _, _ ->
-                    // Eğer silme iptal edilirse öğeyi geri yerleştir
-                    birthdayViewModel.getUserBirthdays(userPreferences.getUserId())
-                }
-                .show()
+            showConfirmationDialog(view,context,birthdayViewModel,birthday,lottieAnimationView,lifeCycleOwner,"soft_delete", findNavController , action )
         }
     }
 
@@ -532,179 +354,67 @@ object FrequentlyUsedFunctions {
     /*Şifre sıfırlama ekranında (Forgot Password Page) kutucuğa uazılan mailin validayion işlemlerini,
      animasyon işlemlerini vs yapan fonksiyon
      */
-    fun resetPasswordValidation(
-        viewLifecycleOwner:LifecycleOwner,
-        viewModel:AuthViewModel,
-        lottieAnimationView: LottieAnimationView,
-        view: View,
-        findNavController: NavController,
-        topLayout: ConstraintLayout
+    fun resetPasswordValidation(email:String, viewLifecycleOwner:LifecycleOwner, viewModel:AuthViewModel, lottieAnimationView: LottieAnimationView, view: View, findNavController: NavController, action:Int )
+    {
+        if(isValidEmail(email)){
+            viewModel.resetPassword(email)
+            disableViewEnableLottie(lottieAnimationView,view)
+            isLoadingCheck( viewLifecycleOwner, viewModel, lottieAnimationView, view, findNavController, action)
+        }
 
-                                ){
-        Handler(Looper.getMainLooper()).postDelayed({
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
-                    viewModel.isResetMailSent.collect { isSent ->
-                        if(isSent==true){
-                            //animasyonu durdurup view'i visible yapıyoruz
-                            lottieAnimationView.cancelAnimation()
-                            lottieAnimationView.visibility = View.INVISIBLE
-                            topLayout.visibility = View.VISIBLE
-                            Snackbar.make(view,"Password reset e-mail sent",Snackbar.LENGTH_SHORT).show()
-                            Handler(Looper.getMainLooper()).postDelayed({
-                                findNavController.navigate(R.id.forgotToLogin)
-                            },1000)
-
-                        }else{
-                            //animasyonu durdurup view'i visible yapıyoruz
-                            lottieAnimationView.cancelAnimation()
-                            lottieAnimationView.visibility = View.INVISIBLE
-                            topLayout.visibility = View.VISIBLE
-                            Snackbar.make(view,"Sending e-mail failed",Snackbar.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }
-        },3000)
     }
 
 
 
+    //Yaptığımız suspend işlemlerin tamamlanıp tamamlanmadığını kontrol eden fonksiyon
+    // aynı zamanda arayüzü kilitleyip kullanıcının ekranda işlemler yapmasını engelliyor (disableViewEnableLottie ile)
+    //isloading işlemin tamamlanıp tamamlanmadığını dönderiyor ve içerisindeki enableViewDisableLottie fonksiyonu ile arayüzü
+    //kullanıcının kullanımına açıyor
+    fun loadAndStateOperation( viewLifecycleOwner:LifecycleOwner, birthdayViewModel: BirthdayViewModel, lottieAnimationView: LottieAnimationView, view:View, findNavController: NavController, action:Int )
+    {
+        disableViewEnableLottie(lottieAnimationView,view)
+        isLoadingCheck(viewLifecycleOwner,birthdayViewModel,lottieAnimationView,view, findNavController, action)
+    }
 
-    /* Doğum günü ekleme sayfasında (Add Birthday Page) doğum günü ekleme validasyonlarını,
-        animasyon kontrollerini, UI işlemlerini yapan fonksiyon
-       */
-    fun addBirthdayValidation(
-        viewLifecycleOwner:LifecycleOwner,
-        birthdayViewModel: BirthdayViewModel,
-        lottieAnimationView: LottieAnimationView,
-        view:View,
-        findNavController: NavController,
-        topLayout: ConstraintLayout,
-        constraintLayout:ConstraintLayout
-                              ){
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    birthdayViewModel.isLoaded.collect { isLoaded ->
-                        if (isLoaded==true) {
+    //Auth View Model ve BirthdayViewModel için isLoading Kontrolü yapan fonksiyon
+    // (Suspend fonksiyonun bitip bitmediğini kontrol ediyoruz)
+    private fun isLoadingCheck(viewLifecycleOwner: LifecycleOwner, viewModel:ViewModel, lottieAnimationView: LottieAnimationView, view: View, findNavController: NavController?, action: Int?)
+    {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                if(viewModel is AuthViewModel){ //gelen viewModel Authviewmodel ise bu çalışacak
+                    viewModel.isLoaded.collect { isLoaded ->
+                        if(isLoaded == true){
+
+                            if(viewModel.authViewModelState == true){
+                                Snackbar.make(view,"Successful",Snackbar.LENGTH_SHORT).show()
+                            }
+                            if(viewModel.authViewModelState == false){
+                                Snackbar.make(view,"Failed",Snackbar.LENGTH_SHORT).show()
+                            }
                             //animasyonu durdurup view'i visible yapıyoruz
-                            lottieAnimationView.cancelAnimation()
-                            lottieAnimationView.visibility = View.INVISIBLE
-                            constraintLayout.setBackgroundResource(0)
-                            topLayout.visibility = View.VISIBLE
-                        }
-
-                    }
-                }
-            }
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    birthdayViewModel.saveBirthdayState.collect { isSaved ->
-                        if(isSaved ==true){
-                            Snackbar.make(view,"Birthday saved successfully",Snackbar.LENGTH_SHORT).show()
-                            findNavController.popBackStack()
-                        }
-                        if(isSaved == false){
-                            Snackbar.make(view,"Failed to save birthday",Snackbar.LENGTH_SHORT).show()
-                        }
-
-                    }
-                }
-            }
-        },2000)
-    }
-
-
-
-    fun updateBirthdayEditPage(
-        view: View,
-        lottieAnimationView: LottieAnimationView,
-        viewLifecycleOwner:LifecycleOwner,
-        viewModel:BirthdayViewModel,
-        findNavController: NavController,
-                               ){
-
-        setViewAndChildrenEnabled(view, false)
-        lottieAnimationView.visibility = View.VISIBLE
-        lottieAnimationView.playAnimation()
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
-                    viewModel.updateBirthdayState.collect{isUpdated->
-                        if(isUpdated ==true){
-                            Snackbar.make(view,"Birthday updated successfully",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                            findNavController.popBackStack()
-                        }
-                        if (isUpdated == false){
-                            Snackbar.make(view,"Failed to update the birthday",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                }
-                setViewAndChildrenEnabled(view, true)
-                lottieAnimationView.cancelAnimation()
-                lottieAnimationView.visibility = View.INVISIBLE
-
-            }
-        },3000)
-    }
-
-
-     fun showDeleteConfirmationDialog(view: View,
-                                      context: Context,
-                                      viewModel:BirthdayViewModel,
-                                      editedBirthday:Birthday,
-                                      lottieAnimationView: LottieAnimationView,
-                                      viewLifecycleOwner:LifecycleOwner,
-                                      findNavController: NavController,
-                                      ){
-
-        AlertDialog.Builder(context)
-            .setTitle("Confirm Deletion")
-            .setMessage("Are you sure you want to delete this birthday?")
-            .setPositiveButton("Yes") { _, _ ->
-
-                viewModel.deleteBirthday(editedBirthday.id, editedBirthday)
-
-                FrequentlyUsedFunctions.setViewAndChildrenEnabled(view, false)
-                lottieAnimationView.playAnimation()
-                lottieAnimationView.visibility = View.VISIBLE
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    viewLifecycleOwner.lifecycleScope.launch{
-                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
-                            viewModel.deleteBirthdayState.collect { isDeleted ->
-                                if(isDeleted == true){
-                                    findNavController.navigateUp()
-                                    Snackbar.make(view,"Birthday deleted successfully",
-                                        Snackbar.LENGTH_SHORT
-                                    ).show()
-                                }
-                                if (isDeleted == false){
-                                    Snackbar.make(view,"Failed to delete birthday",
-                                        Snackbar.LENGTH_SHORT
-                                    ).show()
-                                }
-
+                            enableViewDisableLottie(lottieAnimationView,view)
+                            if (findNavController != null && action != null){
+                                findNavController.navigate(action)
                             }
                         }
-                        FrequentlyUsedFunctions.setViewAndChildrenEnabled(view, true)
-                        lottieAnimationView.cancelAnimation()
-                        lottieAnimationView.visibility = View.INVISIBLE
                     }
-                },3000)
+                }
 
+                if(viewModel is BirthdayViewModel){  //gelen viewModel Birthday viewmodel ise bu çalışacak
+                           Handler(Looper.getMainLooper()).postDelayed({
+                               //animasyonu durdurup view'i visible yapıyoruz
+                               enableViewDisableLottie(lottieAnimationView,view)
+                               if (findNavController != null && action != null){
+                                   findNavController.navigate(action)
+                               }
+                           },1500)
+                }
             }
-            .setNegativeButton("No",null)
-            .show()
+        }
     }
 
+
 }
-
-

@@ -173,9 +173,9 @@ class RegisterFragment : Fragment() {
                 viewModel,
                 binding.registerLottieAnimation,
                 viewLifecycleOwner,
-                requireView(),
+                binding.root,
                 findNavController(),
-                binding.registerFragmentTopLayout
+                R.id.registerToLogin
                 )
         }
         return binding.root

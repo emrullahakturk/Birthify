@@ -49,7 +49,7 @@
     <string name="re_save_birthday">Re Save Birthday</string>
     <string name="delete_permanently">Delete Permanently</string>
     <string name="continue_without_signing_in">Continue without signing in</string>
-    <string name="sort_options">Sort\nOptions</string>
+    <string name="sort_options">Sorting\nOptions</string>
     <string name="sort_by_name_asc">Sort by Name (Asc)</string>
     <string name="sort_by_recorded_date_asc">Sort by Recorded Date (Asc)</string>
     <string name="sort_by_birth_date_asc">Sort by Birth Date (Asc)</string>

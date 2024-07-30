@@ -25,25 +25,18 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
     val authViewModelState: Boolean? get() = _authViewModelState
 
 
-
-    private val _isResetMailSent = MutableStateFlow<Boolean?>(null)
-    val isResetMailSent: StateFlow<Boolean?> get() = _isResetMailSent
-
-
-
-
     fun resetPassword(email: String) {
         viewModelScope.launch {
 
             try {
-                _isResetMailSent.value = repository.resetPassword(email)
+                _authViewModelState = repository.resetPassword(email)
                 delay(2000)
                 _isLoaded.value = true
             }catch (e:Exception){
                 Log.e("exception","$e")
             }
 
-            _isResetMailSent.value = null
+            _authViewModelState = null
             _isLoaded.value = null
         }
     }

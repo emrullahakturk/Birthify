@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/mainPageFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/registerFragment"
@@ -57,15 +57,6 @@
         <action
             android:id="@+id/loginToMain"
             app:destination="@id/mainPageFragment" />
-        <argument
-            android:name="sourcePage"
-            app:argType="string" />
-        <argument
-            android:name="email"
-            app:argType="string" />
-        <argument
-            android:name="password"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/firstPageFragment"
@@ -105,7 +96,11 @@
     <fragment
         android:id="@+id/addBirthdayFragment"
         android:name="com.yargisoft.birthify.views.AddBirthdayFragment"
-        android:label="AddBirthdayFragment" />
+        android:label="AddBirthdayFragment" >
+        <action android:id="@+id/addToMain"
+            app:destination="@id/mainPageFragment">
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/mainPageFragment"
         android:name="com.yargisoft.birthify.views.MainPageFragment"
@@ -153,6 +148,10 @@
             android:name="birthday"
             app:argType="com.yargisoft.birthify.models.Birthday"
             />
+        <action
+            android:id="@+id/editToMain"
+            app:destination="@id/mainPageFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/birthdayDetailFragment"

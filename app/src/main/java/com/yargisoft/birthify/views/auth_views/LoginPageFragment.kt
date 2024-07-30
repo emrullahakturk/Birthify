@@ -28,7 +28,6 @@ class LoginPageFragment : Fragment() {
     private lateinit var binding: FragmentLoginPageBinding
     private lateinit var viewModel: AuthViewModel
     private lateinit var userSharedPreferences : UserSharedPreferencesManager
-//    private val args: LoginPageFragmentArgs by navArgs()  // navArgs kullanımı
     private lateinit var loginEmailTextInput: TextInputLayout
     private lateinit var loginEmailEditText: TextInputEditText
 
@@ -42,12 +41,6 @@ class LoginPageFragment : Fragment() {
         //Validation için mail input kutularını tanımlıyoruz
         loginEmailTextInput = binding.loginEmailTextInput
         loginEmailEditText = binding.loginEmailEditText
-
-//        if (args.sourcePage == "Register") {
-//            loginEmailEditText.setText(args.email)
-//            binding.loginPassEditText.setText(args.password)
-//        }
-       // Log.e("tagım", args.sourcePage)
 
 
         // Snackbar için view
@@ -101,7 +94,7 @@ class LoginPageFragment : Fragment() {
             val password = binding.loginPassEditText.text.toString()
             val isChecked = binding.rememberCBox.isChecked
             FrequentlyUsedFunctions.loginValidationFunction(
-                requireView(),
+                binding.root,
                 email,
                 password,
                 isChecked,
@@ -109,7 +102,8 @@ class LoginPageFragment : Fragment() {
                 binding.loginPageLottieAnimation,
                 viewLifecycleOwner,
                 userSharedPreferences,
-                findNavController()
+                findNavController(),
+                R.id.loginToMain
                 )
         }
         return binding.root

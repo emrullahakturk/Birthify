@@ -87,21 +87,17 @@ class ForgotPasswordFragment : Fragment() {
 
 
         binding.resetPassButton.setOnClickListener {
+
             val email = binding.resetPassEmailEditText.text.toString()
 
-            binding.forgotPassTopLayout.visibility = View.INVISIBLE
-            binding.forgotPasswordLottie.visibility = View.VISIBLE
-            binding.forgotPasswordLottie.playAnimation()
-
-            viewModel.resetPassword(email)
-
            FrequentlyUsedFunctions.resetPasswordValidation(
+               email,
                viewLifecycleOwner,
                viewModel,
                binding.forgotPasswordLottie,
                binding.root,
                findNavController(),
-               binding.forgotPassTopLayout
+               R.id.forgotToLogin
            )
 
         }
