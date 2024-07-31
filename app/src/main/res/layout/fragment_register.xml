@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/welcome_background"
-        tools:context=".views.auth_views.RegisterFragment">
+        tools:context=".views.authentication_views.RegisterFragment">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/registerLottieAnimation"
+            android:id="@+id/register_animation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -30,7 +30,6 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/registerFragmentTopLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +40,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailRegisterTextInputLayout"
+                android:id="@+id/emailTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
@@ -56,7 +55,7 @@
                 app:startIconTint="@color/green_login">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/emailRegisterEditText"
+                    android:id="@+id/emailEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_edit_text"
@@ -70,7 +69,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/registerPassTextInput"
+                android:id="@+id/passwordTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
@@ -82,12 +81,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/emailRegisterTextInputLayout"
+                app:layout_constraintTop_toBottomOf="@+id/emailTextInput"
                 app:startIconDrawable="@drawable/ic_lock"
                 app:startIconTint="@color/green_login">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/registerPasswordEditText"
+                    android:id="@+id/passwordEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_edit_text"
@@ -101,7 +100,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/registerFullNameTextInput"
+                android:id="@+id/fullNameTextInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
@@ -116,7 +115,7 @@
                 app:startIconTint="@color/green_login">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/registerFullNameEditText"
+                    android:id="@+id/fullNameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_edit_text"
@@ -131,7 +130,7 @@
 
 
             <TextView
-                android:id="@+id/RegisterTv"
+                android:id="@+id/registerTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="120dp"
@@ -146,7 +145,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/registerNewTv"
+                android:id="@+id/registerNewAccountTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
@@ -155,7 +154,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/RegisterTv" />
+                app:layout_constraintTop_toBottomOf="@+id/registerTv" />
 
             <Button
                 android:id="@+id/registerButton"
@@ -170,11 +169,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/registerPassTextInput"
+                app:layout_constraintTop_toBottomOf="@+id/passwordTextInput"
                 tools:ignore="DuplicateSpeakableTextCheck" />
 
             <TextView
-                android:id="@+id/forgotPassRegisterTv"
+                android:id="@+id/forgotPasswordTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -202,7 +201,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/signInRegisterTv"
+                android:id="@+id/signInTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
@@ -221,7 +220,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:id="@+id/registerFragmentProgress"
+            android:id="@+id/registerFragmentProgressBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"

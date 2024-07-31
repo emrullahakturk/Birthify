@@ -1,4 +1,4 @@
-package com.yargisoft.birthify.views
+package com.yargisoft.birthify.views.auth_user_views
 
 import android.os.Bundle
 import android.text.Editable
@@ -17,7 +17,7 @@ import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
-import com.yargisoft.birthify.databinding.FragmentTrashBinBinding
+import com.yargisoft.birthify.databinding.FragmentAuthTrashBinBinding
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
@@ -29,7 +29,7 @@ import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
 
 class TrashBinFragment : Fragment() {
 
-    private lateinit var binding: FragmentTrashBinBinding
+    private lateinit var binding: FragmentAuthTrashBinBinding
     private lateinit var birthdayViewModel: BirthdayViewModel
     private lateinit var authViewModel: AuthViewModel
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
@@ -38,7 +38,7 @@ class TrashBinFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trash_bin, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_trash_bin, container, false)
 
 
         //Birthday ViewModel Initialization
@@ -56,16 +56,19 @@ class TrashBinFragment : Fragment() {
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
         // DrawerLayout ve NavigationView tanımlamaları
-        val drawerLayout: DrawerLayout = binding.trashBinDrawerLayout
-        val navigationView: NavigationView = binding.trashBinNavigationView
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navigationView: NavigationView = binding.navigationView
         // Toolbar üzerindeki menü ikonu
-        val toolbarMenuButton = binding.trashBinToolbar.findViewById<View>(R.id.menuButtonToolbar)
+        val toolbarMenuButton = binding.toolbar.findViewById<View>(R.id.menuButtonToolbar)
 
 
         //adapter initialization
         adapter = DeletedBirthdayAdapter(listOf(),
             { birthday ->
-                val action = TrashBinFragmentDirections.trashToDeletedDetail(birthday)
+                val action =
+                   TrashBinFragmentDirections.trashToDeletedDetail(
+                        birthday
+                    )
                 findNavController().navigate(action)
             },
             requireContext(),
@@ -73,8 +76,8 @@ class TrashBinFragment : Fragment() {
 
 
         //Recyckerview Tanımlamaları
-        binding.trashBinRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.trashBinRecyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = adapter
 
 
         //deletedBirthdays' listesini güncelleme
@@ -94,12 +97,12 @@ class TrashBinFragment : Fragment() {
                 requireContext()
             )
 
-            binding.trashBinRecyclerView.adapter = adapter
+            binding.recyclerView.adapter = adapter
         }
 
 
         //Search edittext'i ile doğum günü arama ekliyoruz
-        binding.trashBinSearchEditText.addTextChangedListener(object : TextWatcher {
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -110,17 +113,17 @@ class TrashBinFragment : Fragment() {
         })
 
 
-        binding.trashBinToolbar.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
+        binding.toolbar.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
 
             findNavController().navigate(R.id.trashToAddBirthday)
 
         }
 
-        binding.trashBinBottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays).setOnClickListener{
+        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays).setOnClickListener{
             it.findNavController().navigate(R.id.trashToMainPage)
         }
 
-        binding.sortButtonTrashBin.setOnClickListener{
+        binding.sortButton.setOnClickListener{
 
             FrequentlyUsedFunctions.showSortMenu(it,requireContext(),adapter,birthdayViewModel)
 

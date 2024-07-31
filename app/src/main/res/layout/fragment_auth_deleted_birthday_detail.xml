@@ -11,7 +11,6 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/topLayoutDeletedBirthday"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +21,7 @@
         app:layout_constraintVertical_bias="0.5">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/deletedBirthdayDetailLottieAnimation"
+            android:id="@+id/three_point_animation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="5dp"
@@ -40,7 +39,7 @@
         </com.airbnb.lottie.LottieAnimationView>
 
         <androidx.drawerlayout.widget.DrawerLayout
-            android:id="@+id/drawerLayoutDeletedBirthdayDetail"
+            android:id="@+id/drawerLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"
@@ -55,12 +54,12 @@
                 android:background="@color/white">
 
                 <include
-                    android:id="@+id/includeDeletedDetailBirthday"
+                    android:id="@+id/toolbar"
                     layout="@layout/custom_toolbar" />
 
 
                 <TextView
-                    android:id="@+id/birthdayDeletedDetailTv"
+                    android:id="@+id/birthdayDetailTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -70,21 +69,20 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/includeDeletedDetailBirthday" />
+                    app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutDetailDeletedBirthday"
+                    android:id="@+id/linearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical"
                     android:padding="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/reSaveDeletedBirthday"
+                    app:layout_constraintBottom_toTopOf="@+id/reSaveButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/birthdayDeletedDetailTv"
-                    tools:context=".ui.addbirthday.AddBirthdayFragment">
+                    app:layout_constraintTop_toBottomOf="@+id/birthdayDetailTv">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -97,7 +95,7 @@
                         app:startIconTint="@color/green_login">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/nameDetailDeletedBirthdayTv"
+                            android:id="@+id/nameBirthdayEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_edit_text"
@@ -121,7 +119,7 @@
                         app:startIconTint="@color/green_login">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/deletedBirthdayDateDetail"
+                            android:id="@+id/birthdayDateEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_edit_text"
@@ -145,7 +143,7 @@
                         app:startIconTint="@color/green_login">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/noteDetailDeletedBirthdayTv"
+                            android:id="@+id/noteBirthdayEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_edit_text"
@@ -161,7 +159,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/reSaveDeletedBirthday"
+                    android:id="@+id/reSaveButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -183,13 +181,13 @@
                     android:layout_marginBottom="5dp"
                     android:backgroundTint="@color/red"
                     android:text="@string/delete_permanently"
-                    app:layout_constraintBottom_toTopOf="@+id/fabDetailDeletedBirthday"
+                    app:layout_constraintBottom_toTopOf="@+id/fabBackButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabDetailDeletedBirthday"
+                    android:id="@+id/fabBackButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
@@ -206,7 +204,7 @@
 
 
             <com.google.android.material.navigation.NavigationView
-                android:id="@+id/navViewDetailDeletedBDay"
+                android:id="@+id/navigationView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"

@@ -1,4 +1,4 @@
-package com.yargisoft.birthify.views.auth_views
+package com.yargisoft.birthify.views.authentication_views
 
 import android.os.Bundle
 import android.text.Editable

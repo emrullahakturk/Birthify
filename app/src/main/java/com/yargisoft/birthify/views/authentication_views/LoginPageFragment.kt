@@ -1,4 +1,4 @@
-package com.yargisoft.birthify.views.auth_views
+package com.yargisoft.birthify.views.authentication_views
 
 import android.os.Bundle
 import android.text.Editable
@@ -41,6 +41,9 @@ class LoginPageFragment : Fragment() {
         //Validation için mail input kutularını tanımlıyoruz
         loginEmailTextInput = binding.loginEmailTextInput
         loginEmailEditText = binding.loginEmailEditText
+
+        //sayfa açıldığında user bilgilerini sıfırlar
+        userSharedPreferences.clearUserSession()
 
 
         // Snackbar için view
@@ -92,20 +95,23 @@ class LoginPageFragment : Fragment() {
         binding.loginButton.setOnClickListener {
             val email = binding.loginEmailEditText.text.toString()
             val password = binding.loginPassEditText.text.toString()
-            val isChecked = binding.rememberCBox.isChecked
+            val isChecked = binding.rememberCheckBox.isChecked
             FrequentlyUsedFunctions.loginValidationFunction(
                 binding.root,
                 email,
                 password,
                 isChecked,
                 viewModel,
-                binding.loginPageLottieAnimation,
+                binding.threePointAnimation,
                 viewLifecycleOwner,
                 userSharedPreferences,
                 findNavController(),
                 R.id.loginToMain
                 )
         }
+
         return binding.root
     }
+
+
 }

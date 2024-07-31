@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.yargisoft.birthify.views.auth_views.RegisterFragment"
+        android:name="com.yargisoft.birthify.views.authentication_views.RegisterFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_register" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginPageFragment"
-        android:name="com.yargisoft.birthify.views.auth_views.LoginPageFragment"
+        android:name="com.yargisoft.birthify.views.authentication_views.LoginPageFragment"
         android:label="fragment_login_page"
         tools:layout="@layout/fragment_login_page" >
         <action
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/firstPageFragment"
-        android:name="com.yargisoft.birthify.views.auth_views.FirstPageFragment"
+        android:name="com.yargisoft.birthify.views.authentication_views.FirstPageFragment"
         android:label="fragment_main_page"
         tools:layout="@layout/fragment_first_page" >
         <action
@@ -87,7 +87,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.yargisoft.birthify.views.auth_views.ForgotPasswordFragment"
+        android:name="com.yargisoft.birthify.views.authentication_views.ForgotPasswordFragment"
         android:label="ForgotPasswordFragment" >
         <action
             android:id="@+id/forgotToLogin"
@@ -95,7 +95,7 @@
     </fragment>
     <fragment
         android:id="@+id/addBirthdayFragment"
-        android:name="com.yargisoft.birthify.views.AddBirthdayFragment"
+        android:name="com.yargisoft.birthify.views.auth_user_views.AddBirthdayFragment"
         android:label="AddBirthdayFragment" >
         <action android:id="@+id/addToMain"
             app:destination="@id/mainPageFragment">
@@ -107,12 +107,12 @@
             app:destination="@id/trashBinFragment">
         </action>
         <action android:id="@+id/addToProfile"
-            app:destination="@id/ProfileFragment">
+            app:destination="@id/profileFragment">
         </action>
     </fragment>
     <fragment
         android:id="@+id/mainPageFragment"
-        android:name="com.yargisoft.birthify.views.MainPageFragment"
+        android:name="com.yargisoft.birthify.views.auth_user_views.MainPageFragment"
         android:label="MainPageFragment" >
         <action
             android:id="@+id/mainToAddBirthday"
@@ -128,7 +128,7 @@
             app:destination="@id/birthdayDetailFragment" />
         <action
             android:id="@+id/mainToProfile"
-            app:destination="@id/ProfileFragment" />
+            app:destination="@id/profileFragment" />
         <action
             android:id="@+id/mainToSettings"
             app:destination="@id/settingsFragment" />
@@ -138,7 +138,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.yargisoft.birthify.views.auth_views.SplashFragment"
+        android:name="com.yargisoft.birthify.views.authentication_views.SplashFragment"
         android:label="SplashFragment" >
         <action
             android:id="@+id/splashToFirstPage"
@@ -149,9 +149,9 @@
     </fragment>
     <fragment
         android:id="@+id/birthdayEditFragment"
-        android:name="com.yargisoft.birthify.views.BirthdayEditFragment"
+        android:name="com.yargisoft.birthify.views.auth_user_views.EditBirthdayFragment"
         android:label="fragment_birthday_edit"
-        tools:layout="@layout/fragment_birthday_edit" >
+        tools:layout="@layout/fragment_auth_edit_birthday" >
 
         <argument
             android:name="birthday"
@@ -162,7 +162,7 @@
             app:destination="@id/mainPageFragment" />
         <action
             android:id="@+id/editToProfile"
-            app:destination="@id/ProfileFragment" />
+            app:destination="@id/profileFragment" />
         <action
             android:id="@+id/editToSettings"
             app:destination="@id/settingsFragment" />
@@ -173,7 +173,7 @@
     </fragment>
     <fragment
         android:id="@+id/birthdayDetailFragment"
-        android:name="com.yargisoft.birthify.views.BirthdayDetailFragment"
+        android:name="com.yargisoft.birthify.views.auth_user_views.BirthdayDetailFragment"
         android:label="BirthdayDetailFragment" >
         <action
             android:id="@+id/detailToEdit"
@@ -186,7 +186,7 @@
             app:destination="@id/trashBinFragment" />
        <action
             android:id="@+id/detailToProfile"
-            app:destination="@id/ProfileFragment" />
+            app:destination="@id/profileFragment" />
         <action
             android:id="@+id/birthdayDetailToMain"
             app:destination="@id/mainPageFragment" />
@@ -195,10 +195,10 @@
             app:argType="com.yargisoft.birthify.models.Birthday" />
     </fragment>
     <fragment
-        android:id="@+id/ProfileFragment"
-        android:name="com.yargisoft.birthify.views.ProfileFragment"
+        android:id="@+id/profileFragment"
+        android:name="com.yargisoft.birthify.views.auth_user_views.ProfileFragment"
         android:label="fragment_my_account"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_auth_profile" >
         <action
             android:id="@+id/profileToSettings"
             app:destination="@id/settingsFragment" />
@@ -211,12 +211,12 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.yargisoft.birthify.views.SettingsFragment"
+        android:name="com.yargisoft.birthify.views.auth_user_views.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/settingsToProfile"
-            app:destination="@id/ProfileFragment" />
+            app:destination="@id/profileFragment" />
         <action
             android:id="@+id/settingsToTrashBin"
             app:destination="@id/trashBinFragment" />
@@ -226,9 +226,9 @@
     </fragment>
     <fragment
         android:id="@+id/trashBinFragment"
-        android:name="com.yargisoft.birthify.views.TrashBinFragment"
+        android:name="com.yargisoft.birthify.views.auth_user_views.TrashBinFragment"
         android:label="fragment_trash_bin"
-        tools:layout="@layout/fragment_trash_bin" >
+        tools:layout="@layout/fragment_auth_trash_bin" >
         <action
             android:id="@+id/trashToSettings"
             app:destination="@id/settingsFragment" />
@@ -243,7 +243,7 @@
             app:destination="@id/trashBinFragment" />
         <action
             android:id="@+id/trashToProfile"
-            app:destination="@id/ProfileFragment" />
+            app:destination="@id/profileFragment" />
         <action
             android:id="@+id/trashToMainPage"
             app:destination="@id/mainPageFragment" />
@@ -253,7 +253,7 @@
     </fragment>
     <fragment
         android:id="@+id/deletedBirthdayDetailFragment"
-        android:name="com.yargisoft.birthify.views.DeletedBirthdayDetailFragment"
+        android:name="com.yargisoft.birthify.views.auth_user_views.DeletedBirthdayDetailFragment"
         android:label="DeletedBirthdayDetailFragment" >
         <argument
             android:name="birthday"
@@ -289,7 +289,7 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/deletedDetailToProfile"
-            app:destination="@id/ProfileFragment"
+            app:destination="@id/profileFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

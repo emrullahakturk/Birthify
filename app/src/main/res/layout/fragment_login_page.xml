@@ -16,11 +16,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/welcome_background"
-        tools:context=".views.auth_views.LoginPageFragment"
+        tools:context=".views.authentication_views.LoginPageFragment"
         tools:layout_editor_absoluteY="25dp">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/loginPageLottieAnimation"
+            android:id="@+id/three_point_animation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -36,7 +36,6 @@
             app:lottie_rawRes="@raw/three_point_animation" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/loginPageTopLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +46,7 @@
 
 
             <TextView
-                android:id="@+id/wBackTv"
+                android:id="@+id/welcomeBackTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="180dp"
@@ -72,7 +71,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/wBackTv" />
+                app:layout_constraintTop_toBottomOf="@+id/welcomeBackTv" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/loginEmailTextInput"
@@ -135,7 +134,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <CheckBox
-                android:id="@+id/rememberCBox"
+                android:id="@+id/rememberCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -198,19 +197,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/dontHaveTv"
                 tools:ignore="TouchTargetSizeCheck" />
-
-<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                android:id="@+id/fabWelcome"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="30dp"-->
-<!--                android:layout_marginTop="30dp"-->
-<!--                android:backgroundTint="@color/green_login"-->
-<!--                android:clickable="true"-->
-<!--                android:src="@drawable/ic_back"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

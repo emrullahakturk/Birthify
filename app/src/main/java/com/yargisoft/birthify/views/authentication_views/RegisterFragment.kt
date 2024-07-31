@@ -1,4 +1,4 @@
-package com.yargisoft.birthify.views.auth_views
+package com.yargisoft.birthify.views.authentication_views
 
 import android.os.Bundle
 import android.text.Editable
@@ -47,19 +47,19 @@ class RegisterFragment : Fragment() {
         //val view = (context as Activity).findViewById<View>(android.R.id.content)
 
 
-        registerPassTextInput = binding.registerPassTextInput
-        registerPasswordEditText = binding.registerPasswordEditText
+        registerPassTextInput = binding.passwordTextInput
+        registerPasswordEditText = binding.passwordEditText
 
-        emailTextInputLayout = binding.emailRegisterTextInputLayout
-        emailEditText = binding.emailRegisterEditText
+        emailTextInputLayout = binding.emailTextInput
+        emailEditText = binding.emailEditText
 
-        registerFullNameTextInput= binding.registerFullNameTextInput
-        registerFullNameEditText = binding.registerFullNameEditText
+        registerFullNameTextInput= binding.fullNameTextInput
+        registerFullNameEditText = binding.fullNameEditText
 
 
-        binding.signInRegisterTv.setOnClickListener {it.findNavController().navigate(R.id.registerToLogin)}
+        binding.signInTv.setOnClickListener {it.findNavController().navigate(R.id.registerToLogin)}
 //        binding.fabRegister.setOnClickListener { parentFragmentManager.popBackStack() }
-        binding.forgotPassRegisterTv.setOnClickListener { it.findNavController().navigate(R.id.registerToForgot) }
+        binding.forgotPasswordTv.setOnClickListener { it.findNavController().navigate(R.id.registerToForgot) }
 
 
 
@@ -79,11 +79,11 @@ class RegisterFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                val cursorPosition = binding.emailRegisterEditText.selectionStart
+                val cursorPosition = binding.emailEditText.selectionStart
                 val lowerCaseText = s.toString().lowercase(Locale.getDefault())
                 if (s.toString() != lowerCaseText) {
-                    binding.emailRegisterEditText.setText(lowerCaseText)
-                    binding.emailRegisterEditText.setSelection(cursorPosition)
+                    binding.emailEditText.setText(lowerCaseText)
+                    binding.emailEditText.setSelection(cursorPosition)
                 }
             }
         })
@@ -143,8 +143,8 @@ class RegisterFragment : Fragment() {
                         word.lowercase().replaceFirstChar { char -> char.uppercase() }
                     }
                     if (formattedText != it.toString()) {
-                        binding.registerFullNameEditText.setText(formattedText)
-                        binding.registerFullNameEditText.setSelection(formattedText.length)
+                        binding.fullNameEditText.setText(formattedText)
+                        binding.fullNameEditText.setSelection(formattedText.length)
                     }
                 }
             }
@@ -162,16 +162,16 @@ class RegisterFragment : Fragment() {
 
         binding.registerButton.setOnClickListener {
 
-            val name = binding.registerFullNameEditText.text.toString()
-            val email = binding.emailRegisterEditText.text.toString()
-            val password = binding.registerPasswordEditText.text.toString()
+            val name = binding.fullNameEditText.text.toString()
+            val email = binding.emailEditText.text.toString()
+            val password = binding.passwordEditText.text.toString()
 
             FrequentlyUsedFunctions.registerValidationFunction(
                 email,
                 password,
                 name,
                 viewModel,
-                binding.registerLottieAnimation,
+                binding.registerAnimation,
                 viewLifecycleOwner,
                 binding.root,
                 findNavController(),

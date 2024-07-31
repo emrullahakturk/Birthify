@@ -10,18 +10,17 @@
 
 
     <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/addBirthdayDrawerLayout"
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/addBirthdayConsLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/addBirthdayLottieAnimation"
+                android:id="@+id/three_point_animation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
@@ -41,40 +40,14 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/addBirthdayTopLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white">
 
-               <!-- <NumberPicker
-                    android:id="@+id/monthNumberPicker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:elevation="5dp"
-                    android:visibility="gone"
-                    android:wrapSelectorWheel="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/dayNumberPicker"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5" />
-
-                <NumberPicker
-                    android:id="@+id/dayNumberPicker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:elevation="5dp"
-                    android:visibility="gone"
-                    android:wrapSelectorWheel="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5" />-->
 
 
                 <include
-                    android:id="@+id/includeAddBirthday"
+                    android:id="@+id/toolbar"
                     layout="@layout/custom_toolbar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -95,22 +68,21 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/includeAddBirthday" />
+                    app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayoutAddBirthday"
+                    android:id="@+id/linearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="7dp"
                     android:orientation="vertical"
                     android:padding="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/fabSaveBirthday"
+                    app:layout_constraintBottom_toTopOf="@+id/fabBackButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recordBirthdayTv"
-                    tools:context=".ui.addbirthday.AddBirthdayFragment">
+                    app:layout_constraintTop_toBottomOf="@+id/recordBirthdayTv">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -121,7 +93,7 @@
                         app:startIconTint="@color/green_login">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/nameAddBirthdayEditText"
+                            android:id="@+id/nameBirthdayEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_edit_text"
@@ -164,7 +136,7 @@
                         app:startIconTint="@color/green_login">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/noteAddBirthdayEditText"
+                            android:id="@+id/noteBirthdayEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_edit_text"
@@ -186,7 +158,7 @@
                 </LinearLayout>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabSaveBirthday"
+                    android:id="@+id/fabBackButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="7dp"
@@ -203,7 +175,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navViewAddBDay"
+            android:id="@+id/navigationView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"

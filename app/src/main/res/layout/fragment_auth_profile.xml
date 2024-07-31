@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.ProfileFragment" >
+    tools:context=".views.auth_user_views.profileFragment" >
 
     <include
-        android:id="@+id/myAccountToolbar"
+        android:id="@+id/toolbar"
         layout="@layout/custom_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

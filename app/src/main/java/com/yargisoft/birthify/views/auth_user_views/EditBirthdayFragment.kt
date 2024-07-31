@@ -1,4 +1,4 @@
-package com.yargisoft.birthify.views
+package com.yargisoft.birthify.views.auth_user_views
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,16 +11,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.R
-import com.yargisoft.birthify.databinding.FragmentBirthdayEditBinding
+import com.yargisoft.birthify.databinding.FragmentAuthEditBirthdayBinding
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.viewmodels.BirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
 
 
-class BirthdayEditFragment : Fragment() {
+class EditBirthdayFragment : Fragment() {
 
-    private lateinit var binding : FragmentBirthdayEditBinding
-    private val editedBirthday : BirthdayEditFragmentArgs by navArgs()
+    private lateinit var binding : FragmentAuthEditBirthdayBinding
+    private val editedBirthday : EditBirthdayFragmentArgs by navArgs()
     private lateinit var viewModel: BirthdayViewModel
     private lateinit var repository: BirthdayRepository
     private lateinit var factory: BirthdayViewModelFactory
@@ -29,7 +29,7 @@ class BirthdayEditFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_birthday_edit, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_edit_birthday, container, false)
 
         repository = BirthdayRepository(requireContext())
         factory = BirthdayViewModelFactory(repository)
@@ -47,9 +47,9 @@ class BirthdayEditFragment : Fragment() {
         binding.updateBirthdayButton.setOnClickListener {
 
             val updatedBirthday = editedBirthday.birthday.copy(
-                name = binding.nameEditBirthdayTv.text.toString(),
-                birthdayDate = binding.birthdayDateEditBirthdayTv.text.toString(),
-                note = binding.noteEditBirthdayTv.text.toString()
+                name = binding.nameBirthdayEditText.text.toString(),
+                birthdayDate = binding.birthdayDateEditText.text.toString(),
+                note = binding.noteBirthdayEditText.text.toString()
             )
 
             viewModel.updateBirthday(updatedBirthday)
@@ -57,7 +57,7 @@ class BirthdayEditFragment : Fragment() {
            FrequentlyUsedFunctions.loadAndStateOperation(
                viewLifecycleOwner,
                viewModel,
-               binding.editBirthdayLottieAnimation,
+               binding.threePointAnimation,
                binding.root,
                findNavController(),
                R.id.editToMain
@@ -65,8 +65,8 @@ class BirthdayEditFragment : Fragment() {
 
         }
 
-        binding.birthdayDateEditBirthdayTv.setOnClickListener {
-            FrequentlyUsedFunctions.showDatePickerDialog(requireContext(),binding.birthdayDateEditBirthdayTv)
+        binding.birthdayDateEditText.setOnClickListener {
+            FrequentlyUsedFunctions.showDatePickerDialog(requireContext(),binding.birthdayDateEditText)
         }
 
         binding.deleteBirthdayButton.setOnClickListener {
@@ -75,7 +75,7 @@ class BirthdayEditFragment : Fragment() {
                requireContext(),
                viewModel,
                editedBirthday.birthday,
-               binding.editBirthdayLottieAnimation,
+               binding.threePointAnimation,
                viewLifecycleOwner,
                "soft_delete",
                findNavController(),
@@ -83,7 +83,7 @@ class BirthdayEditFragment : Fragment() {
            )
         }
 
-        binding.fabEditBirthday.setOnClickListener {
+        binding.fabBackButton.setOnClickListener {
             findNavController().popBackStack()
 
         }

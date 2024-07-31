@@ -19,7 +19,6 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mainPageTopLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +30,7 @@
 
 
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/mainPageThreePointLottieAnim"
+                android:id="@+id/three_point_animation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:elevation="5dp"
@@ -44,7 +43,7 @@
                 app:lottie_rawRes="@raw/three_point_animation" />
 
             <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/mainPageDeleteLottieAnimation"
+                android:id="@+id/delete_animation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:elevation="5dp"
@@ -76,7 +75,7 @@
                 app:menu="@menu/bottom_nav_menu" />
 
             <androidx.drawerlayout.widget.DrawerLayout
-                android:id="@+id/mainPageDrawerLayout"
+                android:id="@+id/drawerLayout"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
@@ -91,7 +90,7 @@
 
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/sortButtonMainPage"
+                        android:id="@+id/sortButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -124,7 +123,7 @@
 
 
                     <include
-                        android:id="@+id/includeMainPage"
+                        android:id="@+id/toolbar"
                         layout="@layout/custom_toolbar"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -140,7 +139,7 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/includeMainPage" />
+                        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
                     <View
                         android:id="@+id/lineView"
@@ -153,21 +152,21 @@
 
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/mainPageSearchTextInputLayout"
+                        android:id="@+id/searchTextInput"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
                         android:visibility="visible"
                         app:boxBackgroundMode="outline"
-                        app:layout_constraintEnd_toStartOf="@+id/sortButtonMainPage"
+                        app:layout_constraintEnd_toStartOf="@+id/sortButton"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/lineView"
                         app:startIconDrawable="@drawable/ic_search"
                         app:startIconTint="@color/green_login">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/mainPageSearchEditText"
+                            android:id="@+id/searchEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_edit_text"
@@ -181,7 +180,7 @@
 
 
                     <ScrollView
-                        android:id="@+id/scrollView2"
+                        android:id="@+id/scrollView"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginTop="10dp"
@@ -191,7 +190,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/mainPageSearchTextInputLayout">
+                        app:layout_constraintTop_toBottomOf="@+id/searchTextInput">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -199,7 +198,7 @@
                             android:orientation="vertical">
 
                             <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/birthdayRecyclerView"
+                                android:id="@+id/recyclerView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
@@ -209,7 +208,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.google.android.material.navigation.NavigationView
-                    android:id="@+id/navViewMainPage"
+                    android:id="@+id/navigationView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"

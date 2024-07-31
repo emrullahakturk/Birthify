@@ -1,4 +1,4 @@
-package com.yargisoft.birthify.views
+package com.yargisoft.birthify.views.auth_user_views
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
