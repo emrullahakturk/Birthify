@@ -32,7 +32,9 @@ import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.BirthdayViewModel
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 
 object FrequentlyUsedFunctions {
@@ -161,19 +163,26 @@ object FrequentlyUsedFunctions {
 
 
     // Tarih seçme ekranı için gereken fonksiyon
-    fun showDatePickerDialog(context:Context, editText: TextInputEditText ) {
+    @SuppressLint("DiscouragedApi")
+    fun showDatePickerDialog(context: Context, editText: TextInputEditText) {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(context, { _, selectedYear, selectedMonth, selectedDay ->
-            val selectedDate = "$selectedYear-${String.format("%02d", selectedMonth + 1)}-${String.format("%02d", selectedDay)}"
+            val monthFormat = SimpleDateFormat("MMMM", Locale.US)
+            val monthName = monthFormat.format(calendar.apply { set(Calendar.MONTH, selectedMonth) }.time)
+            val selectedDate = "$selectedDay $monthName"
             editText.setText(selectedDate)
         }, year, month, day)
 
+        // Yıl seçimini kapatma
+        datePickerDialog.datePicker.findViewById<View>(context.resources.getIdentifier("year", "id", "android"))?.visibility = View.GONE
+
         datePickerDialog.show()
     }
+
 
     //parametre olarak gelen view'i devre dışı bırakmak ve tekrar aktif etmek için kullanılan fonksiyon
     private fun setViewAndChildrenEnabled(view: View, enabled: Boolean) {

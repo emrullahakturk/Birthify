@@ -24,7 +24,7 @@
     <string name="update_birthday">Update Birthday</string>
     <string name="delete_birthday">Delete Birthday</string>
     <string name="celebration_note">Note</string>
-    <string name="birthday_date">Birthday Date (yyyy-MM-dd)</string>
+    <string name="birthday_date">Birthday Date</string>
     <string name="remembered_password">Remembered your password?</string>
     <string name="record_birthday">Record the birthday of your dear one</string>
     <string name="edit_birthday">Edit the birthday of your dear one</string>

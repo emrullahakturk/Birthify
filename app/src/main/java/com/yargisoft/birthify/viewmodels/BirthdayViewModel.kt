@@ -240,27 +240,61 @@ class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel(
 */
 
     @SuppressLint("CheckResult")
-    fun sortBirthdaysMainPage(sort: String): List<Birthday>{
-        when(sort){
-            "sortBirthdaysByNameAsc"-> return birthdayList.value?.sortedBy { it.name } ?: emptyList()
-            "sortBirthdaysByNameDsc" -> return birthdayList.value?.sortedByDescending { it.name } ?: emptyList()
-            "sortBirthdaysByBirthdayDateAsc" -> return birthdayList.value?.sortedBy { it.birthdayDate } ?: emptyList()
-            "sortBirthdaysByBirthdayDateDsc" -> return birthdayList.value?.sortedByDescending { it.birthdayDate } ?: emptyList()
-            "sortBirthdaysByRecordedDateAsc" ->  return birthdayList.value?.sortedBy { it.recordedDate } ?: emptyList()
-            "sortBirthdaysByRecordedDateDsc" -> return birthdayList.value?.sortedByDescending { it.recordedDate } ?: emptyList()
+    fun sortBirthdaysMainPage(sort: String): List<Birthday> {
+        val monthMap = mapOf(
+            "January" to 1, "February" to 2, "March" to 3, "April" to 4,
+            "May" to 5, "June" to 6, "July" to 7, "August" to 8,
+            "September" to 9, "October" to 10, "November" to 11, "December" to 12
+        )
+
+        return when (sort) {
+            "sortBirthdaysByNameAsc" -> birthdayList.value?.sortedBy { it.name } ?: emptyList()
+            "sortBirthdaysByNameDsc" -> birthdayList.value?.sortedByDescending { it.name } ?: emptyList()
+            "sortBirthdaysByBirthdayDateAsc" -> birthdayList.value?.sortedWith(compareBy(
+                { val parts = it.birthdayDate.split(" ")
+                    monthMap[parts[1]] },
+                { val parts = it.birthdayDate.split(" ")
+                    parts[0].toInt() }
+            )) ?: emptyList()
+            "sortBirthdaysByBirthdayDateDsc" -> birthdayList.value?.sortedWith(compareBy(
+                { val parts = it.birthdayDate.split(" ")
+                    monthMap[parts[1]] },
+                { val parts = it.birthdayDate.split(" ")
+                    parts[0].toInt() }
+            ))?.reversed() ?: emptyList()
+            "sortBirthdaysByRecordedDateAsc" -> birthdayList.value?.sortedBy { it.recordedDate } ?: emptyList()
+            "sortBirthdaysByRecordedDateDsc" -> birthdayList.value?.sortedByDescending { it.recordedDate } ?: emptyList()
+            else -> emptyList()
         }
-        return emptyList()
     }
-    fun sortBirthdaysTrashBin(sort: String): List<Birthday>{
-        when(sort){
-            "sortBirthdaysByNameAsc"-> return deletedBirthdayList.value?.sortedBy { it.name } ?: emptyList()
-            "sortBirthdaysByNameDsc" -> return deletedBirthdayList.value?.sortedByDescending { it.name } ?: emptyList()
-            "sortBirthdaysByBirthdayDateAsc" -> return deletedBirthdayList.value?.sortedBy { it.birthdayDate } ?: emptyList()
-            "sortBirthdaysByBirthdayDateDsc" -> return deletedBirthdayList.value?.sortedByDescending { it.birthdayDate } ?: emptyList()
-            "sortBirthdaysByRecordedDateAsc" ->  return deletedBirthdayList.value?.sortedBy { it.recordedDate } ?: emptyList()
-            "sortBirthdaysByRecordedDateDsc" -> return deletedBirthdayList.value?.sortedByDescending { it.recordedDate } ?: emptyList()
+
+    fun sortBirthdaysTrashBin(sort: String): List<Birthday> {
+        val monthMap = mapOf(
+            "January" to 1, "February" to 2, "March" to 3, "April" to 4,
+            "May" to 5, "June" to 6, "July" to 7, "August" to 8,
+            "September" to 9, "October" to 10, "November" to 11, "December" to 12
+        )
+
+        return when(sort) {
+            "sortBirthdaysByNameAsc" -> deletedBirthdayList.value?.sortedBy { it.name } ?: emptyList()
+            "sortBirthdaysByNameDsc" -> deletedBirthdayList.value?.sortedByDescending { it.name } ?: emptyList()
+            "sortBirthdaysByBirthdayDateAsc" -> deletedBirthdayList.value?.sortedWith(compareBy(
+                { val parts = it.birthdayDate.split(" ")
+                    monthMap[parts[1]] },
+                { val parts = it.birthdayDate.split(" ")
+                    parts[0].toInt() }
+            )) ?: emptyList()
+            "sortBirthdaysByBirthdayDateDsc" -> deletedBirthdayList.value?.sortedWith(compareBy(
+                { val parts = it.birthdayDate.split(" ")
+                    monthMap[parts[1]] },
+                { val parts = it.birthdayDate.split(" ")
+                    parts[0].toInt() }
+            ))?.reversed() ?: emptyList()
+            "sortBirthdaysByRecordedDateAsc" -> deletedBirthdayList.value?.sortedBy { it.recordedDate } ?: emptyList()
+            "sortBirthdaysByRecordedDateDsc" -> deletedBirthdayList.value?.sortedByDescending { it.recordedDate } ?: emptyList()
+            else -> emptyList()
         }
-        return emptyList()
     }
+
 
 }
