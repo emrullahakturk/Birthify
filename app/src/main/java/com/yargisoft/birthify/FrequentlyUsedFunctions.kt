@@ -1,6 +1,9 @@
+@file:Suppress("UNUSED_EXPRESSION")
+
 package com.yargisoft.birthify
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
@@ -15,7 +18,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
@@ -23,11 +29,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
 import com.yargisoft.birthify.models.Birthday
+import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.BirthdayViewModel
@@ -170,7 +178,7 @@ object FrequentlyUsedFunctions {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val datePickerDialog = DatePickerDialog(context, { _, selectedYear, selectedMonth, selectedDay ->
+        val datePickerDialog = DatePickerDialog(context, { _, _, selectedMonth, selectedDay ->
             val monthFormat = SimpleDateFormat("MMMM", Locale.US)
             val monthName = monthFormat.format(calendar.apply { set(Calendar.MONTH, selectedMonth) }.time)
             val selectedDate = "$selectedDay $monthName"
@@ -430,6 +438,105 @@ object FrequentlyUsedFunctions {
                 }
             }
         }
+    }
+
+
+    fun drawerLayoutToggle(drawerLayout: DrawerLayout,
+                           navigationView: NavigationView,
+                           findNavController: NavController,
+                           menuButtonToolbar:View,
+                           activity: Activity,
+                           authViewModel: AuthViewModel,
+                           birthdayRepository:BirthdayRepository,
+                           userSharedPreferences:UserSharedPreferencesManager,
+                           sourcePage:String
+    ){
+
+        // ActionBarDrawerToggle ile Drawer'ı ActionBar ile senkronize etme
+        val toggle = ActionBarDrawerToggle(
+            activity,
+            drawerLayout,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        // NavigationView'deki öğeler için click listener
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            // Menü öğelerine tıklandığında yapılacak işlemler
+            when (menuItem.itemId) {
+                R.id.labelBirthdays -> {
+                    when(sourcePage){
+                        "MainPage"-> findNavController.navigate(R.id.mainToMain)
+                        "TrashBin"-> findNavController.navigate(R.id.trashToMainPage)
+                        "Settings"-> findNavController.navigate(R.id.settingsToMainPage)
+                        "Profile"-> findNavController.navigate(R.id.profileToMain)
+                        "DeletedBirthdayDetail"-> findNavController.navigate(R.id.deletedDetailToMain)
+                        "BirthdayEdit"-> findNavController.navigate(R.id.editToMain)
+                        "BirthdayDetail"-> findNavController.navigate(R.id.birthdayDetailToMain)
+                        "AddBirthday"-> findNavController.navigate(R.id.addToMain)
+                    }
+                }
+
+                R.id.labelLogOut -> {
+                    authViewModel.logoutUser()
+                    userSharedPreferences.clearUserSession()
+                    birthdayRepository.clearBirthdays()
+                    birthdayRepository.clearDeletedBirthdays()
+                    findNavController.navigate(R.id.firstPageFragment)
+                }
+
+                R.id.labelTrashBin -> {
+                    when(sourcePage){
+                        "MainPage"-> findNavController.navigate(R.id.mainToTrashBin)
+                        "TrashBin"-> findNavController.navigate(R.id.trashToTrashBin)
+                        "Settings"-> findNavController.navigate(R.id.settingsToTrashBin)
+                        "Profile"-> findNavController.navigate(R.id.profileToTrash)
+                        "DeletedBirthdayDetail"-> findNavController.navigate(R.id.deletedDetailToTrashBin)
+                        "BirthdayEdit"-> findNavController.navigate(R.id.editToTrash)
+                        "BirthdayDetail"-> findNavController.navigate(R.id.detailToTrash)
+                        "AddBirthday"-> findNavController.navigate(R.id.addToTrash)
+                    }
+                }
+
+                R.id.labelSettings -> {
+                    when(sourcePage){
+                        "MainPage"-> findNavController.navigate(R.id.mainToSettings)
+                        "TrashBin"-> findNavController.navigate(R.id.trashToSettings)
+                        "Profile"-> findNavController.navigate(R.id.profileToSettings)
+                        "DeletedBirthdayDetail"-> findNavController.navigate(R.id.deletedDetailToSettings)
+                        "BirthdayEdit"-> findNavController.navigate(R.id.editToSettings)
+                        "BirthdayDetail"-> findNavController.navigate(R.id.detailToSettings)
+                        "AddBirthday"-> findNavController.navigate(R.id.addToSettings)
+                    }
+                }
+
+                R.id.labelProfile -> {
+                    when(sourcePage){
+                        "MainPage"-> findNavController.navigate(R.id.mainToProfile)
+                        "TrashBin"-> findNavController.navigate(R.id.trashToProfile)
+                        "DeletedBirthdayDetail"-> findNavController.navigate(R.id.deletedDetailToProfile)
+                        "BirthdayEdit"-> findNavController.navigate(R.id.editToProfile)
+                        "BirthdayDetail"-> findNavController.navigate(R.id.detailToProfile)
+                        "AddBirthday"-> findNavController.navigate(R.id.addToProfile)
+                    }                  }
+
+                else -> false
+            }
+
+            // Drawer'ı kapatmak için
+            drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
+
+
+        // Toolbar üzerindeki menü ikonu ile menüyü açma
+       menuButtonToolbar.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+
     }
 
 

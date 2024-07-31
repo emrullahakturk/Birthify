@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -19,18 +17,21 @@ import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAddBirthdayBinding
 import com.yargisoft.birthify.models.Birthday
+import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
+import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.BirthdayViewModel
+import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 
-@Suppress("UNUSED_EXPRESSION")
 class AddBirthdayFragment : Fragment() {
-    private lateinit var viewModel: BirthdayViewModel
+    private lateinit var birthdayViewModel: BirthdayViewModel
+    private lateinit var authViewModel: AuthViewModel
     private lateinit var binding : FragmentAddBirthdayBinding
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
 
@@ -42,9 +43,19 @@ class AddBirthdayFragment : Fragment() {
 
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
-        val repository = BirthdayRepository(requireContext())
-        val factory = BirthdayViewModelFactory(repository)
-        viewModel = ViewModelProvider(this,factory)[BirthdayViewModel::class.java]
+
+
+        val birthdayRepository = BirthdayRepository(requireContext())
+        val birthdayViewModelFactory = BirthdayViewModelFactory(birthdayRepository)
+        birthdayViewModel = ViewModelProvider(this,birthdayViewModelFactory)[BirthdayViewModel::class.java]
+
+
+        val authRepository = AuthRepository(requireContext())
+        val authViewModelFactory = AuthViewModelFactory(authRepository)
+        authViewModel = ViewModelProvider(this,authViewModelFactory)[AuthViewModel::class.java]
+
+
+
 
         binding.saveBirthdayButton.setOnClickListener {
 
@@ -57,8 +68,8 @@ class AddBirthdayFragment : Fragment() {
             val bDay = Birthday(UUID.randomUUID().toString(), name, birthdayDate, recordedDate, note , userId )
 
             if (name.isNotEmpty() && birthdayDate.isNotEmpty() && note.isNotEmpty()) {
-                viewModel.saveBirthday(bDay)
-                FrequentlyUsedFunctions.loadAndStateOperation(viewLifecycleOwner, viewModel, binding.addBirthdayLottieAnimation, binding.root, findNavController(), R.id.addToMain)
+                birthdayViewModel.saveBirthday(bDay)
+                FrequentlyUsedFunctions.loadAndStateOperation(viewLifecycleOwner, birthdayViewModel, binding.addBirthdayLottieAnimation, binding.root, findNavController(), R.id.addToMain)
             }
             else{
                 Snackbar.make(view,"Please fill in all fields",Snackbar.LENGTH_SHORT).show()
@@ -75,45 +86,24 @@ class AddBirthdayFragment : Fragment() {
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.addBirthdayDrawerLayout
         val navigationView: NavigationView = binding.navViewAddBDay
-
-
-        // ActionBarDrawerToggle ile Drawer'ı ActionBar ile senkronize etme
-        val toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        // NavigationView'deki öğeler için click listener
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            // Menü öğelerine tıklandığında yapılacak işlemler
-            when (menuItem.itemId) {
-                R.id.labelBirthdays -> {
-                    findNavController().navigate(R.id.mainToMain)
-                }
-                R.id.labelLogOut -> {
-                    userSharedPreferences.clearUserSession()
-                    findNavController().navigate(R.id.firstPageFragment)
-                }
-                R.id.labelTrashBin -> {
-                    findNavController().navigate(R.id.firstPageFragment)
-                }
-                R.id.labelSettings -> {
-                    findNavController().navigate(R.id.firstPageFragment)
-                }
-                R.id.labelProfile -> {
-                    findNavController().navigate(R.id.firstPageFragment)
-                }
-                else -> false
-            }
-
-            // Drawer'ı kapatmak için
-            drawerLayout.closeDrawer(GravityCompat.START)
-            true
-        }
-
         // Toolbar üzerindeki menü ikonu ile menüyü açma
-        binding.includeAddBirthday.findViewById<View>(R.id.menuButtonToolbar).setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
-        }
+        val toolbarMenuIcon = binding.includeAddBirthday.findViewById<View>(R.id.menuButtonToolbar)
+
+
+
+        //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
+        FrequentlyUsedFunctions.drawerLayoutToggle(
+            drawerLayout,
+            navigationView,
+            findNavController(),
+            toolbarMenuIcon,
+            requireActivity(),
+            authViewModel,
+            birthdayRepository,
+            userSharedPreferences,
+            "AddBirthday"
+        )
+
 
         return binding.root
     }

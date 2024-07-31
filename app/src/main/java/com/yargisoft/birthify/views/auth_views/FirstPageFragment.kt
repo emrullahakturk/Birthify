@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentFirstPageBinding
 
@@ -24,6 +25,9 @@ class FirstPageFragment : Fragment() {
 
         binding.crAccountTv.setOnClickListener {
             it.findNavController().navigate(R.id.firstToRegister)
+        }
+        binding.continueWithoutTv.setOnClickListener {
+            findNavController().navigate(R.id.firstToMain)
         }
 
         return  binding.root

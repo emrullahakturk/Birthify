@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +22,6 @@ import com.yargisoft.birthify.viewmodels.BirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
 
-@Suppress("UNUSED_EXPRESSION")
 class DeletedBirthdayDetailFragment : Fragment() {
     private lateinit var binding: FragmentDeletedBirthdayDetailBinding
     private lateinit var birthdayViewModel: BirthdayViewModel
@@ -63,47 +60,12 @@ class DeletedBirthdayDetailFragment : Fragment() {
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.drawerLayoutDeletedBirthdayDetail
         val navigationView: NavigationView = binding.navViewDetailDeletedBDay
-
-        // ActionBarDrawerToggle ile Drawer'ı ActionBar ile senkronize etme
-        val toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        // NavigationView'deki öğeler için click listener
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            // Menü öğelerine tıklandığında yapılacak işlemler
-            when (menuItem.itemId) {
-                R.id.labelBirthdays -> {
-                    findNavController().navigate(R.id.deletedDetailToMain)
-                }
-                R.id.labelLogOut -> {
-                    userSharedPreferences.clearUserSession()
-                    authViewModel.logoutUser()
-                    findNavController().navigate(R.id.firstPageFragment)
-                }
-                R.id.labelTrashBin -> {
-                    findNavController().navigate(R.id.deletedDetailToTrashBin)
-                }
-                R.id.labelSettings -> {
-                    findNavController().navigate(R.id.deletedDetailToSettings)
-                }
-                R.id.labelProfile -> {
-                    findNavController().navigate(R.id.deletedDetailToProfile)
-                }
-                else -> false
-            }
-
-            // Drawer'ı kapatmak için
-            drawerLayout.closeDrawer(GravityCompat.START)
-            true
-        }
+        // Toolbardaki menü ikonu
+        val menuToolbarIcon: View = binding.includeDeletedDetailBirthday.findViewById(R.id.menuButtonToolbar)
 
         binding.fabDetailDeletedBirthday.setOnClickListener { findNavController().popBackStack() }
 
-        // Toolbar üzerindeki menü ikonu ile menüyü açma
-        binding.includeDeletedDetailBirthday.findViewById<View>(R.id.menuButtonToolbar).setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
-        }
+
 
 
         binding.reSaveDeletedBirthday.setOnClickListener {
@@ -134,6 +96,23 @@ class DeletedBirthdayDetailFragment : Fragment() {
                 R.id.deletedDetailToTrashBin
                 )
         }
+
+
+        //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
+        FrequentlyUsedFunctions.drawerLayoutToggle(
+            drawerLayout,
+            navigationView,
+            findNavController(),
+            menuToolbarIcon,
+            requireActivity(),
+            authViewModel,
+            birthdayRepository,
+            userSharedPreferences,
+            "DeletedBirthdayDetail"
+        )
+
+
+
         return binding.root
     }
 

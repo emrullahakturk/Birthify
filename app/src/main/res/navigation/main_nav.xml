@@ -100,6 +100,15 @@
         <action android:id="@+id/addToMain"
             app:destination="@id/mainPageFragment">
         </action>
+        <action android:id="@+id/addToSettings"
+            app:destination="@id/settingsFragment">
+        </action>
+        <action android:id="@+id/addToTrash"
+            app:destination="@id/trashBinFragment">
+        </action>
+        <action android:id="@+id/addToProfile"
+            app:destination="@id/ProfileFragment">
+        </action>
     </fragment>
     <fragment
         android:id="@+id/mainPageFragment"
@@ -119,7 +128,7 @@
             app:destination="@id/birthdayDetailFragment" />
         <action
             android:id="@+id/mainToProfile"
-            app:destination="@id/myAccountFragment" />
+            app:destination="@id/ProfileFragment" />
         <action
             android:id="@+id/mainToSettings"
             app:destination="@id/settingsFragment" />
@@ -151,6 +160,15 @@
         <action
             android:id="@+id/editToMain"
             app:destination="@id/mainPageFragment" />
+        <action
+            android:id="@+id/editToProfile"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/editToSettings"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/editToTrash"
+            app:destination="@id/trashBinFragment" />
 
     </fragment>
     <fragment
@@ -160,18 +178,36 @@
         <action
             android:id="@+id/detailToEdit"
             app:destination="@id/birthdayEditFragment" />
+         <action
+            android:id="@+id/detailToSettings"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/detailToTrash"
+            app:destination="@id/trashBinFragment" />
+       <action
+            android:id="@+id/detailToProfile"
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/birthdayDetailToMain"
+            app:destination="@id/mainPageFragment" />
         <argument
             android:name="birthday"
             app:argType="com.yargisoft.birthify.models.Birthday" />
     </fragment>
     <fragment
-        android:id="@+id/myAccountFragment"
+        android:id="@+id/ProfileFragment"
         android:name="com.yargisoft.birthify.views.ProfileFragment"
         android:label="fragment_my_account"
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/profileToSettings"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/profileToTrash"
+            app:destination="@id/trashBinFragment" />
+        <action
+            android:id="@+id/profileToMain"
+            app:destination="@id/mainPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -180,7 +216,10 @@
         tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/settingsToProfile"
-            app:destination="@id/myAccountFragment" />
+            app:destination="@id/ProfileFragment" />
+        <action
+            android:id="@+id/settingsToTrashBin"
+            app:destination="@id/trashBinFragment" />
         <action
             android:id="@+id/settingsToMainPage"
             app:destination="@id/mainPageFragment" />
@@ -204,7 +243,7 @@
             app:destination="@id/trashBinFragment" />
         <action
             android:id="@+id/trashToProfile"
-            app:destination="@id/myAccountFragment" />
+            app:destination="@id/ProfileFragment" />
         <action
             android:id="@+id/trashToMainPage"
             app:destination="@id/mainPageFragment" />
@@ -250,7 +289,7 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/deletedDetailToProfile"
-            app:destination="@id/myAccountFragment"
+            app:destination="@id/ProfileFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

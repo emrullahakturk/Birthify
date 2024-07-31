@@ -7,8 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -29,7 +27,6 @@ import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
 
 
-@Suppress("UNUSED_EXPRESSION")
 class TrashBinFragment : Fragment() {
 
     private lateinit var binding: FragmentTrashBinBinding
@@ -61,6 +58,8 @@ class TrashBinFragment : Fragment() {
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.trashBinDrawerLayout
         val navigationView: NavigationView = binding.trashBinNavigationView
+        // Toolbar üzerindeki menü ikonu
+        val toolbarMenuButton = binding.trashBinToolbar.findViewById<View>(R.id.menuButtonToolbar)
 
 
         //adapter initialization
@@ -99,48 +98,6 @@ class TrashBinFragment : Fragment() {
         }
 
 
-
-        // ActionBarDrawerToggle ile Drawer'ı ActionBar ile senkronize etme
-        val toggle = ActionBarDrawerToggle(requireActivity(), drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
-
-
-
-        // NavigationView'deki öğeler için click listener
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            // Menü öğelerine tıklandığında yapılacak işlemler
-            when (menuItem.itemId) {
-                R.id.labelBirthdays -> {
-                    findNavController().navigate(R.id.trashToMainPage)
-                }
-                R.id.labelLogOut -> {
-                    authViewModel.logoutUser()
-                    userSharedPreferences.clearUserSession()
-                    birthdayRepository.clearBirthdays()
-                    birthdayRepository.clearDeletedBirthdays()
-                    findNavController().navigate(R.id.trashToFirstPage)
-                }
-                R.id.labelTrashBin -> {
-                    findNavController().navigate(R.id.trashToTrashBin)
-                }
-                R.id.labelSettings -> {
-                    findNavController().navigate(R.id.trashToSettings)
-                }
-                R.id.labelProfile -> {
-                    findNavController().navigate(R.id.trashToProfile)
-                }
-                else -> false
-            }
-
-            // Drawer'ı kapatmak için
-            drawerLayout.closeDrawer(GravityCompat.START)
-            true
-        }
-
-
-
         //Search edittext'i ile doğum günü arama ekliyoruz
         binding.trashBinSearchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -152,12 +109,6 @@ class TrashBinFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-
-
-        // Toolbar üzerindeki menü ikonu ile menüyü açma
-        binding.trashBinToolbar.findViewById<View>(R.id.menuButtonToolbar).setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
-        }
 
         binding.trashBinToolbar.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
 
@@ -174,6 +125,21 @@ class TrashBinFragment : Fragment() {
             FrequentlyUsedFunctions.showSortMenu(it,requireContext(),adapter,birthdayViewModel)
 
         }
+
+
+        //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
+        FrequentlyUsedFunctions.drawerLayoutToggle(
+            drawerLayout,
+            navigationView,
+            findNavController(),
+            toolbarMenuButton,
+            requireActivity(),
+            authViewModel,
+            birthdayRepository,
+            userSharedPreferences,
+            "TrashBin"
+        )
+
 
 
         return binding.root
