@@ -13,7 +13,6 @@ import android.os.Looper
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
-import android.util.Patterns
 import android.view.ContextThemeWrapper
 import android.view.MenuItem
 import android.view.View
@@ -25,23 +24,18 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
 import com.yargisoft.birthify.models.Birthday
-import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
-import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
-import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -291,7 +285,7 @@ object GuestFrequentlyUsedFunctions {
                                 findNavController: NavController,
                                 menuButtonToolbar:View,
                                 activity: Activity,
-                                birthdayRepository:GuestRepository,
+                                guestRepository:GuestRepository,
                                 userSharedPreferences:UserSharedPreferencesManager,
                                 sourcePage:String
     ){

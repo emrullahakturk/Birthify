@@ -5,56 +5,118 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.google.android.material.navigation.NavigationView
+import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
+import com.yargisoft.birthify.databinding.FragmentAuthDeletedBirthdayDetailBinding
+import com.yargisoft.birthify.repositories.AuthRepository
+import com.yargisoft.birthify.repositories.GuestRepository
+import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
+import com.yargisoft.birthify.viewmodels.AuthViewModel
+import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
+import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
+import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
+import com.yargisoft.birthify.views.auth_user_views.DeletedBirthdayDetailFragmentArgs
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [GuestDeletedBirthdayDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class GuestDeletedBirthdayDetailFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentAuthDeletedBirthdayDetailBinding
+    private lateinit var guestBirthdayViewModel: GuestBirthdayViewModel
+    private lateinit var authViewModel: AuthViewModel
+    private lateinit var userSharedPreferences: UserSharedPreferencesManager
+    private val deletedBirthday : DeletedBirthdayDetailFragmentArgs by navArgs()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guest_deleted_birthday_detail, container, false)
+    ): View {
+
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_guest_deleted_birthday_detail, container, false)
+
+
+
+        //Guest Birthday ViewModel Tanımlama için gerekenler
+        val guestRepository = GuestRepository(requireContext())
+        val guestFactory = GuestViewModelFactory(guestRepository)
+        guestBirthdayViewModel = ViewModelProvider(this, guestFactory)[GuestBirthdayViewModel::class]
+
+
+        //Auth ViewModel Tanımlama için gerekenler
+        val authRepository = AuthRepository(requireContext())
+        val authFactory = AuthViewModelFactory(authRepository)
+        authViewModel = ViewModelProvider(this,authFactory)[AuthViewModel::class]
+
+        //detayı gösterilmek istenen doğum gününü kutucuklara yansıtıyoruz
+        binding.birthday= deletedBirthday.birthday
+
+        //user SharedPreferences
+        userSharedPreferences = UserSharedPreferencesManager(requireContext())
+
+        // DrawerLayout ve NavigationView tanımlamaları
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navigationView: NavigationView = binding.navigationView
+        // Toolbardaki menü ikonu
+        val menuToolbarIcon: View = binding.toolbar.findViewById(R.id.menuButtonToolbar)
+
+        binding.fabBackButton.setOnClickListener { findNavController().popBackStack() }
+
+
+        binding.reSaveButton.setOnClickListener {
+            GuestFrequentlyUsedFunctions.showConfirmationDialog(
+                binding.root,
+                requireContext(),
+                guestBirthdayViewModel,
+                deletedBirthday.birthday,
+                binding.threePointAnimation,
+                viewLifecycleOwner,
+                "re_save",
+                findNavController(),
+                R.id.guestDeletedDetailToTrashBin
+            )
+        }
+
+
+        binding.permanentlyDeleteButton.setOnClickListener {
+            GuestFrequentlyUsedFunctions.showConfirmationDialog(
+                binding.root,
+                requireContext(),
+                guestBirthdayViewModel,
+                deletedBirthday.birthday,
+                binding.threePointAnimation,
+                viewLifecycleOwner,
+                "permanently",
+                findNavController(),
+                R.id.guestDeletedDetailToTrashBin
+            )
+        }
+
+
+        //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
+        GuestFrequentlyUsedFunctions.drawerLayoutToggle(
+            drawerLayout,
+            navigationView,
+            findNavController(),
+            menuToolbarIcon,
+            requireActivity(),
+            guestRepository,
+            userSharedPreferences,
+            "GuestDeletedBirthdayDetail"
+        )
+
+
+
+
+
+
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment GuestDeletedBirthdayDetailFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            GuestDeletedBirthdayDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

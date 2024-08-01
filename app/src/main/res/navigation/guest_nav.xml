@@ -28,6 +28,9 @@
             android:id="@+id/guestDetailToMain"
             app:destination="@id/guestMainPageFragment" />
         <action
+            android:id="@+id/guestDetailToEdit"
+            app:destination="@id/guestEditBirthdayFragment" />
+        <action
             android:id="@+id/guestDetailToTrashBin"
             app:destination="@id/guestTrashBinFragment" />
         <action
@@ -50,6 +53,9 @@
         <action
             android:id="@+id/guestDeletedDetailToSettings"
             app:destination="@id/guestSettingsFragment" />
+        <argument
+            android:name="birthday"
+            app:argType="com.yargisoft.birthify.models.Birthday" />
     </fragment>
     <fragment
         android:id="@+id/guestEditBirthdayFragment"
@@ -102,6 +108,9 @@
         <action
             android:id="@+id/guestTrashBinToMain"
             app:destination="@id/guestMainPageFragment" />
+       <action
+            android:id="@+id/guestTrashBinToDeletedDetail"
+            app:destination="@id/guestDeletedBirthdayDetailFragment" />
         <action
             android:id="@+id/guestTrashBinToTrashBin"
             app:destination="@id/guestTrashBinFragment" />
