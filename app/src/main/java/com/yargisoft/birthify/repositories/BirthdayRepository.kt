@@ -2,13 +2,13 @@ package com.yargisoft.birthify.repositories
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.yargisoft.birthify.models.Birthday
 
 class BirthdayRepository (context: Context){
-//    private val firestore = FirebaseFirestore.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
     private val gson = Gson()
     private val birthdayPreferences: SharedPreferences = context.getSharedPreferences("birthdays", Context.MODE_PRIVATE)
     private val deletedBirthdayPreferences: SharedPreferences = context.getSharedPreferences("deleted_birthdays", Context.MODE_PRIVATE)
@@ -24,7 +24,6 @@ class BirthdayRepository (context: Context){
         val birthdays = getBirthdays().toMutableList()
         birthdays.add(newBirthday)
         saveBirthdays(birthdays)
-        Log.e("tagımıs","${getBirthdays()}")
     }
 
     // Doğum günlerini getirme fonksiyonu
@@ -43,6 +42,7 @@ class BirthdayRepository (context: Context){
         val editor = birthdayPreferences.edit()
         editor.putString("birthdays", gson.toJson(birthdays))
         editor.apply()
+
     }
 
     fun deleteBirthday(birthdayId: String) {
@@ -126,67 +126,41 @@ class BirthdayRepository (context: Context){
 
 
 
+    //Firebase fonksiyonlaru buradan başlıyor
 
-
-
-
-
-
-
-
-
-
-
-    /*suspend fun saveBirthday(birthday: Birthday, onComplete: (Boolean) -> Unit) {
+     fun saveBirthdayToFirebase(birthday: Birthday, onComplete: (Boolean) -> Unit) {
         try {
-            val document = firestore.collection("birthdays").document()
-            val id = document.id
-            val birthdayWithId = birthday.copy(id = id)
-            document.set(birthdayWithId).await()
-            onComplete(true)
-
+            val document = firestore.collection("birthdays").document(birthday.id)
+            firestore.runTransaction { transaction ->
+                transaction.set(document, birthday)
+            }.addOnSuccessListener { onComplete(true) }
+                .addOnFailureListener { onComplete(false) }
         } catch (e: Exception) {
             onComplete(false)
         }
     }
 
-     fun getUserBirthdays(userId: String, onComplete: (List<Birthday>, Boolean) -> Unit) {
-        firestore.collection("birthdays")
-            .whereEqualTo("userId", userId)
-            .get()
-            .addOnSuccessListener { snapshot ->
-                val birthdays = snapshot.toObjects(Birthday::class.java)
-                birthdayPreferences.saveBirthday(birthdays)
-                onComplete(birthdays, true)
-            }
-            .addOnFailureListener {
-                onComplete(emptyList(), false)
-            }
-    }
 
-    fun updateBirthday(birthday: Birthday, onComplete: (Boolean) -> Unit) {
+    fun updateBirthdayToFirebase(birthday: Birthday, onComplete: (Boolean) -> Unit) {
         val birthdayRef = firestore.collection("birthdays").document(birthday.id)
         birthdayRef.set(birthday)
             .addOnSuccessListener { onComplete(true) }
             .addOnFailureListener { onComplete(false) }
     }
-
-
-    fun deleteBirthday(birthdayId: String, birthday: Birthday, onComplete: (Boolean) -> Unit) {
+    fun deleteBirthdayFromFirebase(birthdayId: String, birthday: Birthday, onComplete: (Boolean) -> Unit) {
         val birthdayRef = firestore.collection("birthdays").document(birthdayId)
         val deletedBirthdaysRef = firestore.collection("deleted_birthdays").document(birthdayId)
 
         firestore.runTransaction { transaction ->
             transaction.delete(birthdayRef)
             transaction.set(deletedBirthdaysRef, birthday)
-        }.addOnSuccessListener { onComplete(true) }
+        }
+            .addOnSuccessListener { onComplete(true) }
             .addOnFailureListener { onComplete(false) }
     }
 
 
-
-
-    fun deleteBirthdayPermanently(birthdayId: String, onComplete: (Boolean) -> Unit) {
+    fun deleteBirthdayPermanentlyFromFirebase(birthdayId: String, onComplete: (Boolean) -> Unit) {
         val birthdayRef = firestore.collection("deleted_birthdays").document(birthdayId)
         firestore.runTransaction { transaction ->
             transaction.delete(birthdayRef)
@@ -196,7 +170,7 @@ class BirthdayRepository (context: Context){
 
 
 
-    fun reSaveDeletedBirthday(birthdayId: String, birthday: Birthday, onComplete: (Boolean) -> Unit) {
+    fun reSaveDeletedBirthdayToFirebase(birthdayId: String, birthday: Birthday, onComplete: (Boolean) -> Unit) {
         val birthdayRef = firestore.collection("birthdays").document(birthdayId)
         val deletedBirthdaysRef = firestore.collection("deleted_birthdays").document(birthdayId)
         firestore.runTransaction { transaction ->
@@ -207,7 +181,21 @@ class BirthdayRepository (context: Context){
     }
 
 
-    fun getDeletedBirthdays(userId: String, onComplete: (List<Birthday>,Boolean) -> Unit) {
+    fun getUserBirthdaysFromFirebase(userId: String, onComplete: (List<Birthday>, Boolean) -> Unit) {
+        firestore.collection("birthdays")
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val birthdays = snapshot.toObjects(Birthday::class.java)
+                onComplete(birthdays, true)
+            }
+            .addOnFailureListener {
+                onComplete(emptyList(), false)
+            }
+    }
+
+
+    fun getDeletedBirthdaysFromFirebase(userId: String, onComplete: (List<Birthday>,Boolean) -> Unit) {
         firestore.collection("deleted_birthdays")
             .whereEqualTo("userId", userId)
             .get()
@@ -218,5 +206,5 @@ class BirthdayRepository (context: Context){
             .addOnFailureListener {
                 onComplete(emptyList(),false)
             }
-    }*/
+    }
 }

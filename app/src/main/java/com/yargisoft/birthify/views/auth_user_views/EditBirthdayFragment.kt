@@ -54,6 +54,7 @@ class EditBirthdayFragment : Fragment() {
             )
 
             viewModel.updateBirthday(updatedBirthday)
+            viewModel.updateBirthdayToFirebase(updatedBirthday)
 
            UserFrequentlyUsedFunctions.loadAndStateOperation(
                viewLifecycleOwner,

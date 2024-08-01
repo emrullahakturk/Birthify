@@ -11,14 +11,14 @@
                 android:title="@string/birthdays" />
 
             <item
+                android:id="@+id/labelLogin"
+                android:icon="@drawable/ic_account"
+                android:title="@string/login" />
+            <item
                 android:id="@+id/labelTrashBin"
                 android:icon="@drawable/ic_delete"
                 android:iconTint="@color/green_login"
                 android:title="@string/trash_bin" />
-            <item
-                android:id="@+id/labelLogin"
-                android:icon="@drawable/ic_account"
-                android:title="@string/login" />
 
             <item
                 android:id="@+id/labelSettings"
