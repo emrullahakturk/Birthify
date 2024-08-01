@@ -7,19 +7,67 @@
     <fragment
         android:id="@+id/guestAddBirthdayFragment"
         android:name="com.yargisoft.birthify.views.guest_user_views.GuestAddBirthdayFragment"
-        android:label="GuestAddBirthdayFragment" />
+        android:label="GuestAddBirthdayFragment" >
+        <action
+            android:id="@+id/guestAddToMain"
+            app:destination="@id/guestMainPageFragment" />
+        <action
+            android:id="@+id/guestAddToTrashBin"
+            app:destination="@id/guestTrashBinFragment" />
+        <action
+            android:id="@+id/guestAddToSettings"
+            app:destination="@id/guestSettingsFragment" />
+
+
+    </fragment>
     <fragment
         android:id="@+id/guestBirthdayDetailFragment"
         android:name="com.yargisoft.birthify.views.guest_user_views.GuestBirthdayDetailFragment"
-        android:label="GuestBirthdayDetailFragment" />
+        android:label="GuestBirthdayDetailFragment" >
+        <action
+            android:id="@+id/guestDetailToMain"
+            app:destination="@id/guestMainPageFragment" />
+        <action
+            android:id="@+id/guestDetailToTrashBin"
+            app:destination="@id/guestTrashBinFragment" />
+        <action
+            android:id="@+id/guestDetailToSettings"
+            app:destination="@id/guestSettingsFragment" />
+        <argument
+            android:name="birthday"
+            app:argType="com.yargisoft.birthify.models.Birthday" />
+    </fragment>
     <fragment
         android:id="@+id/guestDeletedBirthdayDetailFragment"
         android:name="com.yargisoft.birthify.views.guest_user_views.GuestDeletedBirthdayDetailFragment"
-        android:label="GuestDeletedBirthdayDetailFragment" />
+        android:label="GuestDeletedBirthdayDetailFragment" >
+        <action
+            android:id="@+id/guestDeletedDetailToMain"
+            app:destination="@id/guestMainPageFragment" />
+        <action
+            android:id="@+id/guestDeletedDetailToTrashBin"
+            app:destination="@id/guestTrashBinFragment" />
+        <action
+            android:id="@+id/guestDeletedDetailToSettings"
+            app:destination="@id/guestSettingsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/guestEditBirthdayFragment"
         android:name="com.yargisoft.birthify.views.guest_user_views.GuestEditBirthdayFragment"
-        android:label="GuestEditBirthdayFragment" />
+        android:label="GuestEditBirthdayFragment" >
+        <action
+            android:id="@+id/guestEditToMain"
+            app:destination="@id/guestMainPageFragment" />
+        <action
+            android:id="@+id/guestEditToTrashBin"
+            app:destination="@id/guestTrashBinFragment" />
+        <action
+            android:id="@+id/guestEditToSettings"
+            app:destination="@id/guestSettingsFragment" />
+        <argument
+            android:name="birthday"
+            app:argType="com.yargisoft.birthify.models.Birthday" />
+    </fragment>
     <fragment
         android:id="@+id/guestMainPageFragment"
         android:name="com.yargisoft.birthify.views.guest_user_views.GuestMainPageFragment"
@@ -30,11 +78,38 @@
         <action
             android:id="@+id/guestMainToAddBirthday"
             app:destination="@id/guestAddBirthdayFragment" />
+        <action
+            android:id="@+id/guestMainToDetail"
+            app:destination="@id/guestBirthdayDetailFragment" />
+        <action
+            android:id="@+id/guestMainToEditBirthday"
+            app:destination="@id/guestEditBirthdayFragment" />
+        <action
+            android:id="@+id/guestMainToDeletedBirthdayDetail"
+            app:destination="@id/guestDeletedBirthdayDetailFragment" />
+        <action
+            android:id="@+id/guestMainToTrashBin"
+            app:destination="@id/guestTrashBinFragment" />
+        <action
+            android:id="@+id/guestMainToSettings"
+            app:destination="@id/guestSettingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/guestTrashBinFragment"
         android:name="com.yargisoft.birthify.views.guest_user_views.GuestTrashBinFragment"
-        android:label="GuestTrashBinFragment" />
+        android:label="GuestTrashBinFragment" >
+
+        <action
+            android:id="@+id/guestTrashBinToMain"
+            app:destination="@id/guestMainPageFragment" />
+        <action
+            android:id="@+id/guestTrashBinToTrashBin"
+            app:destination="@id/guestTrashBinFragment" />
+        <action
+            android:id="@+id/guestTrashBinToSettings"
+            app:destination="@id/guestSettingsFragment" />
+
+    </fragment>
     <fragment
         android:id="@+id/guestSettingsFragment"
         android:name="com.yargisoft.birthify.views.guest_user_views.GuestSettingsFragment"

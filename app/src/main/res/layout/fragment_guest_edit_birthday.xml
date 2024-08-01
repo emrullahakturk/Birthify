@@ -106,7 +106,7 @@
                     app:startIconTint="@color/green_login">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/birthdayName"
+                        android:id="@+id/birthdayNameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edit_text"
@@ -127,7 +127,7 @@
                     app:startIconTint="@color/green_login">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/birthdayDate"
+                        android:id="@+id/birthdayDateEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edit_text"
@@ -150,7 +150,7 @@
                     app:startIconTint="@color/green_login">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/birthdayNote"
+                        android:id="@+id/birthdayNoteEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edit_text"

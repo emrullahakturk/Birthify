@@ -51,7 +51,7 @@ import java.util.Locale
 object GuestFrequentlyUsedFunctions {
 
 
-    //EditText ile arama yaparken aramayı filtrelemek için kullanılan fonksiyon
+    //EditText ile arama yaparken aramayı filtrelemek için kullanılan fonksiyon (TrashBin İçin)
     fun filterBirthdays(query: String, guestBirthdayViewModel: GuestBirthdayViewModel, adapter: DeletedBirthdayAdapter) {
         val birthdays = guestBirthdayViewModel.deletedBirthdayList.value
         if (birthdays != null) {
@@ -64,7 +64,7 @@ object GuestFrequentlyUsedFunctions {
         }
     }
 
-    //EditText ile arama yaparken aramayı filtrelemek için kullanılan fonksiyon
+    //EditText ile arama yaparken aramayı filtrelemek için kullanılan fonksiyon  (MainPage İçin)
     fun filterBirthdays(query: String, guestBirthdayViewModel:GuestBirthdayViewModel, adapter: BirthdayAdapter) {
         val birthdays = guestBirthdayViewModel.birthdayList.value
         if (birthdays != null) {
@@ -207,43 +207,6 @@ object GuestFrequentlyUsedFunctions {
     //parametre olarak gelen view'i devre dışı bırakmak ve tekrar aktif etmek için kullanılan fonksiyon
 
 
-    //Email, password ve fullname validation için kullanılan fonksiyonlar
-    fun isValidEmail(email: String): Boolean {
-        if (email.isBlank()) {
-            return false
-        }
-        val emailPattern = Patterns.EMAIL_ADDRESS
-        return emailPattern.matcher(email).matches()
-    }
-    fun isValidPassword(password: String): Boolean {
-        if (password.isBlank()) {
-            return false
-        }
-        val passwordPattern = Regex("^(?=.*[A-Z])(?=.*[0-9])(?=.*\\W)(?=.{6,})\\S*$")
-        return passwordPattern.matches(password)
-    }
-    fun isValidFullName(fullName: String): Boolean {
-        // Boş olup olmadığını kontrol et
-        if (fullName.isBlank()) {
-            return false
-        }
-
-        // Kelimeleri ayır
-        val words = fullName.trim().split("\\s+".toRegex())
-
-        // En az iki kelime ve her kelimenin en az 3 harf uzunluğunda olması gerekiyor
-        if (words.size < 2 || words.any { it.length < 2 }) {
-            return false
-        }
-
-        // Kelimelerde rakam veya noktalama işareti olmamalı
-        val namePattern = Regex("^[a-zA-Z]+$")
-
-        return !words.any { !namePattern.matches(it) }
-    }
-    //Email, password ve fullname validation için kullanılan fonksiyonlar
-
-
 
     /*
         silme , yeniden kaydetme ve tamamen silme işlemlerimiz
@@ -279,89 +242,6 @@ object GuestFrequentlyUsedFunctions {
 
 
 
-    /*Login page içerisinde login butonuna tıkladığımızda, verilen email validasyonunu yapan,
-       animasyonları gösterip devre dışı bırakan, kullanıcı etkileşimini sağlayan fonksiyon (snackbar iler)*/
-    fun loginValidationFunction(view: View,
-                                email: String,
-                                password:String,
-                                isChecked: Boolean,
-                                authViewModel: AuthViewModel,
-                                lottieAnimationView: LottieAnimationView,
-                                viewLifecycleOwner: LifecycleOwner,
-                                userSharedPreferences: UserSharedPreferencesManager,
-                                findNavController: NavController,
-                                action: Int
-    ){
-
-        if (isValidEmail(email) && password.isNotEmpty()) {
-
-            authViewModel.loginUser(email, password,isChecked)
-
-            disableViewEnableLottie(lottieAnimationView,view)
-
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    authViewModel.isLoaded.collect { isLoaded ->
-                        if(isLoaded == true){
-                            Log.e("tagımıs","is loaded işlemi")
-
-                            if(authViewModel.authViewModelState == true){
-                                if (authViewModel.isEmailVerifiedResult == true) {
-                                    userSharedPreferences.saveIsChecked(isChecked)
-                                    Snackbar.make(view, "You successfully logged in", Snackbar.LENGTH_SHORT).show()
-                                    Log.e("tagımıs","navigate işlemi")
-                                    findNavController.navigate(action)
-
-                                } else {
-                                    userSharedPreferences.apply {
-                                        clearUserSession()
-                                        saveIsChecked(false)
-                                    }
-                                    Snackbar.make(view, "Please verify your e-mail", Snackbar.LENGTH_LONG).show()
-                                    enableViewDisableLottie(lottieAnimationView,view)
-                                }
-                            }
-                            if(authViewModel.authViewModelState == false){
-                                Snackbar.make(view,"Login Failed",Snackbar.LENGTH_SHORT).show()
-                                enableViewDisableLottie(lottieAnimationView,view)
-                            }
-                        }
-                    }
-                }
-            }
-
-        }else {
-            Snackbar.make(view,"Please fill in all fields",Snackbar.LENGTH_SHORT).show()
-        }
-    }
-
-
-    fun registerValidationFunction(email:String, password: String, name:String,
-                                   viewModel:AuthViewModel,
-                                   lottieAnimationView: LottieAnimationView,
-                                   viewLifecycleOwner:LifecycleOwner,
-                                   view:View,
-                                   findNavController:NavController,
-                                   action: Int
-    ){
-
-        if(isValidPassword(password) && isValidEmail(email) && isValidFullName(name) )
-        {
-
-            //user kaydetme fonksiyonunu viewmodeldan çağırıyoruz
-            viewModel.registerUser(name,email,password)
-
-            disableViewEnableLottie(lottieAnimationView,view)
-
-            isLoadingCheck(viewLifecycleOwner,viewModel,lottieAnimationView,view,findNavController,action)
-
-
-        }else{
-            Snackbar.make(view,"Please correctly fill in all fields",Snackbar.LENGTH_SHORT).show()
-        }
-    }
-
-
 
     //Swipe ederek silme işlemi yaparken UserSwipeToDeleteCallback sınıfından bu fonksiyon çağrılır ve silme işlemi başlatılır
     @SuppressLint("NotifyDataSetChanged")
@@ -373,22 +253,6 @@ object GuestFrequentlyUsedFunctions {
             val birthday = birthdayList[position]
             showConfirmationDialog(view,context,guestBirthdayViewModel,birthday,lottieAnimationView,lifeCycleOwner,"soft_delete", findNavController , action )
         }
-    }
-
-
-
-
-    /*Şifre sıfırlama ekranında (Forgot Password Page) kutucuğa uazılan mailin validayion işlemlerini,
-     animasyon işlemlerini vs yapan fonksiyon
-     */
-    fun resetPasswordValidation(email:String, viewLifecycleOwner:LifecycleOwner, viewModel:AuthViewModel, lottieAnimationView: LottieAnimationView, view: View, findNavController: NavController, action:Int )
-    {
-        if(isValidEmail(email)){
-            viewModel.resetPassword(email)
-            disableViewEnableLottie(lottieAnimationView,view)
-            isLoadingCheck( viewLifecycleOwner, viewModel, lottieAnimationView, view, findNavController, action)
-        }
-
     }
 
 
@@ -406,39 +270,17 @@ object GuestFrequentlyUsedFunctions {
 
     //Auth View Model ve UsersBirthdayViewModel için isLoading Kontrolü yapan fonksiyon
     // (Suspend fonksiyonun bitip bitmediğini kontrol ediyoruz)
-    private fun isLoadingCheck(viewLifecycleOwner: LifecycleOwner, viewModel:ViewModel, lottieAnimationView: LottieAnimationView, view: View, findNavController: NavController?, action: Int?)
+    private fun isLoadingCheck(viewLifecycleOwner: LifecycleOwner, viewModel:GuestBirthdayViewModel, lottieAnimationView: LottieAnimationView, view: View, findNavController: NavController?, action: Int?)
     {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-
-                if(viewModel is AuthViewModel){ //gelen viewModel Authviewmodel ise bu çalışacak
-                    viewModel.isLoaded.collect { isLoaded ->
-                        if(isLoaded == true){
-
-                            if(viewModel.authViewModelState == true){
-                                Snackbar.make(view,"Successful",Snackbar.LENGTH_SHORT).show()
-                            }
-                            if(viewModel.authViewModelState == false){
-                                Snackbar.make(view,"Failed",Snackbar.LENGTH_SHORT).show()
-                            }
-                            //animasyonu durdurup view'i visible yapıyoruz
-                            enableViewDisableLottie(lottieAnimationView,view)
-                            if (findNavController != null && action != null){
-                                findNavController.navigate(action)
-                            }
-                        }
-                    }
-                }
-
-                if(viewModel is UsersBirthdayViewModel){  //gelen viewModel Birthday viewmodel ise bu çalışacak
-                    Handler(Looper.getMainLooper()).postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
                         //animasyonu durdurup view'i visible yapıyoruz
                         enableViewDisableLottie(lottieAnimationView,view)
                         if (findNavController != null && action != null){
                             findNavController.navigate(action)
                         }
-                    },1500)
-                }
+                },1500)
             }
         }
     }
@@ -470,58 +312,43 @@ object GuestFrequentlyUsedFunctions {
             when (menuItem.itemId) {
                 R.id.labelBirthdays -> {
                     when(sourcePage){
-                        "GuestMainPage"-> findNavController.navigate(R.id.mainToMain)
-                        "GuestTrashBin"-> findNavController.navigate(R.id.trashToMainPage)
-                        "GuestSettings"-> findNavController.navigate(R.id.settingsToMainPage)
-                        "GuestProfile"-> findNavController.navigate(R.id.profileToMain)
-                        "GuestDeletedBirthdayDetail"-> findNavController.navigate(R.id.deletedDetailToMain)
-                        "GuestBirthdayEdit"-> findNavController.navigate(R.id.editToMain)
-                        "GuestBirthdayDetail"-> findNavController.navigate(R.id.birthdayDetailToMain)
-                        "GuestAddBirthday"-> findNavController.navigate(R.id.addToMain)
+                        "GuestMainPage"-> findNavController.navigate(R.id.guestMainToMain)
+                        "GuestTrashBin"-> findNavController.navigate(R.id.guestTrashBinToMain)
+                        "GuestDeletedBirthdayDetail"-> findNavController.navigate(R.id.guestDeletedDetailToMain)
+                        "GuestBirthdayEdit"-> findNavController.navigate(R.id.guestEditToMain)
+                        "GuestBirthdayDetail"-> findNavController.navigate(R.id.guestDetailToMain)
+                        "GuestAddBirthday"-> findNavController.navigate(R.id.guestAddToMain)
                     }
                 }
 
-                R.id.labelLogOut -> {
+                R.id.labelLogin -> {
                     userSharedPreferences.clearUserSession()
-                    birthdayRepository.clearBirthdays()
-                    birthdayRepository.clearDeletedBirthdays()
-                    findNavController.navigate(R.id.firstPageFragment)
+                    //findNavController.navigate(R.id.firstPageFragment)
                 }
 
                 R.id.labelTrashBin -> {
                     when(sourcePage){
-                        "GuestMainPage"-> findNavController.navigate(R.id.mainToTrashBin)
-                        "GuestTrashBin"-> findNavController.navigate(R.id.trashToTrashBin)
-                        "GuestSettings"-> findNavController.navigate(R.id.settingsToTrashBin)
-                        "GuestProfile"-> findNavController.navigate(R.id.profileToTrash)
-                        "GuestDeletedBirthdayDetail"-> findNavController.navigate(R.id.deletedDetailToTrashBin)
-                        "GuestBirthdayEdit"-> findNavController.navigate(R.id.editToTrash)
-                        "GuestBirthdayDetail"-> findNavController.navigate(R.id.detailToTrash)
-                        "GuestAddBirthday"-> findNavController.navigate(R.id.addToTrash)
+                        "GuestMainPage"-> findNavController.navigate(R.id.guestMainToTrashBin)
+                        "GuestTrashBin"-> findNavController.navigate(R.id.guestTrashBinToTrashBin)
+//                        "GuestSettings"-> findNavController.navigate(R.id.)
+                        "GuestDeletedBirthdayDetail"-> findNavController.navigate(R.id.guestDeletedDetailToTrashBin)
+                        "GuestBirthdayEdit"-> findNavController.navigate(R.id.guestEditToTrashBin)
+                        "GuestBirthdayDetail"-> findNavController.navigate(R.id.guestDetailToTrashBin)
+                        "GuestAddBirthday"-> findNavController.navigate(R.id.guestAddToTrashBin)
                     }
                 }
 
                 R.id.labelSettings -> {
                     when(sourcePage){
-                        "GuestMainPage"-> findNavController.navigate(R.id.mainToSettings)
-                        "GuestTrashBin"-> findNavController.navigate(R.id.trashToSettings)
-                        "GuestProfile"-> findNavController.navigate(R.id.profileToSettings)
-                        "GuestDeletedBirthdayDetail"-> findNavController.navigate(R.id.deletedDetailToSettings)
-                        "GuestBirthdayEdit"-> findNavController.navigate(R.id.editToSettings)
-                        "GuestBirthdayDetail"-> findNavController.navigate(R.id.detailToSettings)
-                        "GuestAddBirthday"-> findNavController.navigate(R.id.addToSettings)
+                        "GuestMainPage"-> findNavController.navigate(R.id.guestMainToSettings)
+                        "GuestTrashBin"-> findNavController.navigate(R.id.guestTrashBinToSettings)
+                        "GuestDeletedBirthdayDetail"-> findNavController.navigate(R.id.guestDeletedDetailToSettings)
+                        "GuestBirthdayEdit"-> findNavController.navigate(R.id.guestEditToSettings)
+                        "GuestBirthdayDetail"-> findNavController.navigate(R.id.guestDetailToSettings)
+                        "GuestAddBirthday"-> findNavController.navigate(R.id.guestAddToSettings)
                     }
                 }
 
-                R.id.labelProfile -> {
-                    when(sourcePage){
-                        "GuestMainPage"-> findNavController.navigate(R.id.mainToProfile)
-                        "GuestTrashBin"-> findNavController.navigate(R.id.trashToProfile)
-                        "GuestDeletedBirthdayDetail"-> findNavController.navigate(R.id.deletedDetailToProfile)
-                        "GuestBirthdayEdit"-> findNavController.navigate(R.id.editToProfile)
-                        "GuestBirthdayDetail"-> findNavController.navigate(R.id.detailToProfile)
-                        "GuestAddBirthday"-> findNavController.navigate(R.id.addToProfile)
-                    }                  }
 
                 else -> false
             }

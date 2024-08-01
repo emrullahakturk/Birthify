@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.GuestSwipeToDeleteCallback
-import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentGuestMainPageBinding
@@ -30,7 +29,7 @@ import com.yargisoft.birthify.views.auth_user_views.MainPageFragmentDirections
 
 class GuestMainPageFragment : Fragment() {
     private lateinit var binding: FragmentGuestMainPageBinding
-    private lateinit var guestsBirthdayViewModel: GuestBirthdayViewModel
+    private lateinit var guestBirthdayViewModel: GuestBirthdayViewModel
     private lateinit var adapter: BirthdayAdapter
     private lateinit var itemTouchHelper: ItemTouchHelper
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
@@ -48,22 +47,22 @@ class GuestMainPageFragment : Fragment() {
         //Guest Birthday ViewModel Tanımlama için gerekenler
         val guestRepository = GuestRepository(requireContext())
         val guestFactory = GuestViewModelFactory(guestRepository)
-        guestsBirthdayViewModel = ViewModelProvider(this, guestFactory)[GuestBirthdayViewModel::class]
+        guestBirthdayViewModel = ViewModelProvider(this, guestFactory)[GuestBirthdayViewModel::class]
 
 
         //doğum günlerini liveDataya çekiyoruz
-        guestsBirthdayViewModel.getBirthdays()
+        guestBirthdayViewModel.getBirthdays()
 
         //user SharedPreferences
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
-//        Log.e("tagımıs","${userSharedPreferences.getUserCredentials()} ${guestsBirthdayViewModel.birthdayList.value} ")
+//        Log.e("tagımıs","${userSharedPreferences.getUserCredentials()} ${guestBirthdayViewModel.birthdayList.value} ")
 
 
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
-        val toolbarMenuButton = binding.toolbar.findViewById<View>(R.id.menuButtonToolbar)
+        val toolbarMenuButton = binding.toolbarMain.findViewById<View>(R.id.menuButtonToolbar)
 
         //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
         GuestFrequentlyUsedFunctions.drawerLayoutToggle(
@@ -77,17 +76,17 @@ class GuestMainPageFragment : Fragment() {
             "GuestMainPage"
         )
 
-        val adapterList= guestsBirthdayViewModel.birthdayList.value ?: emptyList()
+        val adapterList= guestBirthdayViewModel.birthdayList.value ?: emptyList()
 
         //Adapter'ı initialize etme
         adapter = BirthdayAdapter(
             adapterList.sortedByDescending { it.recordedDate },
             {birthday ->
-                val action = MainPageFragmentDirections.mainToEditBirthday(birthday)
+                val action = GuestMainPageFragmentDirections.guestMainToEditBirthday(birthday)
                 findNavController().navigate(action)
             },
             { birthday ->
-                val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
+                val action = GuestMainPageFragmentDirections.guestMainToDetail(birthday)
                 findNavController().navigate(action)
             },
             requireContext(),
@@ -98,20 +97,20 @@ class GuestMainPageFragment : Fragment() {
            GuestSwipeToDeleteCallback(
             adapter,
             requireContext(),
-            guestsBirthdayViewModel,
+            guestBirthdayViewModel,
             viewLifecycleOwner,
             binding.deleteAnimation,
             findNavController(),
             binding.root,
             adapterList,
-            R.id.mainToMain
+            R.id.guestMainToMain
         )
         )
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
 
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
-        guestsBirthdayViewModel.birthdayList.observe(viewLifecycleOwner) { birthdays ->
+        guestBirthdayViewModel.birthdayList.observe(viewLifecycleOwner) { birthdays ->
             adapter.updateData(birthdays)
         }
 
@@ -123,13 +122,13 @@ class GuestMainPageFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                GuestFrequentlyUsedFunctions.filterBirthdays(s.toString(), guestsBirthdayViewModel, adapter)
+                GuestFrequentlyUsedFunctions.filterBirthdays(s.toString(), guestBirthdayViewModel, adapter)
             }
 
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        binding.toolbar.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
+        binding.toolbarMain.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
             findNavController().navigate(R.id.guestMainToAddBirthday)
         }
         binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)
@@ -138,7 +137,7 @@ class GuestMainPageFragment : Fragment() {
             }
 
         binding.sortButton.setOnClickListener {
-            GuestFrequentlyUsedFunctions.showSortMenu(it, requireContext(), adapter, guestsBirthdayViewModel)
+            GuestFrequentlyUsedFunctions.showSortMenu(it, requireContext(), adapter, guestBirthdayViewModel)
         }
 
 

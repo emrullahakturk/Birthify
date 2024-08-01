@@ -65,7 +65,7 @@
                     tools:ignore="ContentDescription" />
 
                 <include
-                    android:id="@+id/toolbar"
+                    android:id="@+id/toolbarAdd"
                     layout="@layout/custom_toolbar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +86,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+                    app:layout_constraintTop_toBottomOf="@+id/toolbarAdd" />
 
 
                 <LinearLayout
@@ -110,7 +110,7 @@
                         app:startIconTint="@color/green_login">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/birthdayName"
+                            android:id="@+id/birthdayNameEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_edit_text"
@@ -130,7 +130,7 @@
                         app:startIconTint="@color/green_login">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/birthdayDate"
+                            android:id="@+id/birthdayDateEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_edit_text"
@@ -152,7 +152,7 @@
                         app:startIconTint="@color/green_login">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/birthdayNote"
+                            android:id="@+id/birthdayNoteEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_edit_text"
@@ -187,7 +187,7 @@
             app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance"
             app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
             android:background="@color/white"
-            app:menu="@menu/user_drawer_menu" />
+            app:menu="@menu/guest_drawer_menu" />
     </androidx.drawerlayout.widget.DrawerLayout>
 
 

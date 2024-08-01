@@ -111,7 +111,7 @@
 
 
                     <include
-                        android:id="@+id/toolbar"
+                        android:id="@+id/toolbarMain"
                         layout="@layout/custom_toolbar"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +127,7 @@
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+                        app:layout_constraintTop_toBottomOf="@+id/toolbarMain" />
 
                     <View
                         android:id="@+id/lineView"

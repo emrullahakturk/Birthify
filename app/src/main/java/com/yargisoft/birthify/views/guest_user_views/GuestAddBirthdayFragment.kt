@@ -1,60 +1,107 @@
 package com.yargisoft.birthify.views.guest_user_views
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
+import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
+import com.yargisoft.birthify.databinding.FragmentGuestAddBirthdayBinding
+import com.yargisoft.birthify.models.Birthday
+import com.yargisoft.birthify.repositories.GuestRepository
+import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
+import com.yargisoft.birthify.viewmodels.AuthViewModel
+import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
+import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.UUID
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [GuestAddBirthdayFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class GuestAddBirthdayFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var guestBirthdayViewModel: GuestBirthdayViewModel
+    private lateinit var authViewModel: AuthViewModel
+    private lateinit var binding : FragmentGuestAddBirthdayBinding
+    private lateinit var userSharedPreferences: UserSharedPreferencesManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guest_add_birthday, container, false)
+    ): View {
+
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_guest_add_birthday, container, false)
+
+        val view = (context as Activity).findViewById<View>(android.R.id.content)
+
+        // DrawerLayout ve NavigationView tanımlamaları
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navigationView: NavigationView = binding.navigationView
+        // Toolbar üzerindeki menü ikonu ile menüyü açma
+        val toolbarMenuIcon = binding.toolbarAdd.findViewById<View>(R.id.menuButtonToolbar)
+
+
+
+
+
+        userSharedPreferences = UserSharedPreferencesManager(requireContext())
+
+
+        //Guest Birthday ViewModel Tanımlama için gerekenler
+        val guestRepository = GuestRepository(requireContext())
+        val guestFactory = GuestViewModelFactory(guestRepository)
+        guestBirthdayViewModel = ViewModelProvider(this, guestFactory)[GuestBirthdayViewModel::class]
+
+
+        binding.saveBirthdayButton.setOnClickListener {
+
+            val name = binding.birthdayNameEditText.text.toString()
+            val birthdayDate = binding.birthdayDateEditText.text.toString()
+            val note = binding.birthdayNoteEditText.text.toString()
+            val userId =  userSharedPreferences.getUserId()
+            val recordedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
+
+            val bDay = Birthday(UUID.randomUUID().toString(), name, birthdayDate, recordedDate, note , userId )
+
+            if (name.isNotEmpty() && birthdayDate.isNotEmpty() && note.isNotEmpty()) {
+                guestBirthdayViewModel.saveBirthday(bDay)
+              GuestFrequentlyUsedFunctions.loadAndStateOperation(viewLifecycleOwner, guestBirthdayViewModel, binding.threePointAnimation, binding.root, findNavController(), R.id.guestAddToMain)
+            }
+            else{
+                Snackbar.make(view,"Please fill in all fields", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.birthdayDateEditText.setOnClickListener {
+            GuestFrequentlyUsedFunctions.showDatePickerDialog(requireContext(),binding.birthdayDateEditText)
+        }
+
+        binding.fabBackButton.setOnClickListener { it.findNavController().popBackStack() }
+
+
+        //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
+        GuestFrequentlyUsedFunctions.drawerLayoutToggle(
+            drawerLayout,
+            navigationView,
+            findNavController(),
+            toolbarMenuIcon,
+            requireActivity(),
+            guestRepository,
+            userSharedPreferences,
+            "GuestAddBirthday"
+        )
+
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment GuestAddBirthdayFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            GuestAddBirthdayFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
