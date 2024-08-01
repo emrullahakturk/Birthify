@@ -14,7 +14,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
-import com.yargisoft.birthify.FrequentlyUsedFunctions
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentAuthTrashBinBinding
@@ -22,15 +22,15 @@ import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
-import com.yargisoft.birthify.viewmodels.BirthdayViewModel
+import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
-import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
+import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
 
 
 class TrashBinFragment : Fragment() {
 
     private lateinit var binding: FragmentAuthTrashBinBinding
-    private lateinit var birthdayViewModel: BirthdayViewModel
+    private lateinit var usersBirthdayViewModel: UsersBirthdayViewModel
     private lateinit var authViewModel: AuthViewModel
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var adapter: DeletedBirthdayAdapter
@@ -43,8 +43,8 @@ class TrashBinFragment : Fragment() {
 
         //Birthday ViewModel Initialization
         val birthdayRepository = BirthdayRepository(requireContext())
-        val birthdayViewModelFactory = BirthdayViewModelFactory(birthdayRepository)
-        birthdayViewModel = ViewModelProvider(this, birthdayViewModelFactory)[BirthdayViewModel::class]
+        val birthdayViewModelFactory = UsersBirthdayViewModelFactory(birthdayRepository)
+        usersBirthdayViewModel = ViewModelProvider(this, birthdayViewModelFactory)[UsersBirthdayViewModel::class]
 
         //Birthday ViewModel Initialization
         val authRepository = AuthRepository(requireContext())
@@ -81,10 +81,10 @@ class TrashBinFragment : Fragment() {
 
 
         //deletedBirthdays' listesini güncelleme
-        birthdayViewModel.getDeletedBirthdays()
+        usersBirthdayViewModel.getDeletedBirthdays()
 
 
-        birthdayViewModel.deletedBirthdayList.observe(viewLifecycleOwner) { deletedBirthdays ->
+        usersBirthdayViewModel.deletedBirthdayList.observe(viewLifecycleOwner) { deletedBirthdays ->
 
             binding.trashBinMainTv.visibility = if (deletedBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
 
@@ -106,7 +106,7 @@ class TrashBinFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                FrequentlyUsedFunctions.filterBirthdays(s.toString(), birthdayViewModel, adapter)
+                UserFrequentlyUsedFunctions.filterBirthdays(s.toString(), usersBirthdayViewModel, adapter)
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -125,13 +125,13 @@ class TrashBinFragment : Fragment() {
 
         binding.sortButton.setOnClickListener{
 
-            FrequentlyUsedFunctions.showSortMenu(it,requireContext(),adapter,birthdayViewModel)
+            UserFrequentlyUsedFunctions.showSortMenu(it,requireContext(),adapter,usersBirthdayViewModel)
 
         }
 
 
         //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
-        FrequentlyUsedFunctions.drawerLayoutToggle(
+        UserFrequentlyUsedFunctions.drawerLayoutToggle(
             drawerLayout,
             navigationView,
             findNavController(),

@@ -36,7 +36,12 @@ class SplashFragment : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             if (userSharedPreferencesManager.checkIsUserLoggedIn()) {
                 // Oturum bilgileri mevcutsa MainFragment'a yönlendirir
-                findNavController().navigate(R.id.splashToMainPage, null, navOptions)
+                if (userSharedPreferencesManager.getUserId() == "guest" ){
+                    findNavController().navigate(R.id.splashToMainPage, null, navOptions)
+                }else{
+                    findNavController().navigate(R.id.splashToGuestNavGraph)
+                }
+
             } else {
                 userSharedPreferencesManager.clearUserSession()
                 findNavController().navigate(R.id.splashToFirstPage, null, navOptions)

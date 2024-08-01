@@ -26,7 +26,7 @@ class DeletedBirthdayAdapter(private var deletedBirthdayList: List<Birthday>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeletedBirthdayViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.deleted_birthday_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_deleted_birthday, parent, false)
 
         return DeletedBirthdayViewHolder(view)
     }

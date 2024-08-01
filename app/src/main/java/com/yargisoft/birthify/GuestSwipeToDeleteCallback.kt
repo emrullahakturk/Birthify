@@ -14,13 +14,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.models.Birthday
-import com.yargisoft.birthify.viewmodels.BirthdayViewModel
+import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
 
 
-class SwipeToDeleteCallback(
+class GuestSwipeToDeleteCallback(
     private val adapter: BirthdayAdapter,
     private val context: Context,
-    private val viewModel: BirthdayViewModel,
+    private val guestsBirthdayViewModel: GuestBirthdayViewModel,
     private val lifeCycleOwner: LifecycleOwner,
     private val deleteLottieAnimationView: LottieAnimationView,
     private val findNavController: NavController,
@@ -41,17 +41,17 @@ class SwipeToDeleteCallback(
         val position = viewHolder.adapterPosition
         if (position >= 0 || position < adapter.itemCount) {
 
-            FrequentlyUsedFunctions.showDeleteDialogBirthdayAdapter(
+            GuestFrequentlyUsedFunctions.showDeleteDialogBirthdayAdapter(
                 position,
                 fragmentView,
                 context,
                 birthdayList,
                 deleteLottieAnimationView,
-                viewModel,
+                guestsBirthdayViewModel,
                 lifeCycleOwner,
                 findNavController,
                 action
-                )
+            )
 
             // Swipe işlemini sıfırla
             adapter.notifyItemChanged(position)

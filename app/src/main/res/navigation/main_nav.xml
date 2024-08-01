@@ -84,6 +84,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/firstToGuestNavGraph"
+            app:destination="@id/guest_nav" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
@@ -146,6 +149,9 @@
         <action
             android:id="@+id/splashToMainPage"
             app:destination="@id/mainPageFragment" />
+        <action
+            android:id="@+id/splashToGuestNavGraph"
+            app:destination="@id/guest_nav" />
     </fragment>
     <fragment
         android:id="@+id/birthdayEditFragment"
@@ -297,4 +303,5 @@
 
 
     </fragment>
+    <include app:graph="@navigation/guest_nav" />
 </navigation>

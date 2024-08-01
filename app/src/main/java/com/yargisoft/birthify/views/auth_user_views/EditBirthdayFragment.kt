@@ -9,21 +9,21 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.yargisoft.birthify.FrequentlyUsedFunctions
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAuthEditBirthdayBinding
 import com.yargisoft.birthify.repositories.BirthdayRepository
-import com.yargisoft.birthify.viewmodels.BirthdayViewModel
-import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
+import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
+import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
 
 
 class EditBirthdayFragment : Fragment() {
 
     private lateinit var binding : FragmentAuthEditBirthdayBinding
     private val editedBirthday : EditBirthdayFragmentArgs by navArgs()
-    private lateinit var viewModel: BirthdayViewModel
+    private lateinit var viewModel: UsersBirthdayViewModel
     private lateinit var repository: BirthdayRepository
-    private lateinit var factory: BirthdayViewModelFactory
+    private lateinit var factory: UsersBirthdayViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,8 +32,8 @@ class EditBirthdayFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_edit_birthday, container, false)
 
         repository = BirthdayRepository(requireContext())
-        factory = BirthdayViewModelFactory(repository)
-        viewModel = ViewModelProvider(this,factory)[BirthdayViewModel::class]
+        factory = UsersBirthdayViewModelFactory(repository)
+        viewModel = ViewModelProvider(this,factory)[UsersBirthdayViewModel::class]
 
         //Snackbar için view tanımlaması
         //val view = (context as Activity).findViewById<View>(android.R.id.content)
@@ -54,7 +54,7 @@ class EditBirthdayFragment : Fragment() {
 
             viewModel.updateBirthday(updatedBirthday)
 
-           FrequentlyUsedFunctions.loadAndStateOperation(
+           UserFrequentlyUsedFunctions.loadAndStateOperation(
                viewLifecycleOwner,
                viewModel,
                binding.threePointAnimation,
@@ -66,11 +66,11 @@ class EditBirthdayFragment : Fragment() {
         }
 
         binding.birthdayDateEditText.setOnClickListener {
-            FrequentlyUsedFunctions.showDatePickerDialog(requireContext(),binding.birthdayDateEditText)
+            UserFrequentlyUsedFunctions.showDatePickerDialog(requireContext(),binding.birthdayDateEditText)
         }
 
         binding.deleteBirthdayButton.setOnClickListener {
-           FrequentlyUsedFunctions.showConfirmationDialog(
+           UserFrequentlyUsedFunctions.showConfirmationDialog(
                binding.root,
                requireContext(),
                viewModel,

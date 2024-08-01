@@ -13,7 +13,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.yargisoft.birthify.FrequentlyUsedFunctions
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAuthAddBirthdayBinding
 import com.yargisoft.birthify.models.Birthday
@@ -21,16 +21,16 @@ import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
-import com.yargisoft.birthify.viewmodels.BirthdayViewModel
+import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
-import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
+import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.UUID
 
 
 class AddBirthdayFragment : Fragment() {
-    private lateinit var birthdayViewModel: BirthdayViewModel
+    private lateinit var usersBirthdayViewModel: UsersBirthdayViewModel
     private lateinit var authViewModel: AuthViewModel
     private lateinit var binding : FragmentAuthAddBirthdayBinding
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
@@ -46,8 +46,8 @@ class AddBirthdayFragment : Fragment() {
 
 
         val birthdayRepository = BirthdayRepository(requireContext())
-        val birthdayViewModelFactory = BirthdayViewModelFactory(birthdayRepository)
-        birthdayViewModel = ViewModelProvider(this,birthdayViewModelFactory)[BirthdayViewModel::class.java]
+        val birthdayViewModelFactory = UsersBirthdayViewModelFactory(birthdayRepository)
+        usersBirthdayViewModel = ViewModelProvider(this,birthdayViewModelFactory)[UsersBirthdayViewModel::class.java]
 
 
         val authRepository = AuthRepository(requireContext())
@@ -68,8 +68,8 @@ class AddBirthdayFragment : Fragment() {
             val bDay = Birthday(UUID.randomUUID().toString(), name, birthdayDate, recordedDate, note , userId )
 
             if (name.isNotEmpty() && birthdayDate.isNotEmpty() && note.isNotEmpty()) {
-                birthdayViewModel.saveBirthday(bDay)
-                FrequentlyUsedFunctions.loadAndStateOperation(viewLifecycleOwner, birthdayViewModel, binding.threePointAnimation, binding.root, findNavController(), R.id.addToMain)
+                usersBirthdayViewModel.saveBirthday(bDay)
+                UserFrequentlyUsedFunctions.loadAndStateOperation(viewLifecycleOwner, usersBirthdayViewModel, binding.threePointAnimation, binding.root, findNavController(), R.id.addToMain)
             }
             else{
                 Snackbar.make(view,"Please fill in all fields",Snackbar.LENGTH_SHORT).show()
@@ -78,7 +78,7 @@ class AddBirthdayFragment : Fragment() {
 
 
         binding.birthdayDateEditText.setOnClickListener {
-            FrequentlyUsedFunctions.showDatePickerDialog(requireContext(),binding.birthdayDateEditText)
+            UserFrequentlyUsedFunctions.showDatePickerDialog(requireContext(),binding.birthdayDateEditText)
         }
 
         binding.fabBackButton.setOnClickListener { it.findNavController().popBackStack() }
@@ -92,7 +92,7 @@ class AddBirthdayFragment : Fragment() {
 
 
         //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
-        FrequentlyUsedFunctions.drawerLayoutToggle(
+        UserFrequentlyUsedFunctions.drawerLayoutToggle(
             drawerLayout,
             navigationView,
             findNavController(),

@@ -40,7 +40,7 @@ class FirstPageFragment : Fragment() {
         }
         binding.continueWithoutTv.setOnClickListener {
             userSharedPreferences.clearUserSession()
-            findNavController().navigate(R.id.firstToMain)
+            findNavController().navigate(R.id.firstToGuestNavGraph)
             userSharedPreferences.saveAsGuest()
         }
 

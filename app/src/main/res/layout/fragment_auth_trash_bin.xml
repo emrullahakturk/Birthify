@@ -172,7 +172,7 @@
                 android:background="@color/white"
                 app:itemIconTint="@color/green_login"
                 app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
-                app:menu="@menu/drawer_menu"
+                app:menu="@menu/user_drawer_menu"
                 app:subheaderColor="@color/green_login"
                 app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
 

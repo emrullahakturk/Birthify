@@ -184,7 +184,7 @@
             app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance"
             app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
             android:background="@color/white"
-            app:menu="@menu/drawer_menu" />
+            app:menu="@menu/user_drawer_menu" />
     </androidx.drawerlayout.widget.DrawerLayout>
 
 

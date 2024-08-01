@@ -42,4 +42,12 @@ class UserSharedPreferencesManager(context: Context) {
             apply()
         }
     }
+    fun saveAsGuest(){
+        with(preferences.edit()) {
+            putString(UserConstants.PREF_EMAIL, "guest")
+            putString(UserConstants.KEY_USER_ID, "guest")
+            putBoolean(UserConstants.PREF_CHECK, true)
+            apply()
+        }
+    }
 }

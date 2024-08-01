@@ -6,6 +6,7 @@ import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 
 
+@Suppress("UNCHECKED_CAST")
 class AuthViewModelFactory(private val repository: AuthRepository) : ViewModelProvider.Factory {
      override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AuthViewModel::class.java)) {

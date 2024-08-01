@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.repositories.BirthdayRepository
 
-class BirthdayViewModel(private val repository: BirthdayRepository) : ViewModel() {
+class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewModel() {
 
 
 

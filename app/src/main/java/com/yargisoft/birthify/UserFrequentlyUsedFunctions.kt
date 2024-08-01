@@ -38,18 +38,18 @@ import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
-import com.yargisoft.birthify.viewmodels.BirthdayViewModel
+import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
 
-object FrequentlyUsedFunctions {
+object UserFrequentlyUsedFunctions {
 
 
     //EditText ile arama yaparken aramayı filtrelemek için kullanılan fonksiyon
-     fun filterBirthdays(query: String,viewModel:BirthdayViewModel,adapter: DeletedBirthdayAdapter) {
+     fun filterBirthdays(query: String, viewModel:UsersBirthdayViewModel, adapter: DeletedBirthdayAdapter) {
         val birthdays = viewModel.deletedBirthdayList.value
         if (birthdays != null) {
             val filteredBirthdays = if (query.isEmpty()) {
@@ -62,7 +62,7 @@ object FrequentlyUsedFunctions {
     }
 
     //EditText ile arama yaparken aramayı filtrelemek için kullanılan fonksiyon
-     fun filterBirthdays(query: String,viewModel:BirthdayViewModel,adapter: BirthdayAdapter) {
+     fun filterBirthdays(query: String, viewModel:UsersBirthdayViewModel, adapter: BirthdayAdapter) {
         val birthdays = viewModel.birthdayList.value
         if (birthdays != null) {
             val filteredBirthdays = if (query.isEmpty()) {
@@ -91,10 +91,10 @@ object FrequentlyUsedFunctions {
     }
 
     //Main Page için sort menüsünü açma fonksiyonları
-        fun showSortMenu( view: View,
-                          context:Context,
-                          adapter: BirthdayAdapter,
-                          birthdayViewModel: BirthdayViewModel){
+        fun showSortMenu(view: View,
+                         context:Context,
+                         adapter: BirthdayAdapter,
+                         usersBirthdayViewModel: UsersBirthdayViewModel){
 
                 val contextThemeWrapper = ContextThemeWrapper(context, R.style.CustomPopupMenu)
                 val popupMenu = PopupMenu(contextThemeWrapper, view)
@@ -109,23 +109,23 @@ object FrequentlyUsedFunctions {
                 }
 
                 popupMenu.setOnMenuItemClickListener { menuItem: MenuItem ->
-                    handleSortOptionSelected(menuItem,adapter,birthdayViewModel)
+                    handleSortOptionSelected(menuItem,adapter,usersBirthdayViewModel)
                     true
                 }
                 popupMenu.show()
 
         }
-        private fun handleSortOptionSelected( menuItem: MenuItem,
-                                              adapter: BirthdayAdapter,
-                                              birthdayViewModel: BirthdayViewModel) {
+        private fun handleSortOptionSelected(menuItem: MenuItem,
+                                             adapter: BirthdayAdapter,
+                                             usersBirthdayViewModel: UsersBirthdayViewModel) {
 
                 val sortedList = when (menuItem.itemId) {
-                    R.id.sort_by_name_asc -> birthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByNameAsc")
-                    R.id.sort_by_birth_date_asc -> birthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByBirthdayDateAsc")
-                    R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByRecordedDateAsc")
-                    R.id.sort_by_name_dsc -> birthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByNameDsc")
-                    R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByBirthdayDateDsc")
-                    R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByRecordedDateDsc")
+                    R.id.sort_by_name_asc -> usersBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByNameAsc")
+                    R.id.sort_by_birth_date_asc -> usersBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByBirthdayDateAsc")
+                    R.id.sort_by_recorded_date_asc -> usersBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByRecordedDateAsc")
+                    R.id.sort_by_name_dsc -> usersBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByNameDsc")
+                    R.id.sort_by_birth_date_dsc -> usersBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByBirthdayDateDsc")
+                    R.id.sort_by_recorded_date_dsc -> usersBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByRecordedDateDsc")
                     else -> emptyList()
                 }
 
@@ -135,7 +135,7 @@ object FrequentlyUsedFunctions {
 
 
     // Deleted (Trash Bin) Page için sort menüsünü açma fonksiyonları
-        fun showSortMenu(view: View,context:Context, adapter: DeletedBirthdayAdapter, birthdayViewModel: BirthdayViewModel) {
+        fun showSortMenu(view: View, context:Context, adapter: DeletedBirthdayAdapter, usersBirthdayViewModel: UsersBirthdayViewModel) {
         val contextThemeWrapper = ContextThemeWrapper(context, R.style.CustomPopupMenu)
         val popupMenu = PopupMenu(contextThemeWrapper, view)
         popupMenu.menuInflater.inflate(R.menu.sorting_birthday_menu, popupMenu.menu)
@@ -149,19 +149,19 @@ object FrequentlyUsedFunctions {
         }
 
         popupMenu.setOnMenuItemClickListener { menuItem: MenuItem ->
-            handleSortOptionSelected(menuItem,adapter,birthdayViewModel)
+            handleSortOptionSelected(menuItem,adapter,usersBirthdayViewModel)
             true
         }
         popupMenu.show()
     }
-        private fun handleSortOptionSelected(menuItem: MenuItem, adapter: DeletedBirthdayAdapter, birthdayViewModel: BirthdayViewModel) {
+        private fun handleSortOptionSelected(menuItem: MenuItem, adapter: DeletedBirthdayAdapter, usersBirthdayViewModel: UsersBirthdayViewModel) {
         val sortedList = when (menuItem.itemId) {
-            R.id.sort_by_name_asc -> birthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByNameAsc")
-            R.id.sort_by_birth_date_asc -> birthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByBirthdayDateAsc")
-            R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByRecordedDateAsc")
-            R.id.sort_by_name_dsc -> birthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByNameDsc")
-            R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByBirthdayDateDsc")
-            R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByRecordedDateDsc")
+            R.id.sort_by_name_asc -> usersBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByNameAsc")
+            R.id.sort_by_birth_date_asc -> usersBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByBirthdayDateAsc")
+            R.id.sort_by_recorded_date_asc -> usersBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByRecordedDateAsc")
+            R.id.sort_by_name_dsc -> usersBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByNameDsc")
+            R.id.sort_by_birth_date_dsc -> usersBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByBirthdayDateDsc")
+            R.id.sort_by_recorded_date_dsc -> usersBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByRecordedDateDsc")
             else -> emptyList()
         }
 
@@ -246,7 +246,7 @@ object FrequentlyUsedFunctions {
     silme , yeniden kaydetme ve tamamen silme işlemlerimiz
     için kullandığımız onaylama diyaloğumu çağıran fonksiyon
 */
-    fun showConfirmationDialog(view: View, context: Context, birthdayViewModel:BirthdayViewModel, editedBirthday:Birthday, lottieAnimationView: LottieAnimationView, viewLifecycleOwner:LifecycleOwner, condition: String,findNavController: NavController, action:Int )
+    fun showConfirmationDialog(view: View, context: Context, usersBirthdayViewModel:UsersBirthdayViewModel, editedBirthday:Birthday, lottieAnimationView: LottieAnimationView, viewLifecycleOwner:LifecycleOwner, condition: String, findNavController: NavController, action:Int )
     {
         AlertDialog.Builder(context)
             .setTitle("Confirm Operation")
@@ -255,17 +255,17 @@ object FrequentlyUsedFunctions {
 
                 when (condition) {
                     "permanently" -> {
-                        birthdayViewModel.permanentlyDeleteBirthday(editedBirthday.id)
+                        usersBirthdayViewModel.permanentlyDeleteBirthday(editedBirthday.id)
                     }
                     "soft_delete" -> {
-                       birthdayViewModel.deleteBirthday(editedBirthday.id)
+                       usersBirthdayViewModel.deleteBirthday(editedBirthday.id)
                     }
                     "re_save" -> {
-                      birthdayViewModel.reSaveDeletedBirthday(editedBirthday.id)
+                      usersBirthdayViewModel.reSaveDeletedBirthday(editedBirthday.id)
                     }
                 }
 
-                loadAndStateOperation(viewLifecycleOwner,birthdayViewModel,lottieAnimationView,view,findNavController,action)
+                loadAndStateOperation(viewLifecycleOwner,usersBirthdayViewModel,lottieAnimationView,view,findNavController,action)
             }
             .setNegativeButton("No"){_,_->
                 //animasyonu durdurup view'i visible yapıyoruz
@@ -360,15 +360,15 @@ object FrequentlyUsedFunctions {
 
 
 
-    //Swipe ederek silme işlemi yaparken SwipeToDeleteCallback sınıfından bu fonksiyon çağrılır ve silme işlemi başlatılır
+    //Swipe ederek silme işlemi yaparken UserSwipeToDeleteCallback sınıfından bu fonksiyon çağrılır ve silme işlemi başlatılır
     @SuppressLint("NotifyDataSetChanged")
-    fun showDeleteDialogBirthdayAdapter(position: Int, view: View, context: Context, birthdayList:List<Birthday>, lottieAnimationView: LottieAnimationView, birthdayViewModel: BirthdayViewModel, lifeCycleOwner: LifecycleOwner, findNavController: NavController, action: Int
+    fun showDeleteDialogBirthdayAdapter(position: Int, view: View, context: Context, birthdayList:List<Birthday>, lottieAnimationView: LottieAnimationView, usersBirthdayViewModel: UsersBirthdayViewModel, lifeCycleOwner: LifecycleOwner, findNavController: NavController, action: Int
     ){
         Log.e("HATA","$birthdayList")
 
         if (birthdayList.isNotEmpty()){
             val birthday = birthdayList[position]
-            showConfirmationDialog(view,context,birthdayViewModel,birthday,lottieAnimationView,lifeCycleOwner,"soft_delete", findNavController , action )
+            showConfirmationDialog(view,context,usersBirthdayViewModel,birthday,lottieAnimationView,lifeCycleOwner,"soft_delete", findNavController , action )
         }
     }
 
@@ -394,14 +394,14 @@ object FrequentlyUsedFunctions {
     // aynı zamanda arayüzü kilitleyip kullanıcının ekranda işlemler yapmasını engelliyor (disableViewEnableLottie ile)
     //isloading işlemin tamamlanıp tamamlanmadığını dönderiyor ve içerisindeki enableViewDisableLottie fonksiyonu ile arayüzü
     //kullanıcının kullanımına açıyor
-    fun loadAndStateOperation( viewLifecycleOwner:LifecycleOwner, birthdayViewModel: BirthdayViewModel, lottieAnimationView: LottieAnimationView, view:View, findNavController: NavController, action:Int )
+    fun loadAndStateOperation(viewLifecycleOwner:LifecycleOwner, usersBirthdayViewModel: UsersBirthdayViewModel, lottieAnimationView: LottieAnimationView, view:View, findNavController: NavController, action:Int )
     {
         disableViewEnableLottie(lottieAnimationView,view)
-        isLoadingCheck(viewLifecycleOwner,birthdayViewModel,lottieAnimationView,view, findNavController, action)
+        isLoadingCheck(viewLifecycleOwner,usersBirthdayViewModel,lottieAnimationView,view, findNavController, action)
     }
 
 
-    //Auth View Model ve BirthdayViewModel için isLoading Kontrolü yapan fonksiyon
+    //Auth View Model ve UsersBirthdayViewModel için isLoading Kontrolü yapan fonksiyon
     // (Suspend fonksiyonun bitip bitmediğini kontrol ediyoruz)
     private fun isLoadingCheck(viewLifecycleOwner: LifecycleOwner, viewModel:ViewModel, lottieAnimationView: LottieAnimationView, view: View, findNavController: NavController?, action: Int?)
     {
@@ -427,7 +427,7 @@ object FrequentlyUsedFunctions {
                     }
                 }
 
-                if(viewModel is BirthdayViewModel){  //gelen viewModel Birthday viewmodel ise bu çalışacak
+                if(viewModel is UsersBirthdayViewModel){  //gelen viewModel Birthday viewmodel ise bu çalışacak
                            Handler(Looper.getMainLooper()).postDelayed({
                                //animasyonu durdurup view'i visible yapıyoruz
                                enableViewDisableLottie(lottieAnimationView,view)

@@ -28,7 +28,7 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BirthdayViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.birthday_item, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_birthday, parent, false)
             return BirthdayViewHolder(view)
         }
 

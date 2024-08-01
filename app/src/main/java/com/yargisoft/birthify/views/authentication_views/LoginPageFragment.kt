@@ -13,7 +13,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.yargisoft.birthify.FrequentlyUsedFunctions
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentLoginPageBinding
 import com.yargisoft.birthify.repositories.AuthRepository
@@ -61,7 +61,7 @@ class LoginPageFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val email = s.toString()
-                if (FrequentlyUsedFunctions.isValidEmail(email)) {
+                if (UserFrequentlyUsedFunctions.isValidEmail(email)) {
                     loginEmailTextInput.error = null
                     loginEmailTextInput.isErrorEnabled = false //error yazıdı gittiğinde yazıdan kalan boşluk bu kod ile gider
                 } else {
@@ -96,7 +96,7 @@ class LoginPageFragment : Fragment() {
             val email = binding.loginEmailEditText.text.toString()
             val password = binding.loginPassEditText.text.toString()
             val isChecked = binding.rememberCheckBox.isChecked
-            FrequentlyUsedFunctions.loginValidationFunction(
+            UserFrequentlyUsedFunctions.loginValidationFunction(
                 binding.root,
                 email,
                 password,

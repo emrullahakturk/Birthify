@@ -13,7 +13,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.yargisoft.birthify.FrequentlyUsedFunctions
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentRegisterBinding
 import com.yargisoft.birthify.repositories.AuthRepository
@@ -69,7 +69,7 @@ class RegisterFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val email = s.toString()
-                if (FrequentlyUsedFunctions.isValidEmail(email)) {
+                if (UserFrequentlyUsedFunctions.isValidEmail(email)) {
                     emailTextInputLayout.error = null
                     emailTextInputLayout.isErrorEnabled = false //error yazıdı gittiğinde yazıdan kalan boşluk bu kod ile gider
                 } else {
@@ -103,7 +103,7 @@ class RegisterFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val password = s.toString()
-                if (FrequentlyUsedFunctions.isValidPassword(password)) {
+                if (UserFrequentlyUsedFunctions.isValidPassword(password)) {
                     registerPassTextInput.error = ""
                     registerPassTextInput.isErrorEnabled = false
                 } else {
@@ -128,7 +128,7 @@ class RegisterFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val fullName = s.toString()
-                if (FrequentlyUsedFunctions.isValidFullName(fullName)) {
+                if (UserFrequentlyUsedFunctions.isValidFullName(fullName)) {
                     registerFullNameTextInput.error = ""
                     registerFullNameTextInput.isErrorEnabled = false
                 } else {
@@ -166,7 +166,7 @@ class RegisterFragment : Fragment() {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
-            FrequentlyUsedFunctions.registerValidationFunction(
+            UserFrequentlyUsedFunctions.registerValidationFunction(
                 email,
                 password,
                 name,

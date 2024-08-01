@@ -16,23 +16,23 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
-import com.yargisoft.birthify.FrequentlyUsedFunctions
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
-import com.yargisoft.birthify.SwipeToDeleteCallback
+import com.yargisoft.birthify.UserSwipeToDeleteCallback
 import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentAuthMainPageBinding
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
-import com.yargisoft.birthify.viewmodels.BirthdayViewModel
+import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
-import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
+import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
 
 
 class MainPageFragment : Fragment() {
     private lateinit var binding: FragmentAuthMainPageBinding
-    private lateinit var birthdayViewModel: BirthdayViewModel
+    private lateinit var usersBirthdayViewModel: UsersBirthdayViewModel
     private lateinit var authViewModel: AuthViewModel
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var adapter: BirthdayAdapter
@@ -53,8 +53,8 @@ class MainPageFragment : Fragment() {
 
         //Birthday viewModel Tanımlama için gerekenler
         val birthdayRepository = BirthdayRepository(requireContext())
-        val birthdayFactory = BirthdayViewModelFactory(birthdayRepository)
-        birthdayViewModel = ViewModelProvider(this, birthdayFactory)[BirthdayViewModel::class]
+        val birthdayFactory = UsersBirthdayViewModelFactory(birthdayRepository)
+        usersBirthdayViewModel = ViewModelProvider(this, birthdayFactory)[UsersBirthdayViewModel::class]
 
 
         //Auth ViewModel Tanımlama için gerekenler
@@ -64,12 +64,12 @@ class MainPageFragment : Fragment() {
 
 
         //doğum günlerini liveDataya çekiyoruz
-        birthdayViewModel.getBirthdays()
+        usersBirthdayViewModel.getBirthdays()
 
         //user SharedPreferences
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
-        Log.e("tagımıs","${userSharedPreferences.getUserCredentials()} ${birthdayViewModel.birthdayList.value} ")
+        Log.e("tagımıs","${userSharedPreferences.getUserCredentials()} ${usersBirthdayViewModel.birthdayList.value} ")
 
 
         // DrawerLayout ve NavigationView tanımlamaları
@@ -78,7 +78,7 @@ class MainPageFragment : Fragment() {
         val toolbarMenuButton = binding.toolbar.findViewById<View>(R.id.menuButtonToolbar)
 
         //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
-        FrequentlyUsedFunctions.drawerLayoutToggle(
+        UserFrequentlyUsedFunctions.drawerLayoutToggle(
             drawerLayout,
             navigationView,
             findNavController(),
@@ -98,7 +98,7 @@ class MainPageFragment : Fragment() {
 
 
 
-         val adapterList= birthdayViewModel.birthdayList.value ?: emptyList()
+         val adapterList= usersBirthdayViewModel.birthdayList.value ?: emptyList()
 
         //Adapter'ı initialize etme
         adapter = BirthdayAdapter(
@@ -115,10 +115,10 @@ class MainPageFragment : Fragment() {
             binding.clickToAddBirthdayTv)
 
         //ItemTouchHelper initialize etme
-        itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(
+        itemTouchHelper = ItemTouchHelper(UserSwipeToDeleteCallback(
             adapter,
             requireContext(),
-            birthdayViewModel,
+            usersBirthdayViewModel,
             viewLifecycleOwner,
             binding.deleteAnimation,
             findNavController(),
@@ -129,7 +129,7 @@ class MainPageFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
-        birthdayViewModel.birthdayList.observe(viewLifecycleOwner) { birthdays ->
+        usersBirthdayViewModel.birthdayList.observe(viewLifecycleOwner) { birthdays ->
             adapter.updateData(birthdays)
         }
 
@@ -144,7 +144,7 @@ class MainPageFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                FrequentlyUsedFunctions.filterBirthdays(s.toString(), birthdayViewModel, adapter)
+                UserFrequentlyUsedFunctions.filterBirthdays(s.toString(), usersBirthdayViewModel, adapter)
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -178,7 +178,7 @@ class MainPageFragment : Fragment() {
             }
 
         binding.sortButton.setOnClickListener {
-            FrequentlyUsedFunctions.showSortMenu(it, requireContext(), adapter, birthdayViewModel)
+            UserFrequentlyUsedFunctions.showSortMenu(it, requireContext(), adapter, usersBirthdayViewModel)
         }
         return binding.root
     }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/guest_nav"
+    app:startDestination="@id/guestMainPageFragment">
+    <fragment
+        android:id="@+id/guestAddBirthdayFragment"
+        android:name="com.yargisoft.birthify.views.guest_user_views.GuestAddBirthdayFragment"
+        android:label="GuestAddBirthdayFragment" />
+    <fragment
+        android:id="@+id/guestBirthdayDetailFragment"
+        android:name="com.yargisoft.birthify.views.guest_user_views.GuestBirthdayDetailFragment"
+        android:label="GuestBirthdayDetailFragment" />
+    <fragment
+        android:id="@+id/guestDeletedBirthdayDetailFragment"
+        android:name="com.yargisoft.birthify.views.guest_user_views.GuestDeletedBirthdayDetailFragment"
+        android:label="GuestDeletedBirthdayDetailFragment" />
+    <fragment
+        android:id="@+id/guestEditBirthdayFragment"
+        android:name="com.yargisoft.birthify.views.guest_user_views.GuestEditBirthdayFragment"
+        android:label="GuestEditBirthdayFragment" />
+    <fragment
+        android:id="@+id/guestMainPageFragment"
+        android:name="com.yargisoft.birthify.views.guest_user_views.GuestMainPageFragment"
+        android:label="GuestMainPageFragment" >
+        <action
+            android:id="@+id/guestMainToMain"
+            app:destination="@id/guestMainPageFragment" />
+        <action
+            android:id="@+id/guestMainToAddBirthday"
+            app:destination="@id/guestAddBirthdayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/guestTrashBinFragment"
+        android:name="com.yargisoft.birthify.views.guest_user_views.GuestTrashBinFragment"
+        android:label="GuestTrashBinFragment" />
+    <fragment
+        android:id="@+id/guestSettingsFragment"
+        android:name="com.yargisoft.birthify.views.guest_user_views.GuestSettingsFragment"
+        android:label="fragment_guest_settings"
+        tools:layout="@layout/fragment_guest_settings" />
+</navigation>

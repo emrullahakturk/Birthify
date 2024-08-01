@@ -11,20 +11,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.navigation.NavigationView
-import com.yargisoft.birthify.FrequentlyUsedFunctions
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAuthDeletedBirthdayDetailBinding
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
-import com.yargisoft.birthify.viewmodels.BirthdayViewModel
+import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
-import com.yargisoft.birthify.viewmodels.factories.BirthdayViewModelFactory
+import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
 
 class DeletedBirthdayDetailFragment : Fragment() {
     private lateinit var binding: FragmentAuthDeletedBirthdayDetailBinding
-    private lateinit var birthdayViewModel: BirthdayViewModel
+    private lateinit var usersBirthdayViewModel: UsersBirthdayViewModel
     private lateinit var authViewModel: AuthViewModel
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private val deletedBirthday : DeletedBirthdayDetailFragmentArgs by navArgs()
@@ -42,8 +42,8 @@ class DeletedBirthdayDetailFragment : Fragment() {
 
         //Birthday viewModel Tanımlama için gerekenler
         val birthdayRepository = BirthdayRepository(requireContext())
-        val birthdayFactory = BirthdayViewModelFactory(birthdayRepository)
-        birthdayViewModel = ViewModelProvider(this,birthdayFactory)[BirthdayViewModel::class]
+        val birthdayFactory = UsersBirthdayViewModelFactory(birthdayRepository)
+        usersBirthdayViewModel = ViewModelProvider(this,birthdayFactory)[UsersBirthdayViewModel::class]
 
 
         //Auth ViewModel Tanımlama için gerekenler
@@ -69,10 +69,10 @@ class DeletedBirthdayDetailFragment : Fragment() {
 
 
         binding.reSaveButton.setOnClickListener {
-            FrequentlyUsedFunctions.showConfirmationDialog(
+            UserFrequentlyUsedFunctions.showConfirmationDialog(
                 binding.root,
                 requireContext(),
-                birthdayViewModel,
+                usersBirthdayViewModel,
                 deletedBirthday.birthday,
                 binding.threePointAnimation,
                 viewLifecycleOwner,
@@ -84,10 +84,10 @@ class DeletedBirthdayDetailFragment : Fragment() {
 
 
         binding.permanentlyDeleteButton.setOnClickListener {
-            FrequentlyUsedFunctions.showConfirmationDialog(
+            UserFrequentlyUsedFunctions.showConfirmationDialog(
                 binding.root,
                 requireContext(),
-                birthdayViewModel,
+                usersBirthdayViewModel,
                 deletedBirthday.birthday,
                 binding.threePointAnimation,
                 viewLifecycleOwner,
@@ -99,7 +99,7 @@ class DeletedBirthdayDetailFragment : Fragment() {
 
 
         //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
-        FrequentlyUsedFunctions.drawerLayoutToggle(
+        UserFrequentlyUsedFunctions.drawerLayoutToggle(
             drawerLayout,
             navigationView,
             findNavController(),
