@@ -7,6 +7,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.text.SpannableString
@@ -20,6 +21,7 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
@@ -48,7 +50,6 @@ import java.util.Locale
 
 
 object UserFrequentlyUsedFunctions {
-
 
     //EditText ile arama yaparken aramayı filtrelemek için kullanılan fonksiyon
      fun filterBirthdays(query: String, viewModel:UsersBirthdayViewModel, adapter: DeletedBirthdayAdapter) {
@@ -483,7 +484,7 @@ object UserFrequentlyUsedFunctions {
                     userSharedPreferences.clearUserSession()
                     birthdayRepository.clearBirthdays()
                     birthdayRepository.clearDeletedBirthdays()
-                    findNavController.navigate(R.id.firstPageFragment)
+                    logout(activity)
                 }
 
                 R.id.labelTrashBin -> {
@@ -544,6 +545,17 @@ object UserFrequentlyUsedFunctions {
             .build()
 
         navController.navigate(targetFragmentId, null, navOptions)
+    }
+
+    // Logout fonksiyonu
+    private fun logout(activity: Activity) {
+        // Burada oturum kapatma işlemlerini gerçekleştirin
+
+        // Mevcut aktiviteyi kapat ve yeni bir aktivite başlat
+        val intent = Intent(activity, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        activity.startActivity(intent)
+        activity.finish()
     }
 
 
