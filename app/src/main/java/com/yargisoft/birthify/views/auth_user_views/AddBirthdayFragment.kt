@@ -11,6 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
@@ -69,7 +70,7 @@ class AddBirthdayFragment : Fragment() {
 
             if (name.isNotEmpty() && birthdayDate.isNotEmpty() && note.isNotEmpty()) {
                 usersBirthdayViewModel.saveBirthday(bDay)
-                UserFrequentlyUsedFunctions.loadAndStateOperation(viewLifecycleOwner, usersBirthdayViewModel, binding.threePointAnimation, binding.root, findNavController(), R.id.addToMain)
+                UserFrequentlyUsedFunctions.loadAndStateOperation(viewLifecycleOwner, usersBirthdayViewModel, binding.threePointAnimation, binding.root, findNavController(), R.id.addToMain, navOptions {  })
             }
             else{
                 Snackbar.make(view,"Please fill in all fields",Snackbar.LENGTH_SHORT).show()
@@ -87,7 +88,7 @@ class AddBirthdayFragment : Fragment() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
         // Toolbar üzerindeki menü ikonu ile menüyü açma
-        val toolbarMenuIcon = binding.toolbar.findViewById<View>(R.id.menuButtonToolbar)
+        val toolbarMenuIcon = binding.toolbarUserAdd.findViewById<View>(R.id.menuButtonToolbar)
 
 
 

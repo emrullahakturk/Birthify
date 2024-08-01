@@ -62,7 +62,7 @@ class GuestMainPageFragment : Fragment() {
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
-        val toolbarMenuButton = binding.toolbarMain.findViewById<View>(R.id.menuButtonToolbar)
+        val toolbarMenuButton = binding.toolbarGuestMain.findViewById<View>(R.id.menuButtonToolbar)
 
         //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
         GuestFrequentlyUsedFunctions.drawerLayoutToggle(
@@ -128,7 +128,7 @@ class GuestMainPageFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        binding.toolbarMain.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
+        binding.toolbarGuestMain.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
             findNavController().navigate(R.id.guestMainToAddBirthday)
         }
         binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)

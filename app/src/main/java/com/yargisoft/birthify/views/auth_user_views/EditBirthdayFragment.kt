@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navOptions
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAuthEditBirthdayBinding
@@ -60,7 +61,8 @@ class EditBirthdayFragment : Fragment() {
                binding.threePointAnimation,
                binding.root,
                findNavController(),
-               R.id.editToMain
+               R.id.editToMain,
+               navOptions {  }
                )
 
         }
@@ -79,7 +81,8 @@ class EditBirthdayFragment : Fragment() {
                viewLifecycleOwner,
                "soft_delete",
                findNavController(),
-               action = R.id.editToMain
+               action = R.id.editToMain,
+               navOptions {  }
            )
         }
 

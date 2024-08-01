@@ -52,7 +52,7 @@
 
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabBackButton"
+                    android:id="@+id/fabBackButtonAdd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -65,7 +65,7 @@
                     tools:ignore="ContentDescription" />
 
                 <include
-                    android:id="@+id/toolbarAdd"
+                    android:id="@+id/toolbarGuestAdd"
                     layout="@layout/custom_toolbar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +86,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbarAdd" />
+                    app:layout_constraintTop_toBottomOf="@+id/toolbarGuestAdd" />
 
 
                 <LinearLayout
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/fabBackButton"
+                    app:layout_constraintBottom_toTopOf="@+id/fabBackButtonAdd"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"

@@ -59,7 +59,7 @@ class TrashBinFragment : Fragment() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
         // Toolbar üzerindeki menü ikonu
-        val toolbarMenuButton = binding.toolbar.findViewById<View>(R.id.menuButtonToolbar)
+        val toolbarMenuButton = binding.toolbarUserTrashBin.findViewById<View>(R.id.menuButtonToolbar)
 
 
         //adapter initialization
@@ -113,7 +113,7 @@ class TrashBinFragment : Fragment() {
         })
 
 
-        binding.toolbar.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
+        binding.toolbarUserTrashBin.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
 
             findNavController().navigate(R.id.trashToAddBirthday)
 

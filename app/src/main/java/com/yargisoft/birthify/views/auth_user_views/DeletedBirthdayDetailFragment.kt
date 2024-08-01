@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navOptions
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
@@ -61,7 +62,7 @@ class DeletedBirthdayDetailFragment : Fragment() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
         // Toolbardaki menü ikonu
-        val menuToolbarIcon: View = binding.toolbar.findViewById(R.id.menuButtonToolbar)
+        val menuToolbarIcon: View = binding.toolbarUserDeletedBirthday.findViewById(R.id.menuButtonToolbar)
 
         binding.fabBackButton.setOnClickListener { findNavController().popBackStack() }
 
@@ -78,7 +79,8 @@ class DeletedBirthdayDetailFragment : Fragment() {
                 viewLifecycleOwner,
                 "re_save",
                 findNavController(),
-                R.id.deletedDetailToTrashBin
+                R.id.deletedDetailToTrashBin,
+                navOptions {  }
             )
         }
 
@@ -93,7 +95,8 @@ class DeletedBirthdayDetailFragment : Fragment() {
                 viewLifecycleOwner,
                 "permanently",
                 findNavController(),
-                R.id.deletedDetailToTrashBin
+                R.id.deletedDetailToTrashBin,
+                navOptions {  }
                 )
         }
 

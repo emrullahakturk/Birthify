@@ -18,6 +18,7 @@ import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentAuthTrashBinBinding
+import com.yargisoft.birthify.databinding.FragmentGuestTrashBinBinding
 import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
@@ -26,7 +27,7 @@ import com.yargisoft.birthify.views.auth_user_views.TrashBinFragmentDirections
 
 class GuestTrashBinFragment : Fragment() {
 
-    private lateinit var binding: FragmentAuthTrashBinBinding
+    private lateinit var binding: FragmentGuestTrashBinBinding
     private lateinit var guestBirthdayViewModel: GuestBirthdayViewModel
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var adapter: DeletedBirthdayAdapter
@@ -53,7 +54,7 @@ class GuestTrashBinFragment : Fragment() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
         // Toolbar üzerindeki menü ikonu
-        val toolbarMenuButton = binding.toolbar.findViewById<View>(R.id.menuButtonToolbar)
+        val toolbarMenuButton = binding.toolbarGuestTrashBin.findViewById<View>(R.id.menuButtonToolbar)
 
         //adapter initialization
         adapter = DeletedBirthdayAdapter(listOf(),
@@ -77,7 +78,7 @@ class GuestTrashBinFragment : Fragment() {
 
         guestBirthdayViewModel.deletedBirthdayList.observe(viewLifecycleOwner) { deletedBirthdays ->
 
-            binding.trashBinMainTv.visibility = if (deletedBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
+            binding.thereIsNoTv.visibility = if (deletedBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
 
             // Adapter initialization
             adapter = DeletedBirthdayAdapter(deletedBirthdays,
@@ -105,14 +106,14 @@ class GuestTrashBinFragment : Fragment() {
         })
 
 
-        binding.toolbar.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
+        binding.toolbarGuestTrashBin.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
 
-            findNavController().navigate(R.id.trashToAddBirthday)
+            findNavController().navigate(R.id.guestTrashToAddBirthday)
 
         }
 
         binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays).setOnClickListener{
-            it.findNavController().navigate(R.id.trashToMainPage)
+            it.findNavController().navigate(R.id.guestTrashBinToMain)
         }
 
         binding.sortButton.setOnClickListener{

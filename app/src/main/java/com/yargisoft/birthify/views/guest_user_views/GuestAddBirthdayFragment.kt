@@ -2,6 +2,7 @@ package com.yargisoft.birthify.views.guest_user_views
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -47,7 +48,7 @@ class GuestAddBirthdayFragment : Fragment() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
         // Toolbar üzerindeki menü ikonu ile menüyü açma
-        val toolbarMenuIcon = binding.toolbarAdd.findViewById<View>(R.id.menuButtonToolbar)
+        val toolbarMenuIcon = binding.toolbarGuestAdd.findViewById<View>(R.id.menuButtonToolbar)
 
 
 
@@ -85,8 +86,12 @@ class GuestAddBirthdayFragment : Fragment() {
             GuestFrequentlyUsedFunctions.showDatePickerDialog(requireContext(),binding.birthdayDateEditText)
         }
 
-        binding.fabBackButton.setOnClickListener { it.findNavController().popBackStack() }
+try {
+    binding.fabBackButtonAdd.setOnClickListener { it.findNavController().popBackStack() }
 
+}catch (e:Exception){
+    Log.e("tagımıs","$e")
+}
 
         //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
         GuestFrequentlyUsedFunctions.drawerLayoutToggle(

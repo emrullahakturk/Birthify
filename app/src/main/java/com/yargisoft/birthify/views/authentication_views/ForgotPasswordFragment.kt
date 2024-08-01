@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
@@ -35,7 +37,11 @@ class ForgotPasswordFragment : Fragment() {
 
         // Inflate the layout for this fragment
         binding=  DataBindingUtil.inflate(inflater,R.layout.fragment_forgot_password, container, false)
-        binding.forgotPassSignInTv.setOnClickListener { it.findNavController().navigate(R.id.forgotToLogin) }
+
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.registerFragment, inclusive = true)
+            .build()
+
 
 
 
@@ -97,10 +103,16 @@ class ForgotPasswordFragment : Fragment() {
                binding.forgotPasswordLottie,
                binding.root,
                findNavController(),
-               R.id.forgotToLogin
+               R.id.forgotToLogin,
+               navOptions
            )
 
         }
+        binding.forgotPassSignInTv.setOnClickListener {
+            UserFrequentlyUsedFunctions
+                .navigateToFragmentAndClearStack(findNavController(),R.id.forgotPasswordFragment,R.id.forgotToLogin)
+        }
+        
 
         return binding.root
 

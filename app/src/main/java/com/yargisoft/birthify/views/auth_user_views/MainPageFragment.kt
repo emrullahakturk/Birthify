@@ -13,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
@@ -75,7 +76,7 @@ class MainPageFragment : Fragment() {
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
-        val toolbarMenuButton = binding.toolbar.findViewById<View>(R.id.menuButtonToolbar)
+        val toolbarMenuButton = binding.toolbarUserMainPage.findViewById<View>(R.id.menuButtonToolbar)
 
         //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
         UserFrequentlyUsedFunctions.drawerLayoutToggle(
@@ -124,7 +125,8 @@ class MainPageFragment : Fragment() {
             findNavController(),
             binding.root,
             adapterList,
-            R.id.mainToMain
+            R.id.mainToMain,
+            navOptions {  }
         ))
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
@@ -169,7 +171,7 @@ class MainPageFragment : Fragment() {
             drawerLayout.openDrawer(GravityCompat.START)
         }*/
 
-        binding.toolbar.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
+        binding.toolbarUserMainPage.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
             findNavController().navigate(R.id.mainToAddBirthday)
         }
         binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)

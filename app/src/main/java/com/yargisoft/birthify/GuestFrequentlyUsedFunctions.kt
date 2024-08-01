@@ -306,7 +306,6 @@ object GuestFrequentlyUsedFunctions {
             when (menuItem.itemId) {
                 R.id.labelBirthdays -> {
                     when(sourcePage){
-                        "GuestMainPage"-> findNavController.navigate(R.id.guestMainToMain)
                         "GuestTrashBin"-> findNavController.navigate(R.id.guestTrashBinToMain)
                         "GuestDeletedBirthdayDetail"-> findNavController.navigate(R.id.guestDeletedDetailToMain)
                         "GuestBirthdayEdit"-> findNavController.navigate(R.id.guestEditToMain)

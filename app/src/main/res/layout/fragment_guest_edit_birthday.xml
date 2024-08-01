@@ -64,7 +64,7 @@
                 tools:ignore="RedundantDescriptionCheck" />
 
             <include
-                android:id="@+id/toolbar"
+                android:id="@+id/toolbarGuestEditBirthday"
                 layout="@layout/custom_toolbar" />
 
 
@@ -82,7 +82,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+                app:layout_constraintTop_toBottomOf="@+id/toolbarGuestEditBirthday" />
 
 
             <LinearLayout

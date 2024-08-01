@@ -9,8 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
@@ -39,6 +40,10 @@ class RegisterFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_register, container, false)
 
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.registerFragment, inclusive = true)
+            .build()
+
         val repository = AuthRepository(requireContext())
         val factory= AuthViewModelFactory(repository)
         viewModel = ViewModelProvider(this,factory)[AuthViewModel::class.java]
@@ -57,9 +62,14 @@ class RegisterFragment : Fragment() {
         registerFullNameEditText = binding.fullNameEditText
 
 
-        binding.signInTv.setOnClickListener {it.findNavController().navigate(R.id.registerToLogin)}
-//        binding.fabRegister.setOnClickListener { parentFragmentManager.popBackStack() }
-        binding.forgotPasswordTv.setOnClickListener { it.findNavController().navigate(R.id.registerToForgot) }
+        binding.signInTv.setOnClickListener {
+            UserFrequentlyUsedFunctions
+                .navigateToFragmentAndClearStack(findNavController(),R.id.registerFragment,R.id.registerToLogin)
+        }
+        binding.forgotPasswordTv.setOnClickListener {
+            UserFrequentlyUsedFunctions
+                .navigateToFragmentAndClearStack(findNavController(),R.id.registerFragment,R.id.registerToForgot)
+        }
 
 
 
@@ -175,7 +185,8 @@ class RegisterFragment : Fragment() {
                 viewLifecycleOwner,
                 binding.root,
                 findNavController(),
-                R.id.registerToLogin
+                R.id.registerToLogin,
+                navOptions
                 )
         }
         return binding.root

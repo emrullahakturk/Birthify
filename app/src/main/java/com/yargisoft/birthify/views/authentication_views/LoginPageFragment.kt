@@ -42,12 +42,7 @@ class LoginPageFragment : Fragment() {
         loginEmailTextInput = binding.loginEmailTextInput
         loginEmailEditText = binding.loginEmailEditText
 
-        //sayfa açıldığında user bilgilerini sıfırlar
-        userSharedPreferences.clearUserSession()
 
-
-        // Snackbar için view
-        //val view = (context as Activity).findViewById<View>(android.R.id.content)
 
         //repo factory ve viewmodel tanımlamaları
         val repository = AuthRepository(requireContext())
@@ -89,8 +84,14 @@ class LoginPageFragment : Fragment() {
         // Login fragment sayfasında girilen e-mail formatını kontrol ediyoruz
 
 
-        binding.forgotPassLoginTv.setOnClickListener { it.findNavController().navigate(R.id.loginToForgot) }
-        binding.signUpLoginTv.setOnClickListener { it.findNavController().navigate(R.id.loginToRegister) }
+        binding.forgotPassLoginTv.setOnClickListener {
+            UserFrequentlyUsedFunctions
+                .navigateToFragmentAndClearStack(findNavController(),R.id.loginPageFragment,R.id.loginToForgot)
+        }
+        binding.signUpLoginTv.setOnClickListener {
+            UserFrequentlyUsedFunctions
+                .navigateToFragmentAndClearStack(findNavController(),R.id.loginPageFragment,R.id.loginToRegister)
+        }
 
         binding.loginButton.setOnClickListener {
             val email = binding.loginEmailEditText.text.toString()

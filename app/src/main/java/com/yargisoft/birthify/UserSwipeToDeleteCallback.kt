@@ -9,6 +9,8 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
@@ -26,8 +28,10 @@ class UserSwipeToDeleteCallback(
     private val findNavController: NavController,
     private val fragmentView: View,
     private val birthdayList: List<Birthday>,
-    private val action: Int
+    private val action: Int,
+    private val navOptions: NavOptions
 ) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
 
     override fun onMove(
         recyclerView: RecyclerView,
@@ -50,7 +54,8 @@ class UserSwipeToDeleteCallback(
                 viewModel,
                 lifeCycleOwner,
                 findNavController,
-                action
+                action,
+                navOptions
                 )
 
             // Swipe işlemini sıfırla

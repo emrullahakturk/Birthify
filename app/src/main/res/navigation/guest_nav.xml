@@ -108,6 +108,9 @@
         <action
             android:id="@+id/guestTrashBinToMain"
             app:destination="@id/guestMainPageFragment" />
+        <action
+            android:id="@+id/guestTrashToAddBirthday"
+            app:destination="@id/guestAddBirthdayFragment" />
        <action
             android:id="@+id/guestTrashBinToDeletedDetail"
             app:destination="@id/guestDeletedBirthdayDetailFragment" />

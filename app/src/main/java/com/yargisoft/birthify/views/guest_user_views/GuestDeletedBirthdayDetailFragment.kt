@@ -14,6 +14,7 @@ import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAuthDeletedBirthdayDetailBinding
+import com.yargisoft.birthify.databinding.FragmentGuestDeletedBirthdayDetailBinding
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
@@ -26,7 +27,7 @@ import com.yargisoft.birthify.views.auth_user_views.DeletedBirthdayDetailFragmen
 
 class GuestDeletedBirthdayDetailFragment : Fragment() {
 
-    private lateinit var binding: FragmentAuthDeletedBirthdayDetailBinding
+    private lateinit var binding: FragmentGuestDeletedBirthdayDetailBinding
     private lateinit var guestBirthdayViewModel: GuestBirthdayViewModel
     private lateinit var authViewModel: AuthViewModel
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
@@ -63,7 +64,7 @@ class GuestDeletedBirthdayDetailFragment : Fragment() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
         // Toolbardaki menü ikonu
-        val menuToolbarIcon: View = binding.toolbar.findViewById(R.id.menuButtonToolbar)
+        val menuToolbarIcon: View = binding.toolbarDeletedDetail.findViewById(R.id.menuButtonToolbar)
 
         binding.fabBackButton.setOnClickListener { findNavController().popBackStack() }
 

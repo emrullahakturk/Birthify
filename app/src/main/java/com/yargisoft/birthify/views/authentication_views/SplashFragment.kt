@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.yargisoft.birthify.R
@@ -16,7 +17,8 @@ import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 
 class SplashFragment : Fragment() {
     private lateinit var userSharedPreferencesManager: UserSharedPreferencesManager
-    private val navOptions = NavOptions.Builder().setPopUpTo(R.id.splashFragment, true).build()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -37,31 +39,26 @@ class SplashFragment : Fragment() {
             if (userSharedPreferencesManager.checkIsUserLoggedIn()) {
                 // Oturum bilgileri mevcutsa MainFragment'a yönlendirir
                 if (userSharedPreferencesManager.getUserId() != "guest" ){
-                    findNavController().navigate(R.id.splashToMainPage, null, navOptions)
+                    navigateToFragmentAndClearStack(findNavController(),R.id.splashFragment, R.id.splashToMainPage )
+
                 }else{
-                    findNavController().navigate(R.id.splashToGuestNavGraph)
+                    navigateToFragmentAndClearStack(findNavController(),R.id.splashFragment, R.id.splashToGuestNavGraph )
                 }
 
             } else {
                 userSharedPreferencesManager.clearUserSession()
-                findNavController().navigate(R.id.splashToFirstPage, null, navOptions)
+                navigateToFragmentAndClearStack(findNavController(),R.id.splashFragment, R.id.splashToFirstPage )
             }
         }, 3000) // 3 saniye bekletme
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun navigateToFragmentAndClearStack(navController: NavController, currentFragmentId: Int, targetFragmentId: Int) {
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(currentFragmentId, inclusive = true)
+            .build()
 
-        // Geri tuşu işleyicisini ekleyin
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                // Geri gitmeyi engelle
-                // Bu durumda, geri gitme işlevi engellenmiş olur
-                // Buraya istediğiniz ek işlemleri de ekleyebilirsiniz (örneğin, bir uyarı göstermek)
-            }
-        })
+        navController.navigate(targetFragmentId, null, navOptions)
     }
-
 
 
 }

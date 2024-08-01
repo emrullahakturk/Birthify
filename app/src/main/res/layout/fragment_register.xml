@@ -50,7 +50,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/registerFullNameTextInput"
+                app:layout_constraintTop_toBottomOf="@+id/fullNameTextInput"
                 app:startIconDrawable="@drawable/ic_mail"
                 app:startIconTint="@color/green_login">
 
@@ -110,7 +110,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/registerNewTv"
+                app:layout_constraintTop_toBottomOf="@+id/registerNewAccountTv"
                 app:startIconDrawable="@drawable/ic_account"
                 app:startIconTint="@color/green_login">
 

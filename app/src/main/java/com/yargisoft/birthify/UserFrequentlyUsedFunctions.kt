@@ -28,6 +28,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -246,7 +248,7 @@ object UserFrequentlyUsedFunctions {
     silme , yeniden kaydetme ve tamamen silme işlemlerimiz
     için kullandığımız onaylama diyaloğumu çağıran fonksiyon
 */
-    fun showConfirmationDialog(view: View, context: Context, usersBirthdayViewModel:UsersBirthdayViewModel, editedBirthday:Birthday, lottieAnimationView: LottieAnimationView, viewLifecycleOwner:LifecycleOwner, condition: String, findNavController: NavController, action:Int )
+    fun showConfirmationDialog(view: View, context: Context, usersBirthdayViewModel:UsersBirthdayViewModel, editedBirthday:Birthday, lottieAnimationView: LottieAnimationView, viewLifecycleOwner:LifecycleOwner, condition: String, findNavController: NavController, action:Int, navOptions: NavOptions )
     {
         AlertDialog.Builder(context)
             .setTitle("Confirm Operation")
@@ -265,7 +267,7 @@ object UserFrequentlyUsedFunctions {
                     }
                 }
 
-                loadAndStateOperation(viewLifecycleOwner,usersBirthdayViewModel,lottieAnimationView,view,findNavController,action)
+                loadAndStateOperation(viewLifecycleOwner,usersBirthdayViewModel,lottieAnimationView,view,findNavController,action, navOptions )
             }
             .setNegativeButton("No"){_,_->
                 //animasyonu durdurup view'i visible yapıyoruz
@@ -300,18 +302,15 @@ object UserFrequentlyUsedFunctions {
                 viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     authViewModel.isLoaded.collect { isLoaded ->
                         if(isLoaded == true){
-                            Log.e("tagımıs","is loaded işlemi")
-
                             if(authViewModel.authViewModelState == true){
                                 if (authViewModel.isEmailVerifiedResult == true) {
                                     userSharedPreferences.saveIsChecked(isChecked)
                                     Snackbar.make(view, "You successfully logged in", Snackbar.LENGTH_SHORT).show()
-                                    Log.e("tagımıs","navigate işlemi")
-                                    findNavController.navigate(action)
+                                    navigateToFragmentAndClearStack(findNavController,R.id.loginPageFragment, R.id.loginToMain)
 
                                 } else {
                                     userSharedPreferences.apply {
-                                        clearUserSession()
+//                                        clearUserSession()
                                         saveIsChecked(false)
                                     }
                                     Snackbar.make(view, "Please verify your e-mail", Snackbar.LENGTH_LONG).show()
@@ -339,7 +338,8 @@ object UserFrequentlyUsedFunctions {
                                    viewLifecycleOwner:LifecycleOwner,
                                    view:View,
                                    findNavController:NavController,
-                                   action: Int
+                                   action: Int,
+                                   navOptions: NavOptions
                                    ){
 
         if(isValidPassword(password) && isValidEmail(email) && isValidFullName(name) )
@@ -350,7 +350,7 @@ object UserFrequentlyUsedFunctions {
 
             disableViewEnableLottie(lottieAnimationView,view)
 
-            isLoadingCheck(viewLifecycleOwner,viewModel,lottieAnimationView,view,findNavController,action)
+            isLoadingCheck(viewLifecycleOwner,viewModel,lottieAnimationView,view,findNavController,action, navOptions )
 
 
         }else{
@@ -362,13 +362,13 @@ object UserFrequentlyUsedFunctions {
 
     //Swipe ederek silme işlemi yaparken UserSwipeToDeleteCallback sınıfından bu fonksiyon çağrılır ve silme işlemi başlatılır
     @SuppressLint("NotifyDataSetChanged")
-    fun showDeleteDialogBirthdayAdapter(position: Int, view: View, context: Context, birthdayList:List<Birthday>, lottieAnimationView: LottieAnimationView, usersBirthdayViewModel: UsersBirthdayViewModel, lifeCycleOwner: LifecycleOwner, findNavController: NavController, action: Int
+    fun showDeleteDialogBirthdayAdapter(position: Int, view: View, context: Context, birthdayList:List<Birthday>, lottieAnimationView: LottieAnimationView, usersBirthdayViewModel: UsersBirthdayViewModel, lifeCycleOwner: LifecycleOwner, findNavController: NavController, action: Int, navOptions: NavOptions
     ){
         Log.e("HATA","$birthdayList")
 
         if (birthdayList.isNotEmpty()){
             val birthday = birthdayList[position]
-            showConfirmationDialog(view,context,usersBirthdayViewModel,birthday,lottieAnimationView,lifeCycleOwner,"soft_delete", findNavController , action )
+            showConfirmationDialog(view,context,usersBirthdayViewModel,birthday,lottieAnimationView,lifeCycleOwner,"soft_delete", findNavController , action, navOptions  )
         }
     }
 
@@ -378,12 +378,12 @@ object UserFrequentlyUsedFunctions {
     /*Şifre sıfırlama ekranında (Forgot Password Page) kutucuğa uazılan mailin validayion işlemlerini,
      animasyon işlemlerini vs yapan fonksiyon
      */
-    fun resetPasswordValidation(email:String, viewLifecycleOwner:LifecycleOwner, viewModel:AuthViewModel, lottieAnimationView: LottieAnimationView, view: View, findNavController: NavController, action:Int )
+    fun resetPasswordValidation(email:String, viewLifecycleOwner:LifecycleOwner, viewModel:AuthViewModel, lottieAnimationView: LottieAnimationView, view: View, findNavController: NavController, action:Int, navOptions: NavOptions )
     {
         if(isValidEmail(email)){
             viewModel.resetPassword(email)
             disableViewEnableLottie(lottieAnimationView,view)
-            isLoadingCheck( viewLifecycleOwner, viewModel, lottieAnimationView, view, findNavController, action)
+            isLoadingCheck( viewLifecycleOwner, viewModel, lottieAnimationView, view, findNavController, action, navOptions)
         }
 
     }
@@ -394,16 +394,16 @@ object UserFrequentlyUsedFunctions {
     // aynı zamanda arayüzü kilitleyip kullanıcının ekranda işlemler yapmasını engelliyor (disableViewEnableLottie ile)
     //isloading işlemin tamamlanıp tamamlanmadığını dönderiyor ve içerisindeki enableViewDisableLottie fonksiyonu ile arayüzü
     //kullanıcının kullanımına açıyor
-    fun loadAndStateOperation(viewLifecycleOwner:LifecycleOwner, usersBirthdayViewModel: UsersBirthdayViewModel, lottieAnimationView: LottieAnimationView, view:View, findNavController: NavController, action:Int )
+    fun loadAndStateOperation(viewLifecycleOwner:LifecycleOwner, usersBirthdayViewModel: UsersBirthdayViewModel, lottieAnimationView: LottieAnimationView, view:View, findNavController: NavController, action:Int , navOptions: NavOptions)
     {
         disableViewEnableLottie(lottieAnimationView,view)
-        isLoadingCheck(viewLifecycleOwner,usersBirthdayViewModel,lottieAnimationView,view, findNavController, action)
+        isLoadingCheck(viewLifecycleOwner,usersBirthdayViewModel,lottieAnimationView,view, findNavController, action, navOptions )
     }
 
 
     //Auth View Model ve UsersBirthdayViewModel için isLoading Kontrolü yapan fonksiyon
     // (Suspend fonksiyonun bitip bitmediğini kontrol ediyoruz)
-    private fun isLoadingCheck(viewLifecycleOwner: LifecycleOwner, viewModel:ViewModel, lottieAnimationView: LottieAnimationView, view: View, findNavController: NavController?, action: Int?)
+    private fun isLoadingCheck(viewLifecycleOwner: LifecycleOwner, viewModel:ViewModel, lottieAnimationView: LottieAnimationView, view: View, findNavController: NavController?, action: Int?,  navOptions:NavOptions)
     {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -421,7 +421,7 @@ object UserFrequentlyUsedFunctions {
                             //animasyonu durdurup view'i visible yapıyoruz
                             enableViewDisableLottie(lottieAnimationView,view)
                             if (findNavController != null && action != null){
-                                findNavController.navigate(action)
+                                findNavController.navigate(action,null, navOptions )
                             }
                         }
                     }
@@ -432,7 +432,7 @@ object UserFrequentlyUsedFunctions {
                                //animasyonu durdurup view'i visible yapıyoruz
                                enableViewDisableLottie(lottieAnimationView,view)
                                if (findNavController != null && action != null){
-                                   findNavController.navigate(action)
+                                   findNavController.navigate(action,null,navOptions)
                                }
                            },1500)
                 }
@@ -468,7 +468,6 @@ object UserFrequentlyUsedFunctions {
             when (menuItem.itemId) {
                 R.id.labelBirthdays -> {
                     when(sourcePage){
-                        "MainPage"-> findNavController.navigate(R.id.mainToMain)
                         "TrashBin"-> findNavController.navigate(R.id.trashToMainPage)
                         "Settings"-> findNavController.navigate(R.id.settingsToMainPage)
                         "Profile"-> findNavController.navigate(R.id.profileToMain)
@@ -537,6 +536,14 @@ object UserFrequentlyUsedFunctions {
         }
 
 
+    }
+
+     fun navigateToFragmentAndClearStack(navController: NavController, currentFragmentId: Int, targetFragmentId: Int) {
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(currentFragmentId, inclusive = true)
+            .build()
+
+        navController.navigate(targetFragmentId, null, navOptions)
     }
 
 

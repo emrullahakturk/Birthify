@@ -52,7 +52,7 @@
                 app:layout_constraintVertical_bias="0.5">
 
                 <include
-                    android:id="@+id/toolbar"
+                    android:id="@+id/toolbarGuestTrashBin"
                     layout="@layout/custom_toolbar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -171,7 +171,7 @@
                 android:background="@color/white"
                 app:itemIconTint="@color/green_login"
                 app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
-                app:menu="@menu/user_drawer_menu"
+                app:menu="@menu/guest_drawer_menu"
                 app:subheaderColor="@color/green_login"
                 app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
 
