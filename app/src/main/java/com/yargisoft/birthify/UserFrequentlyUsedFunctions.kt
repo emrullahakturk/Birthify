@@ -38,10 +38,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
+import com.yargisoft.birthify.adapters.PastBirthdayAdapter
 import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
+import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -54,6 +56,19 @@ object UserFrequentlyUsedFunctions {
     //EditText ile arama yaparken aramayı filtrelemek için kullanılan fonksiyon
      fun filterBirthdays(query: String, viewModel:UsersBirthdayViewModel, adapter: DeletedBirthdayAdapter) {
         val birthdays = viewModel.deletedBirthdayList.value
+        if (birthdays != null) {
+            val filteredBirthdays = if (query.isEmpty()) {
+                birthdays
+            } else {
+                birthdays.filter { it.name.contains(query, ignoreCase = true) }
+            }
+            adapter.updateData(filteredBirthdays)
+        }
+    }
+
+    //EditText ile arama yaparken aramayı filtrelemek için kullanılan fonksiyon (PastBirthday İçin)
+    fun filterBirthdays(query: String, viewModel: UsersBirthdayViewModel, adapter: PastBirthdayAdapter) {
+        val birthdays = viewModel.pastBirthdayList.value
         if (birthdays != null) {
             val filteredBirthdays = if (query.isEmpty()) {
                 birthdays
@@ -171,6 +186,41 @@ object UserFrequentlyUsedFunctions {
         adapter.updateData(sortedList)
     }
     //Deleted (Trash Bin) Page için sort menüsünü açma fonksiyonları
+
+    // PastBirthday Page için sort menüsünü açma fonksiyonları
+    fun showSortMenu(view: View, context:Context, adapter: PastBirthdayAdapter, userBirthdayViewModel: UsersBirthdayViewModel) {
+        val contextThemeWrapper = ContextThemeWrapper(context, R.style.CustomPopupMenu)
+        val popupMenu = PopupMenu(contextThemeWrapper, view)
+        popupMenu.menuInflater.inflate(R.menu.sorting_birthday_menu, popupMenu.menu)
+
+        // Menü öğelerine özel stil uygulama
+        for (i in 0 until popupMenu.menu.size()) {
+            val menuItem = popupMenu.menu.getItem(i)
+            val spanString = SpannableString(menuItem.title)
+            spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.green_login)), 0, spanString.length, 0)
+            menuItem.title = spanString
+        }
+
+        popupMenu.setOnMenuItemClickListener { menuItem: MenuItem ->
+            handleSortOptionSelected(menuItem,adapter,userBirthdayViewModel)
+            true
+        }
+        popupMenu.show()
+    }
+    private fun handleSortOptionSelected(menuItem: MenuItem, adapter: PastBirthdayAdapter, usersBirthdayViewModel: UsersBirthdayViewModel) {
+        val sortedList = when (menuItem.itemId) {
+            R.id.sort_by_name_asc -> usersBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByNameAsc")
+            R.id.sort_by_birth_date_asc -> usersBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByBirthdayDateAsc")
+            R.id.sort_by_recorded_date_asc -> usersBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByRecordedDateAsc")
+            R.id.sort_by_name_dsc -> usersBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByNameDsc")
+            R.id.sort_by_birth_date_dsc -> usersBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByBirthdayDateDsc")
+            R.id.sort_by_recorded_date_dsc -> usersBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByRecordedDateDsc")
+            else -> emptyList()
+        }
+
+        adapter.updateData(sortedList)
+    }
+    //PastBirthday Page için sort menüsünü açma fonksiyonları
 
 
     // Tarih seçme ekranı için gereken fonksiyon

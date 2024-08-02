@@ -117,6 +117,31 @@ class BirthdayRepository (context: Context){
         editor.apply()
     }
 
+    //doğum gününü silme fonksiyonu
+    private fun removeBirthdayFromBirthdayList(birthdayId: String) {
+        val birthdays = getBirthdays().toMutableList()
+        val birthdayToDelete = birthdays.find { it.id == birthdayId }
+        if (birthdayToDelete != null) {
+            birthdays.remove(birthdayToDelete)
+            saveBirthdays(birthdays)
+        }
+
+    }
+    // Geçmiş doğum günlerini tek tek kaydetme işlemi
+    private fun savePastBirthday(birthday: Birthday) {
+        val pastBirthdaysJson = pastBirthdayPreferences.getString("past_birthdays", null)
+        val pastBirthdays = if (pastBirthdaysJson != null) {
+            gson.fromJson(pastBirthdaysJson, Array<Birthday>::class.java).toMutableList()
+        } else {
+            mutableListOf()
+        }
+
+        pastBirthdays.add(birthday)
+
+        val editor = pastBirthdayPreferences.edit()
+        editor.putString("past_birthdays", gson.toJson(pastBirthdays))
+        editor.apply()
+    }
 
 
 
@@ -176,13 +201,11 @@ class BirthdayRepository (context: Context){
             birthdayDate.isBefore(currentDate)
         }
 
-
-        //geçmiş doğum günlerini liste halinde past_birthdays olarak kaydettik
-        savePastBirthdays(pastBirthdays)
-
         pastBirthdays.forEach { pastBirthday ->
             //geçmiş doğum günlerini tek tek firebase'e kaydediyoruz
             savePastBirthdayToFirebase(pastBirthday)
+            //geçmiş doğum günlerini tek tek lokal'e kaydediyoruz
+            savePastBirthday(pastBirthday)
             //geçmiş doğum günlerini tek tek firebase üzerinden ve local listeden kaldırıyoruz (yukarda past_birthdays olarak halihazırda kaydediyoruz)
             removeBirthdayFromMainList(pastBirthday.id)
         }
@@ -299,7 +322,8 @@ class BirthdayRepository (context: Context){
             emptyList()
         }
     }
-    fun getPastBirthdays(): List<Birthday> {
+    fun
+            PastBirthdays(): List<Birthday> {
         val json = pastBirthdayPreferences.getString("past_birthdays", null)
         return if (json != null) {
             val type = object : TypeToken<List<Birthday>>() {}.type

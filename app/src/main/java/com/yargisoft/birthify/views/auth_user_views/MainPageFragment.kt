@@ -67,6 +67,12 @@ class MainPageFragment : Fragment() {
         //doğum günlerini liveDataya çekiyoruz
         usersBirthdayViewModel.getBirthdays()
 
+        val listForFilter = usersBirthdayViewModel.birthdayList.value ?: emptyList()
+        usersBirthdayViewModel.filterPastAndUpcomingBirthdays(listForFilter)
+
+        usersBirthdayViewModel.getBirthdays()
+
+
         //user SharedPreferences
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
 

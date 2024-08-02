@@ -56,6 +56,10 @@ class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewM
         repository.reSaveDeletedBirthday(birthdayId)
     }
 
+    fun filterPastAndUpcomingBirthdays(birthdays:List<Birthday>){
+        repository.filterPastAndUpcomingBirthdays(birthdays)
+    }
+
 
 
     //Kullanıcı hesabını sildiğinde çalıştırılacak fonksiyonlar (lokalden tüm doğum günlerini siler)
@@ -213,6 +217,34 @@ fun sortBirthdaysTrashBin(sort: String): List<Birthday> {
         else -> emptyList()
     }
 }
+
+    fun sortBirthdaysPastBirthdays(sort: String): List<Birthday> {
+        val monthMap = mapOf(
+            "January" to 1, "February" to 2, "March" to 3, "April" to 4,
+            "May" to 5, "June" to 6, "July" to 7, "August" to 8,
+            "September" to 9, "October" to 10, "November" to 11, "December" to 12
+        )
+
+        return when(sort) {
+            "sortBirthdaysByNameAsc" -> pastBirthdayList.value?.sortedBy { it.name } ?: emptyList()
+            "sortBirthdaysByNameDsc" -> pastBirthdayList.value?.sortedByDescending { it.name } ?: emptyList()
+            "sortBirthdaysByBirthdayDateAsc" -> pastBirthdayList.value?.sortedWith(compareBy(
+                { val parts = it.birthdayDate.split(" ")
+                    monthMap[parts[1]] },
+                { val parts = it.birthdayDate.split(" ")
+                    parts[0].toInt() }
+            )) ?: emptyList()
+            "sortBirthdaysByBirthdayDateDsc" -> pastBirthdayList.value?.sortedWith(compareBy(
+                { val parts = it.birthdayDate.split(" ")
+                    monthMap[parts[1]] },
+                { val parts = it.birthdayDate.split(" ")
+                    parts[0].toInt() }
+            ))?.reversed() ?: emptyList()
+            "sortBirthdaysByRecordedDateAsc" -> pastBirthdayList.value?.sortedBy { it.recordedDate } ?: emptyList()
+            "sortBirthdaysByRecordedDateDsc" -> pastBirthdayList.value?.sortedByDescending { it.recordedDate } ?: emptyList()
+            else -> emptyList()
+        }
+    }
 
 
 }

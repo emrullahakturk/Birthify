@@ -18,6 +18,7 @@ import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.adapters.BirthdayAdapter
+import com.yargisoft.birthify.adapters.PastBirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentAuthPastBirthdaysBinding
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
@@ -33,7 +34,7 @@ class PastBirthdaysFragment : Fragment() {
     private lateinit var usersBirthdayViewModel: UsersBirthdayViewModel
     private lateinit var authViewModel: AuthViewModel
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
-    private lateinit var adapter: BirthdayAdapter
+    private lateinit var adapter: PastBirthdayAdapter
 
 
     override fun onCreateView(
@@ -88,18 +89,13 @@ class PastBirthdaysFragment : Fragment() {
         val adapterList= usersBirthdayViewModel.pastBirthdayList.value ?: emptyList()
 
         //Adapter'ı initialize etme
-        adapter = BirthdayAdapter(
+        adapter = PastBirthdayAdapter(
             adapterList.sortedByDescending { it.recordedDate },
             {birthday ->
-                val action =MainPageFragmentDirections.mainToEditBirthday(birthday)
-                findNavController().navigate(action)
+//                val action =MainPageFragmentDirections.mainToEditBirthday(birthday)
+//                findNavController().navigate(action)
             },
-            { birthday ->
-                val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
-                findNavController().navigate(action)
-            },
-            requireContext(),
-            binding.clickToAddBirthdayTv)
+            requireContext())
 
 
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
