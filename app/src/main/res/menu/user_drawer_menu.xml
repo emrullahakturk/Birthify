@@ -9,6 +9,10 @@
                 android:id="@+id/labelBirthdays"
                 android:icon="@drawable/ic_cake"
                 android:title="@string/birthdays" />
+            <item
+                android:id="@+id/labelPastBirthdays"
+                android:icon="@drawable/ic_cake"
+                android:title="@string/past_birthdays" />
 
             <item
                 android:id="@+id/labelProfile"

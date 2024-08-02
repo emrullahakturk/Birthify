@@ -103,6 +103,9 @@
         <action android:id="@+id/addToMain"
             app:destination="@id/mainPageFragment">
         </action>
+        <action android:id="@+id/addToPastBirthdays"
+            app:destination="@id/pastBirthdaysFragment">
+        </action>
         <action android:id="@+id/addToSettings"
             app:destination="@id/settingsFragment">
         </action>
@@ -120,6 +123,9 @@
         <action
             android:id="@+id/mainToAddBirthday"
             app:destination="@id/addBirthdayFragment" />
+        <action
+            android:id="@+id/mainToPastBirthdays"
+            app:destination="@id/pastBirthdaysFragment" />
         <action
             android:id="@+id/mainToMain"
             app:destination="@id/mainPageFragment" />
@@ -167,6 +173,9 @@
             android:id="@+id/editToMain"
             app:destination="@id/mainPageFragment" />
         <action
+            android:id="@+id/editToPastBirthdays"
+            app:destination="@id/pastBirthdaysFragment" />
+        <action
             android:id="@+id/editToProfile"
             app:destination="@id/profileFragment" />
         <action
@@ -184,6 +193,9 @@
         <action
             android:id="@+id/detailToEdit"
             app:destination="@id/birthdayEditFragment" />
+        <action
+            android:id="@+id/detailToPastBirthdays"
+            app:destination="@id/pastBirthdaysFragment" />
          <action
             android:id="@+id/detailToSettings"
             app:destination="@id/settingsFragment" />
@@ -209,6 +221,9 @@
             android:id="@+id/profileToSettings"
             app:destination="@id/settingsFragment" />
         <action
+            android:id="@+id/profileToPastBirthdays"
+            app:destination="@id/pastBirthdaysFragment" />
+        <action
             android:id="@+id/profileToTrash"
             app:destination="@id/trashBinFragment" />
         <action
@@ -223,6 +238,9 @@
         <action
             android:id="@+id/settingsToProfile"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/settingsToPastBirthdays"
+            app:destination="@id/pastBirthdaysFragment" />
         <action
             android:id="@+id/settingsToTrashBin"
             app:destination="@id/trashBinFragment" />
@@ -241,6 +259,9 @@
         <action
             android:id="@+id/trashToDeletedDetail"
             app:destination="@id/deletedBirthdayDetailFragment" />
+        <action
+            android:id="@+id/trashToPastBirthdays"
+            app:destination="@id/pastBirthdaysFragment" />
         <action
             android:id="@+id/trashToFirstPage"
             app:destination="@id/firstPageFragment" />
@@ -268,6 +289,13 @@
         <action
             android:id="@+id/deletedDetailToMain"
             app:destination="@id/mainPageFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/deletedDetailToPastBirthdays"
+            app:destination="@id/pastBirthdaysFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -304,4 +332,34 @@
 
     </fragment>
     <include app:graph="@navigation/guest_nav" />
+    <fragment
+        android:id="@+id/pastBirthdaysFragment"
+        android:name="com.yargisoft.birthify.views.auth_user_views.PastBirthdaysFragment"
+        android:label="PastBirthdaysFragment" >
+        <action
+            android:id="@+id/pastBirthdaysToSettings"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/pastBirthdaysToDeletedDetail"
+            app:destination="@id/deletedBirthdayDetailFragment" />
+        <action
+            android:id="@+id/pastBirthdaysToPastBirthdays"
+            app:destination="@id/pastBirthdaysFragment" />
+        <action
+            android:id="@+id/pastBirthdaysToFirstPage"
+            app:destination="@id/firstPageFragment" />
+        <action
+            android:id="@+id/pastBirthdaysToTrashBin"
+            app:destination="@id/trashBinFragment" />
+        <action
+            android:id="@+id/pastBirthdaysToProfile"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/pastBirthdaysToMainPage"
+            app:destination="@id/mainPageFragment" />
+        <action
+            android:id="@+id/pastBirthdaysToAddBirthday"
+            app:destination="@id/addBirthdayFragment" />
+
+    </fragment>
 </navigation>

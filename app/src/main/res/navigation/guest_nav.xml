@@ -12,6 +12,9 @@
             android:id="@+id/guestAddToMain"
             app:destination="@id/guestMainPageFragment" />
         <action
+            android:id="@+id/guestAddToPastBirthdays"
+            app:destination="@id/guestPastBirthdaysFragment" />
+        <action
             android:id="@+id/guestAddToTrashBin"
             app:destination="@id/guestTrashBinFragment" />
         <action
@@ -27,6 +30,9 @@
         <action
             android:id="@+id/guestDetailToMain"
             app:destination="@id/guestMainPageFragment" />
+        <action
+            android:id="@+id/guestDetailToPastBirthdays"
+            app:destination="@id/guestPastBirthdaysFragment" />
         <action
             android:id="@+id/guestDetailToEdit"
             app:destination="@id/guestEditBirthdayFragment" />
@@ -48,6 +54,9 @@
             android:id="@+id/guestDeletedDetailToMain"
             app:destination="@id/guestMainPageFragment" />
         <action
+            android:id="@+id/guestDeletedDetailToPastBirthdays"
+            app:destination="@id/guestPastBirthdaysFragment" />
+        <action
             android:id="@+id/guestDeletedDetailToTrashBin"
             app:destination="@id/guestTrashBinFragment" />
         <action
@@ -65,6 +74,9 @@
             android:id="@+id/guestEditToMain"
             app:destination="@id/guestMainPageFragment" />
         <action
+            android:id="@+id/guestEditToPastBirthdays"
+            app:destination="@id/guestPastBirthdaysFragment" />
+        <action
             android:id="@+id/guestEditToTrashBin"
             app:destination="@id/guestTrashBinFragment" />
         <action
@@ -81,6 +93,9 @@
         <action
             android:id="@+id/guestMainToMain"
             app:destination="@id/guestMainPageFragment" />
+        <action
+            android:id="@+id/guestMainToPastBirthdays"
+            app:destination="@id/guestPastBirthdaysFragment" />
         <action
             android:id="@+id/guestMainToAddBirthday"
             app:destination="@id/guestAddBirthdayFragment" />
@@ -109,6 +124,9 @@
             android:id="@+id/guestTrashBinToMain"
             app:destination="@id/guestMainPageFragment" />
         <action
+            android:id="@+id/guestTrashBinToPastBirthdays"
+            app:destination="@id/guestPastBirthdaysFragment" />
+        <action
             android:id="@+id/guestTrashToAddBirthday"
             app:destination="@id/guestAddBirthdayFragment" />
        <action
@@ -136,6 +154,9 @@
             android:id="@+id/guestPastToMain"
             app:destination="@id/guestMainPageFragment" />
         <action
+            android:id="@+id/guestPastToPastBirthdays"
+            app:destination="@id/guestPastBirthdaysFragment" />
+        <action
             android:id="@+id/guestPastToAddBirthday"
             app:destination="@id/guestAddBirthdayFragment" />
         <action
@@ -147,9 +168,6 @@
         <action
             android:id="@+id/guestPastToSettings"
             app:destination="@id/guestSettingsFragment" />
-
-
-
 
     </fragment>
 </navigation>
