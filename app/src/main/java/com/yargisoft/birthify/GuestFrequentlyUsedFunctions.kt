@@ -311,6 +311,7 @@ object GuestFrequentlyUsedFunctions {
                         "GuestBirthdayEdit"-> findNavController.navigate(R.id.guestEditToMain)
                         "GuestBirthdayDetail"-> findNavController.navigate(R.id.guestDetailToMain)
                         "GuestAddBirthday"-> findNavController.navigate(R.id.guestAddToMain)
+                        "GuestPastBirthdays"-> findNavController.navigate(R.id.guestPastToMain)
                     }
                 }
 
@@ -328,6 +329,8 @@ object GuestFrequentlyUsedFunctions {
                         "GuestBirthdayEdit"-> findNavController.navigate(R.id.guestEditToTrashBin)
                         "GuestBirthdayDetail"-> findNavController.navigate(R.id.guestDetailToTrashBin)
                         "GuestAddBirthday"-> findNavController.navigate(R.id.guestAddToTrashBin)
+                        "GuestPastBirthdays"-> findNavController.navigate(R.id.guestPastToTrashBin)
+
                     }
                 }
 
@@ -339,6 +342,8 @@ object GuestFrequentlyUsedFunctions {
                         "GuestBirthdayEdit"-> findNavController.navigate(R.id.guestEditToSettings)
                         "GuestBirthdayDetail"-> findNavController.navigate(R.id.guestDetailToSettings)
                         "GuestAddBirthday"-> findNavController.navigate(R.id.guestAddToSettings)
+                        "GuestPastBirthdays"-> findNavController.navigate(R.id.guestPastToSettings)
+
                     }
                 }
 

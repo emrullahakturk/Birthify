@@ -259,15 +259,12 @@ object UserFrequentlyUsedFunctions {
                 when (condition) {
                     "permanently" -> {
                         usersBirthdayViewModel.permanentlyDeleteBirthday(editedBirthday.id)
-                        usersBirthdayViewModel.deleteBirthdayPermanentlyFromFirebase(editedBirthday.id)
                     }
                     "soft_delete" -> {
                        usersBirthdayViewModel.deleteBirthday(editedBirthday.id)
-                       usersBirthdayViewModel.deleteBirthdayFromFirebase(editedBirthday.id, editedBirthday)
                     }
                     "re_save" -> {
                       usersBirthdayViewModel.reSaveDeletedBirthday(editedBirthday.id)
-                      usersBirthdayViewModel.reSaveDeletedBirthdayToFirebase(editedBirthday.id, editedBirthday)
                     }
                 }
 

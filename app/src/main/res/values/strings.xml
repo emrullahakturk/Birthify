@@ -60,4 +60,5 @@
     <string name="edit">Edit</string>
     <string name="add_a_new_birthday">Add A New Birthday</string>
     <string name="toolbar_menu_three_lines">Toolbar Menu Three Lines</string>
+    <string name="past_birthdays">Past Birthdays</string>
 </resources>

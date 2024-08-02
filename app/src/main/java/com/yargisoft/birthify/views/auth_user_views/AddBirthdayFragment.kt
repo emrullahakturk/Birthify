@@ -72,7 +72,6 @@ class AddBirthdayFragment : Fragment() {
 
             if (name.isNotEmpty() && birthdayDate.isNotEmpty() && note.isNotEmpty()) {
                 usersBirthdayViewModel.saveBirthday(bDay)
-                usersBirthdayViewModel.saveBirthdayToFirebase(bDay)
                 UserFrequentlyUsedFunctions.loadAndStateOperation(viewLifecycleOwner, usersBirthdayViewModel, binding.threePointAnimation, binding.root, findNavController(), R.id.addToMain, navOptions {  })
             }
             else{
