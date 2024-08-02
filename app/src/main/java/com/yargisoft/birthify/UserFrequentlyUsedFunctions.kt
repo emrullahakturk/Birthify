@@ -476,6 +476,7 @@ object UserFrequentlyUsedFunctions {
                         "BirthdayEdit"-> findNavController.navigate(R.id.editToMain)
                         "BirthdayDetail"-> findNavController.navigate(R.id.birthdayDetailToMain)
                         "AddBirthday"-> findNavController.navigate(R.id.addToMain)
+                        "PastBirthdays"-> findNavController.navigate(R.id.addToPastBirthdays)
                     }
                 }
 
@@ -484,7 +485,9 @@ object UserFrequentlyUsedFunctions {
                     userSharedPreferences.clearUserSession()
                     birthdayRepository.clearBirthdays()
                     birthdayRepository.clearDeletedBirthdays()
+                    birthdayRepository.clearPastBirthdays()
                     logout(activity)
+
                 }
 
                 R.id.labelTrashBin -> {
@@ -497,6 +500,7 @@ object UserFrequentlyUsedFunctions {
                         "BirthdayEdit"-> findNavController.navigate(R.id.editToTrash)
                         "BirthdayDetail"-> findNavController.navigate(R.id.detailToTrash)
                         "AddBirthday"-> findNavController.navigate(R.id.addToTrash)
+                        "PastBirthdays"-> findNavController.navigate(R.id.pastBirthdaysToTrashBin)
                     }
                 }
 
@@ -509,6 +513,7 @@ object UserFrequentlyUsedFunctions {
                         "BirthdayEdit"-> findNavController.navigate(R.id.editToSettings)
                         "BirthdayDetail"-> findNavController.navigate(R.id.detailToSettings)
                         "AddBirthday"-> findNavController.navigate(R.id.addToSettings)
+                        "PastBirthdays"-> findNavController.navigate(R.id.pastBirthdaysToSettings)
                     }
                 }
 
@@ -520,7 +525,20 @@ object UserFrequentlyUsedFunctions {
                         "BirthdayEdit"-> findNavController.navigate(R.id.editToProfile)
                         "BirthdayDetail"-> findNavController.navigate(R.id.detailToProfile)
                         "AddBirthday"-> findNavController.navigate(R.id.addToProfile)
-                    }                  }
+                        "PastBirthdays"-> findNavController.navigate(R.id.pastBirthdaysToProfile)
+                    }
+                }
+                R.id.labelPastBirthdays -> {
+                    when(sourcePage){
+                        "MainPage"-> findNavController.navigate(R.id.mainToPastBirthdays)
+                        "TrashBin"-> findNavController.navigate(R.id.trashToPastBirthdays)
+                        "DeletedBirthdayDetail"-> findNavController.navigate(R.id.deletedDetailToPastBirthdays)
+                        "BirthdayEdit"-> findNavController.navigate(R.id.editToPastBirthdays)
+                        "BirthdayDetail"-> findNavController.navigate(R.id.detailToPastBirthdays)
+                        "AddBirthday"-> findNavController.navigate(R.id.addToPastBirthdays)
+                        "PastBirthdays"-> findNavController.navigate(R.id.pastBirthdaysToPastBirthdays)
+                    }
+                }
 
                 else -> false
             }

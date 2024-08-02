@@ -1,6 +1,7 @@
 package com.yargisoft.birthify.viewmodels
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -49,6 +50,7 @@ class GuestBirthdayViewModel(val repository: GuestRepository): ViewModel() {
     }
     fun getPastBirthdays(){
         _pastBirthdayList.value =  repository.getPastBirthdays()
+        Log.e("tagımıs","repo past listesi${_pastBirthdayList.value}")
     }
 
 
@@ -62,6 +64,11 @@ class GuestBirthdayViewModel(val repository: GuestRepository): ViewModel() {
     fun clearBirthdays(){
         repository.clearBirthdays()
     }
+
+    fun filterPastAndUpcomingBirthdays(birthdays:List<Birthday>){
+        repository.filterPastAndUpcomingBirthdays(birthdays)
+    }
+
 
 
 
@@ -104,22 +111,51 @@ class GuestBirthdayViewModel(val repository: GuestRepository): ViewModel() {
         )
 
         return when(sort) {
-            "sortBirthdaysByNameAsc" -> deletedBirthdayList.value?.sortedBy { it.name } ?: emptyList()
-            "sortBirthdaysByNameDsc" -> deletedBirthdayList.value?.sortedByDescending { it.name } ?: emptyList()
-            "sortBirthdaysByBirthdayDateAsc" -> deletedBirthdayList.value?.sortedWith(compareBy(
+            "sortBirthdaysByNameAsc" -> pastBirthdayList.value?.sortedBy { it.name } ?: emptyList()
+            "sortBirthdaysByNameDsc" -> pastBirthdayList.value?.sortedByDescending { it.name } ?: emptyList()
+            "sortBirthdaysByBirthdayDateAsc" -> pastBirthdayList.value?.sortedWith(compareBy(
                 { val parts = it.birthdayDate.split(" ")
                     monthMap[parts[1]] },
                 { val parts = it.birthdayDate.split(" ")
                     parts[0].toInt() }
             )) ?: emptyList()
-            "sortBirthdaysByBirthdayDateDsc" -> deletedBirthdayList.value?.sortedWith(compareBy(
+            "sortBirthdaysByBirthdayDateDsc" -> pastBirthdayList.value?.sortedWith(compareBy(
                 { val parts = it.birthdayDate.split(" ")
                     monthMap[parts[1]] },
                 { val parts = it.birthdayDate.split(" ")
                     parts[0].toInt() }
             ))?.reversed() ?: emptyList()
-            "sortBirthdaysByRecordedDateAsc" -> deletedBirthdayList.value?.sortedBy { it.recordedDate } ?: emptyList()
-            "sortBirthdaysByRecordedDateDsc" -> deletedBirthdayList.value?.sortedByDescending { it.recordedDate } ?: emptyList()
+            "sortBirthdaysByRecordedDateAsc" -> pastBirthdayList.value?.sortedBy { it.recordedDate } ?: emptyList()
+            "sortBirthdaysByRecordedDateDsc" -> pastBirthdayList.value?.sortedByDescending { it.recordedDate } ?: emptyList()
+            else -> emptyList()
+        }
+    }
+
+
+    fun sortBirthdaysPastBirthdays(sort: String): List<Birthday> {
+        val monthMap = mapOf(
+            "January" to 1, "February" to 2, "March" to 3, "April" to 4,
+            "May" to 5, "June" to 6, "July" to 7, "August" to 8,
+            "September" to 9, "October" to 10, "November" to 11, "December" to 12
+        )
+
+        return when(sort) {
+            "sortBirthdaysByNameAsc" -> pastBirthdayList.value?.sortedBy { it.name } ?: emptyList()
+            "sortBirthdaysByNameDsc" -> pastBirthdayList.value?.sortedByDescending { it.name } ?: emptyList()
+            "sortBirthdaysByBirthdayDateAsc" -> pastBirthdayList.value?.sortedWith(compareBy(
+                { val parts = it.birthdayDate.split(" ")
+                    monthMap[parts[1]] },
+                { val parts = it.birthdayDate.split(" ")
+                    parts[0].toInt() }
+            )) ?: emptyList()
+            "sortBirthdaysByBirthdayDateDsc" -> pastBirthdayList.value?.sortedWith(compareBy(
+                { val parts = it.birthdayDate.split(" ")
+                    monthMap[parts[1]] },
+                { val parts = it.birthdayDate.split(" ")
+                    parts[0].toInt() }
+            ))?.reversed() ?: emptyList()
+            "sortBirthdaysByRecordedDateAsc" -> pastBirthdayList.value?.sortedBy { it.recordedDate } ?: emptyList()
+            "sortBirthdaysByRecordedDateDsc" -> pastBirthdayList.value?.sortedByDescending { it.recordedDate } ?: emptyList()
             else -> emptyList()
         }
     }

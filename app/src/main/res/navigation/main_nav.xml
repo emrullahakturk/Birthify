@@ -194,6 +194,9 @@
             android:id="@+id/detailToEdit"
             app:destination="@id/birthdayEditFragment" />
         <action
+            android:id="@+id/detailToAdd"
+            app:destination="@id/addBirthdayFragment" />
+        <action
             android:id="@+id/detailToPastBirthdays"
             app:destination="@id/pastBirthdaysFragment" />
          <action

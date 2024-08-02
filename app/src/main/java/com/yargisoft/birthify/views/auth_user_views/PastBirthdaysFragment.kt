@@ -18,8 +18,7 @@ import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.adapters.BirthdayAdapter
-import com.yargisoft.birthify.databinding.FragmentAuthMainPageBinding
-import com.yargisoft.birthify.databinding.FragmentPastBirthdaysBinding
+import com.yargisoft.birthify.databinding.FragmentAuthPastBirthdaysBinding
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
@@ -30,12 +29,11 @@ import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
 
 class PastBirthdaysFragment : Fragment() {
 
-    private lateinit var binding: FragmentPastBirthdaysBinding
+    private lateinit var binding: FragmentAuthPastBirthdaysBinding
     private lateinit var usersBirthdayViewModel: UsersBirthdayViewModel
     private lateinit var authViewModel: AuthViewModel
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var adapter: BirthdayAdapter
-    private lateinit var itemTouchHelper: ItemTouchHelper
 
 
     override fun onCreateView(
@@ -45,7 +43,7 @@ class PastBirthdaysFragment : Fragment() {
         // Inflate the layout for this fragment
 
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_past_birthdays, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_past_birthdays, container, false)
 
         //Birthday viewModel Tanımlama için gerekenler
         val birthdayRepository = BirthdayRepository(requireContext())
@@ -124,11 +122,11 @@ class PastBirthdaysFragment : Fragment() {
         })
 
         binding.toolbarPastBirthdays.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
-            findNavController().navigate(R.id.mainToAddBirthday)
+            findNavController().navigate(R.id.pastBirthdaysToAddBirthday)
         }
         binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)
             .setOnClickListener {
-                it.findNavController().navigate(R.id.mainToMain)
+                it.findNavController().navigate(R.id.pastBirthdaysToMainPage)
             }
 
         binding.sortButton.setOnClickListener {

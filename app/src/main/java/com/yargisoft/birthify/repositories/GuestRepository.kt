@@ -2,10 +2,12 @@ package com.yargisoft.birthify.repositories
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.yargisoft.birthify.models.Birthday
 import java.time.LocalDate
+import java.time.Month
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
@@ -44,6 +46,16 @@ class GuestRepository(context: Context) {
         }
 
     }
+    //doğum gününü silme fonksiyonu
+    private fun removeBirthdayFromBirthdayList(birthdayId: String) {
+        val birthdays = getBirthdays().toMutableList()
+        val birthdayToDelete = birthdays.find { it.id == birthdayId }
+        if (birthdayToDelete != null) {
+            birthdays.remove(birthdayToDelete)
+            saveBirthdays(birthdays)
+        }
+
+    }
 
 
     //doğum gününü update etme fonksiyonu
@@ -75,11 +87,22 @@ class GuestRepository(context: Context) {
     }
 
     // Geçmiş doğum günlerini kaydetme işlemi
-    private fun savePastBirthdays(birthdays: List<Birthday>) {
+    private fun savePastBirthday(birthday: Birthday) {
+        val pastBirthdaysJson = pastBirthdayPreferences.getString("past_birthdays", null)
+        val pastBirthdays = if (pastBirthdaysJson != null) {
+            gson.fromJson(pastBirthdaysJson, Array<Birthday>::class.java).toMutableList()
+        } else {
+            mutableListOf()
+        }
+
+        pastBirthdays.add(birthday)
+
         val editor = pastBirthdayPreferences.edit()
-        editor.putString("past_birthdays", gson.toJson(birthdays))
+        editor.putString("past_birthdays", gson.toJson(pastBirthdays))
         editor.apply()
     }
+
+
 
 
 
@@ -114,19 +137,20 @@ class GuestRepository(context: Context) {
 
 
     //geçmiş doğum günlerini ve yaklaşan doğum günlerini ayıran fonksiyon
+// Geçmiş doğum günlerini ve yaklaşan doğum günlerini ayıran fonksiyon
     fun filterPastAndUpcomingBirthdays(birthdays: List<Birthday>) {
         val currentDate = LocalDate.now()
         val pastBirthdays = birthdays.filter {
-            val birthdayDate = LocalDate.parse(it.birthdayDate, DateTimeFormatter.ofPattern("dd MMMM", Locale.ENGLISH))
+            val parts = it.birthdayDate.split(" ")
+            val day = parts[0].toInt()
+            val month = Month.valueOf(parts[1].uppercase(Locale.ENGLISH))
+            val birthdayDate = LocalDate.of(currentDate.year, month, day)
             birthdayDate.isBefore(currentDate)
         }
-
-        //geçmiş doğum günlerini liste halinde past_birthdays olarak kaydettik
-        savePastBirthdays(pastBirthdays)
-
         pastBirthdays.forEach { pastBirthday ->
-            //geçmiş doğum günlerini tek tek local listeden kaldırıyoruz (yukarda past_birthdays olarak halihazırda kaydediyoruz)
-            deleteBirthday(pastBirthday.id)
+            savePastBirthday(pastBirthday)
+            // Geçmiş doğum günlerini tek tek local listeden kaldırıyoruz (yukarıda past_birthdays olarak halihazırda kaydediyoruz)
+            removeBirthdayFromBirthdayList(pastBirthday.id)
         }
     }
 

@@ -18,6 +18,7 @@ import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.BirthdayAdapter
+import com.yargisoft.birthify.adapters.PastBirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentGuestMainPageBinding
 import com.yargisoft.birthify.databinding.FragmentGuestPastBirthdaysBinding
 import com.yargisoft.birthify.repositories.GuestRepository
@@ -29,7 +30,7 @@ import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
 class GuestPastBirthdaysFragment : Fragment() {
     private lateinit var binding: FragmentGuestPastBirthdaysBinding
     private lateinit var guestBirthdayViewModel: GuestBirthdayViewModel
-    private lateinit var adapter: BirthdayAdapter
+    private lateinit var adapter: PastBirthdayAdapter
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
 
 
@@ -67,25 +68,21 @@ class GuestPastBirthdaysFragment : Fragment() {
             requireActivity(),
             guestRepository,
             userSharedPreferences,
-            "GuestPastBirthdaysPage"
+            "GuestPastBirthdays"
         )
 
         val adapterList= guestBirthdayViewModel.pastBirthdayList.value ?: emptyList()
 
 
         //Adapter'ı initialize etme
-        adapter = BirthdayAdapter(
+        adapter = PastBirthdayAdapter(
             adapterList.sortedByDescending { it.recordedDate },
-            {birthday ->
-                val action = GuestMainPageFragmentDirections.guestMainToEditBirthday(birthday)
-                findNavController().navigate(action)
-            },
             { birthday ->
-                val action = GuestMainPageFragmentDirections.guestMainToDetail(birthday)
-                findNavController().navigate(action)
+//                val action = GuestPastBirthdaysFragmentDirections.guestPastTP(birthday)
+//                findNavController().navigate(action)
             },
             requireContext(),
-            binding.clickToAddBirthdayTv)
+        )
 
 
 
@@ -110,12 +107,12 @@ class GuestPastBirthdaysFragment : Fragment() {
         })
 
         binding.toolbarGuestPastBirthdays.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
-            findNavController().navigate(R.id.guestMainToAddBirthday)
+            findNavController().navigate(R.id.guestPastToAddBirthday)
         }
 
         binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)
             .setOnClickListener {
-                it.findNavController().navigate(R.id.guestMainToMain)
+                it.findNavController().navigate(R.id.guestPastToMain)
             }
 
         binding.sortButton.setOnClickListener {

@@ -3,6 +3,7 @@ package com.yargisoft.birthify.views.guest_user_views
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -52,6 +53,15 @@ class GuestMainPageFragment : Fragment() {
 
         //doğum günlerini liveDataya çekiyoruz
         guestBirthdayViewModel.getBirthdays()
+
+        //listedeki doğum günlerini tarihi geçmiş ise past birthdays listesine aktarır
+        val listForFilter = guestBirthdayViewModel.birthdayList.value ?: emptyList()
+
+        guestBirthdayViewModel.filterPastAndUpcomingBirthdays(listForFilter)
+        guestBirthdayViewModel.getBirthdays()
+
+
+
 
         //user SharedPreferences
         userSharedPreferences = UserSharedPreferencesManager(requireContext())

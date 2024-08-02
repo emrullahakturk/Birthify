@@ -213,7 +213,8 @@ class BirthdayRepository (context: Context){
         val editor = birthdayPreferences.edit()
         editor.clear()
         editor.apply()
-
+    }
+    fun clearBirthdaysFirebase() {
         //firebase üzerindeki birthdays listesini tamamen silme
         val collection = firestore.collection("birthdays")
         collection.get().addOnSuccessListener { querySnapshot ->
@@ -228,14 +229,18 @@ class BirthdayRepository (context: Context){
         }
 //            .addOnFailureListener {onComplete(false)}
 
-
     }
+
+
     // deleted_birthdays listesini tamamen temizleme fonksiyonu
     fun clearDeletedBirthdays() {
         val editor = deletedBirthdayPreferences.edit()
         editor.clear()
         editor.apply()
+    }
 
+    // deleted_birthdays listesini tamamen temizleme fonksiyonu (firebaseden)
+    fun clearDeletedBirthdaysFirebase() {
         //firebase üzerinden deleted_birthdays'i tamamen silme
         val collection = firestore.collection("deleted_birthdays")
         collection.get().addOnSuccessListener { querySnapshot ->
@@ -250,12 +255,16 @@ class BirthdayRepository (context: Context){
 //      .addOnFailureListener {onComplete(false)}
 
     }
+
     // past_birthdays listesini tamamen temizleme fonksiyonu
     fun clearPastBirthdays() {
         val editor = pastBirthdayPreferences.edit()
         editor.clear()
         editor.apply()
+    }
 
+    // past_birthdays listesini tamamen temizleme fonksiyonu
+    fun clearPastBirthdaysFirebase() {
         //firebase üzerinden deleted_birthdays'i tamamen silme
         val collection = firestore.collection("past_birthdays")
         collection.get().addOnSuccessListener { querySnapshot ->
@@ -268,7 +277,6 @@ class BirthdayRepository (context: Context){
 //                .addOnFailureListener { onComplete(false) }
         }
 //      .addOnFailureListener {onComplete(false)}
-
     }
 
 

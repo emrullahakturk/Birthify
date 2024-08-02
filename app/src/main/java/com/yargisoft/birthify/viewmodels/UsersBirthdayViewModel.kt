@@ -58,7 +58,7 @@ class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewM
 
 
 
-    //Kullanıcı hesabını sildiğinde çalıştırılacak fonksiyonlar (Firebase ve lokalden tüm doğum günlerini siler)
+    //Kullanıcı hesabını sildiğinde çalıştırılacak fonksiyonlar (lokalden tüm doğum günlerini siler)
     fun clearDeletedBirthdays(){
         repository.clearDeletedBirthdays()
     }
@@ -67,6 +67,17 @@ class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewM
     }
     fun clearPastBirthdays(){
         repository.clearPastBirthdays()
+    }
+
+    //Kullanıcı hesabını sildiğinde çalıştırılacak fonksiyonlar (Firebaseden tüm doğum günlerini siler)
+    fun clearDeletedBirthdaysFirebase(){
+        repository.clearDeletedBirthdaysFirebase()
+    }
+    fun clearBirthdaysFirebase(){
+        repository.clearBirthdaysFirebase()
+    }
+    fun clearPastBirthdaysFirebase(){
+        repository.clearPastBirthdaysFirebase()
     }
 
 
