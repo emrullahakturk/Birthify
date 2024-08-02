@@ -22,8 +22,21 @@ class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewM
     private val _birthdayList = MutableLiveData<List<Birthday>>()
     val birthdayList: LiveData<List<Birthday>> get() = _birthdayList
 
+    private val _pastBirthdayList = MutableLiveData<List<Birthday>>()
+    val pastBirthdayList: LiveData<List<Birthday>> get() = _pastBirthdayList
+
     private val _deletedBirthdayList = MutableLiveData<List<Birthday>>()
     val deletedBirthdayList: LiveData<List<Birthday>> get() = _deletedBirthdayList
+
+
+    private val _isLoaded = MutableStateFlow<Boolean?>(null)
+    val isLoaded: StateFlow<Boolean?> get() = _isLoaded
+
+
+    private var _birthdayViewModelState :Boolean? = null
+    val birthdayViewModelState :Boolean? get() = _birthdayViewModelState
+
+
 
 
     fun saveBirthday(birthday: Birthday){
@@ -35,13 +48,6 @@ class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewM
     fun updateBirthday(birthday: Birthday){
         repository.updateBirthday(birthday)
     }
-    fun getBirthdays(){
-       _birthdayList.value =  repository.getBirthdays()
-    }
-    fun clearBirthdays(){
-        repository.clearBirthdays()
-    }
-
 
     fun permanentlyDeleteBirthday(birthdayId: String){
         repository.permanentlyDeleteBirthday(birthdayId )
@@ -49,135 +55,35 @@ class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewM
     fun reSaveDeletedBirthday(birthdayId: String){
         repository.reSaveDeletedBirthday(birthdayId)
     }
-    fun getDeletedBirthdays(){
-       _deletedBirthdayList.value =  repository.getDeletedBirthdays()
-    }
+
+
+
+    //Kullanıcı hesabını sildiğinde çalıştırılacak fonksiyonlar (Firebase ve lokalden tüm doğum günlerini siler)
     fun clearDeletedBirthdays(){
         repository.clearDeletedBirthdays()
     }
-
-
-
-    //Firebase üzerine doğum günlerini kaydetme fonksiyonları burada başlıyor
-
-
-    private val _isLoaded = MutableStateFlow<Boolean?>(null)
-    val isLoaded: StateFlow<Boolean?> get() = _isLoaded
-
-
-    private var _birthdayViewModelState :Boolean? = null
-    val birthdayViewModelState :Boolean? get() = _birthdayViewModelState
-
-
-    private val _deletedBirthdayFirebaseList = MutableLiveData<List<Birthday>>(emptyList())
-    val deletedBirthdayFirebaseList: LiveData<List<Birthday>> get() = _deletedBirthdayFirebaseList
-
-
-
-
-    fun saveBirthdayToFirebase(birthday: Birthday) {
-        viewModelScope.launch {
-            try {
-
-                repository.saveBirthdayToFirebase(birthday) { isSuccess ->
-                    _birthdayViewModelState = isSuccess
-                }
-                _isLoaded.value = true
-
-
-        } catch (e: Exception) {
-            Log.e("HATA", "$e")
-            _birthdayViewModelState = false
-        }
-
-        //viewModelScope bittiğinde değerler tekrar null olmalı
-        _isLoaded.value = null
-        _birthdayViewModelState = null
-
+    fun clearBirthdays(){
+        repository.clearBirthdays()
     }
-
-}
-
-    fun updateBirthdayToFirebase(birthday: Birthday) {
-        viewModelScope.launch {
-
-            try {
-                repository.updateBirthdayToFirebase(birthday) { isSuccess ->
-                    _birthdayViewModelState = isSuccess
-                }
-
-                _isLoaded.value = true
-
-            } catch (e: Exception) {
-                Log.e("HATA", "$e")
-                _birthdayViewModelState = false
-            }
-
-            //viewModelScope bittiğinde değerler tekrar null olmalı
-            _isLoaded.value = null
-            _birthdayViewModelState = null
-        }
+    fun clearPastBirthdays(){
+        repository.clearPastBirthdays()
     }
 
 
-    fun deleteBirthdayFromFirebase(birthdayId: String, birthday: Birthday) {
-        viewModelScope.launch {
-            try {
-                repository.deleteBirthdayFromFirebase(birthdayId, birthday) { isSuccess ->
-                    _birthdayViewModelState = isSuccess
-                }
-                _isLoaded.value = true
 
-            } catch (e: Exception) {
-                Log.e("HATA", "$e")
-                _birthdayViewModelState = false
-            }
-
-            //viewModelScope bittiğinde değerler tekrar null olmalı
-            _isLoaded.value = null
-            _birthdayViewModelState = null
-        }
+    //shared preferences ile kaydettiğimiz fonksiyonları listelere aktarıyoruz
+    fun getDeletedBirthdays(){
+        _deletedBirthdayList.value =  repository.getDeletedBirthdays()
     }
-
-    fun deleteBirthdayPermanentlyFromFirebase(birthdayId: String) {
-
-        viewModelScope.launch {
-            try {
-                repository.deleteBirthdayPermanentlyFromFirebase(birthdayId) { isSuccess ->
-                    _birthdayViewModelState = isSuccess
-                }
-
-                _isLoaded.value = true
-
-            } catch (e: Exception) {
-                Log.e("HATA", "$e")
-                _birthdayViewModelState = false
-            }
-
-            _isLoaded.value = null
-            _birthdayViewModelState = null
-        }
+    fun getBirthdays(){
+        _birthdayList.value =  repository.getBirthdays()
     }
-
-    fun reSaveDeletedBirthdayToFirebase(birthdayId: String, birthday: Birthday) {
-        viewModelScope.launch {
-            try {
-                repository.reSaveDeletedBirthdayToFirebase(birthdayId, birthday) { isSuccess ->
-                    _birthdayViewModelState = isSuccess
-                }
-                _isLoaded.value = true
-
-            } catch (e: Exception) {
-                Log.e("HATA", "$e")
-                _birthdayViewModelState = false
-            }
-            //viewModelScope bittiğinde değerler tekrar null olmalı
-            _isLoaded.value = null
-            _birthdayViewModelState = null
-        }
+    fun getPastBirthdays(){
+        _pastBirthdayList.value =  repository.getPastBirthdays()
     }
 
 
+    //firebase üzerinden doğum günlerini çekerek preferences'a ve burada tanımladığımız listelere kaydediyoruz
     fun getUserBirthdaysFromFirebase(userId: String) {
         viewModelScope.launch {
             try {
@@ -197,7 +103,6 @@ class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewM
             _birthdayViewModelState = null
         }
     }
-
     fun getDeletedBirthdaysFromFirebase(userId: String) {
         viewModelScope.launch {
             try {
@@ -217,10 +122,31 @@ class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewM
             _birthdayViewModelState = null
         }
     }
+    fun getPastBirthdaysFromFirebase(userId: String) {
+        viewModelScope.launch {
+            try {
+                repository.getPastBirthdaysFromFirebase(userId) { birthdays, isSuccess ->
+
+                    _pastBirthdayList.value = birthdays.sortedByDescending { it.recordedDate }
+                    _birthdayViewModelState = isSuccess
+                }
+                _isLoaded.value = true
+
+            } catch (e: Exception) {
+                Log.e("HATA", "$e")
+                _birthdayViewModelState = false
+            }
+            //viewModelScope bittiğinde değerler tekrar null olmalı
+            _isLoaded.value = null
+            _birthdayViewModelState = null
+        }
+    }
 
 
 
-@SuppressLint("CheckResult")
+
+
+    @SuppressLint("CheckResult")
 fun sortBirthdaysMainPage(sort: String): List<Birthday> {
     val monthMap = mapOf(
         "January" to 1, "February" to 2, "March" to 3, "April" to 4,

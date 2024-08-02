@@ -2,16 +2,19 @@ package com.yargisoft.birthify.repositories
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.yargisoft.birthify.models.Birthday
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class GuestRepository(context: Context) {
 
     private val gson = Gson()
     private val birthdayPreferences: SharedPreferences = context.getSharedPreferences("birthdays", Context.MODE_PRIVATE)
     private val deletedBirthdayPreferences: SharedPreferences = context.getSharedPreferences("deleted_birthdays", Context.MODE_PRIVATE)
+    private val pastBirthdayPreferences: SharedPreferences = context.getSharedPreferences("past_birthdays", Context.MODE_PRIVATE)
 
 
     private fun <T> SharedPreferences.putList(key: String, list: List<T>) {
@@ -25,27 +28,9 @@ class GuestRepository(context: Context) {
         val birthdays = getBirthdays().toMutableList()
         birthdays.add(newBirthday)
         saveBirthdays(birthdays)
-        Log.e("tagımıs","${getBirthdays()}")
     }
 
-    // Doğum günlerini getirme fonksiyonu
-    fun getBirthdays(): List<Birthday> {
-        val json = birthdayPreferences.getString("birthdays", null)
-        return if (json != null) {
-            val type = object : TypeToken<List<Birthday>>() {}.type
-            gson.fromJson(json, type)
-        } else {
-            emptyList()
-        }
-    }
-
-    // Doğum günlerini kaydetme işlemi
-    private fun saveBirthdays(birthdays: List<Birthday>) {
-        val editor = birthdayPreferences.edit()
-        editor.putString("birthdays", gson.toJson(birthdays))
-        editor.apply()
-    }
-
+    //doğum gününü silme fonksiyonu
     fun deleteBirthday(birthdayId: String) {
         val birthdays = getBirthdays().toMutableList()
         val deletedBirthdays = getDeletedBirthdays().toMutableList()
@@ -57,9 +42,11 @@ class GuestRepository(context: Context) {
             saveBirthdays(birthdays)
             saveDeletedBirthdays(deletedBirthdays)
         }
+
     }
 
 
+    //doğum gününü update etme fonksiyonu
     fun updateBirthday(updatedBirthday: Birthday) {
         val birthdays = getBirthdays().toMutableList()
         val index = birthdays.indexOfFirst { it.id == updatedBirthday.id }
@@ -70,39 +57,34 @@ class GuestRepository(context: Context) {
         }
     }
 
-    // Doğum günlerini temizleme fonksiyonu
-    fun clearBirthdays() {
+
+
+    // Doğum günlerini kaydetme işlemi
+    private fun saveBirthdays(birthdays: List<Birthday>) {
         val editor = birthdayPreferences.edit()
-        editor.clear()
+        editor.putString("birthdays", gson.toJson(birthdays))
         editor.apply()
+
     }
 
-    // Silinen doğum günlerini kaydetme işlemi
+    // Silinen doğum günlerini deleted_birthdays'e kaydetme işlemi
     private fun saveDeletedBirthdays(deletedBirthdays: List<Birthday>) {
         val editor = deletedBirthdayPreferences.edit()
         editor.putString("deleted_birthdays", gson.toJson(deletedBirthdays))
         editor.apply()
     }
 
-    // Silinen doğum günlerini getirme fonksiyonu
-    fun getDeletedBirthdays(): List<Birthday> {
-        val json = deletedBirthdayPreferences.getString("deleted_birthdays", null)
-        return if (json != null) {
-            val type= object : TypeToken<List<Birthday>>() {}.type
-            gson.fromJson(json, type)
-        } else {
-            emptyList()
-        }
-    }
-
-    // Silinen doğum günlerini temizleme fonksiyonu
-    fun clearDeletedBirthdays() {
-        val editor = deletedBirthdayPreferences.edit()
-        editor.clear()
+    // Geçmiş doğum günlerini kaydetme işlemi
+    private fun savePastBirthdays(birthdays: List<Birthday>) {
+        val editor = pastBirthdayPreferences.edit()
+        editor.putString("past_birthdays", gson.toJson(birthdays))
         editor.apply()
     }
 
-    // Silinen doğum gününü tekrar kaydetme fonksiyonu
+
+
+
+    // Silinen doğum gününü tekrar kaydetme fonksiyonu (local ve firebase'de)
     fun reSaveDeletedBirthday(birthdayId: String) {
         val deletedBirthdays = getDeletedBirthdays().toMutableList()
         val birthdays = getBirthdays().toMutableList()
@@ -113,9 +95,12 @@ class GuestRepository(context: Context) {
             saveBirthdays(birthdays)
             saveDeletedBirthdays(deletedBirthdays)
         }
-    }
 
-    // Silinen doğum gününü kalıcı olarak silme fonksiyonu
+
+
+
+    }
+    // Silinen doğum gününü kalıcı olarak silme fonksiyonu (local ve firebase'de)
     fun permanentlyDeleteBirthday(birthdayId: String) {
         val deletedBirthdays = getDeletedBirthdays().toMutableList()
         val birthdayToDelete = deletedBirthdays.find { it.id == birthdayId }
@@ -125,6 +110,77 @@ class GuestRepository(context: Context) {
         }
     }
 
+
+
+
+    //geçmiş doğum günlerini ve yaklaşan doğum günlerini ayıran fonksiyon
+    fun filterPastAndUpcomingBirthdays(birthdays: List<Birthday>) {
+        val currentDate = LocalDate.now()
+        val pastBirthdays = birthdays.filter {
+            val birthdayDate = LocalDate.parse(it.birthdayDate, DateTimeFormatter.ofPattern("dd MMMM", Locale.ENGLISH))
+            birthdayDate.isBefore(currentDate)
+        }
+
+        //geçmiş doğum günlerini liste halinde past_birthdays olarak kaydettik
+        savePastBirthdays(pastBirthdays)
+
+        pastBirthdays.forEach { pastBirthday ->
+            //geçmiş doğum günlerini tek tek local listeden kaldırıyoruz (yukarda past_birthdays olarak halihazırda kaydediyoruz)
+            deleteBirthday(pastBirthday.id)
+        }
+    }
+
+
+    // Doğum günlerini lokalden getirme fonksiyonları
+    fun getBirthdays(): List<Birthday> {
+        val json = birthdayPreferences.getString("birthdays", null)
+        return if (json != null) {
+            val type = object : TypeToken<List<Birthday>>() {}.type
+            gson.fromJson(json, type)
+        } else {
+            emptyList()
+        }
+    }
+    fun getDeletedBirthdays(): List<Birthday> {
+        val json = deletedBirthdayPreferences.getString("deleted_birthdays", null)
+        return if (json != null) {
+            val type= object : TypeToken<List<Birthday>>() {}.type
+            gson.fromJson(json, type)
+        } else {
+            emptyList()
+        }
+    }
+    fun getPastBirthdays(): List<Birthday> {
+        val json = pastBirthdayPreferences.getString("past_birthdays", null)
+        return if (json != null) {
+            val type = object : TypeToken<List<Birthday>>() {}.type
+            gson.fromJson(json, type)
+        } else {
+            emptyList()
+        }
+    }
+
+
+    //Bu fonksiyonlar kullanıcı hesabını "tamamen"!!! sildiğinde çalıştırılacak
+    // Doğum günlerini temizleme fonksiyonu
+    fun clearBirthdays() {
+        val editor = birthdayPreferences.edit()
+        editor.clear()
+        editor.apply()
+    }
+    // deleted_birthdays listesini tamamen temizleme fonksiyonu
+    fun clearDeletedBirthdays() {
+        val editor = deletedBirthdayPreferences.edit()
+        editor.clear()
+        editor.apply()
+
+    }
+    // past_birthdays listesini tamamen temizleme fonksiyonu
+    fun clearPastBirthdays() {
+        val editor = pastBirthdayPreferences.edit()
+        editor.clear()
+        editor.apply()
+    }
 
 
 }

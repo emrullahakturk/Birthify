@@ -9,42 +9,63 @@ import com.yargisoft.birthify.repositories.GuestRepository
 
 class GuestBirthdayViewModel(val repository: GuestRepository): ViewModel() {
 
-        private val _birthdayList = MutableLiveData<List<Birthday>>()
-        val birthdayList: LiveData<List<Birthday>> get() = _birthdayList
-
-        private val _deletedBirthdayList = MutableLiveData<List<Birthday>>()
-        val deletedBirthdayList: LiveData<List<Birthday>> get() = _deletedBirthdayList
+    private val _birthdayList = MutableLiveData<List<Birthday>>()
+    val birthdayList: LiveData<List<Birthday>> get() = _birthdayList
 
 
-        fun saveBirthday(birthday: Birthday){
+    private val _pastBirthdayList = MutableLiveData<List<Birthday>>()
+    val pastBirthdayList: LiveData<List<Birthday>> get() = _pastBirthdayList
+
+    private val _deletedBirthdayList = MutableLiveData<List<Birthday>>()
+    val deletedBirthdayList: LiveData<List<Birthday>> get() = _deletedBirthdayList
+
+
+    fun saveBirthday(birthday: Birthday){
             repository.saveBirthday(birthday)
-        }
-        fun deleteBirthday(birthdayId:String){
+    }
+    fun deleteBirthday(birthdayId:String){
             repository.deleteBirthday(birthdayId )
-        }
-        fun updateBirthday(birthday: Birthday){
+    }
+    fun updateBirthday(birthday: Birthday){
             repository.updateBirthday(birthday)
-        }
-        fun getBirthdays(){
-            _birthdayList.value =  repository.getBirthdays()
-        }
-        fun clearBirthdays(){
-            repository.clearBirthdays()
-        }
+    }
 
-
-        fun permanentlyDeleteBirthday(birthdayId: String){
+    fun permanentlyDeleteBirthday(birthdayId: String){
             repository.permanentlyDeleteBirthday(birthdayId )
-        }
-        fun reSaveDeletedBirthday(birthdayId: String){
+    }
+
+    fun reSaveDeletedBirthday(birthdayId: String){
             repository.reSaveDeletedBirthday(birthdayId)
-        }
-        fun getDeletedBirthdays(){
-            _deletedBirthdayList.value =  repository.getDeletedBirthdays()
-        }
-        fun clearDeletedBirthdays(){
-            repository.clearDeletedBirthdays()
-        }
+    }
+
+
+
+
+    fun getBirthdays(){
+        _birthdayList.value =  repository.getBirthdays()
+    }
+    fun getDeletedBirthdays(){
+        _deletedBirthdayList.value =  repository.getDeletedBirthdays()
+    }
+    fun getPastBirthdays(){
+        _pastBirthdayList.value =  repository.getPastBirthdays()
+    }
+
+
+
+    fun clearPastBirthdays(){
+        repository.clearPastBirthdays()
+    }
+    fun clearDeletedBirthdays(){
+        repository.clearDeletedBirthdays()
+    }
+    fun clearBirthdays(){
+        repository.clearBirthdays()
+    }
+
+
+
+//Sort Fonksiyonları
 
     @SuppressLint("CheckResult")
     fun sortBirthdaysMainPage(sort: String): List<Birthday> {
