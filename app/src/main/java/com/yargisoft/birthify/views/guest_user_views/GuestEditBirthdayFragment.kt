@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navOptions
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.databinding.FragmentGuestEditBirthdayBinding
 import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
@@ -31,6 +34,9 @@ class GuestEditBirthdayFragment : Fragment() {
 
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_guest_edit_birthday, container, false)
 
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.guestEditBirthdayFragment, true)
+            .build()
 
         //Guest Birthday ViewModel Tanımlama için gerekenler
          guestRepository = GuestRepository(requireContext())
@@ -41,6 +47,21 @@ class GuestEditBirthdayFragment : Fragment() {
         //editlenen doğum günü bilgilerini ekrana yansıtıyoruz
         binding.birthday = editedBirthday.birthday
 
+
+        binding.deleteBirthdayButton.setOnClickListener {
+          GuestFrequentlyUsedFunctions.showConfirmationDialog(
+                binding.root,
+                requireContext(),
+                guestBirthdayViewModel,
+                editedBirthday.birthday,
+                binding.threePointAnimation,
+                viewLifecycleOwner,
+                "soft_delete",
+                findNavController(),
+                action = R.id.guestEditToMain,
+                navOptions
+            )
+        }
 
         binding.updateBirthdayButton.setOnClickListener {
 
@@ -58,7 +79,8 @@ class GuestEditBirthdayFragment : Fragment() {
                 binding.threePointAnimation,
                 binding.root,
                 findNavController(),
-                R.id.guestEditToMain
+                R.id.guestEditToMain,
+                navOptions
             )
 
         }

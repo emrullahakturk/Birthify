@@ -9,6 +9,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
@@ -50,7 +51,8 @@ class GuestSwipeToDeleteCallback(
                 guestsBirthdayViewModel,
                 lifeCycleOwner,
                 findNavController,
-                action
+                action,
+                navOptions {  }
             )
 
             // Swipe işlemini sıfırla

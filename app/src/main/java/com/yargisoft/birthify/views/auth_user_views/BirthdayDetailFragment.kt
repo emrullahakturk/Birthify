@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.navigation.NavigationView
@@ -37,6 +38,10 @@ class BirthdayDetailFragment : Fragment() {
     ): View {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_auth_birthday_detail, container, false)
+
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.birthdayDetailFragment, true)
+            .build()
 
         binding.birthday = detailedBirthday.birthday
         binding.fabBackButton.setOnClickListener { findNavController().popBackStack() }
@@ -83,7 +88,7 @@ class BirthdayDetailFragment : Fragment() {
             val action = BirthdayDetailFragmentDirections.detailToEdit(
                 detailedBirthday.birthday
             )
-            findNavController().navigate(action)
+            findNavController().navigate(action, navOptions)
         }
 
         // Inflate the layout for this fragment

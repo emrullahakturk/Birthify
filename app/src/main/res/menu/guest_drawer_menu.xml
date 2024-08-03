@@ -14,10 +14,7 @@
                 android:icon="@drawable/ic_cake"
                 android:title="@string/past_birthdays" />
 
-            <item
-                android:id="@+id/labelLogin"
-                android:icon="@drawable/ic_account"
-                android:title="@string/login" />
+
             <item
                 android:id="@+id/labelTrashBin"
                 android:icon="@drawable/ic_delete"
@@ -28,6 +25,10 @@
                 android:id="@+id/labelSettings"
                 android:icon="@drawable/ic_settings"
                 android:title="@string/settings" />
+            <item
+                android:id="@+id/labelLogin"
+                android:icon="@drawable/ic_account"
+                android:title="@string/login" />
 
         </menu>
     </item>

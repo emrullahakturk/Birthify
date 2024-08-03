@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
@@ -41,6 +42,10 @@ class GuestAddBirthdayFragment : Fragment() {
     ): View {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_guest_add_birthday, container, false)
+
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.guestAddBirthdayFragment, true)
+            .build()
 
         val view = (context as Activity).findViewById<View>(android.R.id.content)
 
@@ -75,7 +80,7 @@ class GuestAddBirthdayFragment : Fragment() {
 
             if (name.isNotEmpty() && birthdayDate.isNotEmpty() && note.isNotEmpty()) {
                 guestBirthdayViewModel.saveBirthday(bDay)
-              GuestFrequentlyUsedFunctions.loadAndStateOperation(viewLifecycleOwner, guestBirthdayViewModel, binding.threePointAnimation, binding.root, findNavController(), R.id.guestAddToMain)
+              GuestFrequentlyUsedFunctions.loadAndStateOperation(viewLifecycleOwner, guestBirthdayViewModel, binding.threePointAnimation, binding.root, findNavController(), R.id.guestAddToMain, navOptions)
             }
             else{
                 Snackbar.make(view,"Please fill in all fields", Snackbar.LENGTH_SHORT).show()

@@ -58,6 +58,7 @@ class TrashBinFragment : Fragment() {
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
+
         // Toolbar üzerindeki menü ikonu
         val toolbarMenuButton = binding.toolbarUserTrashBin.findViewById<View>(R.id.menuButtonToolbar)
 

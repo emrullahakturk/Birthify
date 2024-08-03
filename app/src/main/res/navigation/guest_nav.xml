@@ -29,7 +29,8 @@
         android:label="GuestBirthdayDetailFragment" >
         <action
             android:id="@+id/guestDetailToMain"
-            app:destination="@id/guestMainPageFragment" />
+            app:destination="@id/guestMainPageFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/guestDetailToPastBirthdays"
             app:destination="@id/guestPastBirthdaysFragment" />

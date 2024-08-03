@@ -519,6 +519,7 @@ object UserFrequentlyUsedFunctions {
             when (menuItem.itemId) {
                 R.id.labelBirthdays -> {
                     when(sourcePage){
+                        "MainPage"->  ""
                         "TrashBin"-> findNavController.navigate(R.id.trashToMainPage)
                         "Settings"-> findNavController.navigate(R.id.settingsToMainPage)
                         "Profile"-> findNavController.navigate(R.id.profileToMain)
@@ -526,7 +527,7 @@ object UserFrequentlyUsedFunctions {
                         "BirthdayEdit"-> findNavController.navigate(R.id.editToMain)
                         "BirthdayDetail"-> findNavController.navigate(R.id.birthdayDetailToMain)
                         "AddBirthday"-> findNavController.navigate(R.id.addToMain)
-                        "PastBirthdays"-> findNavController.navigate(R.id.addToPastBirthdays)
+                        "PastBirthdays"-> findNavController.navigate(R.id.pastBirthdaysToMainPage)
                     }
                 }
 
@@ -543,7 +544,7 @@ object UserFrequentlyUsedFunctions {
                 R.id.labelTrashBin -> {
                     when(sourcePage){
                         "MainPage"-> findNavController.navigate(R.id.mainToTrashBin)
-                        "TrashBin"-> findNavController.navigate(R.id.trashToTrashBin)
+                        "TrashBin"->  ""
                         "Settings"-> findNavController.navigate(R.id.settingsToTrashBin)
                         "Profile"-> findNavController.navigate(R.id.profileToTrash)
                         "DeletedBirthdayDetail"-> findNavController.navigate(R.id.deletedDetailToTrashBin)
@@ -557,6 +558,7 @@ object UserFrequentlyUsedFunctions {
                 R.id.labelSettings -> {
                     when(sourcePage){
                         "MainPage"-> findNavController.navigate(R.id.mainToSettings)
+                        "Settings" -> ""
                         "TrashBin"-> findNavController.navigate(R.id.trashToSettings)
                         "Profile"-> findNavController.navigate(R.id.profileToSettings)
                         "DeletedBirthdayDetail"-> findNavController.navigate(R.id.deletedDetailToSettings)
@@ -575,6 +577,7 @@ object UserFrequentlyUsedFunctions {
                         "BirthdayEdit"-> findNavController.navigate(R.id.editToProfile)
                         "BirthdayDetail"-> findNavController.navigate(R.id.detailToProfile)
                         "AddBirthday"-> findNavController.navigate(R.id.addToProfile)
+                        "Profile" ->  ""
                         "PastBirthdays"-> findNavController.navigate(R.id.pastBirthdaysToProfile)
                     }
                 }
@@ -586,7 +589,7 @@ object UserFrequentlyUsedFunctions {
                         "BirthdayEdit"-> findNavController.navigate(R.id.editToPastBirthdays)
                         "BirthdayDetail"-> findNavController.navigate(R.id.detailToPastBirthdays)
                         "AddBirthday"-> findNavController.navigate(R.id.addToPastBirthdays)
-                        "PastBirthdays"-> findNavController.navigate(R.id.pastBirthdaysToPastBirthdays)
+                        "PastBirthdays"-> ""
                     }
                 }
 

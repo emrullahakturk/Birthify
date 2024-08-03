@@ -44,7 +44,6 @@ class GuestMainPageFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_guest_main_page, container, false)
 
 
-
         //Guest Birthday ViewModel Tanımlama için gerekenler
         val guestRepository = GuestRepository(requireContext())
         val guestFactory = GuestViewModelFactory(guestRepository)
@@ -56,17 +55,14 @@ class GuestMainPageFragment : Fragment() {
 
         //listedeki doğum günlerini tarihi geçmiş ise past birthdays listesine aktarır
         val listForFilter = guestBirthdayViewModel.birthdayList.value ?: emptyList()
-
         guestBirthdayViewModel.filterPastAndUpcomingBirthdays(listForFilter)
+
+        //Liste filtrelemeden sonra doğum günlerini tekrar birthdaylist'e aktarıyoruz
         guestBirthdayViewModel.getBirthdays()
-
-
 
 
         //user SharedPreferences
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
-
-//        Log.e("tagımıs","${userSharedPreferences.getUserCredentials()} ${guestBirthdayViewModel.birthdayList.value} ")
 
 
         // DrawerLayout ve NavigationView tanımlamaları
@@ -127,6 +123,7 @@ class GuestMainPageFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
 
+
         //Search edittext'i ile doğum günü arama ekliyoruz
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -149,8 +146,6 @@ class GuestMainPageFragment : Fragment() {
         binding.sortButton.setOnClickListener {
             GuestFrequentlyUsedFunctions.showSortMenu(it, requireContext(), adapter, guestBirthdayViewModel)
         }
-
-
 
         return binding.root
     }

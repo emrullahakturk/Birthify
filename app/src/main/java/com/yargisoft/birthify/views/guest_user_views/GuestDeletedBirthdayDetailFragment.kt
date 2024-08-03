@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.navigation.NavigationView
@@ -41,6 +42,9 @@ class GuestDeletedBirthdayDetailFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_guest_deleted_birthday_detail, container, false)
 
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.guestDeletedBirthdayDetailFragment, true)
+            .build()
 
 
         //Guest Birthday ViewModel Tanımlama için gerekenler
@@ -79,7 +83,8 @@ class GuestDeletedBirthdayDetailFragment : Fragment() {
                 viewLifecycleOwner,
                 "re_save",
                 findNavController(),
-                R.id.guestDeletedDetailToTrashBin
+                R.id.guestDeletedDetailToTrashBin,
+                navOptions
             )
         }
 
@@ -94,7 +99,8 @@ class GuestDeletedBirthdayDetailFragment : Fragment() {
                 viewLifecycleOwner,
                 "permanently",
                 findNavController(),
-                R.id.guestDeletedDetailToTrashBin
+                R.id.guestDeletedDetailToTrashBin,
+                navOptions
             )
         }
 

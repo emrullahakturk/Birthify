@@ -27,6 +27,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.textfield.TextInputEditText
@@ -255,7 +256,7 @@ object GuestFrequentlyUsedFunctions {
         silme , yeniden kaydetme ve tamamen silme işlemlerimiz
         için kullandığımız onaylama diyaloğumu çağıran fonksiyon
     */
-    fun showConfirmationDialog(view: View, context: Context, guestBirthdayViewModel:GuestBirthdayViewModel, editedBirthday:Birthday, lottieAnimationView: LottieAnimationView, viewLifecycleOwner:LifecycleOwner, condition: String, findNavController: NavController, action:Int )
+    fun showConfirmationDialog(view: View, context: Context, guestBirthdayViewModel:GuestBirthdayViewModel, editedBirthday:Birthday, lottieAnimationView: LottieAnimationView, viewLifecycleOwner:LifecycleOwner, condition: String, findNavController: NavController, action:Int,navOptions: NavOptions )
     {
         AlertDialog.Builder(context)
             .setTitle("Confirm Operation")
@@ -274,7 +275,7 @@ object GuestFrequentlyUsedFunctions {
                     }
                 }
 
-                loadAndStateOperation(viewLifecycleOwner,guestBirthdayViewModel,lottieAnimationView,view,findNavController,action)
+                loadAndStateOperation(viewLifecycleOwner,guestBirthdayViewModel,lottieAnimationView,view,findNavController,action, navOptions )
             }
             .setNegativeButton("No"){_,_->
                 //animasyonu durdurup view'i visible yapıyoruz
@@ -288,13 +289,13 @@ object GuestFrequentlyUsedFunctions {
 
     //Swipe ederek silme işlemi yaparken UserSwipeToDeleteCallback sınıfından bu fonksiyon çağrılır ve silme işlemi başlatılır
     @SuppressLint("NotifyDataSetChanged")
-    fun showDeleteDialogBirthdayAdapter(position: Int, view: View, context: Context, birthdayList:List<Birthday>, lottieAnimationView: LottieAnimationView, guestBirthdayViewModel:GuestBirthdayViewModel, lifeCycleOwner: LifecycleOwner, findNavController: NavController, action: Int
+    fun showDeleteDialogBirthdayAdapter(position: Int, view: View, context: Context, birthdayList:List<Birthday>, lottieAnimationView: LottieAnimationView, guestBirthdayViewModel:GuestBirthdayViewModel, lifeCycleOwner: LifecycleOwner, findNavController: NavController, action: Int,navOptions: NavOptions
     ){
         Log.e("HATA","$birthdayList")
 
         if (birthdayList.isNotEmpty()){
             val birthday = birthdayList[position]
-            showConfirmationDialog(view,context,guestBirthdayViewModel,birthday,lottieAnimationView,lifeCycleOwner,"soft_delete", findNavController , action )
+            showConfirmationDialog(view,context,guestBirthdayViewModel,birthday,lottieAnimationView,lifeCycleOwner,"soft_delete", findNavController , action, navOptions  )
         }
     }
 
@@ -304,16 +305,16 @@ object GuestFrequentlyUsedFunctions {
     // aynı zamanda arayüzü kilitleyip kullanıcının ekranda işlemler yapmasını engelliyor (disableViewEnableLottie ile)
     //isloading işlemin tamamlanıp tamamlanmadığını dönderiyor ve içerisindeki enableViewDisableLottie fonksiyonu ile arayüzü
     //kullanıcının kullanımına açıyor
-    fun loadAndStateOperation(viewLifecycleOwner:LifecycleOwner, guestBirthdayViewModel:GuestBirthdayViewModel, lottieAnimationView: LottieAnimationView, view:View, findNavController: NavController, action:Int )
+    fun loadAndStateOperation(viewLifecycleOwner:LifecycleOwner, guestBirthdayViewModel:GuestBirthdayViewModel, lottieAnimationView: LottieAnimationView, view:View, findNavController: NavController, action:Int, navOptions: NavOptions)
     {
         disableViewEnableLottie(lottieAnimationView,view)
-        isLoadingCheck(viewLifecycleOwner,guestBirthdayViewModel,lottieAnimationView,view, findNavController, action)
+        isLoadingCheck(viewLifecycleOwner,guestBirthdayViewModel,lottieAnimationView,view, findNavController, action, navOptions)
     }
 
 
     //Auth View Model ve UsersBirthdayViewModel için isLoading Kontrolü yapan fonksiyon
     // (Suspend fonksiyonun bitip bitmediğini kontrol ediyoruz)
-    private fun isLoadingCheck(viewLifecycleOwner: LifecycleOwner, viewModel:GuestBirthdayViewModel, lottieAnimationView: LottieAnimationView, view: View, findNavController: NavController?, action: Int?)
+    private fun isLoadingCheck(viewLifecycleOwner: LifecycleOwner, viewModel:GuestBirthdayViewModel, lottieAnimationView: LottieAnimationView, view: View, findNavController: NavController?, action: Int?, navOptions: NavOptions)
     {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -321,7 +322,7 @@ object GuestFrequentlyUsedFunctions {
                         //animasyonu durdurup view'i visible yapıyoruz
                         enableViewDisableLottie(lottieAnimationView,view)
                         if (findNavController != null && action != null){
-                            findNavController.navigate(action)
+                            findNavController.navigate(action,null,navOptions)
                         }
                 },1500)
             }
@@ -356,7 +357,7 @@ object GuestFrequentlyUsedFunctions {
                 R.id.labelBirthdays -> {
                     when(sourcePage){
                         "GuestTrashBin"-> findNavController.navigate(R.id.guestTrashBinToMain)
-                        "GuestMainPage"-> findNavController.navigate(R.id.guestMainToMain)
+                        "GuestMainPage"-> ""
                         "GuestDeletedBirthdayDetail"-> findNavController.navigate(R.id.guestDeletedDetailToMain)
                         "GuestBirthdayEdit"-> findNavController.navigate(R.id.guestEditToMain)
                         "GuestBirthdayDetail"-> findNavController.navigate(R.id.guestDetailToMain)
@@ -372,7 +373,7 @@ object GuestFrequentlyUsedFunctions {
                         "GuestBirthdayEdit"-> findNavController.navigate(R.id.guestEditToPastBirthdays)
                         "GuestBirthdayDetail"-> findNavController.navigate(R.id.guestDetailToPastBirthdays)
                         "GuestAddBirthday"-> findNavController.navigate(R.id.guestAddToPastBirthdays)
-                        "GuestPastBirthdays"-> findNavController.navigate(R.id.guestPastToPastBirthdays)
+                        "GuestPastBirthdays"-> ""
                     }
                 }
 
@@ -384,7 +385,7 @@ object GuestFrequentlyUsedFunctions {
                 R.id.labelTrashBin -> {
                     when(sourcePage){
                         "GuestMainPage"-> findNavController.navigate(R.id.guestMainToTrashBin)
-                        "GuestTrashBin"-> findNavController.navigate(R.id.guestTrashBinToTrashBin)
+                        "GuestTrashBin"-> ""
 //                        "GuestSettings"-> findNavController.navigate(R.id.)
                         "GuestDeletedBirthdayDetail"-> findNavController.navigate(R.id.guestDeletedDetailToTrashBin)
                         "GuestBirthdayEdit"-> findNavController.navigate(R.id.guestEditToTrashBin)
@@ -404,6 +405,7 @@ object GuestFrequentlyUsedFunctions {
                         "GuestBirthdayDetail"-> findNavController.navigate(R.id.guestDetailToSettings)
                         "GuestAddBirthday"-> findNavController.navigate(R.id.guestAddToSettings)
                         "GuestPastBirthdays"-> findNavController.navigate(R.id.guestPastToSettings)
+                        "GuestSettings"-> ""
                     }
                 }
 

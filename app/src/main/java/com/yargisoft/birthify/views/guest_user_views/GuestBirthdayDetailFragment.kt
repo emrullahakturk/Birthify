@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.yargisoft.birthify.R
@@ -16,6 +17,9 @@ class GuestBirthdayDetailFragment : Fragment() {
     private lateinit var binding : FragmentGuestBirthdayDetailBinding
     private val detailedBirthday : GuestBirthdayDetailFragmentArgs by navArgs()
 
+    val navOptions = NavOptions.Builder()
+        .setPopUpTo(R.id.guestBirthdayDetailFragment, true)
+        .build()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +34,7 @@ class GuestBirthdayDetailFragment : Fragment() {
             val action = GuestBirthdayDetailFragmentDirections.guestDetailToEdit(
                 detailedBirthday.birthday
             )
-            findNavController().navigate(action)
+            findNavController().navigate(action,navOptions)
         }
 
 

@@ -3,7 +3,6 @@ package com.yargisoft.birthify.views.auth_user_views
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -48,8 +47,8 @@ class MainPageFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_main_page, container, false)
 
 
-
-
+        //user SharedPreferences
+        userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
 
         //Birthday viewModel Tanımlama için gerekenler
@@ -57,26 +56,26 @@ class MainPageFragment : Fragment() {
         val birthdayFactory = UsersBirthdayViewModelFactory(birthdayRepository)
         usersBirthdayViewModel = ViewModelProvider(this, birthdayFactory)[UsersBirthdayViewModel::class]
 
-
         //Auth ViewModel Tanımlama için gerekenler
         val authRepository = AuthRepository(requireContext())
         val authFactory = AuthViewModelFactory(authRepository)
         authViewModel = ViewModelProvider(this, authFactory)[AuthViewModel::class]
 
+        //Main Page Açıldığında firebase üzerindeki doğum günlerini bday shared pref'e aktararak senkronize etmiş oluyoruz
+        usersBirthdayViewModel.getUserBirthdaysFromFirebase(userSharedPreferences.getUserId())
+        usersBirthdayViewModel.getPastBirthdaysFromFirebase(userSharedPreferences.getUserId())
+        usersBirthdayViewModel.getDeletedBirthdaysFromFirebase(userSharedPreferences.getUserId())
 
-        //doğum günlerini liveDataya çekiyoruz
+
         usersBirthdayViewModel.getBirthdays()
 
+        //Geçmiş doğum günlerini burada filtreleyerek pastBirthdays'e gödneriyoruz
         val listForFilter = usersBirthdayViewModel.birthdayList.value ?: emptyList()
         usersBirthdayViewModel.filterPastAndUpcomingBirthdays(listForFilter)
 
+        //filtreleme sonrası doğum günlerini liveDataya aktarıyoruz
         usersBirthdayViewModel.getBirthdays()
 
-
-        //user SharedPreferences
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
-
-        Log.e("tagımıs","${userSharedPreferences.getUserCredentials()} ${usersBirthdayViewModel.birthdayList.value} ")
 
 
         // DrawerLayout ve NavigationView tanımlamaları
@@ -96,12 +95,6 @@ class MainPageFragment : Fragment() {
             userSharedPreferences,
             "MainPage"
         )
-
-
-
-
-
-
 
 
 
@@ -138,13 +131,24 @@ class MainPageFragment : Fragment() {
 
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
         usersBirthdayViewModel.birthdayList.observe(viewLifecycleOwner) { birthdays ->
+            //Adapter'ı initialize etme
+            adapter = BirthdayAdapter(
+                birthdays.sortedByDescending { it.recordedDate },
+                {birthday ->
+                    val action =MainPageFragmentDirections.mainToEditBirthday(birthday)
+                    findNavController().navigate(action)
+                },
+                { birthday ->
+                    val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
+                    findNavController().navigate(action)
+                },
+                requireContext(),
+                binding.clickToAddBirthdayTv)
             adapter.updateData(birthdays)
         }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
-
-
 
 
         //Search edittext'i ile doğum günü arama ekliyoruz
@@ -158,24 +162,6 @@ class MainPageFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-
-       /* // ActionBarDrawerToggle ile Drawer'ı ActionBar ile senkronize etme
-        val toggle = ActionBarDrawerToggle(
-            requireActivity(),
-            drawerLayout,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-*/
-
-
-
-        /*// Toolbar üzerindeki menü ikonu ile menüyü açma
-        .setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
-        }*/
 
         binding.toolbarUserMainPage.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
             findNavController().navigate(R.id.mainToAddBirthday)

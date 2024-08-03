@@ -88,13 +88,14 @@ class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewM
 
     //shared preferences ile kaydettiğimiz fonksiyonları listelere aktarıyoruz
     fun getDeletedBirthdays(){
-        _deletedBirthdayList.value =  repository.getDeletedBirthdays()
+        _deletedBirthdayList.value =  repository.getDeletedBirthdays().sortedByDescending { it.recordedDate }
     }
     fun getBirthdays(){
-        _birthdayList.value =  repository.getBirthdays()
+        _birthdayList.value =  repository.getBirthdays().sortedByDescending { it.recordedDate }
     }
     fun getPastBirthdays(){
-        _pastBirthdayList.value =  repository.getPastBirthdays()
+        _pastBirthdayList.value = repository.getPastBirthdays()
+        _pastBirthdayList.value = sortBirthdaysPastBirthdays("sortBirthdaysByBirthdayDateDsc")
     }
 
 

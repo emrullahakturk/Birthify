@@ -42,15 +42,15 @@ class GuestBirthdayViewModel(val repository: GuestRepository): ViewModel() {
 
 
 
-    fun getBirthdays(){
-        _birthdayList.value =  repository.getBirthdays()
-    }
     fun getDeletedBirthdays(){
-        _deletedBirthdayList.value =  repository.getDeletedBirthdays()
+        _deletedBirthdayList.value =  repository.getDeletedBirthdays().sortedByDescending { it.recordedDate }
+    }
+    fun getBirthdays(){
+        _birthdayList.value =  repository.getBirthdays().sortedByDescending { it.recordedDate }
     }
     fun getPastBirthdays(){
-        _pastBirthdayList.value =  repository.getPastBirthdays()
-        Log.e("tagımıs","repo past listesi${_pastBirthdayList.value}")
+        _pastBirthdayList.value = repository.getPastBirthdays()
+        _pastBirthdayList.value = sortBirthdaysPastBirthdays("sortBirthdaysByBirthdayDateDsc")
     }
 
 

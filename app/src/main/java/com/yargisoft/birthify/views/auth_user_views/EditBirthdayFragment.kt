@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navOptions
@@ -31,6 +32,10 @@ class EditBirthdayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_edit_birthday, container, false)
+
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.birthdayEditFragment, true)
+            .build()
 
         repository = BirthdayRepository(requireContext())
         factory = UsersBirthdayViewModelFactory(repository)
@@ -62,7 +67,7 @@ class EditBirthdayFragment : Fragment() {
                binding.root,
                findNavController(),
                R.id.editToMain,
-               navOptions {  }
+               navOptions
                )
 
         }
@@ -82,7 +87,7 @@ class EditBirthdayFragment : Fragment() {
                "soft_delete",
                findNavController(),
                action = R.id.editToMain,
-               navOptions {  }
+               navOptions
            )
         }
 
@@ -93,7 +98,5 @@ class EditBirthdayFragment : Fragment() {
 
         return binding.root
     }
-
-
 
 }

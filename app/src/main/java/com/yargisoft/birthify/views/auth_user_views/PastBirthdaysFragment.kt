@@ -3,6 +3,7 @@ package com.yargisoft.birthify.views.auth_user_views
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -58,10 +59,8 @@ class PastBirthdaysFragment : Fragment() {
         authViewModel = ViewModelProvider(this, authFactory)[AuthViewModel::class]
 
 
-
-        //doğum günlerini liveDataya çekiyoruz
-        usersBirthdayViewModel.getPastBirthdaysFromFirebase(authViewModel.loggedUserId())
         usersBirthdayViewModel.getPastBirthdays()
+
 
         //user SharedPreferences
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
@@ -87,11 +86,11 @@ class PastBirthdaysFragment : Fragment() {
         )
 
         val adapterList= usersBirthdayViewModel.pastBirthdayList.value ?: emptyList()
-
+        Log.e("tagımıs","adapter user  past $adapterList")
         //Adapter'ı initialize etme
         adapter = PastBirthdayAdapter(
             adapterList.sortedByDescending { it.recordedDate },
-            {birthday ->
+            {_ ->
 //                val action =MainPageFragmentDirections.mainToEditBirthday(birthday)
 //                findNavController().navigate(action)
             },
@@ -100,6 +99,13 @@ class PastBirthdaysFragment : Fragment() {
 
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
         usersBirthdayViewModel.pastBirthdayList.observe(viewLifecycleOwner) { birthdays ->
+            adapter = PastBirthdayAdapter(
+                birthdays.sortedByDescending { it.recordedDate },
+                {_ ->
+//                val action =MainPageFragmentDirections.mainToEditBirthday(birthday)
+//                findNavController().navigate(action)
+                },
+                requireContext())
             adapter.updateData(birthdays)
         }
 

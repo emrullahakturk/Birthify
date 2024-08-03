@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.yargisoft.birthify.models.Birthday
 import java.time.LocalDate
+import java.time.Month
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
@@ -197,7 +198,10 @@ class BirthdayRepository (context: Context){
     fun filterPastAndUpcomingBirthdays(birthdays: List<Birthday>) {
         val currentDate = LocalDate.now()
         val pastBirthdays = birthdays.filter {
-            val birthdayDate = LocalDate.parse(it.birthdayDate, DateTimeFormatter.ofPattern("dd MMMM", Locale.ENGLISH))
+            val parts = it.birthdayDate.split(" ")
+            val day = parts[0].toInt()
+            val month = Month.valueOf(parts[1].uppercase(Locale.ENGLISH))
+            val birthdayDate = LocalDate.of(currentDate.year, month, day)
             birthdayDate.isBefore(currentDate)
         }
 
@@ -218,7 +222,7 @@ class BirthdayRepository (context: Context){
             birthdays.remove(birthdayToDelete)
             saveBirthdays(birthdays)
 
-            //firebase üzerinden doğum gününü silip deleted birthdayse aktarıyoruz
+            //firebase üzerinden doğum gününü siliyoruz (deleted_birthdaye aktarmadan, çünkü öncesinde pasta aktarıldı)
             val birthdayRef = firestore.collection("birthdays").document(birthdayId)
             firestore.runTransaction { transaction ->
                 transaction.delete(birthdayRef)
@@ -322,8 +326,7 @@ class BirthdayRepository (context: Context){
             emptyList()
         }
     }
-    fun
-            PastBirthdays(): List<Birthday> {
+    fun getPastBirthdays(): List<Birthday> {
         val json = pastBirthdayPreferences.getString("past_birthdays", null)
         return if (json != null) {
             val type = object : TypeToken<List<Birthday>>() {}.type
