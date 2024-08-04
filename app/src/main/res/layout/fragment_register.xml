@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/welcome_background"
+        android:background="@drawable/welcome_background_night"
         tools:context=".views.authentication_views.RegisterFragment">
 
         <com.airbnb.lottie.LottieAnimationView
@@ -44,23 +44,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginEnd="30dp"
                 app:boxBackgroundMode="outline"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fullNameTextInput"
+                app:layout_constraintTop_toTopOf="parent"
                 app:startIconDrawable="@drawable/ic_mail"
-                app:startIconTint="@color/green_login">
+                app:startIconTint="@color/ic_mail">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/emailEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_edit_text"
-                    android:hint="@string/e_mail"
                     android:fontFamily="@font/wittgenstein_font"
+                    android:hint="@string/e_mail"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:paddingStart="40dp"
@@ -77,13 +77,13 @@
                 android:layout_marginEnd="30dp"
                 app:boxBackgroundMode="outline"
                 app:endIconMode="password_toggle"
-                app:endIconTint="@color/green_login"
+                app:endIconTint="@color/ic_password_toggle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/emailTextInput"
                 app:startIconDrawable="@drawable/ic_lock"
-                app:startIconTint="@color/green_login">
+                app:startIconTint="@color/ic_lock">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordEditText"
@@ -104,23 +104,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
                 app:boxBackgroundMode="outline"
+                app:layout_constraintBottom_toTopOf="@+id/emailTextInput"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/registerNewAccountTv"
                 app:startIconDrawable="@drawable/ic_account"
-                app:startIconTint="@color/green_login">
+                app:startIconTint="@color/ic_account">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fullNameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_edit_text"
-                    android:hint="@string/full_name"
                     android:fontFamily="@font/wittgenstein_font"
+                    android:hint="@string/full_name"
                     android:inputType="textPersonName"
                     android:maxLines="1"
                     android:paddingStart="40dp"
@@ -133,28 +133,27 @@
                 android:id="@+id/registerTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="120dp"
-                android:text="@string/register"
                 android:fontFamily="@font/wittgenstein_font"
-                android:textColor="@color/green_login"
+                android:text="@string/register"
+                android:textColor="@color/register_tv"
                 android:textSize="48sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/registerNewAccountTv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/registerNewAccountTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/register_new_account"
+                app:layout_constraintBottom_toTopOf="@+id/fullNameTextInput"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/registerTv" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <Button
                 android:id="@+id/registerButton"
@@ -163,7 +162,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
-                android:backgroundTint="@color/green_login"
+                android:backgroundTint="@color/register_button"
                 android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/register"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -182,7 +181,7 @@
                 android:focusable="true"
                 android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/forgot_password"
-                android:textColor="@color/green_login"
+                android:textColor="@color/forgot_password"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/registerButton"
@@ -192,29 +191,29 @@
                 android:id="@+id/alreadyHaveAccountTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="40dp"
                 android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/already_have_an_account"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:textColor="@color/already_have_an_account_tv"
+                app:layout_constraintEnd_toStartOf="@+id/forgotPasswordTv"
+                app:layout_constraintTop_toBottomOf="@+id/registerButton" />
 
-            <TextView
-                android:id="@+id/signInTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:layout_marginBottom="15dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:fontFamily="@font/wittgenstein_font"
-                android:text="@string/sign_in"
-                android:textColor="@color/green_login"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/alreadyHaveAccountTv"
-                tools:ignore="TouchTargetSizeCheck" />
+<!--            <TextView-->
+<!--                android:id="@+id/signInTv"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="3dp"-->
+<!--                android:layout_marginTop="40dp"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true"-->
+<!--                android:fontFamily="@font/wittgenstein_font"-->
+<!--                android:text="@string/sign_in"-->
+<!--                android:textColor="@color/sign_in_tv"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/alreadyHaveAccountTv"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/registerButton"-->
+<!--                tools:ignore="TouchTargetSizeCheck" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

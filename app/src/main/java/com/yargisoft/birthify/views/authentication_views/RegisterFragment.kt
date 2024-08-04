@@ -62,7 +62,7 @@ class RegisterFragment : Fragment() {
         registerFullNameEditText = binding.fullNameEditText
 
 
-        binding.signInTv.setOnClickListener {
+        binding.alreadyHaveAccountTv.setOnClickListener {
             UserFrequentlyUsedFunctions
                 .navigateToFragmentAndClearStack(findNavController(),R.id.registerFragment,R.id.registerToLogin)
         }

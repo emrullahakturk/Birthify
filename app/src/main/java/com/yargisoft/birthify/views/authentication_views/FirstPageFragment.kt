@@ -38,7 +38,7 @@ class FirstPageFragment : Fragment() {
             userSharedPreferences.clearUserSession()
         }
 
-        binding.crAccountTv.setOnClickListener {
+        binding.createAccountButton.setOnClickListener {
             userSharedPreferences.clearUserSession()
             navigateToFragmentAndClearStack(findNavController(),R.id.firstPageFragment,R.id.firstToRegister)
         }

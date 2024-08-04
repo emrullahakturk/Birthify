@@ -40,9 +40,19 @@
     <color name="welcome_back">#FFFFFF</color>
     <color name="login_to_your_account">#FFFFFF</color>
     <color name="forgot_password">#FFFFFF</color>
+    <color name="the_best_app_tv">#FFFFFF</color>
+    <color name="create_account_tv">#FFFFFF</color>
+    <color name="continue_without_tv">#FFFFFF</color>
+    <color name="or_tv">#FFFFFF</color>
+    <color name="already_have_an_account_tv">#FFFFFF</color>
+    <color name="sign_in_tv">#FFFFFF</color>
+    <color name="register_tv">#FFFFFF</color>
 
     <!--Button renkleri-->
     <color name="login_button">#FFFFFf</color>
+    <color name="sign_in_button">#FFFFFf</color>
+    <color name="register_button">#FFFFFf</color>
+
 
 
 

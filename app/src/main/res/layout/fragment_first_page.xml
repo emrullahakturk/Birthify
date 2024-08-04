@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".views.authentication_views.FirstPageFragment"
-        android:background="@drawable/welcome_background">
+        android:background="@drawable/welcome_background_night">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,70 +19,42 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
 
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
-
-            <TextView
-                android:id="@+id/theBestAppTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="185dp"
-                android:fontFamily="@font/wittgenstein_font"
-                android:gravity="center"
-                android:text="@string/login_string1"
-                android:textColor="@color/green_login"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/signInButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="44dp"
-                android:layout_marginEnd="30dp"
-                android:backgroundTint="#3F744C"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:backgroundTint="@color/sign_in_button"
                 android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/sign_in"
                 android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/theBestAppTv" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/orTv"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/createAccountButton"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/or_string"
-                android:textColor="@color/green_login"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/crAccountTv" />
-
-            <TextView
-                android:id="@+id/crAccountTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:focusable="true"
+                android:backgroundTint="@color/sign_in_button"
                 android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/create_account"
-                android:textColor="@color/green_login"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signInButton" />
-
+                android:textSize="20sp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/continueWithoutTv"
+                app:layout_constraintVertical_bias="0.075"
+                tools:layout_editor_absoluteX="0dp" />
 
             <TextView
                 android:id="@+id/continueWithoutTv"
@@ -91,13 +63,72 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/continue_without_signing_in"
-                android:textColor="@color/green_login"
+                android:textColor="@color/continue_without_tv"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="0.529"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/orTv" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/crAccountTv"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:focusable="true"-->
+<!--                android:fontFamily="@font/wittgenstein_font"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/create_account"-->
+<!--                android:textColor="@color/create_account_tv"-->
+<!--                android:textSize="25sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/signInButton"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.548"-->
+<!--                app:layout_constraintStart_toStartOf="parent" />-->
+
+            <TextView
+                android:id="@+id/orTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/or_string"
+                android:textColor="@color/or_tv"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.509"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/signInButton" />
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieAnimationView"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="60dp"
+                android:elevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/who_has_birthday_animation"
+                tools:ignore="ImageContrastCheck" />
+
+<!--            <com.airbnb.lottie.LottieAnimationView-->
+<!--                android:id="@+id/lottieCake"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="150dp"-->
+<!--                android:elevation="10dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.0"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:lottie_autoPlay="true"-->
+<!--                app:lottie_loop="true"-->
+<!--                app:lottie_rawRes="@raw/save_birthday_animation"-->
+<!--                tools:ignore="ImageContrastCheck" />-->
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
