@@ -99,13 +99,6 @@ class PastBirthdaysFragment : Fragment() {
 
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
         usersBirthdayViewModel.pastBirthdayList.observe(viewLifecycleOwner) { birthdays ->
-            adapter = PastBirthdayAdapter(
-                birthdays.sortedByDescending { it.recordedDate },
-                {_ ->
-//                val action =MainPageFragmentDirections.mainToEditBirthday(birthday)
-//                findNavController().navigate(action)
-                },
-                requireContext())
             adapter.updateData(birthdays)
         }
 

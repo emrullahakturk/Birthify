@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+    <color name="black">#FF000000</color>
+    <color name="red">#FF0000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="green_login">#3F744C</color>
+    <color name="box_color">#DAE5DD</color>
+    <color name="checked_color">#3F744C</color> <!-- Seçili durumda renk -->
+    <color name="unchecked_border_color">#9E9E9E</color> <!-- Seçili olmayan durumda renk -->
+
+
+
+
+<!--İkon renkleri-->
+    <color name="ic_account">#FFFFFF</color>
+    <color name="ic_add">#FFFFFF</color>
+    <color name="ic_back">#FFFFFF</color>
+    <color name="ic_cake">#FFFFFF</color>
+    <color name="ic_calendar">#FFFFFF</color>
+    <color name="ic_delete">#FFFFFF</color>
+    <color name="ic_dots">#FFFFFF</color>
+    <color name="ic_edit">#FFFFFF</color>
+    <color name="ic_lock">#FFFFFF</color>
+    <color name="ic_logout">#FFFFFF</color>
+    <color name="ic_mail">#FFFFFF</color>
+    <color name="ic_menu_line">#FFFFFF</color>
+    <color name="ic_note">#FFFFFF</color>
+    <color name="ic_plus_one">#FFFFFF</color>
+    <color name="ic_search">#FFFFFF</color>
+    <color name="ic_settings">#FFFFFF</color>
+    <color name="ic_password_toggle">#FFFFFF</color>
+
+
+    <!--String renkleri-->
+    <color name="item_birthday_name">#000000</color>
+    <color name="item_birthday_birth_date">#000000</color>
+    <color name="item_birthday_edit">#000000</color>
+    <color name="item_birthday_birthday_date">#000000</color>
+    <color name="welcome_back">#FFFFFF</color>
+    <color name="login_to_your_account">#FFFFFF</color>
+    <color name="forgot_password">#FFFFFF</color>
+
+    <!--Button renkleri-->
+    <color name="login_button">#FFFFFf</color>
+
+
+
+</resources>

@@ -131,19 +131,6 @@ class MainPageFragment : Fragment() {
 
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
         usersBirthdayViewModel.birthdayList.observe(viewLifecycleOwner) { birthdays ->
-            //Adapter'ı initialize etme
-            adapter = BirthdayAdapter(
-                birthdays.sortedByDescending { it.recordedDate },
-                {birthday ->
-                    val action =MainPageFragmentDirections.mainToEditBirthday(birthday)
-                    findNavController().navigate(action)
-                },
-                { birthday ->
-                    val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
-                    findNavController().navigate(action)
-                },
-                requireContext(),
-                binding.clickToAddBirthdayTv)
             adapter.updateData(birthdays)
         }
 

@@ -61,4 +61,9 @@
     <string name="add_a_new_birthday">Add A New Birthday</string>
     <string name="toolbar_menu_three_lines">Toolbar Menu Three Lines</string>
     <string name="past_birthdays">Past Birthdays</string>
+    <string name="item_birthday_name">Emrullah Aktürk</string>
+    <string name="card_view_icon">Card View Icon</string>
+    <string name="card_view_edit_icon">Card View Edit Icon</string>
+    <string name="item_birthday_birth_date">Birth Date</string>
+    <string name="item_birthday_note">Note</string>
 </resources>

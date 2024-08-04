@@ -10,4 +10,41 @@
 
 
 
+
+    <!--İkon renkleri-->
+    <color name="ic_account">#3F744C</color>
+    <color name="ic_add">#3F744C</color>
+    <color name="ic_back">#3F744C</color>
+    <color name="ic_cake">#3F744C</color>
+    <color name="ic_calendar">#3F744C</color>
+    <color name="ic_delete">#3F744C</color>
+    <color name="ic_dots">#3F744C</color>
+    <color name="ic_edit">#3F744C</color>
+    <color name="ic_lock">#3F744C</color>
+    <color name="ic_logout">#3F744C</color>
+    <color name="ic_mail">#3F744C</color>
+    <color name="ic_menu_line">#3F744C</color>
+    <color name="ic_note">#3F744C</color>
+    <color name="ic_plus_one">#3F744C</color>
+    <color name="ic_search">#3F744C</color>
+    <color name="ic_settings">#3F744C</color>
+    <color name="ic_password_toggle">#3F744C</color>
+
+
+
+    <!--String renkleri-->
+    <color name="item_birthday_name">#3F744C</color>
+    <color name="item_birthday_birth_date">#3F744C</color>
+    <color name="item_birthday_edit">#3F744C</color>
+    <color name="item_birthday_birthday_date">#3F744C</color>
+    <color name="welcome_back">#FFFFFF</color>
+    <color name="login_to_your_account">#FFFFFF</color>
+    <color name="forgot_password">#FFFFFF</color>
+
+
+    <!--Button renkleri-->
+    <color name="login_button">#3F744C</color>
+
+
+
 </resources>

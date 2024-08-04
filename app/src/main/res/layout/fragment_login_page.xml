@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/welcome_background"
+        android:background="@drawable/welcome_background_night"
         tools:context=".views.authentication_views.LoginPageFragment"
         tools:layout_editor_absoluteY="25dp">
 
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="180dp"
                 android:text="@string/welcome_back"
-                android:textColor="@color/green_login"
+                android:textColor="@color/welcome_back"
                 android:textSize="40sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -63,13 +63,13 @@
                 android:id="@+id/loginToTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/login_to_account"
-                android:textColor="@color/green_login"
+                android:textColor="@color/login_to_your_account"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/welcomeBackTv" />
 
@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="20dp"
                 app:boxBackgroundMode="outline"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -86,8 +86,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loginToTv"
                 app:startIconDrawable="@drawable/ic_mail"
-
-                app:startIconTint="@color/green_login">
+                app:startIconTint="@color/ic_mail">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/loginEmailEditText"
@@ -111,13 +110,13 @@
                 android:layout_marginEnd="20dp"
                 app:boxBackgroundMode="outline"
                 app:endIconMode="password_toggle"
-                app:endIconTint="@color/green_login"
+                app:endIconTint="@color/ic_password_toggle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loginEmailTextInput"
                 app:startIconDrawable="@drawable/ic_lock"
-                app:startIconTint="@color/green_login">
+                app:startIconTint="@color/ic_lock">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/loginPassEditText"
@@ -153,7 +152,7 @@
                 android:focusable="true"
                 android:minHeight="48dp"
                 android:text="@string/forgot_password"
-                android:textColor="@color/green_login"
+                android:textColor="@color/forgot_password"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loginPasswordTextInput" />
@@ -163,40 +162,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="36dp"
                 android:layout_marginEnd="30dp"
-                android:backgroundTint="@color/green_login"
+                android:backgroundTint="@color/login_button"
                 android:text="@string/login"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/forgotPassLoginTv" />
-
-            <TextView
-                android:id="@+id/dontHaveTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="116dp"
-                android:layout_marginBottom="15dp"
-                android:text="@string/dont_have_account"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/signUpLoginTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="128dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:text="@string/sign_up"
-                android:textColor="@color/green_login"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/dontHaveTv"
                 tools:ignore="TouchTargetSizeCheck" />
+
+            <TextView
+                android:id="@+id/dontHaveTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="96dp"
+                android:layout_marginBottom="128dp"
+                android:text="@string/dont_have_account"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

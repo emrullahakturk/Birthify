@@ -14,8 +14,14 @@
     android:layout_marginBottom="10dp"
     card_view:cardCornerRadius="35dp"
     card_view:cardElevation="8dp"
-    card_view:cardBackgroundColor="#F6F5F5"
-    >
+    card_view:cardBackgroundColor="#F6F5F5">
+
+    <ImageView
+        android:id="@+id/card_background_image"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/item_background_gradient" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,12 +33,23 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="61dp">
 
+
+        <TextView
+            android:id="@+id/noteCardTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_birthday_note"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/nameCardTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="Emrullah Aktürk"
+            android:text="@string/item_birthday_name"
+            android:textColor="@color/item_birthday_name"
             android:fontFamily="@font/wittgenstein_font"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -46,7 +63,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="40dp"
-            android:text="Birthday Date"
+            android:text="@string/birthday_date"
+            android:textColor="@color/item_birthday_birthday_date"
             android:textSize="16sp"
             android:fontFamily="@font/wittgenstein_font"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -63,14 +81,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
-            app:srcCompat="@drawable/ic_account" />
+            app:srcCompat="@drawable/ic_account"
+            android:contentDescription="@string/card_view_icon" />
 
-        <TextView
-            android:id="@+id/noteCardTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:visibility="gone" />
+
 
         <ImageView
             android:id="@+id/editBirthdayButtonMainPage"
@@ -84,14 +98,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
-            app:srcCompat="@drawable/ic_edit" />
+            app:srcCompat="@drawable/ic_edit"
+            android:contentDescription="@string/card_view_edit_icon" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="40dp"
-            android:text="Birth Date"
+            android:text="@string/item_birthday_birth_date"
+            android:textColor="@color/item_birthday_birth_date"
             android:fontFamily="@font/wittgenstein_font"
             app:layout_constraintBottom_toTopOf="@+id/birthdayDateCardTv"
             app:layout_constraintEnd_toStartOf="@+id/editBirthdayButtonMainPage"
@@ -104,7 +120,8 @@
             android:layout_marginTop="7dp"
             android:layout_marginEnd="7dp"
             android:fontFamily="@font/wittgenstein_font"
-            android:text="Edit"
+            android:text="@string/edit"
+            android:textColor="@color/item_birthday_edit"
             app:layout_constraintBottom_toTopOf="@+id/editBirthdayButtonMainPage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
