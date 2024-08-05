@@ -3,7 +3,7 @@
     <style name="Base.Theme.Birthify" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-         <item name="android:statusBarColor">@color/green_login</item>
+         <item name="android:statusBarColor">#5B9ECB</item>
          <item name="windowNoTitle">true</item>
          <item name="windowActionBar">false</item>
 

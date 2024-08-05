@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/register_page_background_night"
+        android:background="@drawable/login_page_background"
         tools:context=".views.authentication_views.RegisterFragment">
 
         <com.airbnb.lottie.LottieAnimationView
@@ -151,6 +151,8 @@
                 android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/register_new_account"
                 android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/register_tv"
                 app:layout_constraintBottom_toTopOf="@+id/fullNameTextInput"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

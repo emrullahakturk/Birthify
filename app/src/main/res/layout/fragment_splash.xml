@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash_page_background_night"
+    android:background="@drawable/splash_page_background"
     android:orientation="vertical">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -32,7 +32,7 @@
         android:layout_marginTop="80dp"
         android:fontFamily="@font/wittgenstein_font"
         android:text="@string/app_name"
-        android:textColor="@color/white"
+        android:textColor="@color/toolbar_app_name"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

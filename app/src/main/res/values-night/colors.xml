@@ -69,6 +69,8 @@
     <color name="there_is_no_deleted_tv">#FFFFFF</color>
     <color name="deleted_birthdays_tv">#FFFFFF</color>
     <color name="button_text">#FFFFFF</color>
+    <color name="birthify_first_page_tv">#FFFFFF</color>
+    <color name="remember_me_cbox">#000000</color>
 
     <!--Button renkleri-->
     <color name="login_button">#FFFFFF</color>

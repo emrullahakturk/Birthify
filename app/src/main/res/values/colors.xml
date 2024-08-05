@@ -4,7 +4,7 @@
     <color name="red">#FF0000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green_login">#3F744C</color>
-    <color name="box_color">#DAE5DD</color>
+    <color name="box_color">#BB8266</color>
     <color name="checked_color">#3F744C</color> <!-- Seçili durumda renk -->
     <color name="unchecked_border_color">#9E9E9E</color> <!-- Seçili olmayan durumda renk -->
 
@@ -12,7 +12,7 @@
 
 
     <!--İkon renkleri-->
-    <color name="ic_account">#3F744C</color>
+    <color name="ic_account">#000000</color>
     <color name="ic_add">#3F744C</color>
     <color name="ic_back">#3F744C</color>
     <color name="ic_cake">#3F744C</color>
@@ -20,15 +20,15 @@
     <color name="ic_delete">#3F744C</color>
     <color name="ic_dots">#3F744C</color>
     <color name="ic_edit">#3F744C</color>
-    <color name="ic_lock">#3F744C</color>
+    <color name="ic_lock">#000000</color>
     <color name="ic_logout">#3F744C</color>
-    <color name="ic_mail">#3F744C</color>
+    <color name="ic_mail">#000000</color>
     <color name="ic_menu_line">#3F744C</color>
     <color name="ic_note">#3F744C</color>
     <color name="ic_plus_one">#3F744C</color>
     <color name="ic_search">#3F744C</color>
     <color name="ic_settings">#3F744C</color>
-    <color name="ic_password_toggle">#3F744C</color>
+    <color name="ic_password_toggle">#000000</color>
     <color name="bottom_nav_icon_background">#3F744C</color>
     <color name="line_view">#3F744C</color>
     <color name="ic_navigation_icons">#3F744C</color>
@@ -44,19 +44,19 @@
     <color name="item_deleted_birthday_birth_date">#3F744C</color>
     <color name="item_deleted_birthday_edit">#3F744C</color>
     <color name="item_deleted_birthday_date">#3F744C</color>
-    <color name="welcome_back">#3F744C</color>
-    <color name="login_to_your_account">#3F744C</color>
-    <color name="forgot_password">#3F744C</color>
+    <color name="welcome_back">#FF99654C</color>
+    <color name="login_to_your_account">#99654C</color>
+    <color name="forgot_password">#815642</color>
     <color name="the_best_app_tv">#3F744C</color>
     <color name="create_account_tv">#3F744C</color>
-    <color name="continue_without_tv">#3F744C</color>
+    <color name="continue_without_tv">#815642</color>
     <color name="or_tv">#3F744C</color>
-    <color name="already_have_an_account_tv">#3F744C</color>
+    <color name="already_have_an_account_tv">#815642</color>
     <color name="sign_in_tv">#3F744C</color>
-    <color name="register_tv">#3F744C</color>
+    <color name="register_tv">#8D493A</color>
     <color name="please_enter_email_tv">#3F744C</color>
-    <color name="remembered_password_tv">#FFFFFF</color>
-    <color name="toolbar_app_name">#3F744C</color>
+    <color name="remembered_password_tv">#A87676</color>
+    <color name="toolbar_app_name">#815642</color>
     <color name="bottom_nav_item_text">#3F744C</color>
     <color name="sorting_options_tv">#3F744C</color>
     <color name="click_to_add_tv">#3F744C</color>
@@ -69,13 +69,15 @@
     <color name="there_is_no_deleted_tv">#3F744C</color>
     <color name="deleted_birthdays_tv">#3F744C</color>
     <color name="button_text">#000000</color>
+    <color name="birthify_first_page_tv">#DF717D</color>
 
 
     <!--Button renkleri-->
-    <color name="login_button">#3F744C</color>
-    <color name="sign_in_button">#3F744C</color>
-    <color name="register_button">#3F744C</color>
-    <color name="reset_password_button">#3F744C</color>
+    <color name="login_button">#815642</color>
+    <color name="sign_in_button">#DF717D</color>
+    <color name="create_account_button">#815642</color>
+    <color name="register_button">#815642</color>
+    <color name="reset_password_button">#815642</color>
     <color name="toolbar_background_night">#FFFFFF</color>
     <color name="sort_button_background">#FFFFFF</color>
     <color name="fab_button_background">#3F744C</color>
@@ -84,6 +86,7 @@
     <color name="delete_birthday_button">#FF0000</color>
     <color name="birthday_edit_button">#3F744C</color>
     <color name="re_save_button">#3F744C</color>
+    <color name="remember_me_cbox">#815642</color>
 
     <!--Background renkleri-->
     <color name="main_page_background">#FFFFFF</color>
