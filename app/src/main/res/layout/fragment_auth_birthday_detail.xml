@@ -18,7 +18,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            android:background="@color/birthday_detail_background">
 
             <include
                 android:id="@+id/toolbarUserBirthdayDetail"
@@ -28,6 +28,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <View
+                android:id="@+id/lineView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/line_view"
+                app:layout_constraintTop_toBottomOf="@+id/toolbarUserBirthdayDetail"
+                tools:layout_editor_absoluteX="0dp" />
+
 
             <TextView
                 android:id="@+id/birthdayDetailTv"
@@ -36,12 +45,13 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="@string/birthday_detail"
-                android:textColor="@color/green_login"
+                android:fontFamily="@font/wittgenstein_font"
+                android:textColor="@color/birthday_detail_tv"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbarUserBirthdayDetail" />
+                app:layout_constraintTop_toBottomOf="@+id/lineView" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -64,10 +74,10 @@
                     android:focusable="false"
                     app:boxBackgroundMode="outline"
                     app:startIconDrawable="@drawable/ic_account"
-                    app:startIconTint="@color/green_login">
+                    app:startIconTint="@color/ic_account">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/nameBirthdayEditText"
+                        android:id="@+id/birthdayNameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edit_text"
@@ -88,7 +98,7 @@
                     android:focusable="false"
                     app:boxBackgroundMode="outline"
                     app:startIconDrawable="@drawable/ic_date"
-                    app:startIconTint="@color/green_login">
+                    app:startIconTint="@color/ic_calendar">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/birthdayDateEditText"
@@ -112,10 +122,10 @@
                     android:focusable="false"
                     app:boxBackgroundMode="outline"
                     app:startIconDrawable="@drawable/ic_note"
-                    app:startIconTint="@color/green_login">
+                    app:startIconTint="@color/ic_note">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/noteBirthdayEditText"
+                        android:id="@+id/birthdayNoteEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edit_text"
@@ -137,9 +147,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
-                android:backgroundTint="@color/green_login"
+                android:backgroundTint="@color/birthday_edit_button"
                 android:text="@string/edit"
-                android:textColor="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/fabBackButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -149,9 +158,9 @@
                 android:id="@+id/fabBackButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="7dp"
-                android:layout_marginBottom="7dp"
-                android:backgroundTint="@color/green_login"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:backgroundTint="@color/fab_button_background"
                 android:clickable="true"
                 android:contentDescription="@string/back_button"
                 android:src="@drawable/ic_back"

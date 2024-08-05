@@ -5,7 +5,7 @@
     <color name="red">#FF0000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green_login">#3F744C</color>
-    <color name="box_color">#DAE5DD</color>
+    <color name="box_color">#FFFFFF</color>
     <color name="checked_color">#3F744C</color> <!-- Seçili durumda renk -->
     <color name="unchecked_border_color">#9E9E9E</color> <!-- Seçili olmayan durumda renk -->
 
@@ -64,6 +64,7 @@
     <color name="nav_drawer_sub_header_tv">#FFFFFF</color>
     <color name="record_the_birthday_tv">#FFFFFF</color>
     <color name="edit_birthday_of_your_tv">#FFFFFF</color>
+    <color name="birthday_detail_tv">#FFFFFF</color>
 
     <!--Button renkleri-->
     <color name="login_button">#FFFFFF</color>
@@ -76,6 +77,7 @@
     <color name="fab_button_background">#202020</color>
     <color name="update_birthday_button">#FFFFFF</color>
     <color name="delete_birthday_button">#FF0000</color>
+    <color name="birthday_edit_button">#FFFFFF</color>
 
 
     <!--Background renkleri-->
@@ -84,6 +86,7 @@
     <color name="bottom_navigation_background">#202020</color>
     <color name="add_birthday_page_background">#000000</color>
     <color name="edit_birthday_background">#000000</color>
+    <color name="birthday_detail_background">#000000</color>
 
 
 
