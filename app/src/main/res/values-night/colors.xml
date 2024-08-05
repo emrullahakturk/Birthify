@@ -62,20 +62,24 @@
     <color name="click_to_add_tv">#FFFFFF</color>
     <color name="birthdays_tv">#FFFFFF</color>
     <color name="nav_drawer_sub_header_tv">#FFFFFF</color>
+    <color name="record_the_birthday_tv">#FFFFFF</color>
 
     <!--Button renkleri-->
-    <color name="login_button">#FFFFFf</color>
-    <color name="sign_in_button">#FFFFFf</color>
-    <color name="register_button">#FFFFFf</color>
-    <color name="reset_password_button">#FFFFFf</color>
+    <color name="login_button">#FFFFFF</color>
+    <color name="sign_in_button">#FFFFFF</color>
+    <color name="register_button">#FFFFFF</color>
+    <color name="reset_password_button">#FFFFFF</color>
     <color name="toolbar_background_night">#000000</color>
     <color name="sort_button_background">#000000</color>
+    <color name="save_birthday_button">#FFFFFF</color>
+    <color name="fab_button_add_background">#202020</color>
 
 
     <!--Background renkleri-->
     <color name="main_page_background">#000000</color>
     <color name="navigation_drawer_background">#000000</color>
-    <color name="bottom_navigation_background">#161616</color>
+    <color name="bottom_navigation_background">#202020</color>
+    <color name="add_birthday_page_background">#000000</color>
 
 
 

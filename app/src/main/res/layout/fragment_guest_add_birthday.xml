@@ -43,7 +43,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="@color/white"
+                android:background="@color/add_birthday_page_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -55,9 +55,9 @@
                     android:id="@+id/fabBackButtonAdd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:backgroundTint="@color/green_login"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:backgroundTint="@color/fab_button_add_background"
                     android:clickable="true"
                     android:src="@drawable/ic_back"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -71,22 +71,32 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <View
+                    android:id="@+id/lineView"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/line_view"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbarGuestAdd"
+                    tools:layout_editor_absoluteX="0dp" />
+
 
                 <TextView
                     android:id="@+id/recordBirthdayTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="25dp"
                     android:gravity="center"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
+                    android:fontFamily="@font/wittgenstein_font"
                     android:text="@string/record_birthday"
-                    android:textColor="@color/green_login"
+                    android:textColor="@color/record_the_birthday_tv"
                     android:textSize="30sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbarGuestAdd" />
+                    app:layout_constraintTop_toBottomOf="@+id/lineView" />
 
 
                 <LinearLayout
@@ -107,7 +117,7 @@
                         android:layout_marginBottom="16dp"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_account"
-                        app:startIconTint="@color/green_login">
+                        app:startIconTint="@color/ic_account">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/birthdayNameEditText"
@@ -127,7 +137,7 @@
                         android:layout_marginBottom="16dp"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_date"
-                        app:startIconTint="@color/green_login">
+                        app:startIconTint="@color/ic_calendar">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/birthdayDateEditText"
@@ -149,7 +159,7 @@
                         android:layout_marginBottom="16dp"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_note"
-                        app:startIconTint="@color/green_login">
+                        app:startIconTint="@color/ic_note">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/birthdayNoteEditText"
@@ -167,9 +177,8 @@
                         android:id="@+id/saveBirthdayButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/green_login"
-                        android:text="@string/save_birthday"
-                        android:textColor="@android:color/white" />
+                        android:backgroundTint="@color/save_birthday_button"
+                        android:text="@string/save_birthday" />
                 </LinearLayout>
 
 
@@ -182,11 +191,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            app:subheaderColor="@color/green_login"
-            app:itemIconTint="@color/green_login"
+            app:subheaderColor="@color/nav_drawer_sub_header_tv"
+            app:itemIconTint="@color/ic_navigation_icons"
             app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance"
             app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
-            android:background="@color/white"
+            android:background="@color/navigation_drawer_background"
             app:menu="@menu/guest_drawer_menu" />
     </androidx.drawerlayout.widget.DrawerLayout>
 

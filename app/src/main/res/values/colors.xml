@@ -62,6 +62,7 @@
     <color name="click_to_add_tv">#3F744C</color>
     <color name="birthdays_tv">#3F744C</color>
     <color name="nav_drawer_sub_header_tv">#3F744C</color>
+    <color name="record_the_birthday_tv">#3F744C</color>
 
 
     <!--Button renkleri-->
@@ -71,11 +72,14 @@
     <color name="reset_password_button">#3F744C</color>
     <color name="toolbar_background_night">#FFFFFF</color>
     <color name="sort_button_background">#FFFFFF</color>
+    <color name="fab_button_add_background">#3F744C</color>
+    <color name="save_birthday_button">#3F744C</color>
 
     <!--Background renkleri-->
     <color name="main_page_background">#FFFFFF</color>
     <color name="navigation_drawer_background">#FFFFFF</color>
     <color name="bottom_navigation_background">#FFFFFF</color>
+    <color name="add_birthday_page_background">#FFFFFF</color>
 
 
 
