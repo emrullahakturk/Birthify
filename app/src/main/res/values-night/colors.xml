@@ -47,11 +47,14 @@
     <color name="already_have_an_account_tv">#FFFFFF</color>
     <color name="sign_in_tv">#FFFFFF</color>
     <color name="register_tv">#FFFFFF</color>
+    <color name="please_enter_email_tv">#FFFFFF</color>
+    <color name="remembered_password_tv">#FFFFFF</color>
 
     <!--Button renkleri-->
     <color name="login_button">#FFFFFf</color>
     <color name="sign_in_button">#FFFFFf</color>
     <color name="register_button">#FFFFFf</color>
+    <color name="reset_password_button">#FFFFFf</color>
 
 
 

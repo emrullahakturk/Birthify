@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/welcome_background_night"
+        android:background="@drawable/register_page_background_night"
         tools:context=".views.authentication_views.RegisterFragment">
 
         <com.airbnb.lottie.LottieAnimationView
@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="30dp"
                 app:boxBackgroundMode="outline"
                 app:endIconMode="password_toggle"
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="15dp"
                 app:boxBackgroundMode="outline"
                 app:layout_constraintBottom_toTopOf="@+id/emailTextInput"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -147,9 +147,10 @@
                 android:id="@+id/registerNewAccountTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="30dp"
                 android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/register_new_account"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/fullNameTextInput"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -160,7 +161,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginEnd="30dp"
                 android:backgroundTint="@color/register_button"
                 android:fontFamily="@font/wittgenstein_font"
@@ -195,6 +196,7 @@
                 android:layout_marginEnd="40dp"
                 android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/already_have_an_account"
+                android:textStyle="bold"
                 android:textColor="@color/already_have_an_account_tv"
                 app:layout_constraintEnd_toStartOf="@+id/forgotPasswordTv"
                 app:layout_constraintTop_toBottomOf="@+id/registerButton" />

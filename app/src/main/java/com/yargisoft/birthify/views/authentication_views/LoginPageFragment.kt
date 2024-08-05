@@ -88,7 +88,7 @@ class LoginPageFragment : Fragment() {
             UserFrequentlyUsedFunctions
                 .navigateToFragmentAndClearStack(findNavController(),R.id.loginPageFragment,R.id.loginToForgot)
         }
-        binding.signUpLoginTv.setOnClickListener {
+        binding.dontHaveTv.setOnClickListener {
             UserFrequentlyUsedFunctions
                 .navigateToFragmentAndClearStack(findNavController(),R.id.loginPageFragment,R.id.loginToRegister)
         }

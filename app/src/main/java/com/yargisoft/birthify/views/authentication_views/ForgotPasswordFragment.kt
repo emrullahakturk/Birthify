@@ -108,7 +108,7 @@ class ForgotPasswordFragment : Fragment() {
            )
 
         }
-        binding.forgotPassSignInTv.setOnClickListener {
+        binding.rememberedPassTv.setOnClickListener {
             UserFrequentlyUsedFunctions
                 .navigateToFragmentAndClearStack(findNavController(),R.id.forgotPasswordFragment,R.id.forgotToLogin)
         }
