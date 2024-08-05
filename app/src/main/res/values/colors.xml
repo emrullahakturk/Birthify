@@ -66,6 +66,8 @@
     <color name="edit_birthday_of_your_tv">#3F744C</color>
     <color name="birthday_detail_tv">#3F744C</color>
     <color name="past_birthdays_tv">#3F744C</color>
+    <color name="there_is_no_deleted_tv">#3F744C</color>
+    <color name="deleted_birthdays_tv">#3F744C</color>
 
 
     <!--Button renkleri-->
@@ -90,6 +92,7 @@
     <color name="birthday_detail_background">#FFFFFF</color>
     <color name="past_birthdays_background">#FFFFFF</color>
     <color name="bottom_nav_constraint_background">#FFFFFF</color>
+    <color name="trash_bin_background">#FFFFFF</color>
 
 
 

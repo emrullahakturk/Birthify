@@ -78,7 +78,7 @@ class GuestTrashBinFragment : Fragment() {
 
         guestBirthdayViewModel.deletedBirthdayList.observe(viewLifecycleOwner) { deletedBirthdays ->
 
-            binding.thereIsNoTv.visibility = if (deletedBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
+            binding.trashBinMainTv.visibility = if (deletedBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
 
             // Adapter initialization
             adapter = DeletedBirthdayAdapter(deletedBirthdays,

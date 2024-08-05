@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -10,40 +11,24 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/trash_bin_background">
 
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@drawable/bottom_nav_background"
-            app:itemIconTint="@color/green_login"
-            app:itemTextAppearanceActive="@style/CustomNavigationViewTextAppearance"
-            app:itemTextAppearanceActiveBoldEnabled="true"
-            app:itemTextAppearanceInactive="@style/CustomNavigationViewTextAppearance"
-            app:itemTextColor="@color/green_login"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/bottom_nav_menu" />
 
         <androidx.drawerlayout.widget.DrawerLayout
             android:id="@+id/drawerLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavCardView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -60,15 +45,15 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/thereIsNoTv"
+                    android:id="@+id/trashBinMainTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/wittgenstein_font"
                     android:gravity="center"
                     android:text="@string/trash_bin_main_textView"
                     android:textAlignment="center"
-                    android:textColor="@color/green_login"
-                    android:textSize="35sp"
+                    android:textColor="@color/there_is_no_deleted_tv"
+                    android:textSize="25sp"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -82,8 +67,8 @@
                     android:id="@+id/lineView"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/green_login"
-                    app:layout_constraintTop_toBottomOf="@+id/deletedBirthdaysTv"
+                    android:background="@color/line_view"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbarGuestTrashBin"
                     tools:layout_editor_absoluteX="0dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -95,9 +80,9 @@
                     app:boxBackgroundMode="outline"
                     app:layout_constraintEnd_toStartOf="@+id/sortButton"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lineView"
+                    app:layout_constraintTop_toBottomOf="@+id/deletedBirthdaysTv"
                     app:startIconDrawable="@drawable/ic_search"
-                    app:startIconTint="@color/green_login">
+                    app:startIconTint="@color/ic_search">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/searchEditText"
@@ -118,12 +103,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="@color/sort_button_background"
                     android:drawableEnd="@drawable/ic_dots"
                     android:text="@string/sort_options"
-                    android:textColor="@color/green_login"
+                    android:textColor="@color/ic_dots"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lineView" />
+                    app:layout_constraintTop_toBottomOf="@+id/deletedBirthdaysTv" />
 
                 <ScrollView
                     android:layout_width="0dp"
@@ -151,14 +136,15 @@
                     android:id="@+id/deletedBirthdaysTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/wittgenstein_font"
                     android:text="@string/deleted_birthdays"
-                    android:textColor="@color/green_login"
+                    android:textColor="@color/deleted_birthdays_tv"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbarGuestTrashBin" />
+                    app:layout_constraintTop_toBottomOf="@+id/lineView" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -168,17 +154,60 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                android:background="@color/white"
-                app:itemIconTint="@color/green_login"
+                android:background="@color/navigation_drawer_background"
+                app:itemIconTint="@color/ic_navigation_icons"
                 app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
                 app:menu="@menu/guest_drawer_menu"
-                app:subheaderColor="@color/green_login"
+                app:subheaderColor="@color/nav_drawer_sub_header_tv"
                 app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
 
             </com.google.android.material.navigation.NavigationView>
 
 
+
         </androidx.drawerlayout.widget.DrawerLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@id/bottomNavCardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/birthdayCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                card_view:cardCornerRadius="100dp">
+
+                <com.google.android.material.bottomnavigation.BottomNavigationView
+                    android:id="@+id/bottomNavigationView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@color/bottom_navigation_background"
+                    app:itemIconTint="@color/bottom_nav_icon_background"
+                    app:itemTextAppearanceActive="@style/CustomNavigationViewTextAppearance"
+                    app:itemTextAppearanceActiveBoldEnabled="true"
+                    app:itemTextAppearanceInactive="@style/CustomNavigationViewTextAppearance"
+                    app:itemTextColor="@color/bottom_nav_item_text"
+                    app:menu="@menu/bottom_nav_menu" />
+
+
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
