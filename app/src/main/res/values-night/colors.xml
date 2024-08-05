@@ -68,6 +68,7 @@
     <color name="past_birthdays_tv">#FFFFFF</color>
     <color name="there_is_no_deleted_tv">#FFFFFF</color>
     <color name="deleted_birthdays_tv">#FFFFFF</color>
+    <color name="button_text">#FFFFFF</color>
 
     <!--Button renkleri-->
     <color name="login_button">#FFFFFF</color>
@@ -78,9 +79,10 @@
     <color name="sort_button_background">#000000</color>
     <color name="save_birthday_button">#FFFFFF</color>
     <color name="fab_button_background">#202020</color>
-    <color name="update_birthday_button">#FFFFFF</color>
+    <color name="update_birthday_button">#3F744C</color>
     <color name="delete_birthday_button">#FF0000</color>
     <color name="birthday_edit_button">#FFFFFF</color>
+    <color name="re_save_button">#3F744C</color>
 
 
     <!--Background renkleri-->
@@ -93,6 +95,7 @@
     <color name="past_birthdays_background">#000000</color>
     <color name="bottom_nav_constraint_background">#000000</color>
     <color name="trash_bin_background">#000000</color>
+    <color name="deleted_birthday_detail_background">#000000</color>
 
 
 

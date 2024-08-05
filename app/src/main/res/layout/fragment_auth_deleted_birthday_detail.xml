@@ -51,31 +51,41 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white">
+                android:background="@color/deleted_birthday_detail_background">
 
                 <include
                     android:id="@+id/toolbarUserDeletedBirthday"
                     layout="@layout/custom_toolbar" />
 
+                <View
+                    android:id="@+id/lineView"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/line_view"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbarUserDeletedBirthday"
+                    tools:layout_editor_absoluteX="0dp" />
 
                 <TextView
                     android:id="@+id/birthdayDetailTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:layout_marginTop="15dp"
                     android:text="@string/birthday_detail"
-                    android:textColor="@color/green_login"
+                    android:fontFamily="@font/wittgenstein_font"
+                    android:textColor="@color/birthday_detail_tv"
                     android:textSize="30sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbarUserDeletedBirthday" />
+                    app:layout_constraintTop_toBottomOf="@+id/lineView" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:orientation="vertical"
                     android:padding="16dp"
                     app:layout_constraintBottom_toTopOf="@+id/reSaveButton"
@@ -92,10 +102,10 @@
                         android:focusable="false"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_account"
-                        app:startIconTint="@color/green_login">
+                        app:startIconTint="@color/ic_account">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/nameBirthdayEditText"
+                            android:id="@+id/name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_edit_text"
@@ -116,7 +126,7 @@
                         android:focusable="false"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_date"
-                        app:startIconTint="@color/green_login">
+                        app:startIconTint="@color/ic_dots">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/birthdayDateEditText"
@@ -140,10 +150,10 @@
                         android:focusable="false"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_note"
-                        app:startIconTint="@color/green_login">
+                        app:startIconTint="@color/ic_note">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/noteBirthdayEditText"
+                            android:id="@+id/note"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_edit_text"
@@ -158,6 +168,7 @@
 
                 </LinearLayout>
 
+
                 <Button
                     android:id="@+id/reSaveButton"
                     android:layout_width="match_parent"
@@ -165,8 +176,10 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="5dp"
-                    android:backgroundTint="@color/green_login"
+                    android:backgroundTint="@color/re_save_button"
                     android:text="@string/re_save_birthday"
+                    android:fontFamily="@font/wittgenstein_font"
+                    android:textColor="@color/button_text"
                     app:layout_constraintBottom_toTopOf="@+id/permanentlyDeleteButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -179,27 +192,30 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="5dp"
-                    android:backgroundTint="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/wittgenstein_font"
+                    android:backgroundTint="@color/delete_birthday_button"
+                    android:textColor="@color/button_text"
                     android:text="@string/delete_permanently"
                     app:layout_constraintBottom_toTopOf="@+id/fabBackButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent" />
 
+
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fabBackButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:backgroundTint="@color/green_login"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:backgroundTint="@color/fab_button_background"
                     android:clickable="true"
                     android:contentDescription="fab back"
                     android:src="@drawable/ic_back"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:ignore="HardcodedText" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -208,7 +224,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
-                app:menu="@menu/user_drawer_menu" />
+                android:background="@color/navigation_drawer_background"
+                app:itemIconTint="@color/ic_navigation_icons"
+                app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
+                app:menu="@menu/user_drawer_menu"
+                app:subheaderColor="@color/nav_drawer_sub_header_tv"
+                app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
+
+            </com.google.android.material.navigation.NavigationView>
+
+
         </androidx.drawerlayout.widget.DrawerLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -68,6 +68,7 @@
     <color name="past_birthdays_tv">#3F744C</color>
     <color name="there_is_no_deleted_tv">#3F744C</color>
     <color name="deleted_birthdays_tv">#3F744C</color>
+    <color name="button_text">#000000</color>
 
 
     <!--Button renkleri-->
@@ -82,6 +83,7 @@
     <color name="update_birthday_button">#3F744C</color>
     <color name="delete_birthday_button">#FF0000</color>
     <color name="birthday_edit_button">#3F744C</color>
+    <color name="re_save_button">#3F744C</color>
 
     <!--Background renkleri-->
     <color name="main_page_background">#FFFFFF</color>
@@ -93,6 +95,7 @@
     <color name="past_birthdays_background">#FFFFFF</color>
     <color name="bottom_nav_constraint_background">#FFFFFF</color>
     <color name="trash_bin_background">#FFFFFF</color>
+    <color name="deleted_birthday_detail_background">#FFFFFF</color>
 
 
 
