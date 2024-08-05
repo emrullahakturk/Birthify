@@ -29,6 +29,9 @@
     <color name="ic_search">#3F744C</color>
     <color name="ic_settings">#3F744C</color>
     <color name="ic_password_toggle">#3F744C</color>
+    <color name="bottom_nav_icon_background">#3F744C</color>
+    <color name="line_view">#3F744C</color>
+    <color name="ic_navigation_icons">#3F744C</color>
 
 
 
@@ -37,6 +40,10 @@
     <color name="item_birthday_birth_date">#3F744C</color>
     <color name="item_birthday_edit">#3F744C</color>
     <color name="item_birthday_birthday_date">#3F744C</color>
+    <color name="item_deleted_birthday_name">#3F744C</color>
+    <color name="item_deleted_birthday_birth_date">#3F744C</color>
+    <color name="item_deleted_birthday_edit">#3F744C</color>
+    <color name="item_deleted_birthday_date">#3F744C</color>
     <color name="welcome_back">#3F744C</color>
     <color name="login_to_your_account">#3F744C</color>
     <color name="forgot_password">#3F744C</color>
@@ -49,6 +56,12 @@
     <color name="register_tv">#3F744C</color>
     <color name="please_enter_email_tv">#3F744C</color>
     <color name="remembered_password_tv">#FFFFFF</color>
+    <color name="toolbar_app_name">#3F744C</color>
+    <color name="bottom_nav_item_text">#3F744C</color>
+    <color name="sorting_options_tv">#3F744C</color>
+    <color name="click_to_add_tv">#3F744C</color>
+    <color name="birthdays_tv">#3F744C</color>
+    <color name="nav_drawer_sub_header_tv">#3F744C</color>
 
 
     <!--Button renkleri-->
@@ -56,6 +69,13 @@
     <color name="sign_in_button">#3F744C</color>
     <color name="register_button">#3F744C</color>
     <color name="reset_password_button">#3F744C</color>
+    <color name="toolbar_background_night">#FFFFFF</color>
+    <color name="sort_button_background">#FFFFFF</color>
+
+    <!--Background renkleri-->
+    <color name="main_page_background">#FFFFFF</color>
+    <color name="navigation_drawer_background">#FFFFFF</color>
+    <color name="bottom_navigation_background">#FFFFFF</color>
 
 
 

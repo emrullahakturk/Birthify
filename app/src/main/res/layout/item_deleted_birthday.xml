@@ -17,6 +17,13 @@
     card_view:cardBackgroundColor="#F6F5F5"
     >
 
+    <ImageView
+        android:id="@+id/card_background_image"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/item_background_gradient" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -32,7 +39,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="Emrullah Aktürk"
+            android:text="@string/item_birthday_name"
+            android:textColor="@color/item_deleted_birthday_name"
             android:fontFamily="@font/wittgenstein_font"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -46,7 +54,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/wittgenstein_font"
-            android:text="Birthday Date"
+            android:text="@string/birthday_date"
+            android:textColor="@color/item_birthday_birth_date"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,8 +77,9 @@
             android:id="@+id/noteCardTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:visibility="gone" />
+            android:text="@string/item_birthday_note"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/textView3"
@@ -77,7 +87,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:fontFamily="@font/wittgenstein_font"
-            android:text="Birth Date"
+            android:text="@string/item_birthday_birth_date"
+            android:textColor="@color/item_birthday_birth_date"
             app:layout_constraintBottom_toTopOf="@+id/birthdayDateCardTv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

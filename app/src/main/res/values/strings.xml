@@ -44,7 +44,7 @@
     <string name="trash_bin">Trash Bin</string>
     <string name="account_menu">Account Menu</string>
     <string name="search">Search</string>
-    <string name="add_a_birthday_of_your_dear_one">Click "+"\nTo Add a Birthday of Your Dear One</string>
+    <string name="add_a_birthday_of_your_dear_one">Click "+"\nTo Add a Birthday of\nYour Dear One</string>
     <string name="trash_bin_main_textView">There is no deleted birthdays</string>
     <string name="re_save_birthday">Re Save Birthday</string>
     <string name="delete_permanently">Delete Permanently</string>

@@ -8,7 +8,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/toolbar_background_night"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/wittgenstein_font"
         android:text="@string/app_name"
-        android:textColor="@color/green_login"
+        android:textColor="@color/toolbar_app_name"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
