@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -10,6 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/past_birthdays_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -46,27 +48,13 @@
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/delete_animation" />
 
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigationView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@drawable/bottom_nav_background"
-                app:itemIconTint="@color/green_login"
-                app:itemTextAppearanceActive="@style/CustomNavigationViewTextAppearance"
-                app:itemTextAppearanceActiveBoldEnabled="true"
-                app:itemTextAppearanceInactive="@style/CustomNavigationViewTextAppearance"
-                app:itemTextColor="@color/green_login"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:menu="@menu/bottom_nav_menu" />
+
 
             <androidx.drawerlayout.widget.DrawerLayout
                 android:id="@+id/drawerLayout"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+                app:layout_constraintBottom_toTopOf="@+id/bottomNavCardView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -74,7 +62,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white">
+                    android:background="@color/past_birthdays_background">
 
 
                     <com.google.android.material.button.MaterialButton
@@ -83,13 +71,13 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginTop="14dp"
-                        android:backgroundTint="@color/white"
+                        android:layout_marginTop="10dp"
+                        android:backgroundTint="@color/sort_button_background"
                         android:drawableEnd="@drawable/ic_dots"
                         android:text="@string/sort_options"
-                        android:textColor="@color/green_login"
+                        android:textColor="@color/sorting_options_tv"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lineView" />
+                        app:layout_constraintTop_toBottomOf="@+id/pastBirthdaysTv" />
 
                     <TextView
                         android:id="@+id/clickToAddBirthdayTv"
@@ -99,8 +87,8 @@
                         android:gravity="center"
                         android:text="@string/add_a_birthday_of_your_dear_one"
                         android:textAlignment="center"
-                        android:textColor="@color/green_login"
-                        android:textSize="35sp"
+                        android:textColor="@color/click_to_add_tv"
+                        android:textSize="25sp"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -121,21 +109,22 @@
                         android:id="@+id/pastBirthdaysTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/wittgenstein_font"
                         android:text="@string/past_birthdays"
-                        android:textColor="@color/green_login"
+                        android:textColor="@color/past_birthdays_tv"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/toolbarPastBirthdays" />
+                        app:layout_constraintTop_toBottomOf="@+id/lineView" />
 
                     <View
                         android:id="@+id/lineView"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="2dp"
-                        android:background="@color/green_login"
-                        app:layout_constraintTop_toBottomOf="@+id/pastBirthdaysTv"
+                        android:background="@color/line_view"
+                        app:layout_constraintTop_toBottomOf="@+id/toolbarPastBirthdays"
                         tools:layout_editor_absoluteX="0dp" />
 
 
@@ -144,14 +133,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="6dp"
                         android:visibility="visible"
                         app:boxBackgroundMode="outline"
                         app:layout_constraintEnd_toStartOf="@+id/sortButton"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lineView"
+                        app:layout_constraintTop_toBottomOf="@+id/pastBirthdaysTv"
                         app:startIconDrawable="@drawable/ic_search"
-                        app:startIconTint="@color/green_login">
+                        app:startIconTint="@color/ic_search">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/searchEditText"
@@ -200,17 +189,61 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
-                    android:background="@color/white"
-                    app:itemIconTint="@color/green_login"
+                    android:background="@color/navigation_drawer_background"
+                    app:itemIconTint="@color/ic_navigation_icons"
                     app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
                     app:menu="@menu/user_drawer_menu"
-                    app:subheaderColor="@color/green_login"
+                    app:subheaderColor="@color/nav_drawer_sub_header_tv"
                     app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
 
                 </com.google.android.material.navigation.NavigationView>
 
 
             </androidx.drawerlayout.widget.DrawerLayout>
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@id/bottomNavCardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/birthdayCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5"
+                    card_view:cardCornerRadius="100dp">
+
+                    <com.google.android.material.bottomnavigation.BottomNavigationView
+                        android:id="@+id/bottomNavigationView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:background="@color/bottom_navigation_background"
+                        app:itemIconTint="@color/bottom_nav_icon_background"
+                        app:itemTextAppearanceActive="@style/CustomNavigationViewTextAppearance"
+                        app:itemTextAppearanceActiveBoldEnabled="true"
+                        app:itemTextAppearanceInactive="@style/CustomNavigationViewTextAppearance"
+                        app:itemTextColor="@color/bottom_nav_item_text"
+                        app:menu="@menu/bottom_nav_menu" />
+
+
+                </androidx.cardview.widget.CardView>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

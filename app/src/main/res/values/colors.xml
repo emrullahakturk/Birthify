@@ -65,6 +65,7 @@
     <color name="record_the_birthday_tv">#3F744C</color>
     <color name="edit_birthday_of_your_tv">#3F744C</color>
     <color name="birthday_detail_tv">#3F744C</color>
+    <color name="past_birthdays_tv">#3F744C</color>
 
 
     <!--Button renkleri-->
@@ -87,6 +88,8 @@
     <color name="add_birthday_page_background">#FFFFFF</color>
     <color name="edit_birthday_background">#FFFFFF</color>
     <color name="birthday_detail_background">#FFFFFF</color>
+    <color name="past_birthdays_background">#FFFFFF</color>
+    <color name="bottom_nav_constraint_background">#FFFFFF</color>
 
 
 
