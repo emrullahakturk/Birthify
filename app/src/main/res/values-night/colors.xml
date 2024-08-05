@@ -63,6 +63,7 @@
     <color name="birthdays_tv">#FFFFFF</color>
     <color name="nav_drawer_sub_header_tv">#FFFFFF</color>
     <color name="record_the_birthday_tv">#FFFFFF</color>
+    <color name="edit_birthday_of_your_tv">#FFFFFF</color>
 
     <!--Button renkleri-->
     <color name="login_button">#FFFFFF</color>
@@ -72,7 +73,9 @@
     <color name="toolbar_background_night">#000000</color>
     <color name="sort_button_background">#000000</color>
     <color name="save_birthday_button">#FFFFFF</color>
-    <color name="fab_button_add_background">#202020</color>
+    <color name="fab_button_background">#202020</color>
+    <color name="update_birthday_button">#FFFFFF</color>
+    <color name="delete_birthday_button">#FF0000</color>
 
 
     <!--Background renkleri-->
@@ -80,6 +83,7 @@
     <color name="navigation_drawer_background">#000000</color>
     <color name="bottom_navigation_background">#202020</color>
     <color name="add_birthday_page_background">#000000</color>
+    <color name="edit_birthday_background">#000000</color>
 
 
 

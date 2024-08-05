@@ -62,9 +62,9 @@ class AddBirthdayFragment : Fragment() {
 
         binding.saveBirthdayButton.setOnClickListener {
 
-            val name = binding.nameBirthdayEditText.text.toString()
+            val name = binding.birthdayNameEditText.text.toString()
             val birthdayDate = binding.birthdayDateEditText.text.toString()
-            val note = binding.noteBirthdayEditText.text.toString()
+            val note = binding.birthdayNoteEditText.text.toString()
             val userId =  userSharedPreferences.getUserId()
             val recordedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
 
@@ -84,7 +84,7 @@ class AddBirthdayFragment : Fragment() {
             UserFrequentlyUsedFunctions.showDatePickerDialog(requireContext(),binding.birthdayDateEditText)
         }
 
-        binding.fabBackButton.setOnClickListener { it.findNavController().popBackStack() }
+        binding.fabBackButtonAdd.setOnClickListener { it.findNavController().popBackStack() }
 
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.drawerLayout

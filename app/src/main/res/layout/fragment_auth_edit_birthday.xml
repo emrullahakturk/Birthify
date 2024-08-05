@@ -40,7 +40,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@color/edit_birthday_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -55,16 +55,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="@color/green_login"
+                android:backgroundTint="@color/fab_button_background"
                 android:clickable="true"
+                android:contentDescription="@string/back_button"
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:contentDescription="@string/back_button" />
+                tools:ignore="RedundantDescriptionCheck" />
 
             <include
                 android:id="@+id/toolbarUserEditBirthday"
                 layout="@layout/custom_toolbar" />
+
+            <View
+                android:id="@+id/lineView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/line_view"
+                app:layout_constraintTop_toBottomOf="@+id/toolbarUserEditBirthday"
+                tools:layout_editor_absoluteX="0dp" />
 
 
             <TextView
@@ -72,16 +82,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/wittgenstein_font"
                 android:gravity="center"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:text="@string/edit_birthday"
-                android:textColor="@color/green_login"
-                android:textSize="30sp"
+                android:textColor="@color/edit_birthday_of_your_tv"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbarUserEditBirthday" />
+                app:layout_constraintTop_toBottomOf="@+id/lineView" />
 
 
             <LinearLayout
@@ -94,8 +106,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editBirthdayTv"
-                tools:context=".ui.addbirthday.AddBirthdayFragment">
+                app:layout_constraintTop_toBottomOf="@+id/editBirthdayTv">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -103,17 +114,19 @@
                     android:layout_marginBottom="16dp"
                     app:boxBackgroundMode="outline"
                     app:startIconDrawable="@drawable/ic_account"
-                    app:startIconTint="@color/green_login">
+                    app:startIconTint="@color/ic_account">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/nameBirthdayEditText"
+                        android:id="@+id/birthdayNameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edit_text"
                         android:maxLines="1"
+                        android:fontFamily="@font/wittgenstein_font"
                         android:paddingStart="40dp"
                         android:paddingEnd="0dp"
-                        android:text="@{birthday.name}" />
+                        android:text="@{birthday.name}"
+                        tools:ignore="SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -123,7 +136,7 @@
                     android:layout_marginBottom="16dp"
                     app:boxBackgroundMode="outline"
                     app:startIconDrawable="@drawable/ic_date"
-                    app:startIconTint="@color/green_login">
+                    app:startIconTint="@color/ic_calendar">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/birthdayDateEditText"
@@ -132,11 +145,13 @@
                         android:background="@drawable/rounded_edit_text"
                         android:clickable="true"
                         android:focusable="false"
+                        android:fontFamily="@font/wittgenstein_font"
                         android:inputType="none"
                         android:maxLines="1"
                         android:paddingStart="40dp"
                         android:paddingEnd="0dp"
-                        android:text="@{birthday.birthdayDate}" />
+                        android:text="@{birthday.birthdayDate}"
+                        tools:ignore="SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -145,35 +160,35 @@
                     android:layout_marginBottom="16dp"
                     app:boxBackgroundMode="outline"
                     app:startIconDrawable="@drawable/ic_note"
-                    app:startIconTint="@color/green_login">
+                    app:startIconTint="@color/ic_note">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/noteBirthdayEditText"
+                        android:id="@+id/birthdayNoteEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_edit_text"
-                        android:maxLines="9"
-                        android:minLines="9"
+                        android:maxLines="7"
+                        android:minLines="7"
+                        android:fontFamily="@font/wittgenstein_font"
                         android:paddingStart="40dp"
                         android:paddingEnd="0dp"
-                        android:text="@{birthday.note}" />
+                        android:text="@{birthday.note}"
+                        tools:ignore="SpeakableTextPresentCheck" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/updateBirthdayButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/green_login"
-                    android:text="@string/update_birthday"
-                    android:textColor="@android:color/white" />
+                    android:backgroundTint="@color/update_birthday_button"
+                    android:text="@string/update_birthday"/>
 
                 <Button
                     android:id="@+id/deleteBirthdayButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/red"
-                    android:text="@string/delete_birthday"
-                    android:textColor="#000000" />
+                    android:backgroundTint="@color/delete_birthday_button"
+                    android:text="@string/delete_birthday"/>
 
             </LinearLayout>
 

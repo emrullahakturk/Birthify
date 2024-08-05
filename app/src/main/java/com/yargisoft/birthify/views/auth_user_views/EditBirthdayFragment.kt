@@ -53,9 +53,9 @@ class EditBirthdayFragment : Fragment() {
         binding.updateBirthdayButton.setOnClickListener {
 
             val updatedBirthday = editedBirthday.birthday.copy(
-                name = binding.nameBirthdayEditText.text.toString(),
+                name = binding.birthdayNameEditText.text.toString(),
                 birthdayDate = binding.birthdayDateEditText.text.toString(),
-                note = binding.noteBirthdayEditText.text.toString()
+                note = binding.birthdayNoteEditText.text.toString()
             )
 
             viewModel.updateBirthday(updatedBirthday)

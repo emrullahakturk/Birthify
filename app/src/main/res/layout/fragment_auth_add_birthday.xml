@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="15dp"
-                    android:backgroundTint="@color/fab_button_add_background"
+                    android:backgroundTint="@color/fab_button_background"
                     android:clickable="true"
                     android:src="@drawable/ic_back"
                     app:layout_constraintBottom_toBottomOf="parent"
