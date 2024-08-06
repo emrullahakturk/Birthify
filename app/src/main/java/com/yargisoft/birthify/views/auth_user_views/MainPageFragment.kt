@@ -81,7 +81,7 @@ class MainPageFragment : Fragment() {
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
-        val toolbarMenuButton = binding.toolbarUserMainPage.findViewById<View>(R.id.menuButtonToolbar)
+        val toolbarMenuButton = binding.toolbarUserMain.findViewById<View>(R.id.menuButtonToolbar)
 
         //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
         UserFrequentlyUsedFunctions.drawerLayoutToggle(
@@ -150,7 +150,7 @@ class MainPageFragment : Fragment() {
         })
 
 
-        binding.toolbarUserMainPage.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
+        binding.toolbarUserMain.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
             findNavController().navigate(R.id.mainToAddBirthday)
         }
         binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)

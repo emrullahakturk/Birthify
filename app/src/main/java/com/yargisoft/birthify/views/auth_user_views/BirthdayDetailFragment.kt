@@ -65,7 +65,7 @@ class BirthdayDetailFragment : Fragment() {
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
-        val toolbarMenuButton = binding.toolbarUserBirthdayDetail.findViewById<View>(R.id.menuButtonToolbar)
+        val toolbarMenuButton = binding.toolbarUserDetail.findViewById<View>(R.id.menuButtonToolbar)
 
         //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
         UserFrequentlyUsedFunctions.drawerLayoutToggle(
@@ -80,7 +80,7 @@ class BirthdayDetailFragment : Fragment() {
             "BirthdayDetail"
         )
 
-        binding.toolbarUserBirthdayDetail.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
+        binding.toolbarUserDetail.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
             findNavController().navigate(R.id.detailToAdd)
         }
 

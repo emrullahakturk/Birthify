@@ -135,9 +135,13 @@ class GuestMainPageFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
+
         binding.toolbarGuestMain.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
-            findNavController().navigate(R.id.guestMainToAddBirthday)
+            binding.searchTextInput.visibility = View.VISIBLE
         }
+
+        //add button  findNavController().navigate(R.id.guestMainToAddBirthday)
+
         binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)
             .setOnClickListener {
                 it.findNavController().navigate(R.id.guestMainToMain)

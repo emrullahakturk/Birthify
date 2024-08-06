@@ -21,7 +21,7 @@
             android:background="@color/birthday_detail_background">
 
             <include
-                android:id="@+id/toolbarUserBirthdayDetail"
+                android:id="@+id/toolbarUserDetail"
                 layout="@layout/custom_toolbar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -34,7 +34,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="2dp"
                 android:background="@color/line_view"
-                app:layout_constraintTop_toBottomOf="@+id/toolbarUserBirthdayDetail"
+                app:layout_constraintTop_toBottomOf="@+id/toolbarUserDetail"
                 tools:layout_editor_absoluteX="0dp" />
 
 
@@ -42,29 +42,30 @@
                 android:id="@+id/birthdayDetailTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:fontFamily="@font/wittgenstein_font"
                 android:gravity="center"
                 android:text="@string/birthday_detail"
-                android:fontFamily="@font/wittgenstein_font"
                 android:textColor="@color/birthday_detail_tv"
                 android:textSize="30sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lineView" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:orientation="vertical"
-                android:padding="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/birthdayEditButton"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/birthdayDetailTv">
+                app:layout_constraintTop_toBottomOf="@+id/toolbarUserDetail">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -74,13 +75,13 @@
                     android:focusable="false"
                     app:boxBackgroundMode="outline"
                     app:startIconDrawable="@drawable/ic_account"
-                    app:startIconTint="@color/ic_account">
+                    app:startIconTint="@color/ic_account_detail">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/birthdayNameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_edit_text"
+                        android:background="@drawable/rounded_edit_text_detail"
                         android:clickable="false"
                         android:focusable="false"
                         android:maxLines="1"
@@ -88,7 +89,6 @@
                         android:paddingEnd="0dp"
                         android:text="@{birthday.name}" />
                 </com.google.android.material.textfield.TextInputLayout>
-
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -98,13 +98,13 @@
                     android:focusable="false"
                     app:boxBackgroundMode="outline"
                     app:startIconDrawable="@drawable/ic_date"
-                    app:startIconTint="@color/ic_calendar">
+                    app:startIconTint="@color/ic_calendar_detail">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/birthdayDateEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_edit_text"
+                        android:background="@drawable/rounded_edit_text_detail"
                         android:clickable="false"
                         android:focusable="false"
                         android:inputType="none"
@@ -114,6 +114,7 @@
                         android:text="@{birthday.birthdayDate}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -122,13 +123,13 @@
                     android:focusable="false"
                     app:boxBackgroundMode="outline"
                     app:startIconDrawable="@drawable/ic_note"
-                    app:startIconTint="@color/ic_note">
+                    app:startIconTint="@color/ic_note_detail">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/birthdayNoteEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_edit_text"
+                        android:background="@drawable/rounded_edit_text_detail"
                         android:clickable="false"
                         android:focusable="false"
                         android:minLines="15"
@@ -137,22 +138,17 @@
                         android:text="@{birthday.note}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/birthdayEditButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:backgroundTint="@color/birthday_edit_button"
+                    android:text="@string/edit" />
+
 
             </LinearLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/birthdayEditButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
-                android:backgroundTint="@color/birthday_edit_button"
-                android:text="@string/edit"
-                app:layout_constraintBottom_toTopOf="@+id/fabBackButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabBackButton"
@@ -160,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="15dp"
-                android:backgroundTint="@color/fab_button_background"
+                android:backgroundTint="@color/fab_button_background_detail"
                 android:clickable="true"
                 android:contentDescription="@string/back_button"
                 android:src="@drawable/ic_back"
@@ -176,14 +172,13 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@color/navigation_drawer_background"
-            app:itemIconTint="@color/ic_navigation_icons"
+            app:itemIconTint="@color/ic_navigation_icons_detail"
             app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
             app:menu="@menu/user_drawer_menu"
             app:subheaderColor="@color/nav_drawer_sub_header_tv"
             app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
 
         </com.google.android.material.navigation.NavigationView>
-
     </androidx.drawerlayout.widget.DrawerLayout>
 
 

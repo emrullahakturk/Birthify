@@ -16,6 +16,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/guestAddBirthdayConsLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -49,19 +50,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
+
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fabBackButtonAdd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="15dp"
-                    android:backgroundTint="@color/fab_button_background"
+                    android:backgroundTint="@color/fab_button_background_addBday"
                     android:clickable="true"
                     android:src="@drawable/ic_back"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:ignore="ContentDescription" />
-
 
                 <include
                     android:id="@+id/toolbarUserAdd"
@@ -79,22 +80,24 @@
                     app:layout_constraintTop_toBottomOf="@+id/toolbarUserAdd"
                     tools:layout_editor_absoluteX="0dp" />
 
+
                 <TextView
                     android:id="@+id/recordBirthdayTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
+                    android:fontFamily="@font/wittgenstein_font"
                     android:gravity="center"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:fontFamily="@font/wittgenstein_font"
                     android:text="@string/record_birthday"
                     android:textColor="@color/record_the_birthday_tv"
-                    android:textSize="30sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/lineView" />
+
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
@@ -102,11 +105,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/fabBackButtonAdd"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recordBirthdayTv">
+                    app:layout_constraintTop_toBottomOf="@+id/toolbarUserAdd">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -114,13 +117,13 @@
                         android:layout_marginBottom="16dp"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_account"
-                        app:startIconTint="@color/ic_account">
+                        app:startIconTint="@color/ic_account_add">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/birthdayNameEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_edit_text"
+                            android:background="@drawable/rounded_edit_text_add_birthday"
                             android:hint="@string/name"
                             android:maxLines="1"
                             android:paddingStart="40dp"
@@ -134,13 +137,13 @@
                         android:layout_marginBottom="16dp"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_date"
-                        app:startIconTint="@color/ic_calendar">
+                        app:startIconTint="@color/ic_calendar_add">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/birthdayDateEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_edit_text"
+                            android:background="@drawable/rounded_edit_text_add_birthday"
                             android:clickable="true"
                             android:focusable="false"
                             android:hint="@string/birthday_date"
@@ -156,13 +159,13 @@
                         android:layout_marginBottom="16dp"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_note"
-                        app:startIconTint="@color/ic_note">
+                        app:startIconTint="@color/ic_note_add">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/birthdayNoteEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_edit_text"
+                            android:background="@drawable/rounded_edit_text_add_birthday"
                             android:hint="@string/celebration_note"
                             android:maxLines="10"
                             android:minLines="10"
@@ -188,8 +191,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            app:subheaderColor="@color/nav_drawer_sub_header_tv"
-            app:itemIconTint="@color/ic_navigation_icons"
+            app:subheaderColor="@color/nav_drawer_sub_header_tv_add"
+            app:itemIconTint="@color/ic_navigation_icons_add"
             app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance"
             app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
             android:background="@color/navigation_drawer_background"
