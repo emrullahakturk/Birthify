@@ -29,7 +29,7 @@ class GuestBirthdayDetailFragment : Fragment() {
 
 
         binding.birthday = detailedBirthday.birthday
-        binding.fabBackButton.setOnClickListener { findNavController().popBackStack() }
+        binding.fabBackButtonDetail.setOnClickListener { findNavController().popBackStack() }
         binding.birthdayEditButton.setOnClickListener {
             val action = GuestBirthdayDetailFragmentDirections.guestDetailToEdit(
                 detailedBirthday.birthday

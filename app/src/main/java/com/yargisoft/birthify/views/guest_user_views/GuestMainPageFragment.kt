@@ -137,15 +137,28 @@ class GuestMainPageFragment : Fragment() {
 
 
         binding.toolbarGuestMain.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
-            binding.searchTextInput.visibility = View.VISIBLE
+            findNavController().navigate(R.id.guestMainToAddBirthday)        }
+
+
+
+        binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.bottomNavBirthdays -> {
+                    findNavController().navigate(R.id.guestMainToMain)
+                    true
+                }
+                R.id.bottomNavTrashBin-> {
+                    findNavController().navigate(R.id.guestMainToTrashBin)
+                    true
+                }
+                R.id.bottomNavPastBirthdays -> {
+                    findNavController().navigate(R.id.guestMainToPastBirthdays)
+                    true
+                }
+                else -> false
+            }
         }
 
-        //add button  findNavController().navigate(R.id.guestMainToAddBirthday)
-
-        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)
-            .setOnClickListener {
-                it.findNavController().navigate(R.id.guestMainToMain)
-            }
 
         binding.sortButton.setOnClickListener {
             GuestFrequentlyUsedFunctions.showSortMenu(it, requireContext(), adapter, guestBirthdayViewModel)

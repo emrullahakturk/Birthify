@@ -112,9 +112,16 @@ class GuestTrashBinFragment : Fragment() {
 
         }
 
-        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays).setOnClickListener{
-            it.findNavController().navigate(R.id.guestTrashBinToMain)
-        }
+//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays).setOnClickListener{
+//            it.findNavController().navigate(R.id.guestTrashBinToMain)
+//        }
+//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavPastBirthdays).setOnClickListener{
+//            it.findNavController().navigate(R.id.guestTrashBinToPastBirthdays)
+//        }
+//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavTrashBin).setOnClickListener{
+//            it.findNavController().navigate(R.id.guestTrashBinToTrashBin)
+//        }
+
 
         binding.sortButton.setOnClickListener{
 

@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
+    <item
+        android:id="@+id/bottomNavTrashBin"
+        android:icon="@drawable/ic_delete"
+        android:title="@string/trash_bin"
+        android:iconTint="@color/ic_delete_bottom_menu"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/bottomNavBirthdays"
         android:icon="@drawable/ic_cake"
-        android:title="@string/birthdays" />
+        android:title="@string/birthdays"
+        android:contentDescription="@string/birthdays"
+        android:iconTint="@color/ic_cake_bottom_menu"
+        app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/bottomNavSearch"
-        android:icon="@drawable/ic_search"
-        android:title="@string/search" />
-    <item
-        android:id="@+id/bottomNavProfile"
-        android:icon="@drawable/ic_account"
-        android:title="@string/profile" />
+        android:id="@+id/bottomNavPastBirthdays"
+        android:icon="@drawable/ic_clock"
+        android:title="@string/past_birthdays"
+        android:iconTint="@color/ic_clock_bottom_menu"
+        app:showAsAction="ifRoom"/>
 </menu>
+
+

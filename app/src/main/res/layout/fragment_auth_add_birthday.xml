@@ -51,18 +51,6 @@
                 app:layout_constraintTop_toTopOf="parent">
 
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabBackButtonAdd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:backgroundTint="@color/fab_button_background_addBday"
-                    android:clickable="true"
-                    android:src="@drawable/ic_back"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:ignore="ContentDescription" />
 
                 <include
                     android:id="@+id/toolbarUserAdd"
@@ -85,6 +73,7 @@
                     android:id="@+id/recordBirthdayTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
                     android:fontFamily="@font/wittgenstein_font"
                     android:gravity="center"
                     android:paddingLeft="10dp"
@@ -93,7 +82,6 @@
                     android:textColor="@color/record_the_birthday_tv"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/lineView" />
@@ -102,14 +90,14 @@
                 <LinearLayout
                     android:id="@+id/linearLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:orientation="vertical"
                     android:padding="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbarUserAdd">
+                    app:layout_constraintTop_toBottomOf="@+id/recordBirthdayTv">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -180,6 +168,41 @@
                         android:backgroundTint="@color/save_birthday_button"
                         android:text="@string/save_birthday" />
                 </LinearLayout>
+
+
+                <androidx.coordinatorlayout.widget.CoordinatorLayout
+                    android:id="@+id/coordinatorLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.material.bottomappbar.BottomAppBar
+                        android:id="@+id/bottomAppBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom"
+                        android:backgroundTint="@color/bottom_navigation_background"
+                        app:menu="@menu/bottom_nav_menu"
+                        app:navigationIcon="@drawable/ic_search"
+                        app:navigationIconTint="@color/bottom_nav_icon_background">
+
+
+                    </com.google.android.material.bottomappbar.BottomAppBar>
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fabBackButtonAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/fab_button_background_addBday"
+                        android:clickable="true"
+                        android:src="@drawable/ic_back"
+                        app:layout_anchor="@id/bottomAppBar"
+                        tools:ignore="ContentDescription" />
+
+                </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

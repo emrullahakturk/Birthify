@@ -110,10 +110,20 @@ class GuestPastBirthdaysFragment : Fragment() {
             findNavController().navigate(R.id.guestPastToAddBirthday)
         }
 
-        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)
-            .setOnClickListener {
-                it.findNavController().navigate(R.id.guestPastToMain)
-            }
+//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)
+//            .setOnClickListener {
+//                it.findNavController().navigate(R.id.guestPastToMain)
+//            }
+//
+//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavPastBirthdays)
+//            .setOnClickListener {
+//                it.findNavController().navigate(R.id.guestPastToPastBirthdays)
+//            }
+//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavTrashBin)
+//            .setOnClickListener {
+//                it.findNavController().navigate(R.id.guestPastToTrashBin)
+//            }
+
 
         binding.sortButton.setOnClickListener {
             GuestFrequentlyUsedFunctions.showSortMenu(it, requireContext(), adapter, guestBirthdayViewModel)

@@ -10,18 +10,21 @@
     android:layout_height="wrap_content"
     android:layout_marginRight="20dp"
     android:layout_marginLeft="20dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
     card_view:cardCornerRadius="35dp"
     card_view:cardElevation="8dp"
     card_view:cardBackgroundColor="#FFFFFF"
     >
 
-<!--    <ImageView-->
-<!--        android:id="@+id/card_background_image"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="90dp"-->
-<!--        android:scaleType="centerCrop"-->
-<!--        android:src="@color/white"-->
-<!--        />-->
+
+    <ImageView
+        android:id="@+id/card_background_image"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/item_background_gradient"
+        tools:ignore="HardcodedText" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

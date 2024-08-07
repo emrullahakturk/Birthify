@@ -49,12 +49,11 @@
                 app:lottie_rawRes="@raw/delete_animation" />
 
 
-
             <androidx.drawerlayout.widget.DrawerLayout
                 android:id="@+id/drawerLayout"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/bottomNavCardView"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -161,9 +160,8 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
                         android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
@@ -180,6 +178,38 @@
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
                     </ScrollView>
+
+
+                    <androidx.coordinatorlayout.widget.CoordinatorLayout
+                        android:id="@+id/coordinatorLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <com.google.android.material.bottomappbar.BottomAppBar
+                            android:id="@+id/bottomAppBar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="bottom"
+                            android:backgroundTint="@color/bottom_navigation_background"
+                            app:menu="@menu/bottom_nav_menu"
+                            app:navigationIcon="@drawable/ic_search"
+                            app:navigationIconTint="@color/bottom_nav_icon_background">
+
+
+                        </com.google.android.material.bottomappbar.BottomAppBar>
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_anchor="@id/bottomAppBar"
+                            app:srcCompat="@drawable/ic_add"
+                            tools:ignore="ContentDescription" />
+
+                    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -200,50 +230,6 @@
 
 
             </androidx.drawerlayout.widget.DrawerLayout>
-
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@id/bottomNavCardView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/birthdayCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5"
-                    card_view:cardCornerRadius="100dp">
-
-                    <com.google.android.material.bottomnavigation.BottomNavigationView
-                        android:id="@+id/bottomNavigationView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:background="@color/bottom_navigation_background"
-                        app:itemIconTint="@color/bottom_nav_icon_background"
-                        app:itemTextAppearanceActive="@style/CustomNavigationViewTextAppearance"
-                        app:itemTextAppearanceActiveBoldEnabled="true"
-                        app:itemTextAppearanceInactive="@style/CustomNavigationViewTextAppearance"
-                        app:itemTextColor="@color/bottom_nav_item_text"
-                        app:menu="@menu/bottom_nav_menu" />
-
-
-                </androidx.cardview.widget.CardView>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

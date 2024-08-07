@@ -153,14 +153,28 @@ class MainPageFragment : Fragment() {
         binding.toolbarUserMain.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
             findNavController().navigate(R.id.mainToAddBirthday)
         }
-        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)
-            .setOnClickListener {
-                it.findNavController().navigate(R.id.mainToMain)
-            }
+
+//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)
+//            .setOnClickListener {
+//                it.findNavController().navigate(R.id.mainToMain)
+//            }
+//
+//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavPastBirthdays)
+//            .setOnClickListener {
+//                it.findNavController().navigate(R.id.mainToPastBirthdays)
+//            }
+//
+//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavTrashBin)
+//                    .setOnClickListener {
+//                        it.findNavController().navigate(R.id.mainToTrashBin)
+//                    }
 
         binding.sortButton.setOnClickListener {
             UserFrequentlyUsedFunctions.showSortMenu(it, requireContext(), adapter, usersBirthdayViewModel)
         }
+
+
+
         return binding.root
     }
 }

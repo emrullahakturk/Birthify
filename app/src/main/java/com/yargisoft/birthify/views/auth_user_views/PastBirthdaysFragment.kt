@@ -119,10 +119,20 @@ class PastBirthdaysFragment : Fragment() {
         binding.toolbarPastBirthdays.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
             findNavController().navigate(R.id.pastBirthdaysToAddBirthday)
         }
-        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)
-            .setOnClickListener {
-                it.findNavController().navigate(R.id.pastBirthdaysToMainPage)
-            }
+
+//
+//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)
+//            .setOnClickListener {
+//                it.findNavController().navigate(R.id.pastBirthdaysToMainPage)
+//            }
+//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavPastBirthdays)
+//            .setOnClickListener {
+//                it.findNavController().navigate(R.id.pastBirthdaysToPastBirthdays)
+//            }
+//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavTrashBin)
+//                    .setOnClickListener {
+//                        it.findNavController().navigate(R.id.pastBirthdaysToTrashBin)
+//                    }
 
         binding.sortButton.setOnClickListener {
             UserFrequentlyUsedFunctions.showSortMenu(it, requireContext(), adapter, usersBirthdayViewModel)

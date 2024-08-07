@@ -44,7 +44,7 @@ class BirthdayDetailFragment : Fragment() {
             .build()
 
         binding.birthday = detailedBirthday.birthday
-        binding.fabBackButton.setOnClickListener { findNavController().popBackStack() }
+        binding.fabBackButtonDetail.setOnClickListener { findNavController().popBackStack() }
 
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
 

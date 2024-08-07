@@ -120,9 +120,15 @@ class TrashBinFragment : Fragment() {
 
         }
 
-        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays).setOnClickListener{
-            it.findNavController().navigate(R.id.trashToMainPage)
-        }
+//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays).setOnClickListener{
+//            it.findNavController().navigate(R.id.trashToMainPage)
+//        }
+//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavPastBirthdays).setOnClickListener{
+//            it.findNavController().navigate(R.id.trashToPastBirthdays)
+//        }
+//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavTrashBin).setOnClickListener{
+//            it.findNavController().navigate(R.id.trashToTrashBin)
+//        }
 
         binding.sortButton.setOnClickListener{
 

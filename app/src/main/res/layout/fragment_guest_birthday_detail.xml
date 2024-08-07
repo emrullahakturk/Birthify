@@ -42,13 +42,13 @@
                 android:id="@+id/birthdayDetailTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:fontFamily="@font/wittgenstein_font"
                 android:gravity="center"
                 android:text="@string/birthday_detail"
                 android:textColor="@color/birthday_detail_tv"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -61,11 +61,11 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbarGuestDetail">
+                app:layout_constraintTop_toBottomOf="@+id/birthdayDetailTv">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -132,7 +132,7 @@
                         android:background="@drawable/rounded_edit_text_detail"
                         android:clickable="false"
                         android:focusable="false"
-                        android:minLines="15"
+                        android:minLines="10"
                         android:paddingStart="40dp"
                         android:paddingEnd="0dp"
                         android:text="@{birthday.note}" />
@@ -150,18 +150,39 @@
 
             </LinearLayout>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabBackButton"
-                android:layout_width="wrap_content"
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:id="@+id/coordinatorLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="15dp"
-                android:backgroundTint="@color/fab_button_background_detail"
-                android:clickable="true"
-                android:contentDescription="@string/back_button"
-                android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.bottomappbar.BottomAppBar
+                    android:id="@+id/bottomAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom"
+                    android:backgroundTint="@color/bottom_navigation_background"
+                    app:menu="@menu/bottom_nav_menu"
+                    app:navigationIcon="@drawable/ic_search"
+                    app:navigationIconTint="@color/bottom_nav_icon_background">
+
+
+                </com.google.android.material.bottomappbar.BottomAppBar>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabBackButtonDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/fab_button_background_detail"
+                    android:clickable="true"
+                    android:src="@drawable/ic_back"
+                    app:layout_anchor="@id/bottomAppBar"
+                    tools:ignore="ContentDescription" />
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
