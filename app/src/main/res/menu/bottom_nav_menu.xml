@@ -3,24 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/bottomNavTrashBin"
-        android:icon="@drawable/ic_delete"
-        android:title="@string/trash_bin"
-        android:iconTint="@color/ic_delete_bottom_menu"
-        app:showAsAction="ifRoom"/>
-    <item
         android:id="@+id/bottomNavBirthdays"
-        android:icon="@drawable/ic_cake"
+        android:icon="@drawable/ic_cake_bottom"
         android:title="@string/birthdays"
         android:contentDescription="@string/birthdays"
-        android:iconTint="@color/ic_cake_bottom_menu"
         app:showAsAction="ifRoom"/>
+
     <item
         android:id="@+id/bottomNavPastBirthdays"
-        android:icon="@drawable/ic_clock"
+        android:icon="@drawable/ic_clock_bottom"
         android:title="@string/past_birthdays"
-        android:iconTint="@color/ic_clock_bottom_menu"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/bottomNavTrashBin"
+        android:icon="@drawable/ic_delete_bottom"
+        android:title="@string/trash_bin"
+        app:showAsAction="ifRoom"/>
+
 </menu>
 
 

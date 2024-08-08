@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:background="@color/trash_bin_background">
 
+
         <androidx.drawerlayout.widget.DrawerLayout
             android:id="@+id/drawerLayout"
             android:layout_width="0dp"
@@ -22,6 +23,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -42,21 +44,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/deletedBirthdaysTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:text="@string/deleted_birthdays"
-                    android:textColor="@color/deleted_birthdays_tv"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lineView" />
-
-
-                <TextView
                     android:id="@+id/trashBinMainTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -73,6 +60,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.5" />
+
+                <TextView
+                    android:id="@+id/deletedBirthdaysTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/wittgenstein_font"
+                    android:text="@string/deleted_birthdays"
+                    android:textColor="@color/deleted_birthdays_tv_trash"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lineView" />
 
 
                 <View
@@ -100,7 +101,7 @@
                         android:id="@+id/searchEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_edit_text"
+                        android:background="@drawable/rounded_edit_text_trash"
                         android:hint="@string/search"
                         android:imeOptions="actionDone"
                         android:inputType="textEmailAddress"
@@ -115,10 +116,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
-                    android:backgroundTint="@color/sort_button_background"
-                    android:drawableEnd="@drawable/ic_dots"
+                    android:backgroundTint="@color/sort_button_background_trash"
+                    android:drawableEnd="@drawable/ic_dots_trash"
                     android:text="@string/sort_options"
-                    android:textColor="@color/ic_dots"
+                    android:textColor="@color/sorting_options_tv_trash"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/deletedBirthdaysTv" />
 
@@ -144,7 +145,6 @@
                     </LinearLayout>
                 </ScrollView>
 
-
                 <androidx.coordinatorlayout.widget.CoordinatorLayout
                     android:id="@+id/coordinatorLayout"
                     android:layout_width="match_parent"
@@ -156,22 +156,24 @@
 
                     <com.google.android.material.bottomappbar.BottomAppBar
                         android:id="@+id/bottomAppBar"
+                        android:backgroundTint="@color/bottom_navigation_background"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_gravity="bottom"
-                        android:backgroundTint="@color/bottom_navigation_background"
-                        app:menu="@menu/bottom_nav_menu"
                         app:navigationIcon="@drawable/ic_search"
-                        app:navigationIconTint="@color/bottom_nav_icon_background">
+                        app:navigationIconTint="@color/black"
+                        android:layout_gravity="bottom"
+                        app:menu="@menu/bottom_nav_menu">
 
 
                     </com.google.android.material.bottomappbar.BottomAppBar>
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fabAddButtonMain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_anchor="@id/bottomAppBar"
-                        app:srcCompat="@drawable/ic_add"
+                        android:backgroundTint="@color/fab_button_background_trash"
+                        app:srcCompat="@drawable/ic_add_bottom"
                         tools:ignore="ContentDescription" />
 
                 </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -195,7 +197,6 @@
 
 
         </androidx.drawerlayout.widget.DrawerLayout>
-
 
 
 

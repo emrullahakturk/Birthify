@@ -75,7 +75,7 @@
 
 
                 <include
-                    android:id="@+id/toolbarGuestEditBirthday"
+                    android:id="@+id/toolbarUserEditBirthday"
                     layout="@layout/custom_toolbar" />
 
                 <View
@@ -104,7 +104,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbarGuestEditBirthday" />
+                    app:layout_constraintTop_toBottomOf="@+id/toolbarUserEditBirthday" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
@@ -223,7 +223,8 @@
                         android:backgroundTint="@color/bottom_navigation_background"
                         app:menu="@menu/bottom_nav_menu"
                         app:navigationIcon="@drawable/ic_search"
-                        app:navigationIconTint="@color/bottom_nav_icon_background">
+                        app:navigationIconTint="@color/black"
+                        >
 
 
                     </com.google.android.material.bottomappbar.BottomAppBar>

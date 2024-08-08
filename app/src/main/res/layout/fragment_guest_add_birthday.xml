@@ -179,25 +179,24 @@
 
                     <com.google.android.material.bottomappbar.BottomAppBar
                         android:id="@+id/bottomAppBar"
+                        android:backgroundTint="@color/bottom_navigation_background"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_gravity="bottom"
-                        android:backgroundTint="@color/bottom_navigation_background"
-                        app:menu="@menu/bottom_nav_menu"
                         app:navigationIcon="@drawable/ic_search"
-                        app:navigationIconTint="@color/bottom_nav_icon_background">
+                        app:navigationIconTint="@color/black"
+                        android:layout_gravity="bottom"
+                        app:menu="@menu/bottom_nav_menu">
 
 
                     </com.google.android.material.bottomappbar.BottomAppBar>
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/fabBackButtonAdd"
+                        android:id="@+id/fabAddButtonMain"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/fab_button_background_addBday"
-                        android:clickable="true"
-                        android:src="@drawable/ic_back"
                         app:layout_anchor="@id/bottomAppBar"
+                        android:backgroundTint="@color/fab_button_background_addBday"
+                        app:srcCompat="@drawable/ic_back_bottom"
                         tools:ignore="ContentDescription" />
 
                 </androidx.coordinatorlayout.widget.CoordinatorLayout>

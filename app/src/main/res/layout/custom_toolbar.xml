@@ -50,7 +50,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:contentDescription="@string/add_a_new_birthday"
-        android:src="@drawable/ic_search"
+        android:src="@drawable/ic_search_toolbar"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 

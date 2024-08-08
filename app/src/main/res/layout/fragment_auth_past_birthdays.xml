@@ -72,9 +72,9 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginTop="10dp"
                         android:backgroundTint="@color/sort_button_background"
-                        android:drawableEnd="@drawable/ic_dots"
+                        android:drawableEnd="@drawable/ic_dots_past"
                         android:text="@string/sort_options"
-                        android:textColor="@color/sorting_options_tv"
+                        android:textColor="@color/sorting_options_tv_past"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/pastBirthdaysTv" />
 
@@ -86,7 +86,7 @@
                         android:gravity="center"
                         android:text="@string/add_a_birthday_of_your_dear_one"
                         android:textAlignment="center"
-                        android:textColor="@color/click_to_add_tv"
+                        android:textColor="@color/click_to_add_tv_past"
                         android:textSize="25sp"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -145,7 +145,7 @@
                             android:id="@+id/searchEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_edit_text"
+                            android:background="@drawable/rounded_edit_text_past_birthdays"
                             android:hint="@string/search"
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
@@ -197,16 +197,18 @@
                             android:backgroundTint="@color/bottom_navigation_background"
                             app:menu="@menu/bottom_nav_menu"
                             app:navigationIcon="@drawable/ic_search"
-                            app:navigationIconTint="@color/bottom_nav_icon_background">
+                            app:navigationIconTint="@color/black">
 
 
                         </com.google.android.material.bottomappbar.BottomAppBar>
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/fab_back_past_birthdays"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:backgroundTint="@color/fab_button_background_past"
                             app:layout_anchor="@id/bottomAppBar"
-                            app:srcCompat="@drawable/ic_add"
+                            app:srcCompat="@drawable/ic_add_bottom"
                             tools:ignore="ContentDescription" />
 
                     </androidx.coordinatorlayout.widget.CoordinatorLayout>

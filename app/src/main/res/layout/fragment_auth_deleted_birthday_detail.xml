@@ -191,31 +191,50 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/wittgenstein_font"
+                    android:layout_marginBottom="10dp"
                     android:backgroundTint="@color/delete_birthday_button"
-                    android:textColor="@color/button_text"
+                    android:fontFamily="@font/wittgenstein_font"
                     android:text="@string/delete_permanently"
-                    app:layout_constraintBottom_toTopOf="@+id/fabBackButton"
+                    android:textColor="@color/button_text"
+                    app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent" />
 
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabBackButton"
-                    android:layout_width="wrap_content"
+                <androidx.coordinatorlayout.widget.CoordinatorLayout
+                    android:id="@+id/coordinatorLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:backgroundTint="@color/fab_button_background_deleted_detail"
-                    android:clickable="true"
-                    android:contentDescription="fab back"
-                    android:src="@drawable/ic_back"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    tools:ignore="HardcodedText" />
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.material.bottomappbar.BottomAppBar
+                        android:id="@+id/bottomAppBar"
+                        android:backgroundTint="@color/bottom_navigation_background"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:navigationIcon="@drawable/ic_search"
+                        app:navigationIconTint="@color/black"
+                        android:layout_gravity="bottom"
+                        app:menu="@menu/bottom_nav_menu">
+
+
+                    </com.google.android.material.bottomappbar.BottomAppBar>
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fabAddButtonMain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_anchor="@id/bottomAppBar"
+                        android:backgroundTint="@color/fab_button_background_deleted_detail"
+                        app:srcCompat="@drawable/ic_back_bottom"
+                        tools:ignore="ContentDescription" />
+
+                </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 

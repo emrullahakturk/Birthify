@@ -23,4 +23,12 @@
     </style>
 
 
+
+    <style name="MenuIconStyle" parent="Widget.AppCompat.ActionButton">
+        <!-- Varsayılan ikon rengi; gerekirse override edilebilir -->
+        <item name="android:iconTint">@color/black</item>
+    </style>
+
+
+
 </resources>
