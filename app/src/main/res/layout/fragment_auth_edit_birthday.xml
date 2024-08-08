@@ -54,10 +54,10 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
                 android:background="@color/navigation_drawer_background"
-                app:itemIconTint="@color/ic_navigation_icons"
+                app:itemIconTint="@color/ic_navigation_icons_edit"
                 app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
                 app:menu="@menu/user_drawer_menu"
-                app:subheaderColor="@color/nav_drawer_sub_header_tv"
+                app:subheaderColor="@color/nav_drawer_sub_header_tv_edit"
                 app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
 
             </com.google.android.material.navigation.NavigationView>
@@ -190,7 +190,7 @@
                         android:id="@+id/updateBirthdayButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/update_birthday_button"
+                        android:backgroundTint="@color/update_birthday_button_edit"
                         android:text="@string/update_birthday"
                         android:textColor="@color/button_text" />
 
@@ -199,7 +199,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:backgroundTint="@color/delete_birthday_button"
+                        android:backgroundTint="@color/delete_birthday_button_edit"
                         android:text="@string/delete_birthday"
                         android:textColor="@color/button_text" />
 

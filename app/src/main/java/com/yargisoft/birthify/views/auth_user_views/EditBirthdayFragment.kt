@@ -6,16 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navOptions
+import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAuthEditBirthdayBinding
+import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
+import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
+import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
+import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
 
 
@@ -23,9 +29,12 @@ class EditBirthdayFragment : Fragment() {
 
     private lateinit var binding : FragmentAuthEditBirthdayBinding
     private val editedBirthday : EditBirthdayFragmentArgs by navArgs()
-    private lateinit var viewModel: UsersBirthdayViewModel
+    private lateinit var usersBirthdayViewModel: UsersBirthdayViewModel
+    private lateinit var authViewModel: AuthViewModel
     private lateinit var repository: BirthdayRepository
     private lateinit var factory: UsersBirthdayViewModelFactory
+    private lateinit var userSharedPreferences: UserSharedPreferencesManager
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,14 +48,44 @@ class EditBirthdayFragment : Fragment() {
 
         repository = BirthdayRepository(requireContext())
         factory = UsersBirthdayViewModelFactory(repository)
-        viewModel = ViewModelProvider(this,factory)[UsersBirthdayViewModel::class]
+        usersBirthdayViewModel = ViewModelProvider(this,factory)[UsersBirthdayViewModel::class]
 
-        //Snackbar için view tanımlaması
-        //val view = (context as Activity).findViewById<View>(android.R.id.content)
+
+        //Auth ViewModel Tanımlama için gerekenler
+        val authRepository = AuthRepository(requireContext())
+        val authFactory = AuthViewModelFactory(authRepository)
+        authViewModel = ViewModelProvider(this,authFactory)[AuthViewModel::class]
+
+        //Birthday viewModel Tanımlama için gerekenler
+        val birthdayRepository = BirthdayRepository(requireContext())
+        val birthdayFactory = UsersBirthdayViewModelFactory(birthdayRepository)
+        usersBirthdayViewModel = ViewModelProvider(this,birthdayFactory)[UsersBirthdayViewModel::class]
 
 
         //editlenen doğum günü bilgilerini ekrana yansıtıyoruz
         binding.birthday = editedBirthday.birthday
+
+        //user SharedPreferences
+        userSharedPreferences = UserSharedPreferencesManager(requireContext())
+
+        // DrawerLayout ve NavigationView tanımlamaları
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navigationView: NavigationView = binding.navigationView
+        val toolbarMenuButton = binding.toolbarUserEditBirthday.findViewById<View>(R.id.menuButtonToolbar)
+
+        //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
+        UserFrequentlyUsedFunctions.drawerLayoutToggle(
+            drawerLayout,
+            navigationView,
+            findNavController(),
+            toolbarMenuButton,
+            requireActivity(),
+            authViewModel,
+            birthdayRepository,
+            userSharedPreferences,
+            "BirthdayEdit"
+        )
+
 
 
         //doğum günü update butonu
@@ -58,11 +97,11 @@ class EditBirthdayFragment : Fragment() {
                 note = binding.birthdayNoteEditText.text.toString()
             )
 
-            viewModel.updateBirthday(updatedBirthday)
+            usersBirthdayViewModel.updateBirthday(updatedBirthday)
 
            UserFrequentlyUsedFunctions.loadAndStateOperation(
                viewLifecycleOwner,
-               viewModel,
+               usersBirthdayViewModel,
                binding.threePointAnimation,
                binding.root,
                findNavController(),
@@ -80,7 +119,7 @@ class EditBirthdayFragment : Fragment() {
            UserFrequentlyUsedFunctions.showConfirmationDialog(
                binding.root,
                requireContext(),
-               viewModel,
+               usersBirthdayViewModel,
                editedBirthday.birthday,
                binding.threePointAnimation,
                viewLifecycleOwner,
@@ -95,6 +134,25 @@ class EditBirthdayFragment : Fragment() {
             findNavController().popBackStack()
 
         }
+
+        binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.bottomNavBirthdays -> {
+                    findNavController().navigate(R.id.editToMain)
+                    true
+                }
+                R.id.bottomNavTrashBin-> {
+                    findNavController().navigate(R.id.editToTrash)
+                    true
+                }
+                R.id.bottomNavPastBirthdays -> {
+                    findNavController().navigate(R.id.editToPastBirthdays)
+                    true
+                }
+                else -> false
+            }
+        }
+
 
         return binding.root
     }

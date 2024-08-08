@@ -150,24 +150,27 @@ class MainPageFragment : Fragment() {
         })
 
 
-        binding.toolbarUserMain.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
+        binding.fabAddButtonMain.setOnClickListener {
             findNavController().navigate(R.id.mainToAddBirthday)
         }
 
-//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)
-//            .setOnClickListener {
-//                it.findNavController().navigate(R.id.mainToMain)
-//            }
-//
-//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavPastBirthdays)
-//            .setOnClickListener {
-//                it.findNavController().navigate(R.id.mainToPastBirthdays)
-//            }
-//
-//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavTrashBin)
-//                    .setOnClickListener {
-//                        it.findNavController().navigate(R.id.mainToTrashBin)
-//                    }
+        binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.bottomNavBirthdays -> {
+                    findNavController().navigate(R.id.mainToMain)
+                    true
+                }
+                R.id.bottomNavTrashBin-> {
+                    findNavController().navigate(R.id.mainToTrashBin)
+                    true
+                }
+                R.id.bottomNavPastBirthdays -> {
+                    findNavController().navigate(R.id.mainToPastBirthdays)
+                    true
+                }
+                else -> false
+            }
+        }
 
         binding.sortButton.setOnClickListener {
             UserFrequentlyUsedFunctions.showSortMenu(it, requireContext(), adapter, usersBirthdayViewModel)

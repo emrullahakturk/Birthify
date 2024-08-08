@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
@@ -120,20 +119,34 @@ class TrashBinFragment : Fragment() {
 
         }
 
-//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays).setOnClickListener{
-//            it.findNavController().navigate(R.id.trashToMainPage)
-//        }
-//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavPastBirthdays).setOnClickListener{
-//            it.findNavController().navigate(R.id.trashToPastBirthdays)
-//        }
-//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavTrashBin).setOnClickListener{
-//            it.findNavController().navigate(R.id.trashToTrashBin)
-//        }
+
+        binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.bottomNavBirthdays -> {
+                    findNavController().navigate(R.id.trashToMainPage)
+                    true
+                }
+                R.id.bottomNavTrashBin-> {
+                    findNavController().navigate(R.id.trashToTrashBin)
+                    true
+                }
+                R.id.bottomNavPastBirthdays -> {
+                    findNavController().navigate(R.id.trashToPastBirthdays)
+                    true
+                }
+                else -> false
+            }
+        }
+
 
         binding.sortButton.setOnClickListener{
 
             UserFrequentlyUsedFunctions.showSortMenu(it,requireContext(),adapter,usersBirthdayViewModel)
 
+        }
+
+        binding.fabBackButtonTrash.setOnClickListener {
+            findNavController().popBackStack()
         }
 
 

@@ -120,19 +120,34 @@ class PastBirthdaysFragment : Fragment() {
             findNavController().navigate(R.id.pastBirthdaysToAddBirthday)
         }
 
-//
-//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays)
-//            .setOnClickListener {
-//                it.findNavController().navigate(R.id.pastBirthdaysToMainPage)
-//            }
-//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavPastBirthdays)
-//            .setOnClickListener {
-//                it.findNavController().navigate(R.id.pastBirthdaysToPastBirthdays)
-//            }
-//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavTrashBin)
-//                    .setOnClickListener {
-//                        it.findNavController().navigate(R.id.pastBirthdaysToTrashBin)
-//                    }
+    binding.fabBackPastBirthdays.setOnClickListener {
+        findNavController().popBackStack()
+    }
+
+
+
+
+
+        binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.bottomNavBirthdays -> {
+                    findNavController().navigate(R.id.pastBirthdaysToMainPage)
+                    true
+                }
+                R.id.bottomNavTrashBin-> {
+                    findNavController().navigate(R.id.pastBirthdaysToTrashBin)
+                    true
+                }
+                R.id.bottomNavPastBirthdays -> {
+                    findNavController().navigate(R.id.pastBirthdaysToPastBirthdays)
+                    true
+                }
+                else -> false
+            }
+        }
+
+
+
 
         binding.sortButton.setOnClickListener {
             UserFrequentlyUsedFunctions.showSortMenu(it, requireContext(), adapter, usersBirthdayViewModel)

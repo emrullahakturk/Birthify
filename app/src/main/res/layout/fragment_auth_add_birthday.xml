@@ -51,7 +51,6 @@
                 app:layout_constraintTop_toTopOf="parent">
 
 
-
                 <include
                     android:id="@+id/toolbarUserAdd"
                     layout="@layout/custom_toolbar"
@@ -90,7 +89,7 @@
                 <LinearLayout
                     android:id="@+id/linearLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp"
                     app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
@@ -169,7 +168,6 @@
                         android:text="@string/save_birthday" />
                 </LinearLayout>
 
-
                 <androidx.coordinatorlayout.widget.CoordinatorLayout
                     android:id="@+id/coordinatorLayout"
                     android:layout_width="match_parent"
@@ -181,14 +179,13 @@
 
                     <com.google.android.material.bottomappbar.BottomAppBar
                         android:id="@+id/bottomAppBar"
+                        android:backgroundTint="@color/bottom_navigation_background"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_gravity="bottom"
-                        android:backgroundTint="@color/bottom_navigation_background"
-                        app:menu="@menu/bottom_nav_menu"
                         app:navigationIcon="@drawable/ic_search"
                         app:navigationIconTint="@color/black"
-                        >
+                        android:layout_gravity="bottom"
+                        app:menu="@menu/bottom_nav_menu">
 
 
                     </com.google.android.material.bottomappbar.BottomAppBar>
@@ -197,13 +194,13 @@
                         android:id="@+id/fabBackButtonAdd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/fab_button_background_addBday"
-                        android:clickable="true"
-                        android:src="@drawable/ic_back"
                         app:layout_anchor="@id/bottomAppBar"
+                        android:backgroundTint="@color/fab_button_background_addBday"
+                        app:srcCompat="@drawable/ic_back_bottom"
                         tools:ignore="ContentDescription" />
 
                 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

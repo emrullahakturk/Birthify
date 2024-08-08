@@ -91,12 +91,10 @@ class GuestAddBirthdayFragment : Fragment() {
             GuestFrequentlyUsedFunctions.showDatePickerDialog(requireContext(),binding.birthdayDateEditText)
         }
 
-try {
-    binding.fabBackButtonAdd.setOnClickListener { it.findNavController().popBackStack() }
 
-}catch (e:Exception){
-    Log.e("tagımıs","$e")
-}
+         binding.fabBackButtonAdd.setOnClickListener { it.findNavController().popBackStack() }
+
+
 
         //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
         GuestFrequentlyUsedFunctions.drawerLayoutToggle(
@@ -109,6 +107,28 @@ try {
             userSharedPreferences,
             "GuestAddBirthday"
         )
+
+        binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.bottomNavBirthdays -> {
+                    findNavController().navigate(R.id.guestAddToMain)
+                    true
+                }
+                R.id.bottomNavTrashBin-> {
+                    findNavController().navigate(R.id.guestAddToTrashBin)
+                    true
+                }
+                R.id.bottomNavPastBirthdays -> {
+                    findNavController().navigate(R.id.guestAddToPastBirthdays)
+                    true
+                }
+                else -> false
+            }
+        }
+
+
+
+
 
 
         return binding.root

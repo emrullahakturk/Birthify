@@ -112,21 +112,34 @@ class GuestTrashBinFragment : Fragment() {
 
         }
 
-//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavBirthdays).setOnClickListener{
-//            it.findNavController().navigate(R.id.guestTrashBinToMain)
-//        }
-//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavPastBirthdays).setOnClickListener{
-//            it.findNavController().navigate(R.id.guestTrashBinToPastBirthdays)
-//        }
-//        binding.bottomNavigationView.findViewById<View>(R.id.bottomNavTrashBin).setOnClickListener{
-//            it.findNavController().navigate(R.id.guestTrashBinToTrashBin)
-//        }
+
+        binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.bottomNavBirthdays -> {
+                     findNavController().navigate(R.id.guestTrashBinToMain)
+                    true
+                }
+                R.id.bottomNavTrashBin-> {
+                    findNavController().navigate(R.id.guestTrashBinToTrashBin)
+                    true
+                }
+                R.id.bottomNavPastBirthdays -> {
+                    findNavController().navigate(R.id.guestTrashBinToPastBirthdays)
+                    true
+                }
+                else -> false
+            }
+        }
 
 
         binding.sortButton.setOnClickListener{
 
             GuestFrequentlyUsedFunctions.showSortMenu(it,requireContext(),adapter,guestBirthdayViewModel)
 
+        }
+
+        binding.fabBackButtonTrash.setOnClickListener {
+            findNavController().popBackStack()
         }
 
         //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon

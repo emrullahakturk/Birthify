@@ -11,7 +11,7 @@
                 android:title="@string/birthdays" />
             <item
                 android:id="@+id/labelPastBirthdays"
-                android:icon="@drawable/ic_cake"
+                android:icon="@drawable/ic_clock"
                 android:title="@string/past_birthdays" />
 
             <item

@@ -107,6 +107,25 @@ class AddBirthdayFragment : Fragment() {
             "AddBirthday"
         )
 
+        binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.bottomNavBirthdays -> {
+                    findNavController().navigate(R.id.addToMain)
+                    true
+                }
+                R.id.bottomNavTrashBin-> {
+                    findNavController().navigate(R.id.addToTrash)
+                    true
+                }
+                R.id.bottomNavPastBirthdays -> {
+                    findNavController().navigate(R.id.addToPastBirthdays)
+                    true
+                }
+                else -> false
+            }
+        }
+
+
 
         return binding.root
     }

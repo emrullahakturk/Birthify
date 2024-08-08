@@ -81,9 +81,9 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginTop="14dp"
                         android:backgroundTint="@color/sort_button_background"
-                        android:drawableEnd="@drawable/ic_dots"
+                        android:drawableEnd="@drawable/ic_dots_main"
                         android:text="@string/sort_options"
-                        android:textColor="@color/sorting_options_tv"
+                        android:textColor="@color/sorting_options_tv_main"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/birthdaysTv" />
 
@@ -113,7 +113,7 @@
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/wittgenstein_font"
                         android:text="@string/birthdays"
-                        android:textColor="@color/birthdays_tv"
+                        android:textColor="@color/birthdays_tv_main"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -142,7 +142,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/birthdaysTv"
                         app:startIconDrawable="@drawable/ic_search"
-                        app:startIconTint="@color/ic_search">
+                        app:startIconTint="@color/ic_search_main">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/searchEditText"
@@ -226,10 +226,10 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
                     android:background="@color/navigation_drawer_background"
-                    app:itemIconTint="@color/ic_navigation_icons"
+                    app:itemIconTint="@color/ic_navigation_icons_main"
                     app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
                     app:menu="@menu/user_drawer_menu"
-                    app:subheaderColor="@color/nav_drawer_sub_header_tv"
+                    app:subheaderColor="@color/nav_drawer_sub_header_tv_main"
                     app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
 
                 </com.google.android.material.navigation.NavigationView>
@@ -238,11 +238,6 @@
 
 
             </androidx.drawerlayout.widget.DrawerLayout>
-
-
-
-
-
 
 
 

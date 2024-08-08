@@ -6,16 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navOptions
+import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.databinding.FragmentGuestEditBirthdayBinding
 import com.yargisoft.birthify.repositories.GuestRepository
+import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
 
@@ -26,6 +29,8 @@ class GuestEditBirthdayFragment : Fragment() {
     private lateinit var guestBirthdayViewModel: GuestBirthdayViewModel
     private lateinit var guestRepository: GuestRepository
     private lateinit var guestFactory: GuestViewModelFactory
+    private lateinit var userSharedPreferences: UserSharedPreferencesManager
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +47,27 @@ class GuestEditBirthdayFragment : Fragment() {
          guestRepository = GuestRepository(requireContext())
          guestFactory = GuestViewModelFactory(guestRepository)
          guestBirthdayViewModel = ViewModelProvider(this, guestFactory)[GuestBirthdayViewModel::class]
+
+        //user SharedPreferences
+        userSharedPreferences = UserSharedPreferencesManager(requireContext())
+
+
+        // DrawerLayout ve NavigationView tanımlamaları
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navigationView: NavigationView = binding.navigationView
+        val toolbarMenuButton = binding.toolbarGuestEditBirthday.findViewById<View>(R.id.menuButtonToolbar)
+
+        //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
+        GuestFrequentlyUsedFunctions.drawerLayoutToggle(
+            drawerLayout,
+            navigationView,
+            findNavController(),
+            toolbarMenuButton,
+            requireActivity(),
+            guestRepository,
+            userSharedPreferences,
+            "GuestBirthdayEdit"
+        )
 
 
         //editlenen doğum günü bilgilerini ekrana yansıtıyoruz
@@ -93,6 +119,28 @@ class GuestEditBirthdayFragment : Fragment() {
             findNavController().popBackStack()
 
         }
+        binding.toolbarGuestEditBirthday.findViewById<View>(R.id.menuButtonToolbar).setOnClickListener {
+
+        }
+
+        binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.bottomNavBirthdays -> {
+                    findNavController().navigate(R.id.guestEditToMain)
+                    true
+                }
+                R.id.bottomNavTrashBin-> {
+                    findNavController().navigate(R.id.guestEditToTrashBin)
+                    true
+                }
+                R.id.bottomNavPastBirthdays -> {
+                    findNavController().navigate(R.id.guestEditToPastBirthdays)
+                    true
+                }
+                else -> false
+            }
+        }
+
 
         return binding.root
     }

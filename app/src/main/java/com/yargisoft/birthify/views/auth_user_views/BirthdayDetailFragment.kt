@@ -91,6 +91,26 @@ class BirthdayDetailFragment : Fragment() {
             findNavController().navigate(action, navOptions)
         }
 
+
+
+        binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.bottomNavBirthdays -> {
+                    findNavController().navigate(R.id.birthdayDetailToMain)
+                    true
+                }
+                R.id.bottomNavTrashBin-> {
+                    findNavController().navigate(R.id.detailToTrash)
+                    true
+                }
+                R.id.bottomNavPastBirthdays -> {
+                    findNavController().navigate(R.id.detailToPastBirthdays)
+                    true
+                }
+                else -> false
+            }
+        }
+
         // Inflate the layout for this fragment
         return binding.root
     }

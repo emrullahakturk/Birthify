@@ -136,8 +136,10 @@ class GuestMainPageFragment : Fragment() {
         })
 
 
-        binding.toolbarGuestMain.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
-            findNavController().navigate(R.id.guestMainToAddBirthday)        }
+     binding.fabAddButtonMain.setOnClickListener {
+         findNavController().navigate(R.id.guestMainToAddBirthday)
+
+     }
 
 
 

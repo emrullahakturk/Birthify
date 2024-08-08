@@ -13,8 +13,7 @@
 
     <!--İkon renkleri-->
     <color name="ic_account">#344e41</color>
-    <color name="ic_account_edit">#594236</color>
-    <color name="ic_account_add">#619b8a</color>
+
     <color name="ic_account_detail">#7c606b</color>
     <color name="ic_add">#FFFFFF</color>
     <color name="ic_back">#3F744C</color>
@@ -22,9 +21,7 @@
     <color name="ic_cake_bottom_menu">#000000</color>
     <color name="ic_delete_bottom_menu">#000000</color>
     <color name="ic_calendar">#3F744C</color>
-    <color name="ic_calendar_add">#619b8a</color>
     <color name="ic_calendar_detail">#7c606b</color>
-    <color name="ic_calendar_edit">#594236</color>
     <color name="ic_clock">#000000</color>
     <color name="ic_clock_bottom_menu">#000000</color>
     <color name="ic_delete">#000000</color>
@@ -35,8 +32,6 @@
     <color name="ic_mail">#000000</color>
     <color name="ic_menu_line">#344e41</color>
     <color name="ic_note">#3F744C</color>
-    <color name="ic_note_edit">#594236</color>
-    <color name="ic_note_add">#619b8a</color>
     <color name="ic_note_detail">#7c606b</color>
     <color name="ic_plus_one">#3F744C</color>
     <color name="ic_search">#000000</color>
@@ -45,7 +40,6 @@
     <color name="bottom_nav_icon_background">#386641</color>
     <color name="line_view">#344e41</color>
     <color name="ic_navigation_icons">#386641</color>
-    <color name="ic_navigation_icons_add">#619b8a</color>
     <color name="ic_navigation_icons_detail">#7c606b</color>
 
 
@@ -78,9 +72,6 @@
     <color name="birthdays_tv">#3a5a40</color>
     <color name="nav_drawer_sub_header_tv">#386641</color>
     <color name="nav_drawer_sub_header_tv_detail">#7c606b</color>
-    <color name="nav_drawer_sub_header_tv_add">#619b8a</color>
-    <color name="record_the_birthday_tv">#4e8084</color>
-    <color name="edit_birthday_of_your_tv">#594236</color>
     <color name="birthday_detail_tv">#7c606b</color>
     <color name="there_is_no_deleted_tv">#3F744C</color>
     <color name="deleted_birthdays_tv">#3F744C</color>
@@ -99,18 +90,11 @@
     <color name="toolbar_background_night">#FFFFFF</color>
     <color name="sort_button_background">#f0eeee</color>
     <color name="fab_button_background">#619b8a</color>
-    <color name="fab_button_background_addBday">#619b8a</color>
     <color name="fab_button_background_detail">#7c606b</color>
-    <color name="fab_button_background_edit">#7c606b</color>
-    <color name="save_birthday_button">#619b8a</color>
-    <color name="update_birthday_button">#7c606b</color>
-    <color name="delete_birthday_button">#FF0000</color>
     <color name="birthday_edit_button">#7c606b</color>
     <color name="re_save_button">#3F744C</color>
     <color name="remember_me_cbox">#815642</color>
-    <color name="rounded_edit_add">#464646</color>
     <color name="rounded_edit_detail">#a3cef1</color>
-    <color name="rounded_edit_edit">#7c606b</color>
 
 
     <!--Background renkleri-->
@@ -149,10 +133,52 @@
 
 
 
+    <!--Edit Page renkleri-->
+    <color name="fab_button_background_edit">#7c606b</color>
+    <color name="update_birthday_button_edit">#7c606b</color>
+    <color name="delete_birthday_button_edit">#FF0000</color>
+    <color name="rounded_edit_edit">#153131</color>
+    <color name="ic_note_edit">#594236</color>
+    <color name="ic_account_edit">#594236</color>
+    <color name="ic_calendar_edit">#594236</color>
+    <color name="edit_birthday_of_your_tv">#153131</color>
+    <color name="ic_navigation_icons_edit">#7c606b</color>
+    <color name="nav_drawer_sub_header_tv_edit">#153131</color>
+
+
+
+
+
+
+    <!--Add Page renkleri-->
+    <color name="record_the_birthday_tv">#4e8084</color>
+    <color name="save_birthday_button">#619b8a</color>
+    <color name="nav_drawer_sub_header_tv_add">#619b8a</color>
+    <color name="fab_button_background_addBday">#619b8a</color>
+    <color name="rounded_edit_add">#464646</color>
+    <color name="ic_note_add">#619b8a</color>
+    <color name="ic_calendar_add">#619b8a</color>
+    <color name="ic_account_add">#619b8a</color>
+    <color name="ic_navigation_icons_add">#4e8084</color>
+
+
+
+
+
+
+
+
     <!--Main Page renkleri-->
     <color name="fab_button_background_main">#5B9ECB</color>
-    <color name="rounded_edit_main">#3a5a40</color>
+    <color name="sorting_options_tv_main">#1d3557</color>
+    <color name="rounded_edit_main">#1d3557</color>
+    <color name="birthdays_tv_main">#1d3557</color>
     <color name="main_page_background">#FFFFFF</color>
+    <color name="ic_navigation_icons_main">#5B9ECB</color>
+    <color name="nav_drawer_sub_header_tv_main">#1d3557</color>
+    <color name="ic_dots_main">#1d3557</color>
+    <color name="ic_search_main">#1d3557</color>
+
 
 
 

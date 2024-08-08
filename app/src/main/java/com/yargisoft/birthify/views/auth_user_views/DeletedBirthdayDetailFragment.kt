@@ -118,6 +118,24 @@ class DeletedBirthdayDetailFragment : Fragment() {
         )
 
 
+        binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.bottomNavBirthdays -> {
+                    findNavController().navigate(R.id.deletedDetailToMain)
+                    true
+                }
+                R.id.bottomNavTrashBin-> {
+                    findNavController().navigate(R.id.deletedDetailToTrashBin)
+                    true
+                }
+                R.id.bottomNavPastBirthdays -> {
+                    findNavController().navigate(R.id.deletedDetailToPastBirthdays)
+                    true
+                }
+                else -> false
+            }
+        }
+
 
         return binding.root
     }
