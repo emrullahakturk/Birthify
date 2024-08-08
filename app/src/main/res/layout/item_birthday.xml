@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/item_birthday_name"
-            android:textColor="@color/item_birthday_name"
+            android:textColor="@color/item_main_birthday_name"
             android:fontFamily="@font/wittgenstein_font"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="40dp"
             android:text="@string/birthday_date"
-            android:textColor="@color/item_birthday_birthday_date"
+            android:textColor="@color/item_main_birthday_date"
             android:textSize="16sp"
             android:fontFamily="@font/wittgenstein_font"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -81,7 +81,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
-            app:srcCompat="@drawable/ic_account"
+            app:srcCompat="@drawable/ic_account_item_main"
             android:contentDescription="@string/card_view_icon" />
 
 
@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="40dp"
             android:text="@string/item_birthday_birth_date"
-            android:textColor="@color/item_birthday_birth_date"
+            android:textColor="@color/item_main_birth_date"
             android:fontFamily="@font/wittgenstein_font"
             app:layout_constraintBottom_toTopOf="@+id/birthdayDateCardTv"
             app:layout_constraintEnd_toStartOf="@+id/editBirthdayButtonMainPage"
@@ -121,7 +121,7 @@
             android:layout_marginEnd="7dp"
             android:fontFamily="@font/wittgenstein_font"
             android:text="@string/edit"
-            android:textColor="@color/item_birthday_edit"
+            android:textColor="@color/item_main_birthday_edit"
             app:layout_constraintBottom_toTopOf="@+id/editBirthdayButtonMainPage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

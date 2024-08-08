@@ -8,10 +8,15 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
+import android.graphics.Paint
+import android.graphics.Typeface
 import android.os.Handler
 import android.os.Looper
+import android.text.Spannable
 import android.text.SpannableString
+import android.text.TextPaint
 import android.text.style.ForegroundColorSpan
+import android.text.style.TypefaceSpan
 import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.MenuItem
@@ -20,6 +25,7 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
@@ -115,7 +121,12 @@ object GuestFrequentlyUsedFunctions {
         for (i in 0 until popupMenu.menu.size()) {
             val menuItem = popupMenu.menu.getItem(i)
             val spanString = SpannableString(menuItem.title)
-            spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.green_login)), 0, spanString.length, 0)
+            spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.black)), 0, spanString.length, 0)
+
+            // wittgenstein_font ataması yapma
+            val typeface = ResourcesCompat.getFont(context, R.font.wittgenstein_font)
+            spanString.setSpan(UserFrequentlyUsedFunctions.CustomTypefaceSpan(typeface), 0, spanString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
             menuItem.title = spanString
         }
 
@@ -126,6 +137,22 @@ object GuestFrequentlyUsedFunctions {
         popupMenu.show()
 
     }
+
+    // Menümüze font eklemek için kullanılan class
+    class CustomTypefaceSpan(private val typeface: Typeface?) : TypefaceSpan("") {
+        override fun updateDrawState(textPaint: TextPaint) {
+            applyCustomTypeFace(textPaint, typeface)
+        }
+
+        override fun updateMeasureState(textPaint: TextPaint) {
+            applyCustomTypeFace(textPaint, typeface)
+        }
+
+        private fun applyCustomTypeFace(paint: Paint, typeface: Typeface?) {
+            paint.typeface = typeface
+        }
+    }
+
     private fun handleSortOptionSelected(menuItem: MenuItem,
                                          adapter: BirthdayAdapter,
                                          guestBirthdayViewModel:GuestBirthdayViewModel) {

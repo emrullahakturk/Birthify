@@ -188,10 +188,10 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
                 android:background="@color/navigation_drawer_background"
-                app:itemIconTint="@color/ic_navigation_icons"
+                app:itemIconTint="@color/ic_navigation_icons_trash"
                 app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
                 app:menu="@menu/guest_drawer_menu"
-                app:subheaderColor="@color/nav_drawer_sub_header_tv"
+                app:subheaderColor="@color/nav_drawer_sub_header_tv_trash"
                 app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
 
             </com.google.android.material.navigation.NavigationView>

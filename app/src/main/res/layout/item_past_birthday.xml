@@ -24,7 +24,7 @@
         android:layout_height="90dp"
         android:scaleType="centerCrop"
         android:src="@drawable/item_background_gradient"
-        tools:ignore="HardcodedText" />
+        tools:ignore="ContentDescription,HardcodedText" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/item_birthday_name"
-            android:textColor="@color/item_deleted_birthday_name"
+            android:textColor="@color/item_past_birthday_name"
             android:fontFamily="@font/wittgenstein_font"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -54,9 +54,10 @@
             android:id="@+id/birthdayDateCardTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:fontFamily="@font/wittgenstein_font"
             android:text="@string/birthday_date"
-            android:textColor="@color/item_deleted_birth_date"
+            android:textColor="@color/item_past_birthday_date"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +73,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
-            app:srcCompat="@drawable/ic_account_item_deleted" />
+            app:srcCompat="@drawable/ic_account_item_past"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/noteCardTv"
@@ -89,7 +91,7 @@
             android:layout_marginEnd="10dp"
             android:fontFamily="@font/wittgenstein_font"
             android:text="@string/item_birthday_birth_date"
-            android:textColor="@color/item_deleted_birth_date"
+            android:textColor="@color/item_past_birth_date"
             app:layout_constraintBottom_toTopOf="@+id/birthdayDateCardTv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

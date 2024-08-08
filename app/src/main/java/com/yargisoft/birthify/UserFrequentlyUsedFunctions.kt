@@ -8,10 +8,15 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
+import android.graphics.Typeface
 import android.os.Handler
 import android.os.Looper
+import android.text.Spannable
 import android.text.SpannableString
+import android.text.TextPaint
 import android.text.style.ForegroundColorSpan
+import android.text.style.TypefaceSpan
 import android.util.Log
 import android.util.Patterns
 import android.view.ContextThemeWrapper
@@ -21,7 +26,7 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
@@ -31,7 +36,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -43,7 +47,6 @@ import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
-import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -122,7 +125,12 @@ object UserFrequentlyUsedFunctions {
                 for (i in 0 until popupMenu.menu.size()) {
                     val menuItem = popupMenu.menu.getItem(i)
                     val spanString = SpannableString(menuItem.title)
-                    spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.green_login)), 0, spanString.length, 0)
+                    spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.black)), 0, spanString.length, 0)
+
+                    // wittgenstein_font ataması yapma
+                    val typeface = ResourcesCompat.getFont(context, R.font.wittgenstein_font)
+                    spanString.setSpan(CustomTypefaceSpan(typeface), 0, spanString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
                     menuItem.title = spanString
                 }
 
@@ -132,7 +140,25 @@ object UserFrequentlyUsedFunctions {
                 }
                 popupMenu.show()
 
+
+
         }
+
+        // Menümüze font eklemek için kullanılan class
+        class CustomTypefaceSpan(private val typeface: Typeface?) : TypefaceSpan("") {
+            override fun updateDrawState(textPaint: TextPaint) {
+                applyCustomTypeFace(textPaint, typeface)
+            }
+
+            override fun updateMeasureState(textPaint: TextPaint) {
+                applyCustomTypeFace(textPaint, typeface)
+            }
+
+            private fun applyCustomTypeFace(paint: Paint, typeface: Typeface?) {
+                paint.typeface = typeface
+            }
+        }
+
         private fun handleSortOptionSelected(menuItem: MenuItem,
                                              adapter: BirthdayAdapter,
                                              usersBirthdayViewModel: UsersBirthdayViewModel) {

@@ -13,7 +13,6 @@
 
     <!--İkon renkleri-->
     <color name="ic_account">#344e41</color>
-
     <color name="ic_account_detail">#7c606b</color>
     <color name="ic_add">#FFFFFF</color>
     <color name="ic_back">#3F744C</color>
@@ -45,16 +44,6 @@
 
 
     <!--String renkleri-->
-    <color name="item_birthday_name">#344e41</color>
-    <color name="item_birthday_birth_date">#344e41</color>
-    <color name="item_birthday_edit">#344e41</color>
-    <color name="item_birthday_birthday_date">#344e41</color>
-    <color name="item_deleted_birthday_name">#3F744C</color>
-    <color name="item_deleted_birthday_birth_date">#3F744C</color>
-    <color name="item_deleted_birthday_edit">#3F744C</color>
-    <color name="item_deleted_birthday_date">#3F744C</color>
-    <color name="welcome_back">#FF99654C</color>
-    <color name="login_to_your_account">#99654C</color>
     <color name="forgot_password">#815642</color>
     <color name="the_best_app_tv">#3F744C</color>
     <color name="create_account_tv">#3F744C</color>
@@ -82,7 +71,6 @@
 
 
     <!--Button renkleri-->
-    <color name="login_button">#815642</color>
     <color name="sign_in_button">#DF717D</color>
     <color name="create_account_button">#815642</color>
     <color name="register_button">#815642</color>
@@ -120,6 +108,13 @@
 
 
 
+    <!--İtem Deleted Birthdays renkleri-->
+    <color name="item_deleted_birthday_name">#000000</color>
+    <color name="item_deleted_birth_date">#000000</color>
+    <color name="item_deleted_birthday_edit">#000000</color>
+    <color name="item_deleted_birthday_date">#000000</color>
+    <color name="ic_account_item_deleted">#000000</color>
+
 
     <!--Trash Page renkleri-->
     <color name="fab_button_background_trash">#7c606b</color>
@@ -129,6 +124,8 @@
     <color name="rounded_edit_trash">#000000</color>
     <color name="ic_dots_trash">#000000</color>
     <color name="sorting_options_tv_trash">#000000</color>
+    <color name="ic_navigation_icons_trash">#7c606b</color>
+    <color name="nav_drawer_sub_header_tv_trash">#000000</color>
 
 
 
@@ -144,6 +141,7 @@
     <color name="edit_birthday_of_your_tv">#153131</color>
     <color name="ic_navigation_icons_edit">#7c606b</color>
     <color name="nav_drawer_sub_header_tv_edit">#153131</color>
+
 
 
 
@@ -167,6 +165,14 @@
 
 
 
+    <!--İtem Main Birthdays renkleri-->
+    <color name="item_main_birthday_name">#000000</color>
+    <color name="item_main_birth_date">#000000</color>
+    <color name="item_main_birthday_edit">#000000</color>
+    <color name="item_main_birthday_date">#000000</color>
+    <color name="ic_account_item_main">#000000</color>
+
+
 
     <!--Main Page renkleri-->
     <color name="fab_button_background_main">#5B9ECB</color>
@@ -178,6 +184,19 @@
     <color name="nav_drawer_sub_header_tv_main">#1d3557</color>
     <color name="ic_dots_main">#1d3557</color>
     <color name="ic_search_main">#1d3557</color>
+
+
+
+
+
+
+
+    <!--İtem Past Birthdays renkleri-->
+    <color name="item_past_birthday_name">#000000</color>
+    <color name="item_past_birth_date">#000000</color>
+    <color name="item_past_birthday_edit">#000000</color>
+    <color name="item_past_birthday_date">#000000</color>
+    <color name="ic_account_item_past">#000000</color>
 
 
 
@@ -198,6 +217,11 @@
     <color name="line_view_past">#619b8a</color>
     <color name="click_to_add_tv_past">#7c606b</color>
 
+
+    <!--Login Page Renkleri-->
+    <color name="login_button">#815642</color>
+    <color name="welcome_back">#FF99654C</color>
+    <color name="login_to_your_account">#99654C</color>
 
 
 
