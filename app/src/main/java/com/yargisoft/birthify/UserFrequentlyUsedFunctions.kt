@@ -56,6 +56,21 @@ import java.util.Locale
 
 object UserFrequentlyUsedFunctions {
 
+    // Sorting Menümüze font eklemek için kullanılan class
+    class CustomTypefaceSpan(private val typeface: Typeface?) : TypefaceSpan("") {
+        override fun updateDrawState(textPaint: TextPaint) {
+            applyCustomTypeFace(textPaint, typeface)
+        }
+
+        override fun updateMeasureState(textPaint: TextPaint) {
+            applyCustomTypeFace(textPaint, typeface)
+        }
+
+        private fun applyCustomTypeFace(paint: Paint, typeface: Typeface?) {
+            paint.typeface = typeface
+        }
+    }
+
     //EditText ile arama yaparken aramayı filtrelemek için kullanılan fonksiyon
      fun filterBirthdays(query: String, viewModel:UsersBirthdayViewModel, adapter: DeletedBirthdayAdapter) {
         val birthdays = viewModel.deletedBirthdayList.value
@@ -144,38 +159,25 @@ object UserFrequentlyUsedFunctions {
 
         }
 
-        // Menümüze font eklemek için kullanılan class
-        class CustomTypefaceSpan(private val typeface: Typeface?) : TypefaceSpan("") {
-            override fun updateDrawState(textPaint: TextPaint) {
-                applyCustomTypeFace(textPaint, typeface)
-            }
-
-            override fun updateMeasureState(textPaint: TextPaint) {
-                applyCustomTypeFace(textPaint, typeface)
-            }
-
-            private fun applyCustomTypeFace(paint: Paint, typeface: Typeface?) {
-                paint.typeface = typeface
-            }
-        }
 
         private fun handleSortOptionSelected(menuItem: MenuItem,
                                              adapter: BirthdayAdapter,
                                              usersBirthdayViewModel: UsersBirthdayViewModel) {
 
                 val sortedList = when (menuItem.itemId) {
-                    R.id.sort_by_name_asc -> usersBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByNameAsc")
-                    R.id.sort_by_birth_date_asc -> usersBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByBirthdayDateAsc")
-                    R.id.sort_by_recorded_date_asc -> usersBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByRecordedDateAsc")
-                    R.id.sort_by_name_dsc -> usersBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByNameDsc")
-                    R.id.sort_by_birth_date_dsc -> usersBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByBirthdayDateDsc")
-                    R.id.sort_by_recorded_date_dsc -> usersBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByRecordedDateDsc")
+                    R.id.sort_by_name_asc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByNameAsc","Main")
+                    R.id.sort_by_birth_date_asc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByBirthdayDateAsc","Main")
+                    R.id.sort_by_recorded_date_asc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByRecordedDateAsc","Main")
+                    R.id.sort_by_name_dsc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByNameDsc","Main")
+                    R.id.sort_by_birth_date_dsc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByBirthdayDateDsc","Main")
+                    R.id.sort_by_recorded_date_dsc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByRecordedDateDsc","Main")
                     else -> emptyList()
                 }
 
                 adapter.updateData(sortedList)
          }
     //Main Page için sort menüsünü açma fonksiyonları
+
 
 
     // Deleted (Trash Bin) Page için sort menüsünü açma fonksiyonları
@@ -188,7 +190,13 @@ object UserFrequentlyUsedFunctions {
         for (i in 0 until popupMenu.menu.size()) {
             val menuItem = popupMenu.menu.getItem(i)
             val spanString = SpannableString(menuItem.title)
-            spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.green_login)), 0, spanString.length, 0)
+            spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.black)), 0, spanString.length, 0)
+
+            // wittgenstein_font ataması yapma
+            val typeface = ResourcesCompat.getFont(context, R.font.wittgenstein_font)
+            spanString.setSpan(CustomTypefaceSpan(typeface), 0, spanString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+
             menuItem.title = spanString
         }
 
@@ -200,12 +208,12 @@ object UserFrequentlyUsedFunctions {
     }
         private fun handleSortOptionSelected(menuItem: MenuItem, adapter: DeletedBirthdayAdapter, usersBirthdayViewModel: UsersBirthdayViewModel) {
         val sortedList = when (menuItem.itemId) {
-            R.id.sort_by_name_asc -> usersBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByNameAsc")
-            R.id.sort_by_birth_date_asc -> usersBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByBirthdayDateAsc")
-            R.id.sort_by_recorded_date_asc -> usersBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByRecordedDateAsc")
-            R.id.sort_by_name_dsc -> usersBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByNameDsc")
-            R.id.sort_by_birth_date_dsc -> usersBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByBirthdayDateDsc")
-            R.id.sort_by_recorded_date_dsc -> usersBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByRecordedDateDsc")
+            R.id.sort_by_name_asc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByNameAsc","TrashBin")
+            R.id.sort_by_birth_date_asc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByBirthdayDateAsc","TrashBin")
+            R.id.sort_by_recorded_date_asc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByRecordedDateAsc","TrashBin")
+            R.id.sort_by_name_dsc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByNameDsc","TrashBin")
+            R.id.sort_by_birth_date_dsc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByBirthdayDateDsc","TrashBin")
+            R.id.sort_by_recorded_date_dsc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByRecordedDateDsc","TrashBin")
             else -> emptyList()
         }
 
@@ -223,7 +231,13 @@ object UserFrequentlyUsedFunctions {
         for (i in 0 until popupMenu.menu.size()) {
             val menuItem = popupMenu.menu.getItem(i)
             val spanString = SpannableString(menuItem.title)
-            spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.green_login)), 0, spanString.length, 0)
+            spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.black)), 0, spanString.length, 0)
+
+            // wittgenstein_font ataması yapma
+            val typeface = ResourcesCompat.getFont(context, R.font.wittgenstein_font)
+            spanString.setSpan(CustomTypefaceSpan(typeface), 0, spanString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+
             menuItem.title = spanString
         }
 
@@ -235,12 +249,12 @@ object UserFrequentlyUsedFunctions {
     }
     private fun handleSortOptionSelected(menuItem: MenuItem, adapter: PastBirthdayAdapter, usersBirthdayViewModel: UsersBirthdayViewModel) {
         val sortedList = when (menuItem.itemId) {
-            R.id.sort_by_name_asc -> usersBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByNameAsc")
-            R.id.sort_by_birth_date_asc -> usersBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByBirthdayDateAsc")
-            R.id.sort_by_recorded_date_asc -> usersBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByRecordedDateAsc")
-            R.id.sort_by_name_dsc -> usersBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByNameDsc")
-            R.id.sort_by_birth_date_dsc -> usersBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByBirthdayDateDsc")
-            R.id.sort_by_recorded_date_dsc -> usersBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByRecordedDateDsc")
+            R.id.sort_by_name_asc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByNameAsc","PastBirthdays")
+            R.id.sort_by_birth_date_asc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByBirthdayDateAsc","PastBirthdays")
+            R.id.sort_by_recorded_date_asc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByRecordedDateAsc","PastBirthdays")
+            R.id.sort_by_name_dsc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByNameDsc","PastBirthdays")
+            R.id.sort_by_birth_date_dsc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByBirthdayDateDsc","PastBirthdays")
+            R.id.sort_by_recorded_date_dsc -> usersBirthdayViewModel.sortWithPage("sortBirthdaysByRecordedDateDsc","PastBirthdays")
             else -> emptyList()
         }
 
@@ -366,7 +380,6 @@ object UserFrequentlyUsedFunctions {
                                 viewLifecycleOwner: LifecycleOwner,
                                 userSharedPreferences: UserSharedPreferencesManager,
                                 findNavController: NavController,
-                                action: Int
                                 ){
 
         if (isValidEmail(email) && password.isNotEmpty()) {

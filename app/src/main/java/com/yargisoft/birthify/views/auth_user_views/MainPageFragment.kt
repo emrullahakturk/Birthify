@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -157,7 +156,6 @@ class MainPageFragment : Fragment() {
         binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.bottomNavBirthdays -> {
-                    findNavController().navigate(R.id.mainToMain)
                     true
                 }
                 R.id.bottomNavTrashBin-> {

@@ -14,7 +14,6 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
-import com.yargisoft.birthify.databinding.FragmentAuthDeletedBirthdayDetailBinding
 import com.yargisoft.birthify.databinding.FragmentGuestDeletedBirthdayDetailBinding
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.GuestRepository

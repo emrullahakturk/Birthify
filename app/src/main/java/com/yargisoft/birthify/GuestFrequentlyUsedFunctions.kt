@@ -41,7 +41,6 @@ import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
 import com.yargisoft.birthify.adapters.PastBirthdayAdapter
 import com.yargisoft.birthify.models.Birthday
-import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
 import kotlinx.coroutines.launch
@@ -50,8 +49,23 @@ import java.util.Calendar
 import java.util.Locale
 
 
+
 object GuestFrequentlyUsedFunctions {
 
+    // Sorting Menümüze font eklemek için kullanılan class
+    class CustomTypefaceSpan(private val typeface: Typeface?) : TypefaceSpan("") {
+        override fun updateDrawState(textPaint: TextPaint) {
+            applyCustomTypeFace(textPaint, typeface)
+        }
+
+        override fun updateMeasureState(textPaint: TextPaint) {
+            applyCustomTypeFace(textPaint, typeface)
+        }
+
+        private fun applyCustomTypeFace(paint: Paint, typeface: Typeface?) {
+            paint.typeface = typeface
+        }
+    }
 
     //EditText ile arama yaparken aramayı filtrelemek için kullanılan fonksiyon (TrashBin İçin)
     fun filterBirthdays(query: String, guestBirthdayViewModel: GuestBirthdayViewModel, adapter: DeletedBirthdayAdapter) {
@@ -138,32 +152,20 @@ object GuestFrequentlyUsedFunctions {
 
     }
 
-    // Menümüze font eklemek için kullanılan class
-    class CustomTypefaceSpan(private val typeface: Typeface?) : TypefaceSpan("") {
-        override fun updateDrawState(textPaint: TextPaint) {
-            applyCustomTypeFace(textPaint, typeface)
-        }
 
-        override fun updateMeasureState(textPaint: TextPaint) {
-            applyCustomTypeFace(textPaint, typeface)
-        }
-
-        private fun applyCustomTypeFace(paint: Paint, typeface: Typeface?) {
-            paint.typeface = typeface
-        }
-    }
 
     private fun handleSortOptionSelected(menuItem: MenuItem,
                                          adapter: BirthdayAdapter,
-                                         guestBirthdayViewModel:GuestBirthdayViewModel) {
+                                         guestBirthdayViewModel: GuestBirthdayViewModel
+    ) {
 
         val sortedList = when (menuItem.itemId) {
-            R.id.sort_by_name_asc -> guestBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByNameAsc")
-            R.id.sort_by_birth_date_asc -> guestBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByBirthdayDateAsc")
-            R.id.sort_by_recorded_date_asc -> guestBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByRecordedDateAsc")
-            R.id.sort_by_name_dsc -> guestBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByNameDsc")
-            R.id.sort_by_birth_date_dsc -> guestBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByBirthdayDateDsc")
-            R.id.sort_by_recorded_date_dsc -> guestBirthdayViewModel.sortBirthdaysMainPage("sortBirthdaysByRecordedDateDsc")
+            R.id.sort_by_name_asc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByNameAsc","Main")
+            R.id.sort_by_birth_date_asc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByBirthdayDateAsc","Main")
+            R.id.sort_by_recorded_date_asc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByRecordedDateAsc","Main")
+            R.id.sort_by_name_dsc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByNameDsc","Main")
+            R.id.sort_by_birth_date_dsc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByBirthdayDateDsc","Main")
+            R.id.sort_by_recorded_date_dsc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByRecordedDateDsc","Main")
             else -> emptyList()
         }
 
@@ -182,7 +184,14 @@ object GuestFrequentlyUsedFunctions {
         for (i in 0 until popupMenu.menu.size()) {
             val menuItem = popupMenu.menu.getItem(i)
             val spanString = SpannableString(menuItem.title)
-            spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.green_login)), 0, spanString.length, 0)
+            spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.black)), 0, spanString.length, 0)
+
+            // wittgenstein_font ataması yapma
+            val typeface = ResourcesCompat.getFont(context, R.font.wittgenstein_font)
+            spanString.setSpan(UserFrequentlyUsedFunctions.CustomTypefaceSpan(typeface), 0, spanString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+
+
             menuItem.title = spanString
         }
 
@@ -194,12 +203,12 @@ object GuestFrequentlyUsedFunctions {
     }
     private fun handleSortOptionSelected(menuItem: MenuItem, adapter: DeletedBirthdayAdapter, guestBirthdayViewModel:GuestBirthdayViewModel) {
         val sortedList = when (menuItem.itemId) {
-            R.id.sort_by_name_asc -> guestBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByNameAsc")
-            R.id.sort_by_birth_date_asc -> guestBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByBirthdayDateAsc")
-            R.id.sort_by_recorded_date_asc -> guestBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByRecordedDateAsc")
-            R.id.sort_by_name_dsc -> guestBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByNameDsc")
-            R.id.sort_by_birth_date_dsc -> guestBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByBirthdayDateDsc")
-            R.id.sort_by_recorded_date_dsc -> guestBirthdayViewModel.sortBirthdaysTrashBin("sortBirthdaysByRecordedDateDsc")
+            R.id.sort_by_name_asc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByNameAsc","TrashBin")
+            R.id.sort_by_birth_date_asc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByBirthdayDateAsc","TrashBin")
+            R.id.sort_by_recorded_date_asc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByRecordedDateAsc","TrashBin")
+            R.id.sort_by_name_dsc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByNameDsc","TrashBin")
+            R.id.sort_by_birth_date_dsc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByBirthdayDateDsc","TrashBin")
+            R.id.sort_by_recorded_date_dsc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByRecordedDateDsc","TrashBin")
             else -> emptyList()
         }
 
@@ -218,7 +227,13 @@ object GuestFrequentlyUsedFunctions {
         for (i in 0 until popupMenu.menu.size()) {
             val menuItem = popupMenu.menu.getItem(i)
             val spanString = SpannableString(menuItem.title)
-            spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.green_login)), 0, spanString.length, 0)
+            spanString.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.black)), 0, spanString.length, 0)
+
+            // wittgenstein_font ataması yapma
+            val typeface = ResourcesCompat.getFont(context, R.font.wittgenstein_font)
+            spanString.setSpan(UserFrequentlyUsedFunctions.CustomTypefaceSpan(typeface), 0, spanString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+
             menuItem.title = spanString
         }
 
@@ -230,12 +245,12 @@ object GuestFrequentlyUsedFunctions {
     }
     private fun handleSortOptionSelected(menuItem: MenuItem, adapter: PastBirthdayAdapter, guestBirthdayViewModel:GuestBirthdayViewModel) {
         val sortedList = when (menuItem.itemId) {
-            R.id.sort_by_name_asc -> guestBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByNameAsc")
-            R.id.sort_by_birth_date_asc -> guestBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByBirthdayDateAsc")
-            R.id.sort_by_recorded_date_asc -> guestBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByRecordedDateAsc")
-            R.id.sort_by_name_dsc -> guestBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByNameDsc")
-            R.id.sort_by_birth_date_dsc -> guestBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByBirthdayDateDsc")
-            R.id.sort_by_recorded_date_dsc -> guestBirthdayViewModel.sortBirthdaysPastBirthdays("sortBirthdaysByRecordedDateDsc")
+            R.id.sort_by_name_asc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByNameAsc","PastBirthdays")
+            R.id.sort_by_birth_date_asc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByBirthdayDateAsc","PastBirthdays")
+            R.id.sort_by_recorded_date_asc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByRecordedDateAsc","PastBirthdays")
+            R.id.sort_by_name_dsc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByNameDsc","PastBirthdays")
+            R.id.sort_by_birth_date_dsc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByBirthdayDateDsc","PastBirthdays")
+            R.id.sort_by_recorded_date_dsc -> guestBirthdayViewModel.sortWithPage("sortBirthdaysByRecordedDateDsc","PastBirthdays")
             else -> emptyList()
         }
 
@@ -302,7 +317,7 @@ object GuestFrequentlyUsedFunctions {
                     }
                 }
 
-                loadAndStateOperation(viewLifecycleOwner,guestBirthdayViewModel,lottieAnimationView,view,findNavController,action, navOptions )
+                loadAndStateOperation(viewLifecycleOwner,lottieAnimationView,view,findNavController,action, navOptions )
             }
             .setNegativeButton("No"){_,_->
                 //animasyonu durdurup view'i visible yapıyoruz
@@ -332,16 +347,16 @@ object GuestFrequentlyUsedFunctions {
     // aynı zamanda arayüzü kilitleyip kullanıcının ekranda işlemler yapmasını engelliyor (disableViewEnableLottie ile)
     //isloading işlemin tamamlanıp tamamlanmadığını dönderiyor ve içerisindeki enableViewDisableLottie fonksiyonu ile arayüzü
     //kullanıcının kullanımına açıyor
-    fun loadAndStateOperation(viewLifecycleOwner:LifecycleOwner, guestBirthdayViewModel:GuestBirthdayViewModel, lottieAnimationView: LottieAnimationView, view:View, findNavController: NavController, action:Int, navOptions: NavOptions)
+    fun loadAndStateOperation(viewLifecycleOwner:LifecycleOwner, lottieAnimationView: LottieAnimationView, view:View, findNavController: NavController, action:Int, navOptions: NavOptions)
     {
         disableViewEnableLottie(lottieAnimationView,view)
-        isLoadingCheck(viewLifecycleOwner,guestBirthdayViewModel,lottieAnimationView,view, findNavController, action, navOptions)
+        isLoadingCheck(viewLifecycleOwner,lottieAnimationView,view, findNavController, action, navOptions)
     }
 
 
     //Auth View Model ve UsersBirthdayViewModel için isLoading Kontrolü yapan fonksiyon
     // (Suspend fonksiyonun bitip bitmediğini kontrol ediyoruz)
-    private fun isLoadingCheck(viewLifecycleOwner: LifecycleOwner, viewModel:GuestBirthdayViewModel, lottieAnimationView: LottieAnimationView, view: View, findNavController: NavController?, action: Int?, navOptions: NavOptions)
+    private fun isLoadingCheck(viewLifecycleOwner: LifecycleOwner, lottieAnimationView: LottieAnimationView, view: View, findNavController: NavController?, action: Int?, navOptions: NavOptions)
     {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -362,7 +377,6 @@ object GuestFrequentlyUsedFunctions {
                                 findNavController: NavController,
                                 menuButtonToolbar:View,
                                 activity: Activity,
-                                guestRepository:GuestRepository,
                                 userSharedPreferences:UserSharedPreferencesManager,
                                 sourcePage:String
     ){

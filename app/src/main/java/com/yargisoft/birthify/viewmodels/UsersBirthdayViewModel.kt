@@ -11,8 +11,7 @@ import com.yargisoft.birthify.repositories.BirthdayRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewModel() {
 
@@ -95,7 +94,7 @@ class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewM
     }
     fun getPastBirthdays(){
         _pastBirthdayList.value = repository.getPastBirthdays()
-        _pastBirthdayList.value = sortBirthdaysPastBirthdays("sortBirthdaysByBirthdayDateDsc")
+        _pastBirthdayList.value = sortWithPage("sortBirthdaysByBirthdayDateDsc","PastBirthdays")
     }
 
 
@@ -160,91 +159,42 @@ class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewM
 
 
 
-
-
     @SuppressLint("CheckResult")
-fun sortBirthdaysMainPage(sort: String): List<Birthday> {
-    val monthMap = mapOf(
-        "January" to 1, "February" to 2, "March" to 3, "April" to 4,
-        "May" to 5, "June" to 6, "July" to 7, "August" to 8,
-        "September" to 9, "October" to 10, "November" to 11, "December" to 12
-    )
-
-    return when (sort) {
-        "sortBirthdaysByNameAsc" -> birthdayList.value?.sortedBy { it.name } ?: emptyList()
-        "sortBirthdaysByNameDsc" -> birthdayList.value?.sortedByDescending { it.name } ?: emptyList()
-        "sortBirthdaysByBirthdayDateAsc" -> birthdayList.value?.sortedWith(compareBy(
-            { val parts = it.birthdayDate.split(" ")
-                monthMap[parts[1]] },
-            { val parts = it.birthdayDate.split(" ")
-                parts[0].toInt() }
-        )) ?: emptyList()
-        "sortBirthdaysByBirthdayDateDsc" -> birthdayList.value?.sortedWith(compareBy(
-            { val parts = it.birthdayDate.split(" ")
-                monthMap[parts[1]] },
-            { val parts = it.birthdayDate.split(" ")
-                parts[0].toInt() }
-        ))?.reversed() ?: emptyList()
-        "sortBirthdaysByRecordedDateAsc" -> birthdayList.value?.sortedBy { it.recordedDate } ?: emptyList()
-        "sortBirthdaysByRecordedDateDsc" -> birthdayList.value?.sortedByDescending { it.recordedDate } ?: emptyList()
-        else -> emptyList()
-    }
-}
-
-fun sortBirthdaysTrashBin(sort: String): List<Birthday> {
-    val monthMap = mapOf(
-        "January" to 1, "February" to 2, "March" to 3, "April" to 4,
-        "May" to 5, "June" to 6, "July" to 7, "August" to 8,
-        "September" to 9, "October" to 10, "November" to 11, "December" to 12
-    )
-
-    return when(sort) {
-        "sortBirthdaysByNameAsc" -> deletedBirthdayList.value?.sortedBy { it.name } ?: emptyList()
-        "sortBirthdaysByNameDsc" -> deletedBirthdayList.value?.sortedByDescending { it.name } ?: emptyList()
-        "sortBirthdaysByBirthdayDateAsc" -> deletedBirthdayList.value?.sortedWith(compareBy(
-            { val parts = it.birthdayDate.split(" ")
-                monthMap[parts[1]] },
-            { val parts = it.birthdayDate.split(" ")
-                parts[0].toInt() }
-        )) ?: emptyList()
-        "sortBirthdaysByBirthdayDateDsc" -> deletedBirthdayList.value?.sortedWith(compareBy(
-            { val parts = it.birthdayDate.split(" ")
-                monthMap[parts[1]] },
-            { val parts = it.birthdayDate.split(" ")
-                parts[0].toInt() }
-        ))?.reversed() ?: emptyList()
-        "sortBirthdaysByRecordedDateAsc" -> deletedBirthdayList.value?.sortedBy { it.recordedDate } ?: emptyList()
-        "sortBirthdaysByRecordedDateDsc" -> deletedBirthdayList.value?.sortedByDescending { it.recordedDate } ?: emptyList()
-        else -> emptyList()
-    }
-}
-
-    fun sortBirthdaysPastBirthdays(sort: String): List<Birthday> {
+    private fun sortBirthdays(sort: String, sortList: List<Birthday>): List<Birthday> {
         val monthMap = mapOf(
             "January" to 1, "February" to 2, "March" to 3, "April" to 4,
             "May" to 5, "June" to 6, "July" to 7, "August" to 8,
             "September" to 9, "October" to 10, "November" to 11, "December" to 12
         )
-
-        return when(sort) {
-            "sortBirthdaysByNameAsc" -> pastBirthdayList.value?.sortedBy { it.name } ?: emptyList()
-            "sortBirthdaysByNameDsc" -> pastBirthdayList.value?.sortedByDescending { it.name } ?: emptyList()
-            "sortBirthdaysByBirthdayDateAsc" -> pastBirthdayList.value?.sortedWith(compareBy(
+        return when (sort) {
+            "sortBirthdaysByNameAsc" -> sortList.sortedBy { it.name.lowercase(Locale.getDefault()) }
+            "sortBirthdaysByNameDsc" -> sortList.sortedByDescending { it.name.lowercase(Locale.getDefault()) }
+            "sortBirthdaysByBirthdayDateAsc" -> sortList.sortedWith(compareBy(
                 { val parts = it.birthdayDate.split(" ")
                     monthMap[parts[1]] },
                 { val parts = it.birthdayDate.split(" ")
                     parts[0].toInt() }
-            )) ?: emptyList()
-            "sortBirthdaysByBirthdayDateDsc" -> pastBirthdayList.value?.sortedWith(compareBy(
+            ))
+            "sortBirthdaysByBirthdayDateDsc" -> sortList.sortedWith(compareBy(
                 { val parts = it.birthdayDate.split(" ")
                     monthMap[parts[1]] },
                 { val parts = it.birthdayDate.split(" ")
                     parts[0].toInt() }
-            ))?.reversed() ?: emptyList()
-            "sortBirthdaysByRecordedDateAsc" -> pastBirthdayList.value?.sortedBy { it.recordedDate } ?: emptyList()
-            "sortBirthdaysByRecordedDateDsc" -> pastBirthdayList.value?.sortedByDescending { it.recordedDate } ?: emptyList()
+            )).reversed()
+            "sortBirthdaysByRecordedDateAsc" -> sortList.sortedBy { it.recordedDate }
+            "sortBirthdaysByRecordedDateDsc" -> sortList.sortedByDescending { it.recordedDate }
             else -> emptyList()
         }
+    }
+
+    fun sortWithPage(sort: String, sourcePage : String ):List<Birthday>{
+        var sortList : List<Birthday> = emptyList()
+        when(sourcePage){
+            "PastBirthdays" -> sortList =  _pastBirthdayList.value ?: emptyList()
+            "Main" -> sortList =  _birthdayList.value ?: emptyList()
+            "TrashBin" -> sortList =  _deletedBirthdayList.value ?: emptyList()
+        }
+        return sortBirthdays(sort,sortList)
     }
 
 

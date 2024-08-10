@@ -11,14 +11,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
-import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.adapters.PastBirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentAuthPastBirthdaysBinding
 import com.yargisoft.birthify.repositories.AuthRepository
@@ -120,9 +117,9 @@ class PastBirthdaysFragment : Fragment() {
             findNavController().navigate(R.id.pastBirthdaysToAddBirthday)
         }
 
-    binding.fabBackPastBirthdays.setOnClickListener {
+        binding.fabBackPastBirthdays.setOnClickListener {
         findNavController().popBackStack()
-    }
+        }
 
 
 
@@ -139,7 +136,6 @@ class PastBirthdaysFragment : Fragment() {
                     true
                 }
                 R.id.bottomNavPastBirthdays -> {
-                    findNavController().navigate(R.id.pastBirthdaysToPastBirthdays)
                     true
                 }
                 else -> false

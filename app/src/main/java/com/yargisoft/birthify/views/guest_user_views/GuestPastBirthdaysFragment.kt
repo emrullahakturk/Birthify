@@ -10,16 +10,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
-import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.adapters.PastBirthdayAdapter
-import com.yargisoft.birthify.databinding.FragmentGuestMainPageBinding
 import com.yargisoft.birthify.databinding.FragmentGuestPastBirthdaysBinding
 import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
@@ -77,7 +73,7 @@ class GuestPastBirthdaysFragment : Fragment() {
         //Adapter'ı initialize etme
         adapter = PastBirthdayAdapter(
             adapterList.sortedByDescending { it.recordedDate },
-            { birthday ->
+            { _ ->
 //                val action = GuestPastBirthdaysFragmentDirections.guestPastTP(birthday)
 //                findNavController().navigate(action)
             },
@@ -122,7 +118,6 @@ class GuestPastBirthdaysFragment : Fragment() {
                     true
                 }
                 R.id.bottomNavPastBirthdays -> {
-                    findNavController().navigate(R.id.guestPastToPastBirthdays)
                     true
                 }
                 else -> false

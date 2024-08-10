@@ -127,7 +127,6 @@ class TrashBinFragment : Fragment() {
                     true
                 }
                 R.id.bottomNavTrashBin-> {
-                    findNavController().navigate(R.id.trashToTrashBin)
                     true
                 }
                 R.id.bottomNavPastBirthdays -> {

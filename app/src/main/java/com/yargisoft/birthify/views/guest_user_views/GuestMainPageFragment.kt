@@ -3,7 +3,6 @@ package com.yargisoft.birthify.views.guest_user_views
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +23,6 @@ import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
-import com.yargisoft.birthify.views.auth_user_views.MainPageFragmentDirections
 
 
 class GuestMainPageFragment : Fragment() {
@@ -146,7 +143,6 @@ class GuestMainPageFragment : Fragment() {
         binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.bottomNavBirthdays -> {
-                    findNavController().navigate(R.id.guestMainToMain)
                     true
                 }
                 R.id.bottomNavTrashBin-> {

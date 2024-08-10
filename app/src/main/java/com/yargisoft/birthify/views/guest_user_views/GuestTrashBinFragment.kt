@@ -10,20 +10,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
-import com.yargisoft.birthify.databinding.FragmentAuthTrashBinBinding
 import com.yargisoft.birthify.databinding.FragmentGuestTrashBinBinding
 import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
-import com.yargisoft.birthify.views.auth_user_views.TrashBinFragmentDirections
 
 class GuestTrashBinFragment : Fragment() {
 
@@ -120,7 +117,6 @@ class GuestTrashBinFragment : Fragment() {
                     true
                 }
                 R.id.bottomNavTrashBin-> {
-                    findNavController().navigate(R.id.guestTrashBinToTrashBin)
                     true
                 }
                 R.id.bottomNavPastBirthdays -> {
@@ -149,7 +145,6 @@ class GuestTrashBinFragment : Fragment() {
             findNavController(),
             toolbarMenuButton,
             requireActivity(),
-            guestRepository,
             userSharedPreferences,
             "GuestTrashBin"
         )
