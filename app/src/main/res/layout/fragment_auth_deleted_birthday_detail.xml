@@ -102,7 +102,7 @@
                         android:focusable="false"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_account"
-                        app:startIconTint="@color/ic_account">
+                        app:startIconTint="@color/ic_account_deleted_detail">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/name"
@@ -126,7 +126,7 @@
                         android:focusable="false"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_date"
-                        app:startIconTint="@color/ic_dots">
+                        app:startIconTint="@color/ic_calendar_deleted_detail">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/birthdayDateEditText"
@@ -150,7 +150,7 @@
                         android:focusable="false"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_note"
-                        app:startIconTint="@color/ic_note">
+                        app:startIconTint="@color/ic_note_deleted_detail">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/note"

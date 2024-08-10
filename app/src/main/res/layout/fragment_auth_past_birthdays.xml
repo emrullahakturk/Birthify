@@ -139,7 +139,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/pastBirthdaysTv"
                         app:startIconDrawable="@drawable/ic_search"
-                        app:startIconTint="@color/ic_search">
+                        app:startIconTint="@color/ic_search_past">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/searchEditText"
@@ -197,7 +197,7 @@
                             android:backgroundTint="@color/bottom_navigation_background"
                             app:menu="@menu/bottom_nav_menu"
                             app:navigationIcon="@drawable/ic_search"
-                            app:navigationIconTint="@color/black">
+                            app:navigationIconTint="@color/white">
 
 
                         </com.google.android.material.bottomappbar.BottomAppBar>
