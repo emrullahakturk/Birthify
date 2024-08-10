@@ -1,5 +1,6 @@
 package com.yargisoft.birthify.views.guest_user_views
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -122,6 +124,14 @@ class GuestPastBirthdaysFragment : Fragment() {
                 else -> false
             }
         }
+
+        binding.bottomAppBar.setNavigationOnClickListener {
+            binding.searchEditText.requestFocus()
+            //tıklandıktan sonra klavyenin açılmasını sağlar
+            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT)
+        }
+
 
         binding.sortButton.setOnClickListener {
             GuestFrequentlyUsedFunctions.showSortMenu(it, requireContext(), adapter, guestBirthdayViewModel)

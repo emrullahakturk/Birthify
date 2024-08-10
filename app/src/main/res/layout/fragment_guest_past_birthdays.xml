@@ -71,7 +71,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginTop="10dp"
-                        android:backgroundTint="@color/sort_button_background"
+                        android:backgroundTint="@color/sort_button_background_past"
                         android:drawableEnd="@drawable/ic_dots_past"
                         android:text="@string/sort_options"
                         android:textColor="@color/sorting_options_tv_past"
@@ -197,7 +197,8 @@
                             android:backgroundTint="@color/bottom_navigation_background"
                             app:menu="@menu/bottom_nav_menu"
                             app:navigationIcon="@drawable/ic_search"
-                            app:navigationIconTint="@color/white">
+                            app:navigationIconTint="@color/ic_search_bottom"
+                            >
 
 
                         </com.google.android.material.bottomappbar.BottomAppBar>

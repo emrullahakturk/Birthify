@@ -26,7 +26,7 @@ class PastBirthdayAdapter(private var pastBirthdayList: List<Birthday>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PastBirthdayViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_deleted_birthday, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_past_birthday, parent, false)
 
         return PastBirthdayViewHolder(view)
     }

@@ -51,6 +51,7 @@
                 android:backgroundTint="@color/create_account_button"
                 android:fontFamily="@font/wittgenstein_font"
                 android:text="@string/create_account"
+                android:textColor="@color/create_account_tv"
                 android:textSize="20sp"
 
                 app:layout_constraintEnd_toEndOf="parent"

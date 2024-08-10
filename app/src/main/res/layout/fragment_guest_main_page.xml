@@ -79,7 +79,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginTop="14dp"
-                        android:backgroundTint="@color/sort_button_background"
+                        android:backgroundTint="@color/sort_button_background_main"
                         android:drawableEnd="@drawable/ic_dots_main"
                         android:text="@string/sort_options"
                         android:textColor="@color/sorting_options_tv_main"
@@ -197,7 +197,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             app:navigationIcon="@drawable/ic_search"
-                            app:navigationIconTint="@color/white"
+                            app:navigationIconTint="@color/ic_search_bottom"
                             android:layout_gravity="bottom"
                             app:menu="@menu/bottom_nav_menu">
 

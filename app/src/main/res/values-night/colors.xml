@@ -26,6 +26,7 @@
     <color name="ic_note">#FFFFFF</color>
     <color name="ic_plus_one">#FFFFFF</color>
     <color name="ic_search">#3F744C</color>
+    <color name="ic_search_bottom">#FFFFFF</color>
     <color name="ic_settings">#FFFFFF</color>
     <color name="ic_password_toggle">#FFFFFF</color>
     <color name="bottom_nav_icon_background">#FFFFFF</color>
@@ -196,6 +197,7 @@
     <color name="main_page_background">#000000</color>
     <color name="fab_button_background_main">#B39D7C</color>
     <color name="sorting_options_tv_main">#B39D7C</color>
+    <color name="sort_button_background_main">#000000</color>
     <color name="rounded_edit_main">#B39D7C</color>
     <color name="birthdays_tv_main">#eee0cb</color>
     <color name="ic_navigation_icons_main">#B39D7C</color>
@@ -217,6 +219,7 @@
     <color name="past_birthdays_tv">#FFFFFF</color>
     <color name="ic_search_past">#7c606b</color>
     <color name="sorting_options_tv_past">#7c606b</color>
+    <color name="sort_button_background_past">#000000</color>
     <color name="fab_button_background_past">#7c606b</color>
     <color name="navigation_drawer_background_past">#FFFFFF</color>
     <color name="ic_navigation_icons_past">#7c606b</color>

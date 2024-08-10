@@ -1,12 +1,19 @@
 package com.yargisoft.birthify.views.authentication_views
 
+import android.Manifest
+import android.content.Context
+import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -16,6 +23,7 @@ import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 
 class SplashFragment : Fragment() {
     private lateinit var userSharedPreferencesManager: UserSharedPreferencesManager
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
 
 
@@ -25,11 +33,44 @@ class SplashFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_splash, container, false)
 
         userSharedPreferencesManager = UserSharedPreferencesManager(requireContext())
-        checkSession()
-        // Bir fragment'tan diğerine geçiş yaparken
+
+        // İzin isteme işlemini başlatmak için launcher
+        requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                Log.d("NotificationPermission", "Bildirim izni verildi.")
+            } else {
+                Log.d("NotificationPermission", "Bildirim izni reddedildi.")
+            }
+            // İzin işlemi tamamlandıktan sonra oturum kontrolünü yap
+            checkSession()
+        }
+
+        // SharedPreferences ile ilk açılışı kontrolü
+        val sharedPreferences = requireContext().getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+        val isFirstLaunch = sharedPreferences.getBoolean("isFirstLaunch", true)
+
+        if (isFirstLaunch) {
+            // İlk açılışsa bildirim izni istenir
+            requestNotificationPermission()
+            sharedPreferences.edit().putBoolean("isFirstLaunch", false).apply()
+        } else {
+            // İlk açılış değilse direkt oturum kontrolünü yap
+            checkSession()
+        }
+
 
 
         return view
+    }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else {
+            checkSession() // Eski Android sürümlerinde direkt oturum kontrolüne geç
+        }
     }
 
 
@@ -48,7 +89,7 @@ class SplashFragment : Fragment() {
                 userSharedPreferencesManager.clearUserSession()
                 navigateToFragmentAndClearStack(findNavController(),R.id.splashFragment, R.id.splashToFirstPage )
             }
-        }, 3000) // 3 saniye bekletme
+        }, 3500) // 3 saniye bekletme
     }
 
     private fun navigateToFragmentAndClearStack(navController: NavController, currentFragmentId: Int, targetFragmentId: Int) {
