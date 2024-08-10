@@ -116,7 +116,15 @@ class GuestEditBirthdayFragment : Fragment() {
 
         }
         binding.toolbarGuestEditBirthday.findViewById<View>(R.id.menuButtonToolbar).setOnClickListener {
-
+                GuestFrequentlyUsedFunctions.drawerLayoutToggle(
+                    drawerLayout,
+                    navigationView,
+                    findNavController(),
+                    toolbarMenuButton,
+                    requireActivity(),
+                    userSharedPreferences,
+                    "GuestMainPage"
+                    )
         }
 
         binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->

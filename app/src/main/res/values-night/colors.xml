@@ -157,13 +157,13 @@
     <color name="fab_button_background_edit">#7c606b</color>
     <color name="update_birthday_button_edit">#7c606b</color>
     <color name="delete_birthday_button_edit">#FF0000</color>
-    <color name="rounded_edit_edit">#153131</color>
-    <color name="ic_note_edit">#594236</color>
-    <color name="ic_account_edit">#594236</color>
-    <color name="ic_calendar_edit">#594236</color>
+    <color name="rounded_edit_edit">#FFFFFF</color>
+    <color name="ic_note_edit">#7c606b</color>
+    <color name="ic_account_edit">#7c606b</color>
+    <color name="ic_calendar_edit">#7c606b</color>
     <color name="edit_birthday_of_your_tv">#FFFFFF</color>
     <color name="ic_navigation_icons_edit">#7c606b</color>
-    <color name="nav_drawer_sub_header_tv_edit">#153131</color>
+    <color name="nav_drawer_sub_header_tv_edit">#7c606b</color>
 
     <!--Add Page renkleri-->
     <color name="add_birthday_page_background">#000000</color>

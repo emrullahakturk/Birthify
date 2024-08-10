@@ -223,7 +223,7 @@
                         android:backgroundTint="@color/bottom_navigation_background"
                         app:menu="@menu/bottom_nav_menu"
                         app:navigationIcon="@drawable/ic_search"
-                        app:navigationIconTint="@color/black"
+                        app:navigationIconTint="@color/white"
                         >
 
 
