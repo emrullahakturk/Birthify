@@ -120,10 +120,10 @@
 
 
     <!--Toolbar renkleri-->
-    <color name="ic_search_toolbar">#555555</color>
+    <color name="ic_search_toolbar">#eee0cb</color>
     <color name="toolbar_app_name">#eee0cb</color>
     <color name="toolbar_background">#000000</color>
-    <color name="ic_menu_line">#555555</color>
+    <color name="ic_menu_line">#eee0cb</color>
     <color name="line_view">#555555</color>
 
     <!--Deleted Detail Page renkleri-->
@@ -187,13 +187,13 @@
     <!--Main Page renkleri-->
     <color name="main_page_background">#000000</color>
     <color name="fab_button_background_main">#5B9ECB</color>
-    <color name="sorting_options_tv_main">#1d3557</color>
-    <color name="rounded_edit_main">#987070</color>
-    <color name="birthdays_tv_main">#1d3557</color>
+    <color name="sorting_options_tv_main">#FFFFFF</color>
+    <color name="rounded_edit_main">#FFFFFF</color>
+    <color name="birthdays_tv_main">#FFFFFF</color>
     <color name="ic_navigation_icons_main">#5B9ECB</color>
-    <color name="nav_drawer_sub_header_tv_main">#1d3557</color>
-    <color name="ic_dots_main">#1d3557</color>
-    <color name="ic_search_main">#1d3557</color>
+    <color name="nav_drawer_sub_header_tv_main">#5B9ECB</color>
+    <color name="ic_dots_main">#FFFFFF</color>
+    <color name="ic_search_main">#5B9ECB</color>
 
     <!--İtem Past Birthdays renkleri-->
     <color name="item_past_birthday_name">#000000</color>

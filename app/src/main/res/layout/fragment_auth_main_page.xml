@@ -62,7 +62,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#f0eeee">
+                    android:background="@color/main_page_background">
 
 
                     <include
@@ -198,7 +198,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             app:navigationIcon="@drawable/ic_search"
-                            app:navigationIconTint="@color/black"
+                            app:navigationIconTint="@color/white"
                             android:layout_gravity="bottom"
                             app:menu="@menu/bottom_nav_menu">
 
