@@ -62,7 +62,6 @@ class GuestEditBirthdayFragment : Fragment() {
             findNavController(),
             toolbarMenuButton,
             requireActivity(),
-            guestRepository,
             userSharedPreferences,
             "GuestBirthdayEdit"
         )
@@ -99,7 +98,6 @@ class GuestEditBirthdayFragment : Fragment() {
 
             GuestFrequentlyUsedFunctions.loadAndStateOperation(
                 viewLifecycleOwner,
-                guestBirthdayViewModel,
                 binding.threePointAnimation,
                 binding.root,
                 findNavController(),

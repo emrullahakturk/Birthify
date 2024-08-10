@@ -74,7 +74,6 @@ class GuestMainPageFragment : Fragment() {
             findNavController(),
             toolbarMenuButton,
             requireActivity(),
-            guestRepository,
             userSharedPreferences,
             "GuestMainPage"
         )

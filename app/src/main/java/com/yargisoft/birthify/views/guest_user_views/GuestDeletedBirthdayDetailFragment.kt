@@ -111,7 +111,6 @@ class GuestDeletedBirthdayDetailFragment : Fragment() {
             findNavController(),
             menuToolbarIcon,
             requireActivity(),
-            guestRepository,
             userSharedPreferences,
             "GuestDeletedBirthdayDetail"
         )

@@ -92,6 +92,8 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
                     app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -183,7 +185,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:navigationIcon="@drawable/ic_search"
-                        app:navigationIconTint="@color/black"
+                        app:navigationIconTint="@color/white"
                         android:layout_gravity="bottom"
                         app:menu="@menu/bottom_nav_menu">
 
@@ -195,7 +197,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_anchor="@id/bottomAppBar"
-                        android:backgroundTint="@color/fab_button_background_addBday"
+                        android:backgroundTint="@color/fab_button_background_add_birthday"
                         app:srcCompat="@drawable/ic_back_bottom"
                         tools:ignore="ContentDescription" />
 

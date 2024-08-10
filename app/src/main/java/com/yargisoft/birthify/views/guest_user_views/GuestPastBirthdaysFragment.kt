@@ -62,7 +62,6 @@ class GuestPastBirthdaysFragment : Fragment() {
             findNavController(),
             toolbarMenuButton,
             requireActivity(),
-            guestRepository,
             userSharedPreferences,
             "GuestPastBirthdays"
         )

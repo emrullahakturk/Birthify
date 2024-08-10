@@ -76,7 +76,7 @@ class GuestAddBirthdayFragment : Fragment() {
 
             if (name.isNotEmpty() && birthdayDate.isNotEmpty() && note.isNotEmpty()) {
                 guestBirthdayViewModel.saveBirthday(bDay)
-              GuestFrequentlyUsedFunctions.loadAndStateOperation(viewLifecycleOwner, guestBirthdayViewModel, binding.threePointAnimation, binding.root, findNavController(), R.id.guestAddToMain, navOptions)
+              GuestFrequentlyUsedFunctions.loadAndStateOperation(viewLifecycleOwner, binding.threePointAnimation, binding.root, findNavController(), R.id.guestAddToMain, navOptions)
             }
             else{
                 Snackbar.make(view,"Please fill in all fields", Snackbar.LENGTH_SHORT).show()
@@ -99,7 +99,6 @@ class GuestAddBirthdayFragment : Fragment() {
             findNavController(),
             toolbarMenuIcon,
             requireActivity(),
-            guestRepository,
             userSharedPreferences,
             "GuestAddBirthday"
         )
