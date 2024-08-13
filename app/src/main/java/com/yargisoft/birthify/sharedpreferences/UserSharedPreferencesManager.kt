@@ -1,44 +1,33 @@
 package com.yargisoft.birthify.sharedpreferences
 
 import android.content.Context
+import android.content.SharedPreferences
 
 class UserSharedPreferencesManager(context: Context) {
-    private val preferences = context.getSharedPreferences(UserConstants.PREFS_NAME, Context.MODE_PRIVATE)
+    val preferences: SharedPreferences = context.getSharedPreferences(UserConstants.PREFS_NAME, Context.MODE_PRIVATE)
 
-    fun saveUserSession(email: String, userId: String, isChecked: Boolean) {
-        with(preferences.edit()) {
-            putString(UserConstants.PREF_EMAIL, email)
-            putString(UserConstants.KEY_USER_ID, userId)
-            putBoolean(UserConstants.PREF_CHECK, isChecked)
-            apply()
-        }
-    }
 
-    fun saveIsChecked(isChecked:Boolean){
-        with(preferences.edit()) {
-            putBoolean(UserConstants.PREF_CHECK, isChecked)
-            apply()
-        }
-    }
-
-    fun getUserCredentials(): Pair<String?, String?> {
+    fun getUserCredentials(): Triple<String?, String?, String?> {
         val email = preferences.getString(UserConstants.PREF_EMAIL, null)
         val userId = preferences.getString(UserConstants.KEY_USER_ID, null)
-        return Pair(email, userId)
+        val token = preferences.getString(UserConstants.USER_TOKEN, null)
+        return Triple(email, userId, token)
     }
 
 
     fun getUserId(): String {
         return preferences.getString(UserConstants.KEY_USER_ID, "").toString()
     }
-    fun checkIsUserLoggedIn(): Boolean {
-        return preferences.getBoolean(UserConstants.PREF_CHECK, false)
+
+    fun getToken(): String? {
+        return preferences.getString("token", null)
     }
+
+
     fun clearUserSession() {
         with(preferences.edit()) {
             remove(UserConstants.PREF_EMAIL)
             remove(UserConstants.KEY_USER_ID)
-            remove(UserConstants.PREF_CHECK)
             apply()
         }
     }
@@ -46,7 +35,7 @@ class UserSharedPreferencesManager(context: Context) {
         with(preferences.edit()) {
             putString(UserConstants.PREF_EMAIL, "guest")
             putString(UserConstants.KEY_USER_ID, "guest")
-            putBoolean(UserConstants.PREF_CHECK, true)
+            putString(UserConstants.USER_TOKEN, "guest")
             apply()
         }
     }

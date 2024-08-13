@@ -17,6 +17,7 @@ import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentRegisterBinding
 import com.yargisoft.birthify.repositories.AuthRepository
+import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import java.util.Locale
@@ -31,6 +32,7 @@ class RegisterFragment : Fragment() {
     private lateinit var registerPasswordEditText: TextInputEditText
     private lateinit var registerFullNameTextInput: TextInputLayout
     private lateinit var registerFullNameEditText: TextInputEditText
+    private lateinit var userSharedPreferences: UserSharedPreferencesManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,11 +41,13 @@ class RegisterFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_register, container, false)
 
+        userSharedPreferences= UserSharedPreferencesManager(requireContext())
+
         val navOptions = NavOptions.Builder()
             .setPopUpTo(R.id.registerFragment, inclusive = true)
             .build()
 
-        val repository = AuthRepository(requireContext())
+        val repository = AuthRepository(userSharedPreferences.preferences)
         val factory= AuthViewModelFactory(repository)
         viewModel = ViewModelProvider(this,factory)[AuthViewModel::class.java]
 
@@ -175,7 +179,7 @@ class RegisterFragment : Fragment() {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
-            UserFrequentlyUsedFunctions.registerValidationFunction(
+            UserFrequentlyUsedFunctions.registerValidation(
                 email,
                 password,
                 name,

@@ -44,7 +44,7 @@ class LoginPageFragment : Fragment() {
 
 
         //repo factory ve viewmodel tanımlamaları
-        val repository = AuthRepository(requireContext())
+        val repository = AuthRepository(userSharedPreferences.preferences)
         val factory = AuthViewModelFactory(repository)
         viewModel = ViewModelProvider(this,factory)[AuthViewModel::class.java]
 
@@ -95,16 +95,13 @@ class LoginPageFragment : Fragment() {
         binding.loginButton.setOnClickListener {
             val email = binding.loginEmailEditText.text.toString()
             val password = binding.loginPassEditText.text.toString()
-            val isChecked = binding.rememberCheckBox.isChecked
-            UserFrequentlyUsedFunctions.loginValidationFunction(
+            UserFrequentlyUsedFunctions.loginValidation(
                 binding.root,
                 email,
                 password,
-                isChecked,
                 viewModel,
                 binding.threePointAnimation,
                 viewLifecycleOwner,
-                userSharedPreferences,
                 findNavController(),
                 )
         }

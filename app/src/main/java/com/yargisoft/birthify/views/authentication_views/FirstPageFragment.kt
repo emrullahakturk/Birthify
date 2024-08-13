@@ -27,24 +27,18 @@ class FirstPageFragment : Fragment() {
 
 
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
-        //sayfa açıldığında user bilgilerini sıfırlar
-        userSharedPreferences.clearUserSession()
-
 
 
         binding.signInButton.setOnClickListener {
             navigateToFragmentAndClearStack(findNavController(),R.id.firstPageFragment,R.id.firstToLogin)
-            userSharedPreferences.clearUserSession()
         }
 
         binding.createAccountButton.setOnClickListener {
-            userSharedPreferences.clearUserSession()
             navigateToFragmentAndClearStack(findNavController(),R.id.firstPageFragment,R.id.firstToRegister)
         }
         binding.continueWithoutTv.setOnClickListener {
-            userSharedPreferences.clearUserSession()
-            navigateToFragmentAndClearStack(findNavController(),R.id.firstPageFragment,R.id.firstToGuestNavGraph)
             userSharedPreferences.saveAsGuest()
+            navigateToFragmentAndClearStack(findNavController(),R.id.firstPageFragment,R.id.firstToGuestNavGraph)
         }
         return  binding.root
     }

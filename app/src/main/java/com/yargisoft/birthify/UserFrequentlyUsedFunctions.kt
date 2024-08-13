@@ -2,6 +2,7 @@
 
 package com.yargisoft.birthify
 
+import com.yargisoft.birthify.viewmodels.AuthViewModel
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
@@ -46,7 +47,6 @@ import com.yargisoft.birthify.adapters.PastBirthdayAdapter
 import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
-import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -55,6 +55,8 @@ import java.util.Locale
 
 
 object UserFrequentlyUsedFunctions {
+
+
 
     // Sorting Menümüze font eklemek için kullanılan class
     class CustomTypefaceSpan(private val typeface: Typeface?) : TypefaceSpan("") {
@@ -371,82 +373,110 @@ object UserFrequentlyUsedFunctions {
 
     /*Login page içerisinde login butonuna tıkladığımızda, verilen email validasyonunu yapan,
        animasyonları gösterip devre dışı bırakan, kullanıcı etkileşimini sağlayan fonksiyon (snackbar iler)*/
-    fun loginValidationFunction(view: View,
-                                email: String,
-                                password:String,
-                                isChecked: Boolean,
-                                authViewModel: AuthViewModel,
-                                lottieAnimationView: LottieAnimationView,
-                                viewLifecycleOwner: LifecycleOwner,
-                                userSharedPreferences: UserSharedPreferencesManager,
-                                findNavController: NavController,
-                                ){
-
+    fun loginValidation(
+        view: View,
+        email: String,
+        password: String,
+        authViewModel: AuthViewModel,
+        lottieAnimationView: LottieAnimationView,
+        viewLifecycleOwner: LifecycleOwner,
+        findNavController: NavController
+    ) {
         if (isValidEmail(email) && password.isNotEmpty()) {
 
-            authViewModel.loginUser(email, password,isChecked)
+            authViewModel.loginUser(email, password)
 
-            disableViewEnableLottie(lottieAnimationView,view)
+            disableViewEnableLottie(lottieAnimationView, view)
 
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    authViewModel.isLoaded.collect { isLoaded ->
-                        if(isLoaded == true){
-                            if(authViewModel.authViewModelState == true){
-                                if (authViewModel.isEmailVerifiedResult == true) {
-                                    userSharedPreferences.saveIsChecked(isChecked)
+            Handler(Looper.getMainLooper()).postDelayed({
+                viewLifecycleOwner.lifecycleScope.launch {
+                    var isLoadedEmitted = false // Kontrol değişkeni
+
+                    viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        authViewModel.isLoaded.collect { isLoaded ->
+                            if (isLoaded && !isLoadedEmitted) {
+                                isLoadedEmitted = true // Tekrar çalışmasını engellemek için işaretler
+
+                                val isSuccess = authViewModel.authSuccess.value
+                                val errorMessage = authViewModel.authError.value
+
+                                if (isSuccess) {
                                     Snackbar.make(view, "You successfully logged in", Snackbar.LENGTH_SHORT).show()
-                                    navigateToFragmentAndClearStack(findNavController,R.id.loginPageFragment, R.id.loginToMain)
-
+                                    navigateToFragmentAndClearStack(findNavController, R.id.loginPageFragment, R.id.loginToMain)
+                                    Log.e("tagımıs", "navigated")
                                 } else {
-                                    userSharedPreferences.apply {
-//                                        clearUserSession()
-                                        saveIsChecked(false)
-                                    }
-                                    Snackbar.make(view, "Please verify your e-mail", Snackbar.LENGTH_LONG).show()
-                                    enableViewDisableLottie(lottieAnimationView,view)
+                                    Log.e("tagımıs", "no navigated")
+                                    Snackbar.make(view, errorMessage ?: "Unknown error", Snackbar.LENGTH_SHORT).show()
                                 }
-                            }
-                            if(authViewModel.authViewModelState == false){
-                                Snackbar.make(view,"Login Failed",Snackbar.LENGTH_SHORT).show()
-                                enableViewDisableLottie(lottieAnimationView,view)
+
+                                // View'i tekrar aktif et ve animasyonu durdur
+                                enableViewDisableLottie(lottieAnimationView, view)
                             }
                         }
                     }
                 }
-            }
 
-        }else {
-            Snackbar.make(view,"Please fill in all fields",Snackbar.LENGTH_SHORT).show()
+            },2500)
+
+        } else {
+            Snackbar.make(view, "Please fill in all fields", Snackbar.LENGTH_SHORT).show()
         }
     }
 
 
-    fun registerValidationFunction(email:String, password: String, name:String,
-                                   viewModel:AuthViewModel,
-                                   lottieAnimationView: LottieAnimationView,
-                                   viewLifecycleOwner:LifecycleOwner,
-                                   view:View,
-                                   findNavController:NavController,
-                                   action: Int,
-                                   navOptions: NavOptions
-                                   ){
 
-        if(isValidPassword(password) && isValidEmail(email) && isValidFullName(name) )
-        {
+    fun registerValidation(
+        email: String,
+        password: String,
+        name: String,
+        viewModel: AuthViewModel,
+        lottieAnimationView: LottieAnimationView,
+        viewLifecycleOwner: LifecycleOwner,
+        view: View,
+        findNavController: NavController,
+        action: Int,
+        navOptions: NavOptions
+    ) {
+        if (isValidPassword(password) && isValidEmail(email) && isValidFullName(name)) {
 
-            //user kaydetme fonksiyonunu viewmodeldan çağırıyoruz
-            viewModel.registerUser(name,email,password)
+            Log.e("tagımıs", "butona tıkladın")
 
-            disableViewEnableLottie(lottieAnimationView,view)
+            viewModel.registerUser(name, email, password)
 
-            isLoadingCheck(viewLifecycleOwner,viewModel,lottieAnimationView,view,findNavController,action, navOptions )
+            disableViewEnableLottie(lottieAnimationView, view)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                viewLifecycleOwner.lifecycleScope.launch {
+                    var isLoadedEmitted = false // Kontrol değişkeni
+
+                    viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel.isLoaded.collect { isLoaded ->
+                            if (isLoaded && !isLoadedEmitted) {
+                                isLoadedEmitted = true // Tekrar çalışmasını engellemek için işaretler
+
+                                val isSuccess = viewModel.authSuccess.value
+                                val errorMessage = viewModel.authError.value
+
+                                if (isSuccess) {
+                                    Snackbar.make(view, "Registration successful", Snackbar.LENGTH_SHORT).show()
+                                    findNavController.navigate(action, null, navOptions)
+                                } else {
+                                    Snackbar.make(view, errorMessage ?: "Unknown error", Snackbar.LENGTH_SHORT).show()
+                                }
+
+                                enableViewDisableLottie(lottieAnimationView, view)
+                            }
+                        }
+                    }
+                }
+            },2500)
 
 
-        }else{
-            Snackbar.make(view,"Please correctly fill in all fields",Snackbar.LENGTH_SHORT).show()
+        } else {
+            Snackbar.make(view, "Please correctly fill in all fields", Snackbar.LENGTH_SHORT).show()
         }
     }
+
 
 
 
@@ -454,8 +484,6 @@ object UserFrequentlyUsedFunctions {
     @SuppressLint("NotifyDataSetChanged")
     fun showDeleteDialogBirthdayAdapter(position: Int, view: View, context: Context, birthdayList:List<Birthday>, lottieAnimationView: LottieAnimationView, usersBirthdayViewModel: UsersBirthdayViewModel, lifeCycleOwner: LifecycleOwner, findNavController: NavController, action: Int, navOptions: NavOptions
     ){
-        Log.e("HATA","$birthdayList")
-
         if (birthdayList.isNotEmpty()){
             val birthday = birthdayList[position]
             showConfirmationDialog(view,context,usersBirthdayViewModel,birthday,lottieAnimationView,lifeCycleOwner,"soft_delete", findNavController , action, navOptions  )
@@ -468,15 +496,54 @@ object UserFrequentlyUsedFunctions {
     /*Şifre sıfırlama ekranında (Forgot Password Page) kutucuğa uazılan mailin validayion işlemlerini,
      animasyon işlemlerini vs yapan fonksiyon
      */
-    fun resetPasswordValidation(email:String, viewLifecycleOwner:LifecycleOwner, viewModel:AuthViewModel, lottieAnimationView: LottieAnimationView, view: View, findNavController: NavController, action:Int, navOptions: NavOptions )
-    {
-        if(isValidEmail(email)){
-            viewModel.resetPassword(email)
-            disableViewEnableLottie(lottieAnimationView,view)
-            isLoadingCheck( viewLifecycleOwner, viewModel, lottieAnimationView, view, findNavController, action, navOptions)
-        }
+    fun resetPasswordValidation(
+        email: String,
+        viewLifecycleOwner: LifecycleOwner,
+        viewModel: AuthViewModel,
+        lottieAnimationView: LottieAnimationView,
+        view: View,
+        findNavController: NavController,
+        action: Int,
+        navOptions: NavOptions
+    ) {
+        if (isValidEmail(email)) {
 
+            viewModel.resetPassword(email)
+
+            disableViewEnableLottie(lottieAnimationView, view)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                viewLifecycleOwner.lifecycleScope.launch {
+                    var isLoadedEmitted = false // Kontrol değişkeni
+
+                    viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel.isLoaded.collect { isLoaded ->
+                            if (isLoaded && !isLoadedEmitted) {
+                                isLoadedEmitted = true // Tekrar çalışmasını engellemek için işaretler
+
+                                val isSuccess = viewModel.authSuccess.value
+                                val errorMessage = viewModel.authError.value
+
+                                if (isSuccess) {
+                                    Snackbar.make(view, "Password reset email sent successfully", Snackbar.LENGTH_SHORT).show()
+                                    findNavController.navigate(action, null, navOptions)
+                                } else {
+                                    Snackbar.make(view, errorMessage ?: "Unknown error", Snackbar.LENGTH_SHORT).show()
+                                }
+
+                                enableViewDisableLottie(lottieAnimationView, view)
+                            }
+                        }
+                    }
+                }
+
+            },2500)
+
+        } else {
+            Snackbar.make(view, "Please enter a valid email address", Snackbar.LENGTH_SHORT).show()
+        }
     }
+
 
 
 
@@ -498,15 +565,15 @@ object UserFrequentlyUsedFunctions {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
 
+/*
                 if(viewModel is AuthViewModel){ //gelen viewModel Authviewmodel ise bu çalışacak
-                    viewModel.isLoaded.collect { isLoaded ->
-                        if(isLoaded == true){
+                        if(viewModel.isLoaded == true){
 
-                            if(viewModel.authViewModelState == true){
+                            if(viewModel.authSuccess.value==true){
                                 Snackbar.make(view,"Successful",Snackbar.LENGTH_SHORT).show()
                             }
-                            if(viewModel.authViewModelState == false){
-                                Snackbar.make(view,"Failed",Snackbar.LENGTH_SHORT).show()
+                            else{
+                                Snackbar.make(view,"${viewModel.authError.value}",Snackbar.LENGTH_SHORT).show()
                             }
                             //animasyonu durdurup view'i visible yapıyoruz
                             enableViewDisableLottie(lottieAnimationView,view)
@@ -514,8 +581,9 @@ object UserFrequentlyUsedFunctions {
                                 findNavController.navigate(action,null, navOptions )
                             }
                         }
-                    }
+
                 }
+*/
 
                 if(viewModel is UsersBirthdayViewModel){  //gelen viewModel Birthday viewmodel ise bu çalışacak
                            Handler(Looper.getMainLooper()).postDelayed({
@@ -659,9 +727,7 @@ object UserFrequentlyUsedFunctions {
 
     // Logout fonksiyonu
     private fun logout(activity: Activity) {
-        // Burada oturum kapatma işlemlerini gerçekleştirin
-
-        // Mevcut aktiviteyi kapat ve yeni bir aktivite başlat
+        // Mevcut aktiviteyi kapatır ve yeni bir aktivite başlatır yani uygulama sıfırdan başlamış gibi olur
         val intent = Intent(activity, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         activity.startActivity(intent)

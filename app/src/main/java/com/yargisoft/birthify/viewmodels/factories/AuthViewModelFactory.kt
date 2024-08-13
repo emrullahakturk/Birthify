@@ -1,9 +1,9 @@
 package com.yargisoft.birthify.viewmodels.factories
 
+import com.yargisoft.birthify.viewmodels.AuthViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yargisoft.birthify.repositories.AuthRepository
-import com.yargisoft.birthify.viewmodels.AuthViewModel
 
 
 @Suppress("UNCHECKED_CAST")

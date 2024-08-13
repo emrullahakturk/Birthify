@@ -58,7 +58,7 @@ class MainPageFragment : Fragment() {
         usersBirthdayViewModel = ViewModelProvider(this, birthdayFactory)[UsersBirthdayViewModel::class]
 
         //Auth ViewModel Tanımlama için gerekenler
-        val authRepository = AuthRepository(requireContext())
+        val authRepository = AuthRepository(userSharedPreferences.preferences)
         val authFactory = AuthViewModelFactory(authRepository)
         authViewModel = ViewModelProvider(this, authFactory)[AuthViewModel::class]
 

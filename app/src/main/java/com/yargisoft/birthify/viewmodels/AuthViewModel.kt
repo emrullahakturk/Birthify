@@ -1,98 +1,132 @@
 package com.yargisoft.birthify.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yargisoft.birthify.repositories.AuthRepository
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
-class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
+class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
 
+    // StateFlow to observe the status of ongoing operations
+    private var _isLoaded = MutableStateFlow(false)
+    val isLoaded: MutableStateFlow<Boolean> get() = _isLoaded
 
-    var isEmailVerifiedResult: Boolean? = null
+    private var _authSuccess = MutableStateFlow(false)
+    val authSuccess: MutableStateFlow<Boolean> get() = _authSuccess
 
-    private val _isLoaded = MutableStateFlow<Boolean?>(null)
-    val isLoaded: StateFlow<Boolean?> get() = _isLoaded
+    private var _authError = MutableStateFlow<String?>("")
+    val authError: MutableStateFlow<String?> get() = _authError
 
-    private var _authViewModelState: Boolean?  = null
-    val authViewModelState: Boolean? get() = _authViewModelState
-
-
-    fun resetPassword(email: String) {
+    // Function to handle user profile update
+    fun updateUserProfile(name: String?, password: String?) {
         viewModelScope.launch {
+            _isLoaded.value = false
+            authRepository.updateUserProfile(
+                name,
+                password,
+                onSuccess = {
+                    _authSuccess.value = true
+                    _authError.value = null
+                    _isLoaded.value = true
 
-            try {
-                _authViewModelState = repository.resetPassword(email)
-                delay(2000)
-                _isLoaded.value = true
-            }catch (e:Exception){
-                Log.e("exception","$e")
-            }
+                },
+                onFailure = { errorMessage ->
+                    _authSuccess.value = false
+                    _authError.value = errorMessage
+                    _isLoaded.value = true
 
-            _authViewModelState = null
-            _isLoaded.value = null
+                }
+            )
         }
     }
 
-    fun loginUser(email: String, password: String, isChecked: Boolean) {
-        viewModelScope.launch {
-            try {
-
-                val result = repository.loginUser(email, password, isChecked)
-                _authViewModelState = result.first
-                isEmailVerifiedResult = result.second
-
-                delay(3000)
-
-                _isLoaded.value = true
-
-
-            } catch (e: Exception) {
-                Log.e("exception","$e")
-                _authViewModelState = false
-            }
-
-            _isLoaded.value = null
-            _authViewModelState = null
-
-        }
-    }
-
-
+    // Function to handle user registration
     fun registerUser(name: String, email: String, password: String) {
         viewModelScope.launch {
-            try {
-                val recordedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
-                val result = repository.registerUser(name, email, password, recordedDate)
-                _authViewModelState = result
-
-                _isLoaded.value = true
-
-            } catch (e: Exception) {
-                Log.e("exception","$e")
-                _authViewModelState = false
-            }
-
-            _isLoaded.value = null
-            _authViewModelState = null
+            _isLoaded.value = false
+            authRepository.registerUser(
+                name, email, password,
+                onSuccess = {
+                    _authSuccess.value = true
+                    _authError.value = null
+                    _isLoaded.value = true
+                },
+                onFailure = { errorMessage ->
+                    _authSuccess.value = false
+                    _authError.value = errorMessage
+                    _isLoaded.value = true
+                }
+            )
 
         }
     }
 
-    fun logoutUser() {
-        repository.logout()
-    }
-
-    fun loggedUserId() : String {
-        var result = ""
+    fun loginUser(email: String, password: String) {
         viewModelScope.launch {
-           result = repository.loggedUserId()
+            _isLoaded.value = false
+            authRepository.loginUser(
+                email, password,
+                onSuccess = {
+                    _authSuccess.value = true
+                    _authError.value = null
+                    _isLoaded.value = true
+                },
+                onFailure = { errorMessage ->
+                    _authSuccess.value = false
+                    _authError.value = errorMessage
+                    _isLoaded.value = true
+                }
+            )
         }
-        return result
+    }
+
+    // Function to handle password reset
+    fun resetPassword(email: String) {
+        viewModelScope.launch {
+            _isLoaded.value = false
+            authRepository.resetPassword(
+                email,
+                onSuccess = {
+                    _authSuccess.value = true
+                    _authError.value = null
+                    _isLoaded.value = true
+
+                },
+                onFailure = { errorMessage ->
+                    _authSuccess.value = false
+                    _authError.value = errorMessage
+                    _isLoaded.value = true
+
+                }
+            )
+        }
+    }
+
+    // Function to handle user logout
+    fun logoutUser() {
+        _isLoaded.value = false
+        viewModelScope.launch {
+            authRepository.logoutUser()
+            _isLoaded.value= true
+        }
+
+    }
+
+    // Function to check user session status
+    fun checkUserSession() {
+        viewModelScope.launch {
+            val sessionExists = authRepository.isUserLoggedIn()
+            if (sessionExists) {
+                _authSuccess.value = true
+                _isLoaded.value= true
+
+            } else {
+                _authError.value = "No active session found."
+                _isLoaded.value= true
+
+            }
+        }
     }
 }

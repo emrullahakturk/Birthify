@@ -17,6 +17,7 @@ import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentForgotPasswordBinding
 import com.yargisoft.birthify.repositories.AuthRepository
+import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import java.util.Locale
@@ -27,6 +28,8 @@ class ForgotPasswordFragment : Fragment() {
     private lateinit var viewModel: AuthViewModel
     private lateinit var forgotPassTextInputLayout : TextInputLayout
     private lateinit var resetPassEmailEditText: TextInputEditText
+    private lateinit var userSharedPreferences: UserSharedPreferencesManager
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,10 +44,11 @@ class ForgotPasswordFragment : Fragment() {
             .build()
 
 
+        userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
 
         //viewModel tanımlama için gerekli kodlar
-        val repository = AuthRepository(requireContext())
+        val repository = AuthRepository(userSharedPreferences.preferences)
         val factory= AuthViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory )[AuthViewModel::class.java]
 

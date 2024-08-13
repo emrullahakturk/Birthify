@@ -48,7 +48,7 @@
     <!--String renkleri-->
     <color name="forgot_password">#815642</color>
     <color name="the_best_app_tv">#3F744C</color>
-    <color name="create_account_tv">#3F744C</color>
+    <color name="create_account_tv">#FFFFFF</color>
     <color name="continue_without_tv">#815642</color>
     <color name="or_tv">#3F744C</color>
     <color name="already_have_an_account_tv">#815642</color>

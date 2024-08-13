@@ -51,7 +51,7 @@ class AddBirthdayFragment : Fragment() {
         usersBirthdayViewModel = ViewModelProvider(this,birthdayViewModelFactory)[UsersBirthdayViewModel::class.java]
 
 
-        val authRepository = AuthRepository(requireContext())
+        val authRepository = AuthRepository(userSharedPreferences.preferences)
         val authViewModelFactory = AuthViewModelFactory(authRepository)
         authViewModel = ViewModelProvider(this,authViewModelFactory)[AuthViewModel::class.java]
 
