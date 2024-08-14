@@ -8,7 +8,6 @@ import com.google.gson.reflect.TypeToken
 import com.yargisoft.birthify.models.Birthday
 import java.time.LocalDate
 import java.time.Month
-import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 class BirthdayRepository (context: Context){
@@ -118,7 +117,7 @@ class BirthdayRepository (context: Context){
         editor.apply()
     }
 
-    //doğum gününü silme fonksiyonu
+   /* //doğum gününü silme fonksiyonu
     private fun removeBirthdayFromBirthdayList(birthdayId: String) {
         val birthdays = getBirthdays().toMutableList()
         val birthdayToDelete = birthdays.find { it.id == birthdayId }
@@ -127,7 +126,8 @@ class BirthdayRepository (context: Context){
             saveBirthdays(birthdays)
         }
 
-    }
+    }*/
+
     // Geçmiş doğum günlerini tek tek kaydetme işlemi
     private fun savePastBirthday(birthday: Birthday) {
         val pastBirthdaysJson = pastBirthdayPreferences.getString("past_birthdays", null)

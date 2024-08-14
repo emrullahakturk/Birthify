@@ -3,99 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/mainPageFragment">
 
-    <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.yargisoft.birthify.views.authentication_views.RegisterFragment"
-        android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_register" >
-        <action
-            android:id="@+id/registerToLogin"
-            app:destination="@id/loginPageFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/registerToFirst"
-            app:destination="@id/firstPageFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/registerToForgot"
-            app:destination="@id/forgotPasswordFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-    <fragment
-        android:id="@+id/loginPageFragment"
-        android:name="com.yargisoft.birthify.views.authentication_views.LoginPageFragment"
-        android:label="fragment_login_page"
-        tools:layout="@layout/fragment_login_page" >
-        <action
-            android:id="@+id/loginToRegister"
-            app:destination="@id/registerFragment" />
-        <action
-            android:id="@+id/loginToFirst"
-            app:destination="@id/firstPageFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/loginToForgot"
-            app:destination="@id/forgotPasswordFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/loginToMain"
-            app:destination="@id/mainPageFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/firstPageFragment"
-        android:name="com.yargisoft.birthify.views.authentication_views.FirstPageFragment"
-        android:label="fragment_main_page"
-        tools:layout="@layout/fragment_first_page" >
-        <action
-            android:id="@+id/firstToLogin"
-            app:destination="@id/loginPageFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/firstToMain"
-            app:destination="@id/mainPageFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/firstToRegister"
-            app:destination="@id/registerFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/firstToGuestNavGraph"
-            app:destination="@id/guest_nav" />
-    </fragment>
-    <fragment
-        android:id="@+id/forgotPasswordFragment"
-        android:name="com.yargisoft.birthify.views.authentication_views.ForgotPasswordFragment"
-        android:label="ForgotPasswordFragment" >
-        <action
-            android:id="@+id/forgotToLogin"
-            app:destination="@id/loginPageFragment" />
-    </fragment>
+
     <fragment
         android:id="@+id/addBirthdayFragment"
         android:name="com.yargisoft.birthify.views.auth_user_views.AddBirthdayFragment"
@@ -145,20 +55,7 @@
             android:id="@+id/mainToTrashBin"
             app:destination="@id/trashBinFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/splashFragment"
-        android:name="com.yargisoft.birthify.views.authentication_views.SplashFragment"
-        android:label="SplashFragment" >
-        <action
-            android:id="@+id/splashToFirstPage"
-            app:destination="@id/firstPageFragment" />
-        <action
-            android:id="@+id/splashToMainPage"
-            app:destination="@id/mainPageFragment" />
-        <action
-            android:id="@+id/splashToGuestNavGraph"
-            app:destination="@id/guest_nav" />
-    </fragment>
+
     <fragment
         android:id="@+id/birthdayEditFragment"
         android:name="com.yargisoft.birthify.views.auth_user_views.EditBirthdayFragment"
@@ -334,7 +231,6 @@
 
 
     </fragment>
-    <include app:graph="@navigation/guest_nav" />
     <fragment
         android:id="@+id/pastBirthdaysFragment"
         android:name="com.yargisoft.birthify.views.auth_user_views.PastBirthdaysFragment"

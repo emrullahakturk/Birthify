@@ -39,14 +39,10 @@
             android:id="@+id/guestLoginToReset"
             app:destination="@id/guestResetPasswordFragment" />
         <action
-            android:id="@+id/guestLoginToUserMainPage"
-            app:destination="@id/splashFragment2" />
+            android:id="@+id/guestLoginToMainNavGraph"
+            app:destination="@id/main_nav" />
     </fragment>
-
-    <fragment
-        android:id="@+id/splashFragment2"
-        android:name="com.yargisoft.birthify.views.authentication_views.SplashFragment"
-        android:label="SplashFragment" />
+    <include app:graph="@navigation/main_nav" />
 
 
 </navigation>

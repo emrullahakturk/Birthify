@@ -16,7 +16,6 @@ import com.google.android.material.textfield.TextInputLayout
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
-import com.yargisoft.birthify.databinding.FragmentForgotPasswordBinding
 import com.yargisoft.birthify.databinding.FragmentGuestResetPasswordBinding
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager

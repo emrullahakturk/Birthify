@@ -530,13 +530,13 @@ object GuestFrequentlyUsedFunctions {
                                                     saveDeletedBirthdaysToFirebase(guestViewModel.deletedBirthdayList.value)
 
 
-                                                 findNavController.navigate(R.id.guestLoginToUserMainPage,null,navOptions)
+                                                 findNavController.navigate(R.id.guestLoginToMainNavGraph,null,navOptions)
 
                                              }
                                              .setNegativeButton("No"){_,_->
                                                  //animasyonu durdurup view'i visible yapıyoruz
                                                  enableViewDisableLottie(lottieAnimationView, view)
-                                                 findNavController.navigate(R.id.guestLoginToUserMainPage,null,navOptions)
+                                                 findNavController.navigate(R.id.guestLoginToMainNavGraph,null,navOptions)
                                              }
                                              .show()
 

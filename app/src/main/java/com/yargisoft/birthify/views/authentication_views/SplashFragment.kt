@@ -87,7 +87,7 @@ class SplashFragment : Fragment() {
 
                 verifyUserToken(userId, storedToken) { isValid ->
                     if (isValid) {
-                        navigateToFragmentAndClearStack(findNavController(), R.id.splashFragment, R.id.splashToMainPage)
+                        navigateToFragmentAndClearStack(findNavController(), R.id.splashFragment, R.id.splashToMainNavGraph)
                     } else {
                         userSharedPreferencesManager.clearUserSession()
                         navigateToFragmentAndClearStack(findNavController(), R.id.splashFragment, R.id.splashToFirstPage)

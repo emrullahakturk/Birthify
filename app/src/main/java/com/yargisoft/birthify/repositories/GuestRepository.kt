@@ -2,13 +2,11 @@ package com.yargisoft.birthify.repositories
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.yargisoft.birthify.models.Birthday
 import java.time.LocalDate
 import java.time.Month
-import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 class GuestRepository(context: Context) {
