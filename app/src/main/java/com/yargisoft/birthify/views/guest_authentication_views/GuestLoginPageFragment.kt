@@ -1,8 +1,10 @@
-package com.yargisoft.birthify.views.authentication_views
+package com.yargisoft.birthify.views.guest_authentication_views
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,41 +14,54 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.yargisoft.birthify.UserFrequentlyUsedFunctions
+import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
+import com.yargisoft.birthify.databinding.FragmentGuestLoginPageBinding
 import com.yargisoft.birthify.databinding.FragmentLoginPageBinding
 import com.yargisoft.birthify.repositories.AuthRepository
+import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
+import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
+import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
 import java.util.Locale
 
+class GuestLoginPageFragment : Fragment() {
 
-class LoginPageFragment : Fragment() {
-
-    private lateinit var binding: FragmentLoginPageBinding
-    private lateinit var viewModel: AuthViewModel
+    private lateinit var  binding : FragmentGuestLoginPageBinding
+    private lateinit var authViewModel: AuthViewModel
+    private lateinit var guestViewModel: GuestBirthdayViewModel
     private lateinit var userSharedPreferences : UserSharedPreferencesManager
     private lateinit var loginEmailTextInput: TextInputLayout
     private lateinit var loginEmailEditText: TextInputEditText
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login_page, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_guest_login_page, container, false)
 
-        //userPreferences
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
-
-        //Validation için mail input kutularını tanımlıyoruz
-        loginEmailTextInput = binding.loginEmailTextInput
         loginEmailEditText = binding.loginEmailEditText
+        loginEmailTextInput = binding.loginEmailTextInput
 
-
+        userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
         //repo factory ve viewmodel tanımlamaları
         val repository = AuthRepository(userSharedPreferences.preferences)
         val factory = AuthViewModelFactory(repository)
-        viewModel = ViewModelProvider(this,factory)[AuthViewModel::class.java]
+        authViewModel = ViewModelProvider(this,factory)[AuthViewModel::class.java]
+
+        //repo factory ve viewmodel tanımlamaları
+        val guestRepository = GuestRepository(requireContext())
+        val guestViewModelFactory = GuestViewModelFactory(guestRepository)
+        guestViewModel = ViewModelProvider(this,guestViewModelFactory)[GuestBirthdayViewModel::class.java]
+
+        guestViewModel.getBirthdays()
+        guestViewModel.getPastBirthdays()
+        guestViewModel.getDeletedBirthdays()
 
 
         // Login fragment sayfasında girilen e-mail formatını kontrol ediyoruz
@@ -73,6 +88,8 @@ class LoginPageFragment : Fragment() {
                 }
             }
         })
+
+
         //Kutucuk üstünden focus kaldırıldığında hata mesajı da kalkar
         loginEmailEditText.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
@@ -84,26 +101,28 @@ class LoginPageFragment : Fragment() {
 
 
         binding.forgotPassLoginTv.setOnClickListener {
-            findNavController().navigate(R.id.guestLoginToReset)
+                findNavController().navigate(R.id.guestLoginToReset)
         }
         binding.dontHaveTv.setOnClickListener {
-            findNavController().navigate(R.id.guestLoginToRegister)
+                findNavController().navigate(R.id.guestLoginToRegister)
         }
+
 
         binding.loginButton.setOnClickListener {
             val email = binding.loginEmailEditText.text.toString()
             val password = binding.loginPassEditText.text.toString()
-            UserFrequentlyUsedFunctions.loginValidation(
+            GuestFrequentlyUsedFunctions.loginGuestValidation(
                 binding.root,
                 email,
                 password,
-                viewModel,
+                authViewModel,
                 binding.threePointAnimation,
                 viewLifecycleOwner,
                 findNavController(),
-                )
+                requireContext(),
+                guestViewModel
+            )
         }
-
         return binding.root
     }
 

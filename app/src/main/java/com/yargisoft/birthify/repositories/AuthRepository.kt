@@ -30,6 +30,7 @@ class AuthRepository(private val sharedPreferences: SharedPreferences) {
                                         val userProfile = mapOf(
                                             "name" to name,
                                             "email" to email,
+                                            "userId" to user.uid,
                                             "recordedDate" to FieldValue.serverTimestamp(),
                                             "token" to "" // Initially, the token is empty
                                         )

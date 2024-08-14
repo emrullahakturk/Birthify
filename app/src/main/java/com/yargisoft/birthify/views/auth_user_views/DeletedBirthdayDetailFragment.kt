@@ -43,6 +43,9 @@ class DeletedBirthdayDetailFragment : Fragment() {
             .setPopUpTo(R.id.deletedBirthdayDetailFragment, true)
             .build()
 
+        //user SharedPreferences
+        userSharedPreferences = UserSharedPreferencesManager(requireContext())
+
         //Birthday viewModel Tanımlama için gerekenler
         val birthdayRepository = BirthdayRepository(requireContext())
         val birthdayFactory = UsersBirthdayViewModelFactory(birthdayRepository)
@@ -57,8 +60,6 @@ class DeletedBirthdayDetailFragment : Fragment() {
         //detayı gösterilmek istenen doğum gününü kutucuklara yansıtıyoruz
         binding.birthday= deletedBirthday.birthday
 
-        //user SharedPreferences
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.drawerLayout

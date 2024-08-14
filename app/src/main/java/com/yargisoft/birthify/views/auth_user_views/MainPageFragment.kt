@@ -67,8 +67,8 @@ class MainPageFragment : Fragment() {
         usersBirthdayViewModel.getPastBirthdaysFromFirebase(userSharedPreferences.getUserId())
         usersBirthdayViewModel.getDeletedBirthdaysFromFirebase(userSharedPreferences.getUserId())
 
-
         usersBirthdayViewModel.getBirthdays()
+
 
         //Geçmiş doğum günlerini burada filtreleyerek pastBirthdays'e gödneriyoruz
         val listForFilter = usersBirthdayViewModel.birthdayList.value ?: emptyList()

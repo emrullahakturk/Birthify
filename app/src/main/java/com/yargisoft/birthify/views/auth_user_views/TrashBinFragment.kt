@@ -42,6 +42,9 @@ class TrashBinFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_trash_bin, container, false)
 
 
+        //user SharedPreferences
+        userSharedPreferences = UserSharedPreferencesManager(requireContext())
+
         //Birthday ViewModel Initialization
         val birthdayRepository = BirthdayRepository(requireContext())
         val birthdayViewModelFactory = UsersBirthdayViewModelFactory(birthdayRepository)
@@ -53,8 +56,8 @@ class TrashBinFragment : Fragment() {
         authViewModel = ViewModelProvider(this, authViewModelFactory)[AuthViewModel::class]
 
 
-        //user SharedPreferences
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
+        usersBirthdayViewModel.getDeletedBirthdaysFromFirebase(userSharedPreferences.getUserId())
+        usersBirthdayViewModel.getDeletedBirthdays()
 
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.drawerLayout

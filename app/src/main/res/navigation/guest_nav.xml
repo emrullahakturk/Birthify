@@ -20,6 +20,9 @@
         <action
             android:id="@+id/guestAddToSettings"
             app:destination="@id/guestSettingsFragment" />
+        <action
+            android:id="@+id/guestAddToLogin"
+            app:destination="@id/guest_auth_nav" />
 
 
     </fragment>
@@ -43,6 +46,9 @@
         <action
             android:id="@+id/guestDetailToSettings"
             app:destination="@id/guestSettingsFragment" />
+        <action
+            android:id="@+id/guestDetailToLogin"
+            app:destination="@id/guest_auth_nav" />
         <argument
             android:name="birthday"
             app:argType="com.yargisoft.birthify.models.Birthday" />
@@ -63,6 +69,9 @@
         <action
             android:id="@+id/guestDeletedDetailToSettings"
             app:destination="@id/guestSettingsFragment" />
+        <action
+            android:id="@+id/guestDeletedDetailToLogin"
+            app:destination="@id/guest_auth_nav" />
         <argument
             android:name="birthday"
             app:argType="com.yargisoft.birthify.models.Birthday" />
@@ -83,6 +92,9 @@
         <action
             android:id="@+id/guestEditToSettings"
             app:destination="@id/guestSettingsFragment" />
+        <action
+            android:id="@+id/guestEditToLogin"
+            app:destination="@id/guest_auth_nav" />
         <argument
             android:name="birthday"
             app:argType="com.yargisoft.birthify.models.Birthday" />
@@ -115,6 +127,9 @@
         <action
             android:id="@+id/guestMainToSettings"
             app:destination="@id/guestSettingsFragment" />
+        <action
+            android:id="@+id/guestMainToLogin"
+            app:destination="@id/guest_auth_nav" />
     </fragment>
     <fragment
         android:id="@+id/guestTrashBinFragment"
@@ -139,6 +154,9 @@
         <action
             android:id="@+id/guestTrashBinToSettings"
             app:destination="@id/guestSettingsFragment" />
+        <action
+            android:id="@+id/guestTrashBinToLogin"
+            app:destination="@id/guest_auth_nav" />
 
     </fragment>
     <fragment
@@ -169,6 +187,10 @@
         <action
             android:id="@+id/guestPastToSettings"
             app:destination="@id/guestSettingsFragment" />
+        <action
+            android:id="@+id/guestPastToLogin"
+            app:destination="@id/guest_auth_nav" />
 
     </fragment>
+    <include app:graph="@navigation/guest_auth_nav" />
 </navigation>

@@ -18,6 +18,7 @@ import android.text.TextPaint
 import android.text.style.ForegroundColorSpan
 import android.text.style.TypefaceSpan
 import android.util.Log
+import android.util.Patterns
 import android.view.ContextThemeWrapper
 import android.view.MenuItem
 import android.view.View
@@ -36,12 +37,16 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
 import com.yargisoft.birthify.adapters.PastBirthdayAdapter
 import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
+import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -419,8 +424,15 @@ object GuestFrequentlyUsedFunctions {
                 }
 
                 R.id.labelLogin -> {
-                    userSharedPreferences.clearUserSession()
-                    //findNavController.navigate(R.id.firstPageFragment)
+                    when(sourcePage){
+                        "GuestTrashBin"-> findNavController.navigate(R.id.guestTrashBinToLogin)
+                        "GuestMainPage"-> findNavController.navigate(R.id.guestMainToLogin)
+                        "GuestDeletedBirthdayDetail"-> findNavController.navigate(R.id.guestDeletedDetailToLogin)
+                        "GuestBirthdayEdit"-> findNavController.navigate(R.id.guestEditToLogin)
+                        "GuestBirthdayDetail"-> findNavController.navigate(R.id.guestDetailToLogin)
+                        "GuestAddBirthday"-> findNavController.navigate(R.id.guestAddToLogin)
+                        "GuestPastBirthdays"-> findNavController.navigate(R.id.guestPastToLogin)
+                    }
                 }
 
                 R.id.labelTrashBin -> {
@@ -468,5 +480,291 @@ object GuestFrequentlyUsedFunctions {
 
     }
 
+
+    /*Login page içerisinde login butonuna tıkladığımızda, verilen email validasyonunu yapan,
+     animasyonları gösterip devre dışı bırakan, kullanıcı etkileşimini sağlayan fonksiyon (snackbar iler)*/
+    fun loginGuestValidation(
+        view: View,
+        email: String,
+        password: String,
+        authViewModel: AuthViewModel,
+        lottieAnimationView: LottieAnimationView,
+        viewLifecycleOwner: LifecycleOwner,
+        findNavController:NavController,
+        context:Context,
+        guestViewModel:GuestBirthdayViewModel
+    ) {
+        if (isValidEmail(email) && password.isNotEmpty()) {
+
+            authViewModel.loginUser(email, password)
+
+            disableViewEnableLottie(lottieAnimationView, view)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                viewLifecycleOwner.lifecycleScope.launch {
+                    var isLoadedEmitted = false // Kontrol değişkeni
+
+                    viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        authViewModel.isLoaded.collect { isLoaded ->
+                            if (isLoaded && !isLoadedEmitted) {
+                                isLoadedEmitted = true // Tekrar çalışmasını engellemek için işaretler
+
+                                val isSuccess = authViewModel.authSuccess.value
+                                val errorMessage = authViewModel.authError.value
+
+                                if (isSuccess) {
+                                    Snackbar.make(view, "You successfully logged in", Snackbar.LENGTH_SHORT).show()
+
+                                    val navOptions = NavOptions.Builder()
+                                        .setPopUpTo(R.id.guest_auth_nav, inclusive = true)
+                                        .setPopUpTo(R.id.guest_nav, inclusive = true)
+                                        .build()
+
+                                     AlertDialog.Builder(context)
+                                             .setTitle("Confirm Synchronization")
+                                             .setMessage("Do you want to sync your birthdays with your new account? Otherwise your birthdays will be deleted")
+                                             .setPositiveButton("Yes") { _, _ ->
+
+                                                    saveBirthdaysToFirebase(guestViewModel.birthdayList.value)
+                                                    savePastBirthdaysToFirebase(guestViewModel.pastBirthdayList.value)
+                                                    saveDeletedBirthdaysToFirebase(guestViewModel.deletedBirthdayList.value)
+
+
+                                                 findNavController.navigate(R.id.guestLoginToUserMainPage,null,navOptions)
+
+                                             }
+                                             .setNegativeButton("No"){_,_->
+                                                 //animasyonu durdurup view'i visible yapıyoruz
+                                                 enableViewDisableLottie(lottieAnimationView, view)
+                                                 findNavController.navigate(R.id.guestLoginToUserMainPage,null,navOptions)
+                                             }
+                                             .show()
+
+                                } else {
+                                    Snackbar.make(view, errorMessage ?: "Unknown error", Snackbar.LENGTH_SHORT).show()
+                                }
+
+                                // View'i tekrar aktif et ve animasyonu durdur
+                               enableViewDisableLottie( lottieAnimationView,view)
+                            }
+                        }
+                    }
+                }
+
+            },1500)
+
+        } else {
+            Snackbar.make(view, "Please fill in all fields", Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+
+
+    fun registerGuestValidation(
+        email: String,
+        password: String,
+        name: String,
+        viewModel: AuthViewModel,
+        lottieAnimationView: LottieAnimationView,
+        viewLifecycleOwner: LifecycleOwner,
+        view: View,
+        findNavController: NavController,
+        action: Int,
+        navOptions: NavOptions
+    ) {
+        if (isValidPassword(password) && isValidEmail(email) && isValidFullName(name)
+        ) {
+
+            viewModel.registerUser(name, email, password)
+
+            disableViewEnableLottie(lottieAnimationView, view)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                viewLifecycleOwner.lifecycleScope.launch {
+                    var isLoadedEmitted = false // Kontrol değişkeni
+
+                    viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel.isLoaded.collect { isLoaded ->
+                            if (isLoaded && !isLoadedEmitted) {
+                                isLoadedEmitted = true // Tekrar çalışmasını engellemek için işaretler
+
+                                val isSuccess = viewModel.authSuccess.value
+                                val errorMessage = viewModel.authError.value
+
+                                if (isSuccess) {
+                                    Snackbar.make(view, "Registration successful", Snackbar.LENGTH_SHORT).show()
+                                    findNavController.navigate(action, null, navOptions)
+                                } else {
+                                    Snackbar.make(view, errorMessage ?: "Unknown error", Snackbar.LENGTH_SHORT).show()
+                                }
+
+                                enableViewDisableLottie(
+                                    lottieAnimationView,
+                                    view
+                                )
+                            }
+                        }
+                    }
+                }
+            },1500)
+
+
+        } else {
+            Snackbar.make(view, "Please correctly fill in all fields", Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+    /*Şifre sıfırlama ekranında (Forgot Password Page) kutucuğa uazılan mailin validayion işlemlerini,
+     animasyon işlemlerini vs yapan fonksiyon
+     */
+    fun resetPasswordGuestValidation(
+        email: String,
+        viewLifecycleOwner: LifecycleOwner,
+        viewModel: AuthViewModel,
+        lottieAnimationView: LottieAnimationView,
+        view: View,
+        findNavController: NavController,
+        action: Int,
+        navOptions: NavOptions
+    ) {
+        if (isValidEmail(email)) {
+
+            viewModel.resetPassword(email)
+
+            disableViewEnableLottie(lottieAnimationView, view)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                viewLifecycleOwner.lifecycleScope.launch {
+                    var isLoadedEmitted = false // Kontrol değişkeni
+
+                    viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel.isLoaded.collect { isLoaded ->
+                            if (isLoaded && !isLoadedEmitted) {
+                                isLoadedEmitted = true // Tekrar çalışmasını engellemek için işaretler
+
+                                val isSuccess = viewModel.authSuccess.value
+                                val errorMessage = viewModel.authError.value
+
+                                if (isSuccess) {
+                                    Snackbar.make(view, "Password reset email sent successfully", Snackbar.LENGTH_SHORT).show()
+                                    findNavController.navigate(action, null, navOptions)
+                                } else {
+                                    Snackbar.make(view, errorMessage ?: "Unknown error", Snackbar.LENGTH_SHORT).show()
+                                }
+
+                               enableViewDisableLottie(
+                                    lottieAnimationView,
+                                    view
+                                )
+                            }
+                        }
+                    }
+                }
+
+            },1500)
+
+        } else {
+            Snackbar.make(view, "Please enter a valid email address", Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+    fun navigateToFragmentAndClearStack(navController: NavController, currentFragmentId: Int, targetFragmentId: Int) {
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(currentFragmentId, inclusive = true)
+            .build()
+
+        navController.navigate(targetFragmentId, null, navOptions)
+    }
+
+
+    //Email, password ve fullname validation için kullanılan fonksiyonlar
+    private fun isValidEmail(email: String): Boolean {
+        if (email.isBlank()) {
+            return false
+        }
+        val emailPattern = Patterns.EMAIL_ADDRESS
+        return emailPattern.matcher(email).matches()
+    }
+    private fun isValidPassword(password: String): Boolean {
+        if (password.isBlank()) {
+            return false
+        }
+        val passwordPattern = Regex("^(?=.*[A-Z])(?=.*[0-9])(?=.*\\W)(?=.{6,})\\S*$")
+        return passwordPattern.matches(password)
+    }
+    private fun isValidFullName(fullName: String): Boolean {
+        // Boş olup olmadığını kontrol et
+        if (fullName.isBlank()) {
+            return false
+        }
+
+        // Kelimeleri ayır
+        val words = fullName.trim().split("\\s+".toRegex())
+
+        // En az iki kelime ve her kelimenin en az 3 harf uzunluğunda olması gerekiyor
+        if (words.size < 2 || words.any { it.length < 2 }) {
+            return false
+        }
+
+        // Kelimelerde rakam veya noktalama işareti olmamalı
+        val namePattern = Regex("^[a-zA-Z]+$")
+
+        return !words.any { !namePattern.matches(it) }
+    }
+    //Email, password ve fullname validation için kullanılan fonksiyonlar
+
+
+
+    private fun saveBirthdaysToFirebase(birthdayList: List<Birthday>?){
+        val firestore = FirebaseFirestore.getInstance()
+        val auth = FirebaseAuth.getInstance()
+        if (birthdayList != null) {
+            if (birthdayList.isNotEmpty()){
+                birthdayList.forEach { birthday ->
+
+                    val updatedBirthday = birthday.copy(userId = auth.currentUser!!.uid)
+                    //doğum gününü firebase'e kaydediyoruz
+                    val document = firestore.collection("birthdays").document(updatedBirthday.id)
+                    firestore.runTransaction { transaction ->
+                        transaction.set(document, updatedBirthday)
+                    }
+                }
+            }
+        }
+    }
+    private fun savePastBirthdaysToFirebase(birthdayList: List<Birthday>?){
+        val firestore = FirebaseFirestore.getInstance()
+        val auth = FirebaseAuth.getInstance()
+        if (birthdayList != null) {
+            if (birthdayList.isNotEmpty()){
+                birthdayList.forEach { birthday ->
+                    val updatedBirthday = birthday.copy(userId = auth.currentUser!!.uid)
+                    //doğum gününü firebase'e kaydediyoruz
+                    val document = firestore.collection("past_birthdays").document(updatedBirthday.id)
+                    firestore.runTransaction { transaction ->
+                        transaction.set(document, updatedBirthday)
+                    }
+                }
+            }
+        }
+    }
+    private fun saveDeletedBirthdaysToFirebase(birthdayList: List<Birthday>?){
+        val firestore = FirebaseFirestore.getInstance()
+        val auth = FirebaseAuth.getInstance()
+        if (birthdayList != null) {
+            if (birthdayList.isNotEmpty()){
+                birthdayList.forEach { birthday ->
+
+                    val updatedBirthday = birthday.copy(userId = auth.currentUser!!.uid)
+
+                    //doğum gününü firebase'e kaydediyoruz
+                    val document = firestore.collection("deleted_birthdays").document(updatedBirthday.id)
+                    firestore.runTransaction { transaction ->
+                        transaction.set(document, updatedBirthday)
+                    }
+                }
+            }
+        }
+    }
 
 }

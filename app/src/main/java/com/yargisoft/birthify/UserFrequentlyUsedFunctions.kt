@@ -416,7 +416,7 @@ object UserFrequentlyUsedFunctions {
                     }
                 }
 
-            },2500)
+            },1500)
 
         } else {
             Snackbar.make(view, "Please fill in all fields", Snackbar.LENGTH_SHORT).show()
@@ -469,7 +469,7 @@ object UserFrequentlyUsedFunctions {
                         }
                     }
                 }
-            },2500)
+            },1500)
 
 
         } else {
@@ -537,7 +537,7 @@ object UserFrequentlyUsedFunctions {
                     }
                 }
 
-            },2500)
+            },1500)
 
         } else {
             Snackbar.make(view, "Please enter a valid email address", Snackbar.LENGTH_SHORT).show()

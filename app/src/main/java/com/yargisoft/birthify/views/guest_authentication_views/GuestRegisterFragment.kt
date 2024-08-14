@@ -1,4 +1,4 @@
-package com.yargisoft.birthify.views.authentication_views
+package com.yargisoft.birthify.views.guest_authentication_views
 
 import android.os.Bundle
 import android.text.Editable
@@ -13,19 +13,26 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.yargisoft.birthify.UserFrequentlyUsedFunctions
+import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
+import com.yargisoft.birthify.databinding.FragmentGuestRegisterBinding
 import com.yargisoft.birthify.databinding.FragmentRegisterBinding
 import com.yargisoft.birthify.repositories.AuthRepository
+import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
+import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
+import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
 import java.util.Locale
 
-class RegisterFragment : Fragment() {
 
-    private lateinit var binding : FragmentRegisterBinding
-    private lateinit var viewModel : AuthViewModel
+class GuestRegisterFragment : Fragment() {
+
+    private lateinit var binding : FragmentGuestRegisterBinding
+    private lateinit var authViewModel : AuthViewModel
+    private lateinit var guestViewModel : GuestBirthdayViewModel
     private lateinit var emailTextInputLayout: TextInputLayout
     private lateinit var emailEditText: TextInputEditText
     private lateinit var registerPassTextInput: TextInputLayout
@@ -39,18 +46,22 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_register, container, false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_guest_register, container, false)
 
         userSharedPreferences= UserSharedPreferencesManager(requireContext())
 
         val navOptions = NavOptions.Builder()
-            .setPopUpTo(R.id.registerFragment, inclusive = true)
+            .setPopUpTo(R.id.guestRegisterFragment, inclusive = true)
             .build()
 
-        val repository = AuthRepository(userSharedPreferences.preferences)
-        val factory= AuthViewModelFactory(repository)
-        viewModel = ViewModelProvider(this,factory)[AuthViewModel::class.java]
 
+        val authRepository = AuthRepository(userSharedPreferences.preferences)
+        val authFactory= AuthViewModelFactory(authRepository)
+        authViewModel = ViewModelProvider(this,authFactory)[AuthViewModel::class.java]
+
+        val guestRepository = GuestRepository(requireContext())
+        val guestFactory= GuestViewModelFactory(guestRepository)
+        guestViewModel = ViewModelProvider(this,guestFactory)[GuestBirthdayViewModel::class.java]
 
 
         registerPassTextInput = binding.passwordTextInput
@@ -62,16 +73,14 @@ class RegisterFragment : Fragment() {
         registerFullNameTextInput= binding.fullNameTextInput
         registerFullNameEditText = binding.fullNameEditText
 
-
         binding.alreadyHaveAccountTv.setOnClickListener {
             UserFrequentlyUsedFunctions
-                .navigateToFragmentAndClearStack(findNavController(),R.id.registerFragment,R.id.registerToLogin)
+                .navigateToFragmentAndClearStack(findNavController(),R.id.guestRegisterFragment,R.id.guestRegisterToLogin)
         }
         binding.forgotPasswordTv.setOnClickListener {
             UserFrequentlyUsedFunctions
-                .navigateToFragmentAndClearStack(findNavController(),R.id.registerFragment,R.id.registerToForgot)
+                .navigateToFragmentAndClearStack(findNavController(),R.id.guestRegisterFragment,R.id.guestRegisterToReset)
         }
-
 
 
         // Register fragment sayfasında girilen e-mail formatını kontrol ediyoruz
@@ -177,19 +186,22 @@ class RegisterFragment : Fragment() {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
-            UserFrequentlyUsedFunctions.registerValidation(
+              GuestFrequentlyUsedFunctions.registerGuestValidation(
                 email,
                 password,
                 name,
-                viewModel,
+                authViewModel,
                 binding.registerAnimation,
                 viewLifecycleOwner,
                 binding.root,
                 findNavController(),
-                R.id.registerToLogin,
+                R.id.guestRegisterToLogin,
                 navOptions
-                )
+            )
         }
+
+
         return binding.root
     }
+
 }

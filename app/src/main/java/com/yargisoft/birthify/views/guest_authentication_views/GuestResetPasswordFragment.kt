@@ -1,4 +1,4 @@
-package com.yargisoft.birthify.views.authentication_views
+package com.yargisoft.birthify.views.guest_authentication_views
 
 import android.os.Bundle
 import android.text.Editable
@@ -13,9 +13,11 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.yargisoft.birthify.UserFrequentlyUsedFunctions
+import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.databinding.FragmentForgotPasswordBinding
+import com.yargisoft.birthify.databinding.FragmentGuestResetPasswordBinding
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
@@ -23,9 +25,10 @@ import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import java.util.Locale
 
 
-class ForgotPasswordFragment : Fragment() {
-    private lateinit var binding: FragmentForgotPasswordBinding
-    private lateinit var viewModel: AuthViewModel
+class GuestResetPasswordFragment : Fragment() {
+
+    private lateinit var binding: FragmentGuestResetPasswordBinding
+    private lateinit var authViewModel: AuthViewModel
     private lateinit var forgotPassTextInputLayout : TextInputLayout
     private lateinit var resetPassEmailEditText: TextInputEditText
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
@@ -36,13 +39,11 @@ class ForgotPasswordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        // Inflate the layout for this fragment
-        binding=  DataBindingUtil.inflate(inflater,R.layout.fragment_forgot_password, container, false)
+        binding=  DataBindingUtil.inflate(inflater,R.layout.fragment_guest_reset_password, container, false)
 
         val navOptions = NavOptions.Builder()
-            .setPopUpTo(R.id.registerFragment, inclusive = true)
+            .setPopUpTo(R.id.guestResetPasswordFragment, inclusive = true)
             .build()
-
 
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
@@ -50,13 +51,13 @@ class ForgotPasswordFragment : Fragment() {
         //viewModel tanımlama için gerekli kodlar
         val repository = AuthRepository(userSharedPreferences.preferences)
         val factory= AuthViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, factory )[AuthViewModel::class.java]
-
-
+        authViewModel = ViewModelProvider(this, factory )[AuthViewModel::class.java]
 
         //Text Change Listener için edittext ve textinputlayout tanımlamaları
         resetPassEmailEditText = binding.resetPassEmailEditText
         forgotPassTextInputLayout = binding.forgotPassTextInputLayout
+
+
 
 
         // Forgot Password fragment sayfasında girilen e-mail formatını kontrol ediyoruz
@@ -97,28 +98,24 @@ class ForgotPasswordFragment : Fragment() {
 
             val email = binding.resetPassEmailEditText.text.toString()
 
-           UserFrequentlyUsedFunctions.resetPasswordValidation(
-               email,
-               viewLifecycleOwner,
-               viewModel,
-               binding.forgotPasswordLottie,
-               binding.root,
-               findNavController(),
-               R.id.forgotToLogin,
-               navOptions
-           )
+           GuestFrequentlyUsedFunctions.resetPasswordGuestValidation(
+                email,
+                viewLifecycleOwner,
+                authViewModel,
+                binding.forgotPasswordLottie,
+                binding.root,
+                findNavController(),
+                R.id.guestResetToLogin,
+                navOptions
+            )
 
         }
         binding.rememberedPassTv.setOnClickListener {
-            UserFrequentlyUsedFunctions
-                .navigateToFragmentAndClearStack(findNavController(),R.id.forgotPasswordFragment,R.id.forgotToLogin)
+            GuestFrequentlyUsedFunctions
+                .navigateToFragmentAndClearStack(findNavController(),R.id.guestResetPasswordFragment,R.id.guestResetToLogin)
         }
-        
+
 
         return binding.root
-
     }
-
-
-
 }

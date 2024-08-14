@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/guest_auth_nav"
+    app:startDestination="@id/guestLoginPageFragment">
+    <fragment
+        android:id="@+id/guestRegisterFragment"
+        android:name="com.yargisoft.birthify.views.guest_authentication_views.GuestRegisterFragment"
+        android:label="fragment_guest_register"
+        tools:layout="@layout/fragment_guest_register" >
+        <action
+            android:id="@+id/guestRegisterToLogin"
+            app:destination="@id/guestLoginPageFragment" />
+        <action
+            android:id="@+id/guestRegisterToReset"
+            app:destination="@id/guestResetPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/guestResetPasswordFragment"
+        android:name="com.yargisoft.birthify.views.guest_authentication_views.GuestResetPasswordFragment"
+        android:label="fragment_guest_reset_password"
+        tools:layout="@layout/fragment_guest_reset_password" >
+        <action
+            android:id="@+id/guestResetToLogin"
+            app:destination="@id/guestLoginPageFragment" />
+        <action
+            android:id="@+id/guestResetToRegister"
+            app:destination="@id/guestRegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/guestLoginPageFragment"
+        android:name="com.yargisoft.birthify.views.guest_authentication_views.GuestLoginPageFragment"
+        android:label="GuestLoginPageFragment" >
+        <action
+            android:id="@+id/guestLoginToRegister"
+            app:destination="@id/guestRegisterFragment" />
+        <action
+            android:id="@+id/guestLoginToReset"
+            app:destination="@id/guestResetPasswordFragment" />
+        <action
+            android:id="@+id/guestLoginToUserMainPage"
+            app:destination="@id/splashFragment2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/splashFragment2"
+        android:name="com.yargisoft.birthify.views.authentication_views.SplashFragment"
+        android:label="SplashFragment" />
+
+
+</navigation>

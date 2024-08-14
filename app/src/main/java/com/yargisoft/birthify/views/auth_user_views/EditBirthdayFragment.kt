@@ -49,6 +49,10 @@ class EditBirthdayFragment : Fragment() {
         factory = UsersBirthdayViewModelFactory(repository)
         usersBirthdayViewModel = ViewModelProvider(this,factory)[UsersBirthdayViewModel::class]
 
+        //user SharedPreferences
+        userSharedPreferences = UserSharedPreferencesManager(requireContext())
+
+
 
         //Auth ViewModel Tanımlama için gerekenler
         val authRepository = AuthRepository(userSharedPreferences.preferences)
@@ -64,8 +68,7 @@ class EditBirthdayFragment : Fragment() {
         //editlenen doğum günü bilgilerini ekrana yansıtıyoruz
         binding.birthday = editedBirthday.birthday
 
-        //user SharedPreferences
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
+
 
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.drawerLayout

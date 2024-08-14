@@ -46,6 +46,11 @@ class PastBirthdaysFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_past_birthdays, container, false)
 
+
+        //user SharedPreferences
+        userSharedPreferences = UserSharedPreferencesManager(requireContext())
+
+
         //Birthday viewModel Tanımlama için gerekenler
         val birthdayRepository = BirthdayRepository(requireContext())
         val birthdayFactory = UsersBirthdayViewModelFactory(birthdayRepository)
@@ -58,11 +63,8 @@ class PastBirthdaysFragment : Fragment() {
         authViewModel = ViewModelProvider(this, authFactory)[AuthViewModel::class]
 
 
+        usersBirthdayViewModel.getPastBirthdaysFromFirebase(userSharedPreferences.getUserId())
         usersBirthdayViewModel.getPastBirthdays()
-
-
-        //user SharedPreferences
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
 
 

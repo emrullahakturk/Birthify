@@ -96,7 +96,7 @@ class SplashFragment : Fragment() {
             }else{
                 navigateToFragmentAndClearStack(findNavController(), R.id.splashFragment, R.id.splashToFirstPage)
             }
-        }, 3500) // 3 saniye bekletme
+        }, 2500) // 2.5 saniye bekletme
     }
 
     private fun verifyUserToken(userId: String, storedToken: String, callback: (Boolean) -> Unit) {
