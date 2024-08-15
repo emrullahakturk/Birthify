@@ -182,10 +182,35 @@ class AuthRepository(private val sharedPreferences: SharedPreferences) {
         } ?: onFailure("User not logged in.")
     }
 
-  /*  // Function to check if the user's email is verified
-    fun isEmailVerified(): Boolean {
-        return auth.currentUser?.isEmailVerified ?: false
-    }*/
+    fun deleteUserAccount(onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+        val user = auth.currentUser
+        user?.let {
+            // İlk olarak Firestore'dan kullanıcı verilerini siliyoruz
+            firestore.collection("users").document(user.uid).delete()
+                .addOnCompleteListener { deleteTask ->
+                    if (deleteTask.isSuccessful) {
+                        // Firestore silme başarılı, şimdi kullanıcıyı Firebase Authentication'dan siliyoruz
+                        user.delete()
+                            .addOnCompleteListener { authTask ->
+                                if (authTask.isSuccessful) {
+                                    clearUserSession() // Kullanıcı oturum verilerini temizle
+                                    onSuccess()
+                                } else {
+                                    onFailure(authTask.exception?.message ?: "User deletion failed.")
+                                }
+                            }
+                    } else {
+                        onFailure(deleteTask.exception?.message ?: "Failed to delete user data.")
+                    }
+                }
+        } ?: onFailure("User not logged in.")
+    }
+
+
+    /*  // Function to check if the user's email is verified
+      fun isEmailVerified(): Boolean {
+          return auth.currentUser?.isEmailVerified ?: false
+      }*/
 }
 
 

@@ -113,7 +113,7 @@ object UserFrequentlyUsedFunctions {
     }
 
     //Ekranı tıklanabilir hale getiren ve lottie animasyonunu durduran fonksiyon
-    private fun enableViewDisableLottie(lottieAnimationView: LottieAnimationView, view: View)
+    fun enableViewDisableLottie(lottieAnimationView: LottieAnimationView, view: View)
     {
         lottieAnimationView.cancelAnimation()
         lottieAnimationView.visibility = View.INVISIBLE
@@ -726,7 +726,7 @@ object UserFrequentlyUsedFunctions {
     }
 
     // Logout fonksiyonu
-    private fun logout(activity: Activity) {
+     fun logout(activity: Activity) {
         // Mevcut aktiviteyi kapatır ve yeni bir aktivite başlatır yani uygulama sıfırdan başlamış gibi olur
         val intent = Intent(activity, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)

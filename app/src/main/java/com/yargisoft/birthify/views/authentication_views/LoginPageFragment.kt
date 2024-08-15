@@ -84,10 +84,10 @@ class LoginPageFragment : Fragment() {
 
 
         binding.forgotPassLoginTv.setOnClickListener {
-            findNavController().navigate(R.id.guestLoginToReset)
+            findNavController().navigate(R.id.loginToForgot)
         }
         binding.dontHaveTv.setOnClickListener {
-            findNavController().navigate(R.id.guestLoginToRegister)
+            findNavController().navigate(R.id.loginToRegister)
         }
 
         binding.loginButton.setOnClickListener {

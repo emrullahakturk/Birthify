@@ -241,6 +241,22 @@ class BirthdayRepository (context: Context){
         editor.clear()
         editor.apply()
     }
+
+    fun clearAllBirthdays() {
+        // Localdeki doğum günlerini temizleme
+        clearBirthdays()
+        clearDeletedBirthdays()
+        clearPastBirthdays()
+
+        // Firebase'deki doğum günlerini temizleme
+        clearBirthdaysFirebase()
+        clearDeletedBirthdaysFirebase()
+        clearPastBirthdaysFirebase()
+    }
+
+
+
+
     fun clearBirthdaysFirebase() {
         //firebase üzerindeki birthdays listesini tamamen silme
         val collection = firestore.collection("birthdays")

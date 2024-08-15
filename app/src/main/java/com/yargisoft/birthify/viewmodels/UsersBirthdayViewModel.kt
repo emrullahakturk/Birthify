@@ -83,6 +83,10 @@ class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewM
         repository.clearPastBirthdaysFirebase()
     }
 
+    fun clearAllBirthdays(){
+        repository.clearAllBirthdays()
+    }
+
 
 
     //shared preferences ile kaydettiğimiz fonksiyonları listelere aktarıyoruz

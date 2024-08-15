@@ -74,4 +74,5 @@
     <string name="location_access">Location access</string>
     <string name="language">Language</string>
     <string name="help_center">Help Center</string>
+    <string name="account_details">Account details</string>
 </resources>

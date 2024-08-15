@@ -128,4 +128,24 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
             }
         }
     }
+
+    // Function to handle user account deletion
+    fun deleteUserAccount() {
+        viewModelScope.launch {
+            _isLoaded.value = false
+            authRepository.deleteUserAccount(
+                onSuccess = {
+                    _authSuccess.value = true
+                    _authError.value = null
+                    _isLoaded.value = true
+                },
+                onFailure = { errorMessage ->
+                    _authSuccess.value = false
+                    _authError.value = errorMessage
+                    _isLoaded.value = true
+                }
+            )
+        }
+    }
+
 }

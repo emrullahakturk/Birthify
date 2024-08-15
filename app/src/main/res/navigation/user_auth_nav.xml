@@ -71,7 +71,7 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/loginToMain"
-            app:destination="@id/mainPageFragment" />
+            app:destination="@id/main_nav" />
     </fragment>
     <fragment
         android:id="@+id/firstPageFragment"

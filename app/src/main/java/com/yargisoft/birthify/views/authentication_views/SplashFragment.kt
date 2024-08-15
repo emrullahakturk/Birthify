@@ -36,6 +36,7 @@ class SplashFragment : Fragment() {
         userSharedPreferencesManager = UserSharedPreferencesManager(requireContext())
         authRepository = AuthRepository(userSharedPreferencesManager.preferences)
 
+
         // İzin isteme işlemini başlatmak için launcher
         requestPermissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestPermission()
