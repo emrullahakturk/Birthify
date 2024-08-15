@@ -67,7 +67,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center">
 
-
                         <androidx.cardview.widget.CardView
                             android:id="@+id/languageCardView"
                             android:layout_width="match_parent"
@@ -319,6 +318,57 @@
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/resetPasswordCardView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="20dp"
+                            card_view:cardBackgroundColor="#FFFFFF"
+                            card_view:cardCornerRadius="35dp"
+                            card_view:cardElevation="8dp"
+                            card_view:layout_constraintEnd_toEndOf="parent"
+                            card_view:layout_constraintHorizontal_bias="0.5"
+                            card_view:layout_constraintStart_toStartOf="parent"
+                            card_view:layout_constraintTop_toBottomOf="@+id/locationAccessCardView">
+
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp"
+                                android:orientation="vertical"
+                                android:padding="16dp"
+                                tools:layout_editor_absoluteX="0dp"
+                                tools:layout_editor_absoluteY="61dp">
+
+                                <TextView
+                                    android:id="@+id/textView5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:fontFamily="@font/wittgenstein_font"
+                                    android:text="@string/reset_password"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    card_view:layout_constraintBottom_toBottomOf="parent"
+                                    card_view:layout_constraintStart_toEndOf="@+id/imageView4"
+                                    card_view:layout_constraintTop_toTopOf="parent"
+                                    card_view:layout_constraintVertical_bias="0.5" />
+
+                                <ImageView
+                                    android:id="@+id/imageView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="20dp"
+                                    card_view:layout_constraintBottom_toBottomOf="parent"
+                                    card_view:layout_constraintStart_toStartOf="parent"
+                                    card_view:layout_constraintTop_toTopOf="parent"
+                                    card_view:srcCompat="@drawable/ic_password_settings" />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
                             android:id="@+id/deleteAllBirthdaysCardView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -373,6 +423,58 @@
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
+                            android:id="@+id/deleteMyAccountCardView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="20dp"
+                            card_view:cardBackgroundColor="#FFFFFF"
+                            card_view:cardCornerRadius="35dp"
+                            card_view:cardElevation="8dp"
+                            card_view:layout_constraintEnd_toEndOf="parent"
+                            card_view:layout_constraintHorizontal_bias="0.5"
+                            card_view:layout_constraintStart_toStartOf="parent"
+                            card_view:layout_constraintTop_toBottomOf="@+id/deleteAllBirthdaysCardView">
+
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp"
+                                android:orientation="vertical"
+                                android:padding="16dp"
+                                tools:layout_editor_absoluteX="0dp"
+                                tools:layout_editor_absoluteY="61dp">
+
+                                <TextView
+                                    android:id="@+id/textView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:fontFamily="@font/wittgenstein_font"
+                                    android:text="@string/delete_my_account"
+                                    android:textColor="@color/red"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    card_view:layout_constraintBottom_toBottomOf="parent"
+                                    card_view:layout_constraintStart_toEndOf="@+id/imageView2"
+                                    card_view:layout_constraintTop_toTopOf="parent"
+                                    card_view:layout_constraintVertical_bias="0.5" />
+
+                                <ImageView
+                                    android:id="@+id/imageView2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="20dp"
+                                    card_view:layout_constraintBottom_toBottomOf="parent"
+                                    card_view:layout_constraintStart_toStartOf="parent"
+                                    card_view:layout_constraintTop_toTopOf="parent"
+                                    card_view:srcCompat="@drawable/ic_delete_settings" />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
                             android:id="@+id/helpCenterCardView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -385,7 +487,7 @@
                             card_view:layout_constraintEnd_toEndOf="parent"
                             card_view:layout_constraintHorizontal_bias="0.5"
                             card_view:layout_constraintStart_toStartOf="parent"
-                            card_view:layout_constraintTop_toBottomOf="@+id/deleteAllBirthdaysCardView">
+                            card_view:layout_constraintTop_toBottomOf="@+id/deleteMyAccountCardView">
 
 
                             <androidx.constraintlayout.widget.ConstraintLayout
@@ -424,7 +526,6 @@
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                         </androidx.cardview.widget.CardView>
-
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

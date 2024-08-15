@@ -120,6 +120,8 @@
 
 
 
+    <!--Settings Page renkleri-->
+    <color name="settings_background">#000000</color>
 
 
     <!--Toolbar renkleri-->

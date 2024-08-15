@@ -106,7 +106,9 @@
                         android:layout_marginBottom="16dp"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_account"
-                        app:startIconTint="@color/ic_account_add">
+                        app:startIconTint="@color/ic_account_add"
+                        app:hintEnabled="false"
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/birthdayNameEditText"
@@ -126,7 +128,9 @@
                         android:layout_marginBottom="16dp"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_date"
-                        app:startIconTint="@color/ic_calendar_add">
+                        app:startIconTint="@color/ic_calendar_add"
+                        app:hintEnabled="false"
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/birthdayDateEditText"
@@ -148,7 +152,9 @@
                         android:layout_marginBottom="16dp"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_note"
-                        app:startIconTint="@color/ic_note_add">
+                        app:startIconTint="@color/ic_note_add"
+                        app:hintEnabled="false"
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/birthdayNoteEditText"

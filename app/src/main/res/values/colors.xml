@@ -65,7 +65,7 @@
     <color name="deleted_birthdays_tv">#3F744C</color>
     <color name="button_text">#FFFFFF</color>
     <color name="birthify_first_page_tv">#DF717D</color>
-    <color name="birthify_splash_tv">#FF99654C</color>
+    <color name="birthify_splash_tv">#DF717D</color>
     <color name="dont_have_tv">#FF99654C</color>
 
 
@@ -90,6 +90,9 @@
 
 
 
+
+    <!--Settings Page renkleri-->
+    <color name="settings_background">#F0EEEE</color>
 
     <!--Toolbar renkleri-->
     <color name="ic_search_toolbar">#344e41</color>

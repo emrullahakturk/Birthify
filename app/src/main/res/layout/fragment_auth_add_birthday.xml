@@ -104,6 +104,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
+                        app:hintEnabled="false"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_account"
                         app:startIconTint="@color/ic_account_add">
@@ -126,7 +127,9 @@
                         android:layout_marginBottom="16dp"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_date"
-                        app:startIconTint="@color/ic_calendar_add">
+                        app:startIconTint="@color/ic_calendar_add"
+                        app:hintEnabled="false"
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/birthdayDateEditText"
@@ -148,7 +151,9 @@
                         android:layout_marginBottom="16dp"
                         app:boxBackgroundMode="outline"
                         app:startIconDrawable="@drawable/ic_note"
-                        app:startIconTint="@color/ic_note_add">
+                        app:startIconTint="@color/ic_note_add"
+                        app:hintEnabled="false"
+                        >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/birthdayNoteEditText"
@@ -159,7 +164,8 @@
                             android:maxLines="10"
                             android:minLines="10"
                             android:paddingStart="40dp"
-                            android:paddingEnd="0dp" />
+                            android:paddingEnd="0dp"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <Button

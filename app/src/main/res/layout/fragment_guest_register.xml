@@ -51,7 +51,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:startIconDrawable="@drawable/ic_mail"
-                app:startIconTint="@color/ic_mail">
+                app:startIconTint="@color/ic_mail"
+                app:hintEnabled="false"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/emailEditText"
@@ -82,7 +84,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/emailTextInput"
                 app:startIconDrawable="@drawable/ic_lock"
-                app:startIconTint="@color/ic_lock">
+                app:startIconTint="@color/ic_lock"
+                app:hintEnabled="false"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordEditText"
@@ -111,7 +115,9 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:startIconDrawable="@drawable/ic_account"
-                app:startIconTint="@color/ic_account">
+                app:startIconTint="@color/ic_account"
+                app:hintEnabled="false"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fullNameEditText"

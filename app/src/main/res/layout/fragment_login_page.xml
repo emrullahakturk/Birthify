@@ -87,7 +87,9 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:startIconDrawable="@drawable/ic_mail"
-                app:startIconTint="@color/ic_mail">
+                app:startIconTint="@color/ic_mail"
+                app:hintEnabled="false"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/loginEmailEditText"
@@ -99,7 +101,8 @@
                     android:maxLines="1"
                     android:fontFamily="@font/wittgenstein_font"
                     android:paddingStart="40dp"
-                    android:paddingEnd="0dp" />
+                    android:paddingEnd="0dp"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,7 +122,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5"
                 app:startIconDrawable="@drawable/ic_lock"
-                app:startIconTint="@color/ic_lock">
+                app:startIconTint="@color/ic_lock"
+                app:hintEnabled="false"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/loginPassEditText"
@@ -189,7 +194,7 @@
                 android:text="@string/dont_have_account"
                 android:textColor="@color/dont_have_tv"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:fontFamily="@font/wittgenstein_font"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
