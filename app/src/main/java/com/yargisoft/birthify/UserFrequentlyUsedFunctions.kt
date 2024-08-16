@@ -121,7 +121,7 @@ object UserFrequentlyUsedFunctions {
     }
 
     //Ekranı tıklanamaz hale getiren ve lottie animasyonunu başlatan fonksiyon
-    private fun disableViewEnableLottie(lottieAnimationView:LottieAnimationView, view: View)
+    fun disableViewEnableLottie(lottieAnimationView:LottieAnimationView, view: View)
     {
         lottieAnimationView.visibility = View.VISIBLE
         lottieAnimationView.playAnimation()

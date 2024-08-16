@@ -8,10 +8,32 @@
 
     </data>
 
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/drawerLayout">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/settings_background">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/three_point_animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:lottie_autoPlay="false"
+            android:elevation="5dp"
+            app:lottie_loop="true"
+            android:visibility="gone"
+            app:lottie_rawRes="@raw/three_point_animation" />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -99,7 +121,7 @@
 
 
                                 <TextView
-                                    android:id="@+id/textView4"
+                                    android:id="@+id/languageTv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
@@ -108,13 +130,13 @@
                                     android:textSize="20sp"
                                     android:textStyle="bold"
                                     card_view:layout_constraintBottom_toBottomOf="parent"
-                                    card_view:layout_constraintStart_toEndOf="@+id/imageView6"
+                                    card_view:layout_constraintStart_toEndOf="@+id/languageImageView"
                                     card_view:layout_constraintTop_toTopOf="parent"
                                     card_view:layout_constraintVertical_bias="0.5" />
 
 
                                 <ImageView
-                                    android:id="@+id/imageView6"
+                                    android:id="@+id/languageImageView"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -151,7 +173,7 @@
 
 
                                 <TextView
-                                    android:id="@+id/textView41"
+                                    android:id="@+id/notificationsTv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
@@ -160,13 +182,13 @@
                                     android:textSize="20sp"
                                     android:textStyle="bold"
                                     card_view:layout_constraintBottom_toBottomOf="parent"
-                                    card_view:layout_constraintStart_toEndOf="@+id/imageView23"
+                                    card_view:layout_constraintStart_toEndOf="@+id/notificationsImageView"
                                     card_view:layout_constraintTop_toTopOf="parent"
                                     card_view:layout_constraintVertical_bias="0.5" />
 
 
                                 <ImageView
-                                    android:id="@+id/imageView23"
+                                    android:id="@+id/notificationsImageView"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -177,6 +199,7 @@
 
 
                                 <androidx.appcompat.widget.SwitchCompat
+                                    android:id="@+id/notificationSwitch"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="10dp"
@@ -214,7 +237,7 @@
 
 
                                 <TextView
-                                    android:id="@+id/textView412"
+                                    android:id="@+id/darkThemeTv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
@@ -223,13 +246,13 @@
                                     android:textSize="20sp"
                                     android:textStyle="bold"
                                     card_view:layout_constraintBottom_toBottomOf="parent"
-                                    card_view:layout_constraintStart_toEndOf="@+id/imageView233"
+                                    card_view:layout_constraintStart_toEndOf="@+id/darkThemeImageView"
                                     card_view:layout_constraintTop_toTopOf="parent"
                                     card_view:layout_constraintVertical_bias="0.5" />
 
 
                                 <ImageView
-                                    android:id="@+id/imageView233"
+                                    android:id="@+id/darkThemeImageView"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -240,6 +263,7 @@
 
 
                                 <androidx.appcompat.widget.SwitchCompat
+                                    android:id="@+id/darkThemeSwitch"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="10dp"
@@ -276,7 +300,7 @@
                                 tools:layout_editor_absoluteY="61dp">
 
                                 <TextView
-                                    android:id="@+id/textView4122"
+                                    android:id="@+id/locationAccessTv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
@@ -285,13 +309,13 @@
                                     android:textSize="20sp"
                                     android:textStyle="bold"
                                     card_view:layout_constraintBottom_toBottomOf="parent"
-                                    card_view:layout_constraintStart_toEndOf="@+id/imageView2331"
+                                    card_view:layout_constraintStart_toEndOf="@+id/locationAccessImageView"
                                     card_view:layout_constraintTop_toTopOf="parent"
                                     card_view:layout_constraintVertical_bias="0.5" />
 
 
                                 <ImageView
-                                    android:id="@+id/imageView2331"
+                                    android:id="@+id/locationAccessImageView"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -302,6 +326,7 @@
 
 
                                 <androidx.appcompat.widget.SwitchCompat
+                                    android:id="@+id/locationSwitch"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="10dp"
@@ -339,7 +364,7 @@
 
 
                                 <ImageView
-                                    android:id="@+id/imageView11"
+                                    android:id="@+id/deleteAllBirthdaysImageView"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -360,7 +385,7 @@
                                     android:textSize="20sp"
                                     android:textStyle="bold"
                                     card_view:layout_constraintBottom_toBottomOf="parent"
-                                    card_view:layout_constraintStart_toEndOf="@+id/imageView11"
+                                    card_view:layout_constraintStart_toEndOf="@+id/deleteAllBirthdaysImageView"
                                     card_view:layout_constraintTop_toTopOf="parent"
                                     card_view:layout_constraintVertical_bias="0.5" />
 
@@ -403,12 +428,12 @@
                                     android:textSize="20sp"
                                     android:textStyle="bold"
                                     card_view:layout_constraintBottom_toBottomOf="parent"
-                                    card_view:layout_constraintStart_toEndOf="@+id/imageView21"
+                                    card_view:layout_constraintStart_toEndOf="@+id/helpCenterTv"
                                     card_view:layout_constraintTop_toTopOf="parent"
                                     card_view:layout_constraintVertical_bias="0.5" />
 
                                 <ImageView
-                                    android:id="@+id/imageView21"
+                                    android:id="@+id/helpCenterTv"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -469,4 +494,22 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/navigation_drawer_background"
+            app:itemIconTint="@color/ic_navigation_icons_main"
+            app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
+            app:menu="@menu/user_drawer_menu"
+            app:subheaderColor="@color/nav_drawer_sub_header_tv_main"
+            app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
+
+        </com.google.android.material.navigation.NavigationView>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
 </layout>

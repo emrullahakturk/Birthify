@@ -7,6 +7,23 @@ class UserSharedPreferencesManager(context: Context) {
     val preferences: SharedPreferences = context.getSharedPreferences(UserConstants.PREFS_NAME, Context.MODE_PRIVATE)
 
 
+    companion object {
+        private const val DARK_THEME_KEY = "dark_theme_enabled"
+    }
+
+    // Karanlık tema ayarını kontrol eden fonksiyon
+    fun isDarkThemeEnabled(): Boolean {
+        return preferences.getBoolean(DARK_THEME_KEY, false)
+    }
+
+    // Karanlık tema ayarını değiştiren fonksiyon
+    fun setDarkThemeEnabled(isEnabled: Boolean) {
+        with(preferences.edit()) {
+            putBoolean(DARK_THEME_KEY, isEnabled)
+            apply()
+        }
+    }
+
     fun getUserCredentials(): Triple<String?, String?, String?> {
         val email = preferences.getString(UserConstants.PREF_EMAIL, null)
         val userId = preferences.getString(UserConstants.KEY_USER_ID, null)

@@ -163,7 +163,35 @@
         android:id="@+id/guestSettingsFragment"
         android:name="com.yargisoft.birthify.views.guest_user_views.GuestSettingsFragment"
         android:label="fragment_guest_settings"
-        tools:layout="@layout/fragment_guest_settings" />
+        tools:layout="@layout/fragment_guest_settings" >
+        <action
+            android:id="@+id/guestSettingsToMain"
+            app:destination="@id/guestMainPageFragment" />
+        <action
+            android:id="@+id/guestSettingsToPastBirthdays"
+            app:destination="@id/guestPastBirthdaysFragment" />
+        <action
+            android:id="@+id/guestSettingsToAddBirthday"
+            app:destination="@id/guestAddBirthdayFragment" />
+        <action
+            android:id="@+id/guestSettingsToDetail"
+            app:destination="@id/guestBirthdayDetailFragment" />
+        <action
+            android:id="@+id/guestSettingsToEditBirthday"
+            app:destination="@id/guestEditBirthdayFragment" />
+        <action
+            android:id="@+id/guestSettingsToDeletedBirthdayDetail"
+            app:destination="@id/guestDeletedBirthdayDetailFragment" />
+        <action
+            android:id="@+id/guestSettingsToTrashBin"
+            app:destination="@id/guestTrashBinFragment" />
+        <action
+            android:id="@+id/guestSettingsToSettings"
+            app:destination="@id/guestSettingsFragment" />
+        <action
+            android:id="@+id/guestSettingsToLogin"
+            app:destination="@id/guest_auth_nav" />
+    </fragment>
     <fragment
         android:id="@+id/guestPastBirthdaysFragment"
         android:name="com.yargisoft.birthify.views.guest_user_views.GuestPastBirthdaysFragment"

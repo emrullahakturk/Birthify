@@ -115,7 +115,7 @@
 
 
                                     <TextView
-                                        android:id="@+id/textView43"
+                                        android:id="@+id/accountDetailsTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="10dp"
@@ -179,7 +179,7 @@
 
 
                                     <TextView
-                                        android:id="@+id/textView4"
+                                        android:id="@+id/languageTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="10dp"
@@ -188,13 +188,13 @@
                                         android:textSize="20sp"
                                         android:textStyle="bold"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
-                                        card_view:layout_constraintStart_toEndOf="@+id/imageView6"
+                                        card_view:layout_constraintStart_toEndOf="@+id/languageImageView"
                                         card_view:layout_constraintTop_toTopOf="parent"
                                         card_view:layout_constraintVertical_bias="0.5" />
 
 
                                     <ImageView
-                                        android:id="@+id/imageView6"
+                                        android:id="@+id/languageImageView"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="20dp"
@@ -231,7 +231,7 @@
 
 
                                     <TextView
-                                        android:id="@+id/textView41"
+                                        android:id="@+id/notificationsTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="10dp"
@@ -240,13 +240,13 @@
                                         android:textSize="20sp"
                                         android:textStyle="bold"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
-                                        card_view:layout_constraintStart_toEndOf="@+id/imageView23"
+                                        card_view:layout_constraintStart_toEndOf="@+id/notificationsImageView"
                                         card_view:layout_constraintTop_toTopOf="parent"
                                         card_view:layout_constraintVertical_bias="0.5" />
 
 
                                     <ImageView
-                                        android:id="@+id/imageView23"
+                                        android:id="@+id/notificationsImageView"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="20dp"
@@ -257,6 +257,7 @@
 
 
                                     <androidx.appcompat.widget.SwitchCompat
+                                        android:id="@+id/notificationSwitch"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginEnd="10dp"
@@ -295,7 +296,7 @@
 
 
                                     <TextView
-                                        android:id="@+id/textView412"
+                                        android:id="@+id/darkThemeTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="10dp"
@@ -304,13 +305,13 @@
                                         android:textSize="20sp"
                                         android:textStyle="bold"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
-                                        card_view:layout_constraintStart_toEndOf="@+id/imageView233"
+                                        card_view:layout_constraintStart_toEndOf="@+id/darkThemeImageView"
                                         card_view:layout_constraintTop_toTopOf="parent"
                                         card_view:layout_constraintVertical_bias="0.5" />
 
 
                                     <ImageView
-                                        android:id="@+id/imageView233"
+                                        android:id="@+id/darkThemeImageView"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="20dp"
@@ -321,6 +322,7 @@
 
 
                                     <androidx.appcompat.widget.SwitchCompat
+                                        android:id="@+id/darkThemeSwitch"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginEnd="10dp"
@@ -358,7 +360,7 @@
                                     tools:layout_editor_absoluteY="61dp">
 
                                     <TextView
-                                        android:id="@+id/textView4122"
+                                        android:id="@+id/locationAccessTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="10dp"
@@ -367,13 +369,13 @@
                                         android:textSize="20sp"
                                         android:textStyle="bold"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
-                                        card_view:layout_constraintStart_toEndOf="@+id/imageView2331"
+                                        card_view:layout_constraintStart_toEndOf="@+id/locationAccessImageView"
                                         card_view:layout_constraintTop_toTopOf="parent"
                                         card_view:layout_constraintVertical_bias="0.5" />
 
 
                                     <ImageView
-                                        android:id="@+id/imageView2331"
+                                        android:id="@+id/locationAccessImageView"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="20dp"
@@ -384,6 +386,7 @@
 
 
                                     <androidx.appcompat.widget.SwitchCompat
+                                        android:id="@+id/locationSwitch"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginEnd="10dp"
@@ -473,7 +476,7 @@
 
 
                                     <ImageView
-                                        android:id="@+id/imageView11"
+                                        android:id="@+id/deleteAllBirthdaysImageView"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="20dp"
@@ -485,7 +488,7 @@
 
 
                                     <TextView
-                                        android:id="@+id/textView2"
+                                        android:id="@+id/deleteAllBirthdaysTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="10dp"
@@ -495,7 +498,7 @@
                                         android:textSize="20sp"
                                         android:textStyle="bold"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
-                                        card_view:layout_constraintStart_toEndOf="@+id/imageView11"
+                                        card_view:layout_constraintStart_toEndOf="@+id/deleteAllBirthdaysImageView"
                                         card_view:layout_constraintTop_toTopOf="parent"
                                         card_view:layout_constraintVertical_bias="0.5" />
 
@@ -527,7 +530,7 @@
                                     tools:layout_editor_absoluteY="61dp">
 
                                     <TextView
-                                        android:id="@+id/textView"
+                                        android:id="@+id/deleteMyAccountTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="10dp"
@@ -537,12 +540,12 @@
                                         android:textSize="20sp"
                                         android:textStyle="bold"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
-                                        card_view:layout_constraintStart_toEndOf="@+id/imageView2"
+                                        card_view:layout_constraintStart_toEndOf="@+id/deleteMyAccountImageView"
                                         card_view:layout_constraintTop_toTopOf="parent"
                                         card_view:layout_constraintVertical_bias="0.5" />
 
                                     <ImageView
-                                        android:id="@+id/imageView2"
+                                        android:id="@+id/deleteMyAccountImageView"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="20dp"
@@ -581,7 +584,7 @@
                                     tools:layout_editor_absoluteY="61dp">
 
                                     <TextView
-                                        android:id="@+id/textView21"
+                                        android:id="@+id/helpCenterTv"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="10dp"
@@ -590,12 +593,12 @@
                                         android:textSize="20sp"
                                         android:textStyle="bold"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
-                                        card_view:layout_constraintStart_toEndOf="@+id/imageView21"
+                                        card_view:layout_constraintStart_toEndOf="@+id/helpCenterImageView"
                                         card_view:layout_constraintTop_toTopOf="parent"
                                         card_view:layout_constraintVertical_bias="0.5" />
 
                                     <ImageView
-                                        android:id="@+id/imageView21"
+                                        android:id="@+id/helpCenterImageView"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="20dp"

@@ -83,8 +83,8 @@ class AuthRepository(private val sharedPreferences: SharedPreferences) {
                                 }
                             }
                         } else {
-                            clearUserSession()
                             user.sendEmailVerification()
+                            clearUserSession()
                             onFailure("Please verify your email.")
                         }
                     }

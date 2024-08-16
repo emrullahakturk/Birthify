@@ -204,6 +204,12 @@ class GuestRepository(context: Context) {
         editor.apply()
     }
 
+    fun clearAllBirthdays(){
+        clearPastBirthdays()
+        clearBirthdays()
+        clearDeletedBirthdays()
+    }
+
 
 
 

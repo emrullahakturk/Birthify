@@ -64,6 +64,9 @@ class GuestBirthdayViewModel(val repository: GuestRepository): ViewModel() {
     fun clearBirthdays(){
         repository.clearBirthdays()
     }
+    fun clearAllBirthdays(){
+       repository.clearAllBirthdays()
+    }
 
     fun filterPastAndUpcomingBirthdays(birthdays:List<Birthday>){
         repository.filterPastAndUpcomingBirthdays(birthdays)
