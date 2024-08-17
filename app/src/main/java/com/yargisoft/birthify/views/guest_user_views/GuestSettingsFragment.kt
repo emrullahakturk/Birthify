@@ -5,8 +5,6 @@ import android.app.AlertDialog
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
-import android.location.LocationManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -47,6 +45,7 @@ class GuestSettingsFragment : Fragment() {
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var authViewModelFactory: AuthViewModelFactory
 
+
     // İzin isteme işlemini başlatmak için launcher
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -57,6 +56,8 @@ class GuestSettingsFragment : Fragment() {
             Log.d("NotificationPermission", "Bildirim izni reddedildi.")
         }
     }
+
+
 
 
     override fun onCreateView(
@@ -92,7 +93,7 @@ class GuestSettingsFragment : Fragment() {
             toolbarMenuButton,
             requireActivity(),
             userSharedPreferences,
-            "Settings"
+            "GuestSettings"
         )
 
         binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
@@ -124,14 +125,8 @@ class GuestSettingsFragment : Fragment() {
                 .show()
         }
 
-        // Bildirim izinlerini kontrol et ve Switch'i ayarla
-        updateNotificationSwitch()
 
 
-        // Konum izinlerini kontrol et ve Switch'i ayarla
-        val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val isLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        binding.locationSwitch.isChecked = isLocationEnabled
 
         // Karanlık tema ayarını kontrol et ve Switch'i ayarla
         val isDarkThemeEnabled = userSharedPreferences.isDarkThemeEnabled()
@@ -140,38 +135,13 @@ class GuestSettingsFragment : Fragment() {
         // Bildirim Switch'ini yönet
         binding.notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                requestNotificationPermission()
+                enableNotifications()
             } else {
                 disableNotifications()
             }
         }
 
-        val locationPermissionRequest = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { permissions ->
-            when {
-                permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                    // Precise location access granted.
-                }
-                permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                    // Only approximate location access granted.
-                } else -> {
-                // No location access granted.
-            }
-            }
-        }
 
-        // Konum Switch'ini yönet
-        binding.locationSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                locationPermissionRequest.launch(arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION))
-            }
-            else {
-                disableLocation()
-            }
-        }
 
         // Karanlık Tema Switch'ini yönet
         binding.darkThemeSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -192,50 +162,8 @@ class GuestSettingsFragment : Fragment() {
 
 
 
-    private fun requestNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-        }  else {
-            val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
-                putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
-            }
-            startActivity(intent)
-        }
-    }
-
-    private fun requestLocationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            // Android Tiramisu ve sonrasında konum izinlerini talep et
-            requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-        } else {
-            // Tiramisu'dan önce kullanıcıyı konum ayarlarına yönlendir
-            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-            startActivity(intent)
-        }
-    }
 
 
-    private fun disableNotifications() {
-        val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
-            putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
-        }
-        startActivity(intent)
-    }
-
-    private fun disableLocation() {
-        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-            data = Uri.parse("package:${requireContext().packageName}")
-        }
-        startActivity(intent)
-    }
-
-
-
-    private fun updateNotificationSwitch() {
-        val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val isNotificationEnabled = notificationManager.areNotificationsEnabled()
-        binding.notificationSwitch.isChecked = isNotificationEnabled
-    }
 
     private fun enableDarkTheme() {
         // Karanlık temayı etkinleştir
@@ -247,15 +175,37 @@ class GuestSettingsFragment : Fragment() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
+    private fun enableNotifications() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Tiramisu ve sonrasında bildirim izni iste
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else {
+            // Tiramisu öncesi doğrudan bildirimleri etkinleştir
+            val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            if (!notificationManager.areNotificationsEnabled()) {
+                val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                    .putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun disableNotifications() {
+        val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+            .putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
+        startActivity(intent)
+    }
+
+
+
+
     override fun onResume() {
         super.onResume()
 
-        // Switch durumlarını güncelle
-        updateNotificationSwitch()
+        val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val isNotificationEnabled = notificationManager.areNotificationsEnabled()
+        binding.notificationSwitch.isChecked = isNotificationEnabled
 
-        val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val isLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        binding.locationSwitch.isChecked = isLocationEnabled
 
         val isDarkThemeEnabled = userSharedPreferences.isDarkThemeEnabled()
         binding.darkThemeSwitch.isChecked = isDarkThemeEnabled

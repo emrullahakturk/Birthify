@@ -685,6 +685,7 @@ object UserFrequentlyUsedFunctions {
                         "BirthdayDetail"-> findNavController.navigate(R.id.detailToProfile)
                         "AddBirthday"-> findNavController.navigate(R.id.addToProfile)
                         "Profile" ->  ""
+                        "Settings" ->findNavController.navigate(R.id.settingsToProfile)
                         "PastBirthdays"-> findNavController.navigate(R.id.pastBirthdaysToProfile)
                     }
                 }
@@ -696,6 +697,7 @@ object UserFrequentlyUsedFunctions {
                         "BirthdayEdit"-> findNavController.navigate(R.id.editToPastBirthdays)
                         "BirthdayDetail"-> findNavController.navigate(R.id.detailToPastBirthdays)
                         "AddBirthday"-> findNavController.navigate(R.id.addToPastBirthdays)
+                        "Settings"-> findNavController.navigate(R.id.settingsToPastBirthdays)
                         "PastBirthdays"-> ""
                     }
                 }

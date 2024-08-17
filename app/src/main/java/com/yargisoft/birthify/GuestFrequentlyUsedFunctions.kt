@@ -403,6 +403,7 @@ object GuestFrequentlyUsedFunctions {
                 R.id.labelBirthdays -> {
                     when(sourcePage){
                         "GuestTrashBin"-> findNavController.navigate(R.id.guestTrashBinToMain)
+                        "GuestSettings"-> findNavController.navigate(R.id.guestSettingsToMain)
                         "GuestMainPage"-> ""
                         "GuestDeletedBirthdayDetail"-> findNavController.navigate(R.id.guestDeletedDetailToMain)
                         "GuestBirthdayEdit"-> findNavController.navigate(R.id.guestEditToMain)
@@ -420,11 +421,13 @@ object GuestFrequentlyUsedFunctions {
                         "GuestBirthdayDetail"-> findNavController.navigate(R.id.guestDetailToPastBirthdays)
                         "GuestAddBirthday"-> findNavController.navigate(R.id.guestAddToPastBirthdays)
                         "GuestPastBirthdays"-> ""
+                        "GuestSettings"-> findNavController.navigate(R.id.guestSettingsToPastBirthdays)
                     }
                 }
 
                 R.id.labelLogin -> {
                     when(sourcePage){
+                        "GuestSettings"-> findNavController.navigate(R.id.guestSettingsToLogin)
                         "GuestTrashBin"-> findNavController.navigate(R.id.guestTrashBinToLogin)
                         "GuestMainPage"-> findNavController.navigate(R.id.guestMainToLogin)
                         "GuestDeletedBirthdayDetail"-> findNavController.navigate(R.id.guestDeletedDetailToLogin)
@@ -439,7 +442,7 @@ object GuestFrequentlyUsedFunctions {
                     when(sourcePage){
                         "GuestMainPage"-> findNavController.navigate(R.id.guestMainToTrashBin)
                         "GuestTrashBin"-> ""
-//                        "GuestSettings"-> findNavController.navigate(R.id.)
+                        "GuestSettings"-> findNavController.navigate(R.id.guestSettingsToTrashBin)
                         "GuestDeletedBirthdayDetail"-> findNavController.navigate(R.id.guestDeletedDetailToTrashBin)
                         "GuestBirthdayEdit"-> findNavController.navigate(R.id.guestEditToTrashBin)
                         "GuestBirthdayDetail"-> findNavController.navigate(R.id.guestDetailToTrashBin)
