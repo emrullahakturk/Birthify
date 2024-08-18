@@ -77,4 +77,8 @@
     <string name="change_password">Şifreni değiştir</string>
     <string name="archive_my_birthdays">Doğum günlerini arşivle</string>
     <string name="reload_my_archived_birthdays">Arşivlenmiş doğum günlerini yükle</string>
+
+    <string name="current_password">Mevcut Şifreniz:</string>
+    <string name="new_password">Yeni Şifre:</string>
+    <string name="confirm_password">Yeni Şifre (Tekrar):</string>
 </resources>

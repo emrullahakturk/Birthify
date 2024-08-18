@@ -1,6 +1,7 @@
 package com.yargisoft.birthify.repositories
 
 import android.content.SharedPreferences
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -151,36 +152,74 @@ class AuthRepository(private val sharedPreferences: SharedPreferences) {
         return auth.currentUser != null && sharedPreferences.getBoolean("isLoggedIn", false)
     }
 
-    // Function to update the user's profile
-    fun updateUserProfile(name: String?, password: String?, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+    fun updateUserPassword(
+        currentPassword: String,
+        newPassword: String,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        val user = auth.currentUser
+
+        if (user == null) {
+            onFailure("User not logged in.")
+            return
+        }
+
+        // Kullanıcının email adresini al
+        val email = user.email
+        if (email.isNullOrEmpty()) {
+            onFailure("Email address not found.")
+            return
+        }
+
+        // Kullanıcıyı yeniden kimlik doğrulama işlemi
+        val credential = EmailAuthProvider.getCredential(email, currentPassword)
+
+        user.reauthenticate(credential)
+            .addOnCompleteListener { authTask ->
+                if (authTask.isSuccessful) {
+                    // Yeniden kimlik doğrulama başarılıysa, şifreyi güncelle
+                    user.updatePassword(newPassword)
+                        .addOnCompleteListener { passwordUpdateTask ->
+                            if (passwordUpdateTask.isSuccessful) {
+                                // Şifre başarıyla güncellendi, Firestore'da da güncellenebilir
+                                firestore.collection("users").document(user.uid)
+                                    .update("password", newPassword)
+                                    .addOnCompleteListener { firestoreTask ->
+                                        if (firestoreTask.isSuccessful) {
+                                            onSuccess()
+                                        } else {
+                                            onFailure(firestoreTask.exception?.message ?: "Password update in Firestore failed.")
+                                        }
+                                    }
+                            } else {
+                                onFailure(passwordUpdateTask.exception?.message ?: "Password update failed.")
+                            }
+                        }
+                } else {
+                    // Eski şifre yanlışsa hata döndür
+                    onFailure(authTask.exception?.message ?: "Current password is incorrect.")
+                }
+            }
+    }
+
+
+    // Function to update the user's name
+    fun updateUserName(name: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
         val user = auth.currentUser
         user?.let {
-            val updates = mutableMapOf<String, Any>()
-            name?.let { updates["name"] = it }
-            password?.let {
-                user.updatePassword(it)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            updates["password"] = it
-                        } else {
-                            onFailure(task.exception?.message ?: "Password update failed.")
-                        }
+            val updates = mapOf("name" to name)
+            firestore.collection("users").document(user.uid).update(updates)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        onSuccess()
+                    } else {
+                        onFailure(task.exception?.message ?: "Name update failed.")
                     }
-            }
-            if (updates.isNotEmpty()) {
-                firestore.collection("users").document(user.uid).update(updates)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            onSuccess()
-                        } else {
-                            onFailure(task.exception?.message ?: "Profile update failed.")
-                        }
-                    }
-            } else {
-                onSuccess()
-            }
+                }
         } ?: onFailure("User not logged in.")
     }
+
 
     fun deleteUserAccount(onSuccess: () -> Unit, onFailure: (String) -> Unit) {
         val user = auth.currentUser

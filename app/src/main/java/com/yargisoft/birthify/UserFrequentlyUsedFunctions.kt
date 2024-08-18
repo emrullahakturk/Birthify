@@ -311,7 +311,7 @@ object UserFrequentlyUsedFunctions {
         if (password.isBlank()) {
             return false
         }
-        val passwordPattern = Regex("^(?=.*[A-Z])(?=.*[0-9])(?=.*\\W)(?=.{6,})\\S*$")
+        val passwordPattern = Regex("^(?=.*[A-Z])(?=.*[0-9])(?=.*\\W)(?=.{6,12})\\S*$")
         return passwordPattern.matches(password)
     }
      fun isValidFullName(fullName: String): Boolean {

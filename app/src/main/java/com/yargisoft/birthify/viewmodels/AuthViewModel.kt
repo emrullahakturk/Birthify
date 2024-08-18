@@ -1,7 +1,9 @@
 package com.yargisoft.birthify.viewmodels
 
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.material.snackbar.Snackbar
 import com.yargisoft.birthify.repositories.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -18,13 +20,34 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     private var _authError = MutableStateFlow<String?>("")
     val authError: MutableStateFlow<String?> get() = _authError
 
-    // Function to handle user profile update
-    fun updateUserProfile(name: String?, password: String?) {
+    fun updatePassword(currentPassword: String, newPassword:String){
         viewModelScope.launch {
             _isLoaded.value = false
-            authRepository.updateUserProfile(
+            authRepository.updateUserPassword(
+                currentPassword,
+                newPassword,
+                onSuccess = {
+                    _authSuccess.value = true
+                    _authError.value = null
+                    _isLoaded.value = true
+
+                },
+                onFailure = { errorMessage ->
+                    _authSuccess.value = false
+                    _authError.value = errorMessage
+                    _isLoaded.value = true
+
+                }
+            )
+        }
+    }
+
+    // Function to handle user profile update
+    fun updateUserName(name: String) {
+        viewModelScope.launch {
+            _isLoaded.value = false
+            authRepository.updateUserName(
                 name,
-                password,
                 onSuccess = {
                     _authSuccess.value = true
                     _authError.value = null

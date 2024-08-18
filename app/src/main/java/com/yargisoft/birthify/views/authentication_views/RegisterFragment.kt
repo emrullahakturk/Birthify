@@ -118,7 +118,7 @@ class RegisterFragment : Fragment() {
                     registerPassTextInput.error = ""
                     registerPassTextInput.isErrorEnabled = false
                 } else {
-                    registerPassTextInput.error = "Password must be at least 6 characters, include an uppercase letter, a number, and a punctuation mark"
+                    registerPassTextInput.error = "Password must be min 6, max 12 characters. Include an uppercase letter, a number, and a punctuation mark"
                     registerPassTextInput.isErrorEnabled = true
                 }
             }
@@ -132,6 +132,8 @@ class RegisterFragment : Fragment() {
             }
         }
         // Register fragment sayfasında girilen şifre formatını kontrol ediyoruz
+
+
 
         // Register fragment sayfasında girilen Full Name formatını kontrol ediyoruz
         registerFullNameEditText.addTextChangedListener(object : TextWatcher {

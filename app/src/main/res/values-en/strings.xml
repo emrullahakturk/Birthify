@@ -79,4 +79,7 @@
     <string name="change_password">Change password</string>
     <string name="archive_my_birthdays">Archive my birthdays</string>
     <string name="reload_my_archived_birthdays">Reload my archived birthdays</string>
+    <string name="current_password">Current Password:</string>
+    <string name="new_password">New Password:</string>
+    <string name="confirm_password">Confirm Password:</string>
 </resources>

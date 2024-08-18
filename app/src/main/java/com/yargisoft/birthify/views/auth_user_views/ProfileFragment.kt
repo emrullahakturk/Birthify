@@ -17,6 +17,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import com.yargisoft.birthify.MainActivity
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
@@ -31,16 +32,17 @@ import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
+import com.yargisoft.birthify.views.authentication_views.ChangePasswordDialogFragment
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentAuthProfileBinding
     private lateinit var authRepository: AuthRepository
-    private lateinit var usersBirthdayViewModel: UsersBirthdayViewModel
     private lateinit var authViewModel: AuthViewModel
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var authViewModelFactory: AuthViewModelFactory
+    private lateinit var usersBirthdayViewModel: UsersBirthdayViewModel
+    private lateinit var userSharedPreferences: UserSharedPreferencesManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -144,8 +146,14 @@ class ProfileFragment : Fragment() {
         }
 
 
+        binding.changePasswordCardView.setOnClickListener {
+            val dialogFragment = ChangePasswordDialogFragment()
+            dialogFragment.show(parentFragmentManager, "ChangePasswordDialog")
+        }
+
         return binding.root
     }
+
 
     // Logout fonksiyonu
     private fun logout(activity: Activity) {

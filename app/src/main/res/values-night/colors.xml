@@ -125,6 +125,13 @@
 
     <!--Settings Page renkleri-->
     <color name="settings_background">#000000</color>
+    <color name="change_password_dialog_background">#000000</color>
+    <color name="change_password_tv_dialog">#FFFFFF</color>
+    <color name="current_password_tv_dialog">#FFFFFF</color>
+    <color name="new_password_tv_dialog">#FFFFFF</color>
+    <color name="confirm_password_tv_dialog">#FFFFFF</color>
+    <color name="change_password_button_dialog">#a3cef1</color>
+    <color name="change_password_button_tv_dialog">#000000</color>
 
 
     <!--Toolbar renkleri-->
