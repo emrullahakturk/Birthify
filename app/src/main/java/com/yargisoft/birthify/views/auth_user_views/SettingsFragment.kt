@@ -1,6 +1,7 @@
 package com.yargisoft.birthify.views.auth_user_views
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.NotificationManager
 import android.content.Context
@@ -37,8 +38,6 @@ import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
-import com.yargisoft.birthify.views.guest_user_views.GuestSettingsFragment
-import com.yargisoft.birthify.views.guest_user_views.GuestSettingsFragment.Companion
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -154,7 +153,9 @@ class SettingsFragment : Fragment() {
                         }
                     }
                 }
-                .setNegativeButton("No") { _, _ -> }
+                .setNegativeButton("No") { _, _ ->
+                    enableViewDisableLottie(lottieAnimationView,binding.root)
+                }
                 .show()
         }
 
@@ -206,9 +207,23 @@ class SettingsFragment : Fragment() {
             showLanguageSelectionDialog(currentLanguage)
         }
 
+        binding.logoutCardView.setOnClickListener {
+            authViewModel.logoutUser()
+            userSharedPreferences.clearUserSession()
+            birthdayRepository.clearBirthdays()
+            birthdayRepository.clearDeletedBirthdays()
+            birthdayRepository.clearPastBirthdays()
+            logout(requireActivity())
+        }
+
 
         return binding.root
     }
+
+
+
+
+
 
 
     private fun getCurrentLanguage(): String {
@@ -289,6 +304,15 @@ class SettingsFragment : Fragment() {
 
         val isDarkThemeEnabled = userSharedPreferences.isDarkThemeEnabled()
         binding.darkThemeSwitch.isChecked = isDarkThemeEnabled
+    }
+
+    // Logout fonksiyonu
+    private fun logout(activity: Activity) {
+        // Mevcut aktiviteyi kapatır ve yeni bir aktivite başlatır yani uygulama sıfırdan başlamış gibi olur
+        val intent = Intent(activity, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        activity.startActivity(intent)
+        activity.finish()
     }
 
 

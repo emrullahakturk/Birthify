@@ -70,9 +70,13 @@
     <string name="dark_theme">Dark theme</string>
     <string name="delete_my_account">Delete my account</string>
     <string name="delete">Delete</string>
-    <string name="delete_all_birthdays">Delete all birthdays</string>
+    <string name="delete_all_birthdays">Clear all birthdays</string>
     <string name="location_access">Location access</string>
     <string name="language">Language</string>
     <string name="help_center">Help Center</string>
     <string name="account_details">Account Details</string>
+    <string name="about_us">About Us</string>
+    <string name="change_password">Change password</string>
+    <string name="archive_my_birthdays">Archive my birthdays</string>
+    <string name="reload_my_archived_birthdays">Reload my archived birthdays</string>
 </resources>
