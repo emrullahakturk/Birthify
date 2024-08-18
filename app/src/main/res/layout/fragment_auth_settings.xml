@@ -168,7 +168,7 @@
                                     tools:layout_editor_absoluteY="61dp">
 
                                     <ImageView
-                                        android:id="@+id/imageView43"
+                                        android:id="@+id/languageSelectImageView"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginEnd="20dp"

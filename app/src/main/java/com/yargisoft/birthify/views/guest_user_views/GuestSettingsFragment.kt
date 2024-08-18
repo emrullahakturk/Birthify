@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
+import com.yargisoft.birthify.MainActivity
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.databinding.FragmentAuthSettingsBinding
@@ -35,6 +36,7 @@ import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
 import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
+import java.util.Locale
 
 class GuestSettingsFragment : Fragment() {
 
@@ -44,6 +46,13 @@ class GuestSettingsFragment : Fragment() {
     private lateinit var authViewModel: AuthViewModel
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var authViewModelFactory: AuthViewModelFactory
+
+    companion object{
+        private const val PREFS_NAME = "AppSettings"
+        private const val LANGUAGE_KEY = "AppLanguage"
+    }
+
+
 
 
     // İzin isteme işlemini başlatmak için launcher
@@ -64,6 +73,7 @@ class GuestSettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
 
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_guest_settings, container, false)
@@ -153,16 +163,45 @@ class GuestSettingsFragment : Fragment() {
             }
         }
 
-
+        val currentLanguage = getCurrentLanguage()
+        binding.languageSelectImageView.setOnClickListener {
+            showLanguageSelectionDialog(currentLanguage)
+        }
 
 
 
         return binding.root
     }
 
+    private fun getCurrentLanguage(): String {
+        val preferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        return preferences.getString(LANGUAGE_KEY, Locale.getDefault().language) ?: Locale.getDefault().language
+    }
 
+    private fun showLanguageSelectionDialog(currentLanguage: String) {
+        val languages = arrayOf("English", "Türkçe") // Dil seçenekleri
+        val languageCodes = arrayOf("en", "tr") // Dil kodları
 
+        AlertDialog.Builder(requireContext())
+            .setTitle("Select Language")
+            .setItems(languages) { _, which ->
+                val selectedLanguage = languageCodes[which]
+                if (selectedLanguage != currentLanguage) {
+                    setLocale(selectedLanguage)
+                }
+            }
+            .show()
+    }
 
+    private fun setLocale(languageCode: String) {
+        val preferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        preferences.edit().putString(LANGUAGE_KEY, languageCode).apply()
+
+        // Uygulamanın dilini değiştir ve Activity'yi yeniden başlat
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
+    }
 
 
     private fun enableDarkTheme() {

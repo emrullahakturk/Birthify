@@ -24,6 +24,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.yargisoft.birthify.MainActivity
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions.disableViewEnableLottie
@@ -36,7 +37,10 @@ import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
+import com.yargisoft.birthify.views.guest_user_views.GuestSettingsFragment
+import com.yargisoft.birthify.views.guest_user_views.GuestSettingsFragment.Companion
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class SettingsFragment : Fragment() {
 
@@ -46,6 +50,11 @@ class SettingsFragment : Fragment() {
     private lateinit var authViewModel: AuthViewModel
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var authViewModelFactory: AuthViewModelFactory
+
+    companion object{
+        private const val PREFS_NAME = "AppSettings"
+        private const val LANGUAGE_KEY = "AppLanguage"
+    }
 
 
     // İzin isteme işlemini başlatmak için launcher
@@ -191,8 +200,47 @@ class SettingsFragment : Fragment() {
             }
         }
 
+
+        val currentLanguage = getCurrentLanguage()
+        binding.languageSelectImageView.setOnClickListener {
+            showLanguageSelectionDialog(currentLanguage)
+        }
+
+
         return binding.root
     }
+
+
+    private fun getCurrentLanguage(): String {
+        val preferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        return preferences.getString(LANGUAGE_KEY, Locale.getDefault().language) ?: Locale.getDefault().language
+    }
+
+    private fun showLanguageSelectionDialog(currentLanguage: String) {
+        val languages = arrayOf("English", "Türkçe") // Dil seçenekleri
+        val languageCodes = arrayOf("en", "tr") // Dil kodları
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Select Language")
+            .setItems(languages) { _, which ->
+                val selectedLanguage = languageCodes[which]
+                if (selectedLanguage != currentLanguage) {
+                    setLocale(selectedLanguage)
+                }
+            }
+            .show()
+    }
+
+    private fun setLocale(languageCode: String) {
+        val preferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        preferences.edit().putString(LANGUAGE_KEY, languageCode).apply()
+
+        // Uygulamanın dilini değiştir ve Activity'yi yeniden başlat
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
+    }
+
 
     private fun enableNotifications() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

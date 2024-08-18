@@ -16,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.google.firebase.auth.FirebaseAuth
@@ -90,6 +91,7 @@ class SplashFragment : Fragment() {
                     if (isValid) {
                         navigateToFragmentAndClearStack(findNavController(), R.id.splashFragment, R.id.splashToMainNavGraph)
                     } else {
+                        Snackbar.make(requireView(),"Logged in from another device. Logging out",2000).show()
                         userSharedPreferencesManager.clearUserSession()
                         navigateToFragmentAndClearStack(findNavController(), R.id.splashFragment, R.id.splashToFirstPage)
                     }

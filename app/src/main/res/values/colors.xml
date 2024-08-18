@@ -102,6 +102,11 @@
     <color name="line_view">#344e41</color>
 
 
+    <!-- Account Detail Page renkleri -->
+    <color name="account_details_tv">#619b8a</color>
+
+
+
     <!-- Detail Page renkleri -->
     <color name="birthday_detail_background">#FFFFFF</color>
     <color name="rounded_edit_detail">#a3cef1</color>

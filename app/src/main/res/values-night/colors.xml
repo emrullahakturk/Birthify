@@ -106,6 +106,9 @@
 
 
 
+    <!-- Account Detail Page renkleri -->
+    <color name="account_details_tv">#FFFFFF</color>
+
 
     <!-- Detail Page renkleri-->
     <color name="birthday_detail_background">#000000</color>
