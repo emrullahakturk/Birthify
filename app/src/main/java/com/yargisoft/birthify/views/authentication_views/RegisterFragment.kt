@@ -118,7 +118,7 @@ class RegisterFragment : Fragment() {
                     registerPassTextInput.error = ""
                     registerPassTextInput.isErrorEnabled = false
                 } else {
-                    registerPassTextInput.error = "Password must be min 6, max 12 characters. Include an uppercase letter, a number, and a punctuation mark"
+                    registerPassTextInput.error = "Password must be min 6, max 12 characters; include an uppercase letter, a number, and a special character"
                     registerPassTextInput.isErrorEnabled = true
                 }
             }

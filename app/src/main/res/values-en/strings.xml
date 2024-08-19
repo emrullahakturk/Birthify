@@ -82,4 +82,7 @@
     <string name="current_password">Current Password:</string>
     <string name="new_password">New Password:</string>
     <string name="confirm_password">Confirm Password:</string>
+    <string name="there_is_no_past_birthdays">There is no past birthdays</string>
+    <string name="forgot_password_settings">Forgot Password</string>
+
 </resources>

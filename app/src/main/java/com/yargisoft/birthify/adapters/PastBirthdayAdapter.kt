@@ -14,6 +14,7 @@ import com.yargisoft.birthify.models.Birthday
 class PastBirthdayAdapter(private var pastBirthdayList: List<Birthday>,
                              private val onDetailClick: (Birthday) -> Unit,
                              val context : Context,
+                             private val textView: TextView,
 ) : RecyclerView.Adapter<PastBirthdayAdapter.PastBirthdayViewHolder>() {
 
 
@@ -49,6 +50,7 @@ class PastBirthdayAdapter(private var pastBirthdayList: List<Birthday>,
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(newBirthdays: List<Birthday>) {
+        textView.visibility = if (newBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
         pastBirthdayList = newBirthdays
         notifyDataSetChanged()
     }

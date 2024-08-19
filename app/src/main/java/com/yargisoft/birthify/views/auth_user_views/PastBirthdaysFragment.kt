@@ -95,7 +95,9 @@ class PastBirthdaysFragment : Fragment() {
 //                val action =MainPageFragmentDirections.mainToEditBirthday(birthday)
 //                findNavController().navigate(action)
             },
-            requireContext())
+            requireContext(),
+            binding.thereIsNoPastBirthdays
+            )
 
 
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz

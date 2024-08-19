@@ -79,12 +79,12 @@
                         app:layout_constraintTop_toBottomOf="@+id/pastBirthdaysTv" />
 
                     <TextView
-                        android:id="@+id/clickToAddBirthdayTv"
+                        android:id="@+id/thereIsNoPastBirthdays"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/wittgenstein_font"
                         android:gravity="center"
-                        android:text="@string/add_a_birthday_of_your_dear_one"
+                        android:text="@string/there_is_no_past_birthdays"
                         android:textAlignment="center"
                         android:textColor="@color/click_to_add_tv_past"
                         android:textSize="25sp"

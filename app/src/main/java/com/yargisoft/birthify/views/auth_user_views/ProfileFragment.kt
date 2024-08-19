@@ -1,5 +1,6 @@
 package com.yargisoft.birthify.views.auth_user_views
 
+import ResetPasswordDialogFragment
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
@@ -149,6 +150,46 @@ class ProfileFragment : Fragment() {
         binding.changePasswordCardView.setOnClickListener {
             val dialogFragment = ChangePasswordDialogFragment()
             dialogFragment.show(parentFragmentManager, "ChangePasswordDialog")
+        }
+
+        binding.forgotPasswordCardView.setOnClickListener {
+
+            disableViewEnableLottie(lottieAnimationView, binding.root)
+
+            AlertDialog.Builder(context)
+                .setTitle("Reset Password")
+                .setMessage("Password reset informations will send to your e-mail")
+                .setPositiveButton("Yes") { _, _ ->
+
+                    authViewModel.resetPassword(userSharedPreferences.getUserCredentials().first.toString())
+
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        var isLoadedEmitted = false
+
+                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                            authViewModel.isLoaded.collect { isLoaded ->
+                                if (isLoaded && !isLoadedEmitted) {
+                                    isLoadedEmitted = true
+
+                                    val isSuccess = authViewModel.authSuccess.value
+                                    val errorMessage = authViewModel.authError.value
+
+                                    if (isSuccess) {
+                                        Snackbar.make(binding.root, "Reset e-mail successfully sent ", Snackbar.LENGTH_SHORT).show()
+
+                                    } else {
+                                        Snackbar.make(binding.root, "$errorMessage", Snackbar.LENGTH_SHORT).show()
+                                    }
+                                    enableViewDisableLottie(lottieAnimationView, binding.root)
+                                }
+                            }
+                        }
+                    }
+                }
+                .setNegativeButton("No") { _, _ ->
+                    enableViewDisableLottie(lottieAnimationView,binding.root)
+                }
+                .show()
         }
 
         return binding.root

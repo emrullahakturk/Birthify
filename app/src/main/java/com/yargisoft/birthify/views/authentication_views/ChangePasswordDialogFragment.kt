@@ -123,7 +123,7 @@ class ChangePasswordDialogFragment : DialogFragment() {
                     newPasswordTextInput.error = ""
                     newPasswordTextInput.isErrorEnabled = false
                 } else {
-                    newPasswordTextInput.error = "Password must be min 6, max 12 characters. Include an uppercase letter, a number, and a punctuation mark"
+                    newPasswordTextInput.error = "Password must be min 6, max 12 characters; include an uppercase letter, a number, and a special character"
                     newPasswordTextInput.isErrorEnabled = true
                 }
             }
@@ -149,7 +149,7 @@ class ChangePasswordDialogFragment : DialogFragment() {
                     confirmPasswordTextInput.error = ""
                     confirmPasswordTextInput.isErrorEnabled = false
                 } else {
-                    confirmPasswordTextInput.error =  "Password must be min 6, max 12 characters. Include an uppercase letter, a number, and a punctuation mark"
+                    confirmPasswordTextInput.error =  "Password must be min 6, max 12 characters; include an uppercase letter, a number, and a special character"
                     confirmPasswordTextInput.isErrorEnabled = true
                 }
             }

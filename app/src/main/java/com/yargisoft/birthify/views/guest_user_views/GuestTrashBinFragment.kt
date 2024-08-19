@@ -65,6 +65,7 @@ class GuestTrashBinFragment : Fragment() {
                 findNavController().navigate(action)
             },
             requireContext(),
+            binding.trashBinMainTv,
         )
 
         //Recyckerview Tanımlamaları
@@ -85,7 +86,8 @@ class GuestTrashBinFragment : Fragment() {
                     val action = GuestTrashBinFragmentDirections.guestTrashBinToDeletedDetail(birthday)
                     findNavController().navigate(action)
                 },
-                requireContext()
+                requireContext(),
+                binding.trashBinMainTv
             )
 
             binding.recyclerView.adapter = adapter

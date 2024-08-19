@@ -40,7 +40,11 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
             holder.editButton.setOnClickListener {onEditClick(birthday)}
             holder.toDetailView.setOnClickListener{onDetailClick(birthday)}
         }
-        override fun getItemCount(): Int {return birthdayList.size}
+
+
+        override fun getItemCount(): Int {
+            return birthdayList.size
+        }
 
 
         @SuppressLint("NotifyDataSetChanged")
@@ -49,8 +53,5 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
             birthdayList = newBirthdayList
             notifyDataSetChanged()
         }
-
-
-
 
     }

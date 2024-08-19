@@ -12,6 +12,7 @@
     <string name="login_to_account">Login to your account</string>
     <string name="remember_me">Remember Me</string>
     <string name="forgot_password">Forgot Password ?</string>
+    <string name="forgot_password_settings">Forgot Password</string>
     <string name="dont_have_account">Don\'t have an account ?</string>
     <string name="sign_up">Sign Up</string>
     <string name="welcome_back">Welcome Back</string>
@@ -82,4 +83,6 @@
     <string name="current_password">Current Password:</string>
     <string name="new_password">New Password:</string>
     <string name="confirm_password">Confirm Password:</string>
+    <string name="there_is_no_past_birthdays">There is no past birthdays</string>
+    <string name="send_reset_e_mail">Send Reset E-mail</string>
 </resources>

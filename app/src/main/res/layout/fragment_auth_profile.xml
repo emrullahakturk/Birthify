@@ -180,7 +180,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/notificationsCardView"
+                        android:id="@+id/forgotPasswordCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
@@ -190,6 +190,58 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                         card_view:layout_constraintEnd_toEndOf="parent"
                         card_view:layout_constraintStart_toStartOf="parent"
                         card_view:layout_constraintTop_toBottomOf="@id/changePasswordCardView">
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            tools:layout_editor_absoluteX="0dp"
+                            tools:layout_editor_absoluteY="61dp">
+
+
+                            <TextView
+                                android:id="@+id/forgotPasswordTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:fontFamily="@font/wittgenstein_font"
+                                android:text="@string/forgot_password_settings"
+                                android:textStyle="bold"
+                                card_view:layout_constraintBottom_toBottomOf="parent"
+                                card_view:layout_constraintStart_toEndOf="@+id/forgotPasswordImageView"
+                                card_view:layout_constraintTop_toTopOf="parent"
+                                card_view:layout_constraintVertical_bias="0.5" />
+
+
+                            <ImageView
+                                android:id="@+id/forgotPasswordImageView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                card_view:layout_constraintBottom_toBottomOf="parent"
+                                card_view:layout_constraintStart_toStartOf="parent"
+                                card_view:layout_constraintTop_toTopOf="parent"
+                                card_view:srcCompat="@drawable/ic_lock_reset" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/notificationsCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        card_view:cardBackgroundColor="#FFFFFF"
+                        card_view:cardCornerRadius="35dp"
+                        card_view:cardElevation="8dp"
+                        card_view:layout_constraintEnd_toEndOf="parent"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toBottomOf="@id/forgotPasswordCardView">
 
 
                         <androidx.constraintlayout.widget.ConstraintLayout

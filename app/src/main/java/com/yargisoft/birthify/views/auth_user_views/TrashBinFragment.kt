@@ -77,6 +77,7 @@ class TrashBinFragment : Fragment() {
                 findNavController().navigate(action)
             },
             requireContext(),
+            binding.trashBinMainTv
             )
 
 
@@ -99,7 +100,8 @@ class TrashBinFragment : Fragment() {
                     val action = TrashBinFragmentDirections.trashToDeletedDetail(birthday)
                     findNavController().navigate(action)
                 },
-                requireContext()
+                requireContext(),
+                binding.trashBinMainTv
             )
 
             binding.recyclerView.adapter = adapter

@@ -79,6 +79,7 @@ class GuestPastBirthdaysFragment : Fragment() {
 //                findNavController().navigate(action)
             },
             requireContext(),
+            binding.thereIsNoPastBirthdays
         )
 
 
