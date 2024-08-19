@@ -1,16 +1,24 @@
 package com.yargisoft.birthify
 
+import NetworkConnectionObserver
+import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var networkConnectionObserver: NetworkConnectionObserver
+    private lateinit var userSharedPreferences: UserSharedPreferencesManager
 
 
     companion object {
@@ -32,10 +40,14 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.findFragmentById(R.id.mainFragmentHost) as NavHostFragment
 
+        userSharedPreferences = UserSharedPreferencesManager(this)
+
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 // Geri tuşuna basıldığında yapılacak işlemler
                 // Örneğin, bir önceki fragment'e geri gitmek:
+                Log.e("tagımıs","çalıştım2")
+
                 val navController = findNavController(R.id.mainFragmentHost)
                 if (!navController.popBackStack()) {
                     // Eğer navController ile geri gidilecek bir yer yoksa, activity'i kapat
@@ -43,7 +55,21 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        Log.e("tagımıs","çalıştım he")
+
         onBackPressedDispatcher.addCallback(this, callback)
+
+        networkConnectionObserver = NetworkConnectionObserver(this)
+
+        networkConnectionObserver.isConnected.observe(this, Observer { isConnected ->
+            if(userSharedPreferences.getUserCredentials().second != "guest"){
+                if (!isConnected) {
+                    showNetworkAlertDialog()
+                }
+            }
+        })
+
+
 
     }
 
@@ -54,6 +80,18 @@ class MainActivity : AppCompatActivity() {
         config.setLocale(locale)
         config.setLayoutDirection(locale)
         return context.createConfigurationContext(config)
+    }
+
+    private fun showNetworkAlertDialog() {
+        val alertDialog = AlertDialog.Builder(this)
+            .setTitle("Connection Error")
+            .setMessage("Your internet connection is lost. Your birthdays will not be saved in the database without an internet connection. Please check your internet connection..")
+            .setPositiveButton("Ok") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+
+        alertDialog.show()
     }
 
 
