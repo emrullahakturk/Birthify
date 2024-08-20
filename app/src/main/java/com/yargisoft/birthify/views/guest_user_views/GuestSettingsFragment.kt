@@ -163,6 +163,25 @@ class GuestSettingsFragment : Fragment() {
             showLanguageSelectionDialog(currentLanguage)
         }
 
+        binding.whatIsBirthifyCardView.setOnClickListener {
+            val dialogFragment = WhatIsBirthifyDialogFragment()
+            dialogFragment.show(parentFragmentManager, "WhatIsBirthifyDialog")
+        }
+
+        binding.faqCardView.setOnClickListener {
+            val dialogFragment = FrequentlyAskedQuestionsDialogFragment()
+            dialogFragment.show(parentFragmentManager, "FrequentlyAskedQuestionsDialog")
+        }
+
+        binding.contactUsCardView.setOnClickListener {
+            val dialogFragment = ContactUsDialogFragment()
+            dialogFragment.show(parentFragmentManager, "ContactUsDialog")
+        }
+
+        binding.privacyPolicyCardView.setOnClickListener {
+            val dialogFragment = PrivacyPolicyDialogFragment()
+            dialogFragment.show(parentFragmentManager, "PrivacyPolicyDialog")
+        }
 
 
         return binding.root

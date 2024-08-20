@@ -43,10 +43,40 @@
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent">
 
-                <include
+                <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbarGuestSettings"
-                    layout="@layout/custom_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/toolbar_background"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="?attr/actionBarTheme"
+
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/birthifyTvToolbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/wittgenstein_font"
+                    android:text="@string/app_name"
+                    android:textColor="@color/toolbar_app_name"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/toolbarGuestSettings"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/toolbarGuestSettings" />
+
+                <ImageView
+                    android:id="@+id/menuButtonToolbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:contentDescription="@string/toolbar_menu_three_lines"
+                    android:src="@drawable/ic_menu_line"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -195,6 +225,7 @@
                                         android:fontFamily="@font/wittgenstein_font"
                                         android:text="@string/notifications"
                                         android:textStyle="bold"
+                                        android:textColor="#000000"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
                                         card_view:layout_constraintStart_toEndOf="@+id/notificationsImageView"
                                         card_view:layout_constraintTop_toTopOf="parent"
@@ -259,6 +290,7 @@
                                         android:fontFamily="@font/wittgenstein_font"
                                         android:text="@string/dark_theme"
                                         android:textStyle="bold"
+                                        android:textColor="#000000"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
                                         card_view:layout_constraintStart_toEndOf="@+id/darkThemeImageView"
                                         card_view:layout_constraintTop_toTopOf="parent"
@@ -294,7 +326,7 @@
 
 
                             <androidx.cardview.widget.CardView
-                                android:id="@+id/deleteAllBirthdaysCardView"
+                                android:id="@+id/whatIsBirthifyCardView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="20dp"
@@ -305,6 +337,262 @@
                                 card_view:layout_constraintHorizontal_bias="0.5"
                                 card_view:layout_constraintStart_toStartOf="parent"
                                 card_view:layout_constraintTop_toBottomOf="@+id/darkThemeCardView">
+
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:orientation="vertical"
+                                    android:padding="16dp"
+                                    tools:layout_editor_absoluteX="0dp"
+                                    tools:layout_editor_absoluteY="61dp">
+
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="20dp"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintEnd_toEndOf="parent"
+                                        card_view:layout_constraintTop_toTopOf="parent"
+                                        card_view:srcCompat="@drawable/ic_arrow" />
+
+                                    <TextView
+                                        android:id="@+id/whatIsBirthifyTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:fontFamily="@font/wittgenstein_font"
+                                        android:text="@string/what_is_birthify"
+                                        android:textStyle="bold"
+                                        android:textColor="#000000"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintStart_toEndOf="@+id/whatIsBirthifyImageView"
+                                        card_view:layout_constraintTop_toTopOf="parent"
+                                        card_view:layout_constraintVertical_bias="0.5" />
+
+
+                                    <ImageView
+                                        android:id="@+id/whatIsBirthifyImageView"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="20dp"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintStart_toStartOf="parent"
+                                        card_view:layout_constraintTop_toTopOf="parent"
+                                        card_view:srcCompat="@drawable/ic_celebration"
+                                        tools:ignore="ContentDescription" />
+
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/faqCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="20dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                card_view:cardBackgroundColor="#FFFFFF"
+                                card_view:cardCornerRadius="35dp"
+                                card_view:cardElevation="8dp"
+                                card_view:layout_constraintEnd_toEndOf="parent"
+                                card_view:layout_constraintHorizontal_bias="0.5"
+                                card_view:layout_constraintStart_toStartOf="parent"
+                                card_view:layout_constraintTop_toBottomOf="@+id/whatIsBirthifyCardView">
+
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:orientation="vertical"
+                                    android:padding="16dp"
+                                    tools:layout_editor_absoluteX="0dp"
+                                    tools:layout_editor_absoluteY="61dp">
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="20dp"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintEnd_toEndOf="parent"
+                                        card_view:layout_constraintTop_toTopOf="parent"
+                                        card_view:srcCompat="@drawable/ic_arrow" />
+
+
+                                    <TextView
+                                        android:id="@+id/faqTv"
+                                        android:layout_width="186dp"
+                                        android:layout_height="16dp"
+                                        android:layout_marginStart="10dp"
+                                        android:fontFamily="@font/wittgenstein_font"
+                                        android:text="@string/frequently_asked_questions"
+                                        android:textStyle="bold"
+                                        android:textColor="#000000"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintStart_toEndOf="@+id/faqImageView"
+                                        card_view:layout_constraintTop_toTopOf="parent"
+                                        card_view:layout_constraintVertical_bias="0.5" />
+
+
+                                    <ImageView
+                                        android:id="@+id/faqImageView"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="20dp"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintStart_toStartOf="parent"
+                                        card_view:layout_constraintTop_toTopOf="parent"
+                                        card_view:srcCompat="@drawable/ic_question_mark" />
+
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/contactUsCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="20dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                card_view:cardBackgroundColor="#FFFFFF"
+                                card_view:cardCornerRadius="35dp"
+                                card_view:cardElevation="8dp"
+                                card_view:layout_constraintEnd_toEndOf="parent"
+                                card_view:layout_constraintHorizontal_bias="0.5"
+                                card_view:layout_constraintStart_toStartOf="parent"
+                                card_view:layout_constraintTop_toBottomOf="@+id/faqCardView">
+
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:orientation="vertical"
+                                    android:padding="16dp"
+                                    tools:layout_editor_absoluteX="0dp"
+                                    tools:layout_editor_absoluteY="61dp">
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="20dp"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintEnd_toEndOf="parent"
+                                        card_view:layout_constraintTop_toTopOf="parent"
+                                        card_view:srcCompat="@drawable/ic_arrow" />
+
+                                    <TextView
+                                        android:id="@+id/contactUsTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:fontFamily="@font/wittgenstein_font"
+                                        android:text="@string/contact_us"
+                                        android:textStyle="bold"
+                                        android:textColor="#000000"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintStart_toEndOf="@+id/contactUsImageView"
+                                        card_view:layout_constraintTop_toTopOf="parent"
+                                        card_view:layout_constraintVertical_bias="0.5" />
+
+                                    <ImageView
+                                        android:id="@+id/contactUsImageView"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="20dp"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintStart_toStartOf="parent"
+                                        card_view:layout_constraintTop_toTopOf="parent"
+                                        card_view:srcCompat="@drawable/ic_contact"
+                                        tools:ignore="ContentDescription" />
+
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/privacyPolicyCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="20dp"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                card_view:cardBackgroundColor="#FFFFFF"
+                                card_view:cardCornerRadius="35dp"
+                                card_view:cardElevation="8dp"
+                                card_view:layout_constraintEnd_toEndOf="parent"
+                                card_view:layout_constraintHorizontal_bias="0.5"
+                                card_view:layout_constraintStart_toStartOf="parent"
+                                card_view:layout_constraintTop_toBottomOf="@+id/contactUsCardView">
+
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:orientation="vertical"
+                                    android:padding="16dp"
+                                    tools:layout_editor_absoluteX="0dp"
+                                    tools:layout_editor_absoluteY="61dp">
+
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="20dp"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintEnd_toEndOf="parent"
+                                        card_view:layout_constraintTop_toTopOf="parent"
+                                        card_view:srcCompat="@drawable/ic_arrow" />
+
+                                    <TextView
+                                        android:id="@+id/privacyPolicyTv"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:fontFamily="@font/wittgenstein_font"
+                                        android:text="@string/privacy_amp_policy"
+                                        android:textStyle="bold"
+                                        android:textColor="#000000"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintStart_toEndOf="@+id/privacyPolicyImageView"
+                                        card_view:layout_constraintTop_toTopOf="parent"
+                                        card_view:layout_constraintVertical_bias="0.5" />
+
+                                    <ImageView
+                                        android:id="@+id/privacyPolicyImageView"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="20dp"
+                                        card_view:layout_constraintBottom_toBottomOf="parent"
+                                        card_view:layout_constraintStart_toStartOf="parent"
+                                        card_view:layout_constraintTop_toTopOf="parent"
+                                        card_view:srcCompat="@drawable/ic_policy"
+                                        tools:ignore="ContentDescription" />
+
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/deleteAllBirthdaysCardView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="20dp"
+                                card_view:cardBackgroundColor="#FFFFFF"
+                                card_view:cardCornerRadius="35dp"
+                                card_view:cardElevation="8dp"
+                                card_view:layout_constraintBottom_toBottomOf="parent"
+                                card_view:layout_constraintEnd_toEndOf="parent"
+                                card_view:layout_constraintHorizontal_bias="0.5"
+                                card_view:layout_constraintStart_toStartOf="parent"
+                                card_view:layout_constraintTop_toBottomOf="@+id/privacyPolicyCardView">
 
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -346,110 +634,6 @@
 
                             </androidx.cardview.widget.CardView>
 
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/helpCenterCardView"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="20dp"
-                                android:layout_marginBottom="20dp"
-                                card_view:cardBackgroundColor="#FFFFFF"
-                                card_view:cardCornerRadius="35dp"
-                                card_view:cardElevation="8dp"
-                                card_view:layout_constraintEnd_toEndOf="parent"
-                                card_view:layout_constraintHorizontal_bias="0.5"
-                                card_view:layout_constraintStart_toStartOf="parent"
-                                card_view:layout_constraintTop_toBottomOf="@+id/deleteAllBirthdaysCardView">
-
-
-                                <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="60dp"
-                                    android:orientation="vertical"
-                                    android:padding="16dp"
-                                    tools:layout_editor_absoluteX="0dp"
-                                    tools:layout_editor_absoluteY="61dp">
-
-                                    <TextView
-                                        android:id="@+id/textView21"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="10dp"
-                                        android:fontFamily="@font/wittgenstein_font"
-                                        android:text="@string/help_center"
-                                        android:textStyle="bold"
-                                        card_view:layout_constraintBottom_toBottomOf="parent"
-                                        card_view:layout_constraintStart_toEndOf="@+id/helpCenterTv"
-                                        card_view:layout_constraintTop_toTopOf="parent"
-                                        card_view:layout_constraintVertical_bias="0.5" />
-
-                                    <ImageView
-                                        android:id="@+id/helpCenterTv"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="20dp"
-                                        card_view:layout_constraintBottom_toBottomOf="parent"
-                                        card_view:layout_constraintStart_toStartOf="parent"
-                                        card_view:layout_constraintTop_toTopOf="parent"
-                                        card_view:srcCompat="@drawable/ic_help_center" />
-
-
-                                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                            </androidx.cardview.widget.CardView>
-
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/aboutUsCardView"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="20dp"
-                                android:layout_marginBottom="20dp"
-                                card_view:cardBackgroundColor="#FFFFFF"
-                                card_view:cardCornerRadius="35dp"
-                                card_view:cardElevation="8dp"
-                                card_view:layout_constraintBottom_toBottomOf="parent"
-                                card_view:layout_constraintEnd_toEndOf="parent"
-                                card_view:layout_constraintHorizontal_bias="0.5"
-                                card_view:layout_constraintStart_toStartOf="parent"
-                                card_view:layout_constraintTop_toBottomOf="@+id/helpCenterCardView">
-
-
-                                <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="60dp"
-                                    android:orientation="vertical"
-                                    android:padding="16dp"
-                                    tools:layout_editor_absoluteX="0dp"
-                                    tools:layout_editor_absoluteY="61dp">
-
-                                    <TextView
-                                        android:id="@+id/textView221"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="10dp"
-                                        android:fontFamily="@font/wittgenstein_font"
-                                        android:text="@string/about_us"
-                                        android:textStyle="bold"
-                                        card_view:layout_constraintBottom_toBottomOf="parent"
-                                        card_view:layout_constraintStart_toEndOf="@+id/aboutUsTv"
-                                        card_view:layout_constraintTop_toTopOf="parent"
-                                        card_view:layout_constraintVertical_bias="0.5" />
-
-                                    <ImageView
-                                        android:id="@+id/aboutUsTv"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="20dp"
-                                        card_view:layout_constraintBottom_toBottomOf="parent"
-                                        card_view:layout_constraintStart_toStartOf="parent"
-                                        card_view:layout_constraintTop_toTopOf="parent"
-                                        card_view:srcCompat="@drawable/ic_help_center" />
-
-
-                                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                            </androidx.cardview.widget.CardView>
-
-
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </LinearLayout>
@@ -471,8 +655,6 @@
                     android:backgroundTint="@color/bottom_navigation_background"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:navigationIcon="@drawable/ic_search"
-                    app:navigationIconTint="@color/ic_search_bottom"
                     android:layout_gravity="bottom"
                     app:menu="@menu/bottom_nav_menu">
 

@@ -90,4 +90,8 @@
     <string name="_1_day_before">1 day before</string>
     <string name="_1_week_before">1 week before</string>
     <string name="_1_hour_before">1 hour before</string>
+    <string name="frequently_asked_questions">Frequently Asked Questions (FAQs)</string>
+    <string name="privacy_amp_policy"><![CDATA[Privacy & Policy]]></string>
+    <string name="contact_us">Contact Us</string>
+    <string name="what_is_birthify">What is Birthify ?</string>
 </resources>
