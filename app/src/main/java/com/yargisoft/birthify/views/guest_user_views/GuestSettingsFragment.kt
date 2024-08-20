@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
@@ -24,6 +26,9 @@ import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.MainActivity
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentGuestSettingsBinding
+import com.yargisoft.birthify.views.dialogs.FrequentlyAskedQuestionsDialogFragment
+import com.yargisoft.birthify.views.dialogs.PrivacyPolicyDialogFragment
+import com.yargisoft.birthify.views.dialogs.WhatIsBirthifyDialogFragment
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
@@ -88,8 +93,7 @@ class GuestSettingsFragment : Fragment() {
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
-        val toolbarMenuButton = binding.toolbarGuestSettings.findViewById<View>(R.id.menuButtonToolbar)
-
+        val toolbarMenuButton = binding.menuButtonToolbar
 
         GuestFrequentlyUsedFunctions.drawerLayoutToggle(
             drawerLayout,
@@ -150,7 +154,8 @@ class GuestSettingsFragment : Fragment() {
 
         // Karanlık Tema Switch'ini yönet
         binding.darkThemeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            userSharedPreferences.setDarkThemeEnabled(isChecked)
+            userSharedPreferences.setDarkThemeToggle(isChecked)
+
             if (isChecked) {
                 enableDarkTheme()
             } else {
@@ -174,8 +179,18 @@ class GuestSettingsFragment : Fragment() {
         }
 
         binding.contactUsCardView.setOnClickListener {
-            val dialogFragment = ContactUsDialogFragment()
-            dialogFragment.show(parentFragmentManager, "ContactUsDialog")
+            val intent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:")
+                putExtra(Intent.EXTRA_EMAIL, arrayOf("support@birthify.com"))
+                putExtra(Intent.EXTRA_SUBJECT, "Support Request")
+                putExtra(Intent.EXTRA_TEXT, "Hello, I need help with...")
+            }
+
+            if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(),"There isn't any e-mail app on your device",Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.privacyPolicyCardView.setOnClickListener {

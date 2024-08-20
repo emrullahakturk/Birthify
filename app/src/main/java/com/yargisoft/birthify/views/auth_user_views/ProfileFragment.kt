@@ -30,7 +30,7 @@ import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
-import com.yargisoft.birthify.dialogs.ChangePasswordDialogFragment
+import com.yargisoft.birthify.views.dialogs.ChangePasswordDialogFragment
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {

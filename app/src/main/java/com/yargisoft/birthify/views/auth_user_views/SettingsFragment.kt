@@ -193,7 +193,7 @@ class SettingsFragment : Fragment() {
 
         // Karanlık Tema Switch'ini yönet
         binding.darkThemeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            userSharedPreferences.setDarkThemeEnabled(isChecked)
+            userSharedPreferences.setDarkThemeToggle(isChecked)
             if (isChecked) {
                 enableDarkTheme()
             } else {

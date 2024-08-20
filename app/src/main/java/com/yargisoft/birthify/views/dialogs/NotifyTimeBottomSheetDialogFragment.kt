@@ -1,4 +1,4 @@
-package com.yargisoft.birthify.dialogs
+package com.yargisoft.birthify.views.dialogs
 
 import android.os.Bundle
 import android.view.LayoutInflater

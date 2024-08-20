@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -33,19 +32,22 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         supportFragmentManager.findFragmentById(R.id.mainFragmentHost) as NavHostFragment
 
+
+
+
+
         userSharedPreferences = UserSharedPreferencesManager(this)
+
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 // Geri tuşuna basıldığında yapılacak işlemler
                 // Örneğin, bir önceki fragment'e geri gitmek:
-                Log.e("tagımıs","çalıştım2")
-
                 val navController = findNavController(R.id.mainFragmentHost)
                 if (!navController.popBackStack()) {
                     // Eğer navController ile geri gidilecek bir yer yoksa, activity'i kapat
@@ -53,7 +55,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        Log.e("tagımıs","çalıştım he")
 
         onBackPressedDispatcher.addCallback(this, callback)
 
@@ -69,6 +70,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
     }
 
     private fun updateLocale(context: Context, localeCode: String): Context {
@@ -79,6 +82,7 @@ class MainActivity : AppCompatActivity() {
         config.setLayoutDirection(locale)
         return context.createConfigurationContext(config)
     }
+
 
     private fun showNetworkAlertDialog() {
         val alertDialog = AlertDialog.Builder(this)

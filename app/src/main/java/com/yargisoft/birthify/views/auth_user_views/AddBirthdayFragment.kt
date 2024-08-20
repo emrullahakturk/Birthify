@@ -17,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAuthAddBirthdayBinding
-import com.yargisoft.birthify.dialogs.NotifyTimeBottomSheetDialogFragment
+import com.yargisoft.birthify.views.dialogs.NotifyTimeBottomSheetDialogFragment
 import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository

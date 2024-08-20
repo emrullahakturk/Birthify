@@ -15,7 +15,7 @@ import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAuthEditBirthdayBinding
-import com.yargisoft.birthify.dialogs.NotifyTimeBottomSheetDialogFragment
+import com.yargisoft.birthify.views.dialogs.NotifyTimeBottomSheetDialogFragment
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager

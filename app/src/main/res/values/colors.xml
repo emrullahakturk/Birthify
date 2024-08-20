@@ -11,6 +11,7 @@
 
 
 
+
     <!--İkon renkleri-->
     <color name="ic_account">#344e41</color>
     <color name="ic_add">#FFFFFF</color>
@@ -87,6 +88,7 @@
     <color name="navigation_drawer_background">#FFFFFF</color>
     <color name="bottom_navigation_background">#FFFFFF</color>
     <color name="bottom_nav_constraint_background">#FFFFFF</color>
+    <color name="dialog_fragment_background">#FFFFFF</color>
 
 
 

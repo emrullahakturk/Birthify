@@ -17,7 +17,7 @@ class UserSharedPreferencesManager(context: Context) {
     }
 
     // Karanlık tema ayarını değiştiren fonksiyon
-    fun setDarkThemeEnabled(isEnabled: Boolean) {
+    fun setDarkThemeToggle(isEnabled: Boolean) {
         with(preferences.edit()) {
             putBoolean(DARK_THEME_KEY, isEnabled)
             apply()
