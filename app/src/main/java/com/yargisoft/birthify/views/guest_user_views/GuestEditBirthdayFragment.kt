@@ -15,6 +15,7 @@ import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentGuestEditBirthdayBinding
+import com.yargisoft.birthify.dialogs.NotifyTimeBottomSheetDialogFragment
 import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
@@ -91,7 +92,8 @@ class GuestEditBirthdayFragment : Fragment() {
             val updatedBirthday = editedBirthday.birthday.copy(
                 name = binding.birthdayNameEditText.text.toString(),
                 birthdayDate = binding.birthdayDateEditText.text.toString(),
-                note = binding.birthdayNoteEditText.text.toString()
+                note = binding.birthdayNoteEditText.text.toString(),
+                notifyDate = binding.notifyTimeEditText.text.toString()
             )
 
             guestBirthdayViewModel.updateBirthday(updatedBirthday)
@@ -107,6 +109,14 @@ class GuestEditBirthdayFragment : Fragment() {
 
         }
 
+        binding.notifyTimeEditText.setOnClickListener {
+            val bottomSheet = NotifyTimeBottomSheetDialogFragment()
+            bottomSheet.setOnOptionSelectedListener { selectedOption ->
+                binding.notifyTimeEditText.setText(selectedOption)
+                // Seçilen değeri burada kullanabilirsin
+            }
+            bottomSheet.show(parentFragmentManager, bottomSheet.tag)
+        }
         binding.birthdayDateEditText.setOnClickListener {
             GuestFrequentlyUsedFunctions.showDatePickerDialog(requireContext(),binding.birthdayDateEditText)
         }

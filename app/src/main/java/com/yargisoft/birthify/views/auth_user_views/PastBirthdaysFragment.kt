@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
+import com.yargisoft.birthify.NetworkConnectionObserver
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.adapters.PastBirthdayAdapter
@@ -35,13 +36,14 @@ class PastBirthdaysFragment : Fragment() {
     private lateinit var authViewModel: AuthViewModel
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var adapter: PastBirthdayAdapter
+    private lateinit var networkConnectionObserver: NetworkConnectionObserver
+
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
 
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_past_birthdays, container, false)
@@ -62,8 +64,16 @@ class PastBirthdaysFragment : Fragment() {
         val authFactory = AuthViewModelFactory(authRepository)
         authViewModel = ViewModelProvider(this, authFactory)[AuthViewModel::class]
 
+        networkConnectionObserver = NetworkConnectionObserver(requireContext())
+        networkConnectionObserver.isConnected.observe(viewLifecycleOwner) { isConnected ->
+            if(userSharedPreferences.getUserCredentials().second != "guest"){
+                if (isConnected) {
+                    //Main Page Açıldığında firebase üzerindeki doğum günlerini bday shared pref'e aktararak senkronize etmiş oluyoruz
+                    usersBirthdayViewModel.getPastBirthdaysFromFirebase(userSharedPreferences.getUserId())
+                }
+            }
+        }
 
-        usersBirthdayViewModel.getPastBirthdaysFromFirebase(userSharedPreferences.getUserId())
         usersBirthdayViewModel.getPastBirthdays()
 
 
@@ -155,7 +165,6 @@ class PastBirthdaysFragment : Fragment() {
             val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT)
         }
-
 
 
         binding.sortButton.setOnClickListener {

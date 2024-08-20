@@ -111,7 +111,6 @@ class BirthdayDetailFragment : Fragment() {
             }
         }
 
-        // Inflate the layout for this fragment
         return binding.root
     }
 

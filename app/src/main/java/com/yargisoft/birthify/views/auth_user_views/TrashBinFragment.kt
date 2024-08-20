@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
+import com.yargisoft.birthify.NetworkConnectionObserver
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
@@ -35,6 +36,7 @@ class TrashBinFragment : Fragment() {
     private lateinit var authViewModel: AuthViewModel
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var adapter: DeletedBirthdayAdapter
+    private lateinit var networkConnectionObserver: NetworkConnectionObserver
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,7 +58,16 @@ class TrashBinFragment : Fragment() {
         authViewModel = ViewModelProvider(this, authViewModelFactory)[AuthViewModel::class]
 
 
-        usersBirthdayViewModel.getDeletedBirthdaysFromFirebase(userSharedPreferences.getUserId())
+        networkConnectionObserver = NetworkConnectionObserver(requireContext())
+        networkConnectionObserver.isConnected.observe(viewLifecycleOwner) { isConnected ->
+            if(userSharedPreferences.getUserCredentials().second != "guest"){
+                if (isConnected) {
+                    //Main Page Açıldığında firebase üzerindeki doğum günlerini bday shared pref'e aktararak senkronize etmiş oluyoruz
+                    usersBirthdayViewModel.getDeletedBirthdaysFromFirebase(userSharedPreferences.getUserId())
+                }
+            }
+        }
+
         usersBirthdayViewModel.getDeletedBirthdays()
 
         // DrawerLayout ve NavigationView tanımlamaları

@@ -1,4 +1,4 @@
-package com.yargisoft.birthify.views.authentication_views
+package com.yargisoft.birthify.dialogs
 
 import android.app.Dialog
 import android.os.Bundle

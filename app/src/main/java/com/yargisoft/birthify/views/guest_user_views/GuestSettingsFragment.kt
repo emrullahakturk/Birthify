@@ -23,19 +23,14 @@ import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.MainActivity
 import com.yargisoft.birthify.R
-import com.yargisoft.birthify.UserFrequentlyUsedFunctions
-import com.yargisoft.birthify.databinding.FragmentAuthSettingsBinding
 import com.yargisoft.birthify.databinding.FragmentGuestSettingsBinding
 import com.yargisoft.birthify.repositories.AuthRepository
-import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
-import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
-import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
 import java.util.Locale
 
 class GuestSettingsFragment : Fragment() {
@@ -80,7 +75,7 @@ class GuestSettingsFragment : Fragment() {
 
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
-        val lottieAnimationView = binding.threePointAnimation
+//        val lottieAnimationView = binding.threePointAnimation
 
 
         authRepository = AuthRepository(userSharedPreferences.preferences)

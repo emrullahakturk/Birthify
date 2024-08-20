@@ -106,104 +106,138 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/toolbarGuestEditBirthday" />
 
-                <LinearLayout
-                    android:id="@+id/linearLayout"
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lineView">
+                    app:layout_constraintTop_toBottomOf="@+id/editBirthdayTv">
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:boxBackgroundMode="outline"
-                        app:startIconDrawable="@drawable/ic_account"
-                        app:startIconTint="@color/ic_account_edit">
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lineView">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/birthdayNameEditText"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_edit_text_edit"
-                            android:fontFamily="@font/wittgenstein_font"
-                            android:maxLines="1"
-                            android:paddingStart="40dp"
-                            android:paddingEnd="0dp"
-                            android:text="@{birthday.name}"
-                            tools:ignore="SpeakableTextPresentCheck" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_marginBottom="16dp"
+                            app:boxBackgroundMode="outline"
+                            app:startIconDrawable="@drawable/ic_account"
+                            app:startIconTint="@color/ic_account_edit">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/birthdayNameEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rounded_edit_text_edit"
+                                android:fontFamily="@font/wittgenstein_font"
+                                android:maxLines="1"
+                                android:paddingStart="40dp"
+                                android:paddingEnd="0dp"
+                                android:text="@{birthday.name}"
+                                tools:ignore="SpeakableTextPresentCheck" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:boxBackgroundMode="outline"
-                        app:startIconDrawable="@drawable/ic_date"
-                        app:startIconTint="@color/ic_calendar_edit">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/birthdayDateEditText"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_edit_text_edit"
-                            android:clickable="true"
-                            android:focusable="false"
-                            android:fontFamily="@font/wittgenstein_font"
-                            android:inputType="none"
-                            android:maxLines="1"
-                            android:paddingStart="40dp"
-                            android:paddingEnd="0dp"
-                            android:text="@{birthday.birthdayDate}"
-                            tools:ignore="SpeakableTextPresentCheck" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_marginBottom="16dp"
+                            app:boxBackgroundMode="outline"
+                            app:startIconDrawable="@drawable/ic_date"
+                            app:startIconTint="@color/ic_calendar_edit">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:boxBackgroundMode="outline"
-                        app:startIconDrawable="@drawable/ic_note"
-                        app:startIconTint="@color/ic_note_edit">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/birthdayDateEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rounded_edit_text_edit"
+                                android:clickable="true"
+                                android:focusable="false"
+                                android:fontFamily="@font/wittgenstein_font"
+                                android:inputType="none"
+                                android:maxLines="1"
+                                android:paddingStart="40dp"
+                                android:paddingEnd="0dp"
+                                android:text="@{birthday.birthdayDate}"
+                                tools:ignore="SpeakableTextPresentCheck" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/birthdayNoteEditText"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_edit_text_edit"
-                            android:fontFamily="@font/wittgenstein_font"
-                            android:maxLines="7"
-                            android:minLines="7"
-                            android:paddingStart="40dp"
-                            android:paddingEnd="0dp"
-                            android:text="@{birthday.note}"
-                            tools:ignore="SpeakableTextPresentCheck" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_marginBottom="16dp"
+                            app:boxBackgroundMode="outline"
+                            app:startIconDrawable="@drawable/ic_notifications"
+                            app:startIconTint="@color/ic_calendar_edit">
 
-                    <Button
-                        android:id="@+id/updateBirthdayButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/update_birthday_button_edit"
-                        android:text="@string/update_birthday"
-                        android:textColor="@color/button_text" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/notifyTimeEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rounded_edit_text_edit"
+                                android:clickable="true"
+                                android:focusable="false"
+                                android:fontFamily="@font/wittgenstein_font"
+                                android:inputType="none"
+                                android:maxLines="1"
+                                android:paddingStart="40dp"
+                                android:paddingEnd="0dp"
+                                android:text="@{birthday.notifyDate}"
+                                tools:ignore="SpeakableTextPresentCheck" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <Button
-                        android:id="@+id/deleteBirthdayButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:backgroundTint="@color/delete_birthday_button_edit"
-                        android:text="@string/delete_birthday"
-                        android:textColor="@color/button_text" />
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            app:boxBackgroundMode="outline"
+                            app:startIconDrawable="@drawable/ic_note"
+                            app:startIconTint="@color/ic_note_edit">
 
-                </LinearLayout>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/birthdayNoteEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rounded_edit_text_edit"
+                                android:fontFamily="@font/wittgenstein_font"
+                                android:maxLines="7"
+                                android:minLines="7"
+                                android:paddingStart="40dp"
+                                android:paddingEnd="0dp"
+                                android:text="@{birthday.note}"
+                                tools:ignore="SpeakableTextPresentCheck" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/updateBirthdayButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/update_birthday_button_edit"
+                            android:text="@string/update_birthday"
+                            android:textColor="@color/button_text" />
+
+                        <Button
+                            android:id="@+id/deleteBirthdayButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:backgroundTint="@color/delete_birthday_button_edit"
+                            android:text="@string/delete_birthday"
+                            android:textColor="@color/button_text" />
+
+                    </LinearLayout>
+                </ScrollView>
 
 
                 <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -223,8 +257,7 @@
                         android:backgroundTint="@color/bottom_navigation_background"
                         app:menu="@menu/bottom_nav_menu"
                         app:navigationIcon="@drawable/ic_search"
-                        app:navigationIconTint="@color/ic_search_bottom"
-                        >
+                        app:navigationIconTint="@color/ic_search_bottom">
 
 
                     </com.google.android.material.bottomappbar.BottomAppBar>
@@ -240,7 +273,6 @@
                         tools:ignore="ContentDescription" />
 
                 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

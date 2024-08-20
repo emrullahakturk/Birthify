@@ -1,16 +1,13 @@
 package com.yargisoft.birthify.viewmodels
 
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.material.snackbar.Snackbar
 import com.yargisoft.birthify.repositories.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
 
-    // StateFlow to observe the status of ongoing operations
     private var _isLoaded = MutableStateFlow(false)
     val isLoaded: MutableStateFlow<Boolean> get() = _isLoaded
 
@@ -42,29 +39,28 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
         }
     }
 
-    // Function to handle user profile update
-    fun updateUserName(name: String) {
-        viewModelScope.launch {
-            _isLoaded.value = false
-            authRepository.updateUserName(
-                name,
-                onSuccess = {
-                    _authSuccess.value = true
-                    _authError.value = null
-                    _isLoaded.value = true
+//    // Function to handle user profile update
+//    fun updateUserName(name: String) {
+//        viewModelScope.launch {
+//            _isLoaded.value = false
+//            authRepository.updateUserName(
+//                name,
+//                onSuccess = {
+//                    _authSuccess.value = true
+//                    _authError.value = null
+//                    _isLoaded.value = true
+//
+//                },
+//                onFailure = { errorMessage ->
+//                    _authSuccess.value = false
+//                    _authError.value = errorMessage
+//                    _isLoaded.value = true
+//
+//                }
+//            )
+//        }
+//    }
 
-                },
-                onFailure = { errorMessage ->
-                    _authSuccess.value = false
-                    _authError.value = errorMessage
-                    _isLoaded.value = true
-
-                }
-            )
-        }
-    }
-
-    // Function to handle user registration
     fun registerUser(name: String, email: String, password: String) {
         viewModelScope.launch {
             _isLoaded.value = false
@@ -104,7 +100,6 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
         }
     }
 
-    // Function to handle password reset
     fun resetPassword(email: String) {
         viewModelScope.launch {
             _isLoaded.value = false
@@ -136,23 +131,23 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
 
     }
 
-    // Function to check user session status
-    fun checkUserSession() {
-        viewModelScope.launch {
-            val sessionExists = authRepository.isUserLoggedIn()
-            if (sessionExists) {
-                _authSuccess.value = true
-                _isLoaded.value= true
+//    // Function to check user session status
+//    fun checkUserSession() {
+//        viewModelScope.launch {
+//            val sessionExists = authRepository.isUserLoggedIn()
+//            if (sessionExists) {
+//                _authSuccess.value = true
+//                _isLoaded.value= true
+//
+//            } else {
+//                _authError.value = "No active session found."
+//                _isLoaded.value= true
+//
+//            }
+//        }
+//    }
 
-            } else {
-                _authError.value = "No active session found."
-                _isLoaded.value= true
 
-            }
-        }
-    }
-
-    // Function to handle user account deletion
     fun deleteUserAccount() {
         viewModelScope.launch {
             _isLoaded.value = false

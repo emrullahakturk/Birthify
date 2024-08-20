@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentGuestAddBirthdayBinding
+import com.yargisoft.birthify.dialogs.NotifyTimeBottomSheetDialogFragment
 import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
@@ -64,6 +66,16 @@ class GuestAddBirthdayFragment : Fragment() {
         guestBirthdayViewModel = ViewModelProvider(this, guestFactory)[GuestBirthdayViewModel::class]
 
 
+
+        binding.notificationTimeEditText.setOnClickListener {
+            val bottomSheet = NotifyTimeBottomSheetDialogFragment()
+            bottomSheet.setOnOptionSelectedListener { selectedOption ->
+                binding.notifyDate = selectedOption
+                // Seçilen değeri burada kullanabilirsin
+            }
+            bottomSheet.show(parentFragmentManager, bottomSheet.tag)
+        }
+
         binding.saveBirthdayButton.setOnClickListener {
 
             val name = binding.birthdayNameEditText.text.toString()
@@ -71,8 +83,9 @@ class GuestAddBirthdayFragment : Fragment() {
             val note = binding.birthdayNoteEditText.text.toString()
             val userId =  userSharedPreferences.getUserId()
             val recordedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
+            val notifyDate = binding.notificationTimeEditText.text.toString()
 
-            val bDay = Birthday(UUID.randomUUID().toString(), name, birthdayDate, recordedDate, note , userId )
+            val bDay = Birthday(UUID.randomUUID().toString(), name, birthdayDate, recordedDate, note , userId,notifyDate )
 
             if (name.isNotEmpty() && birthdayDate.isNotEmpty() && note.isNotEmpty()) {
                 guestBirthdayViewModel.saveBirthday(bDay)

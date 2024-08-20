@@ -17,6 +17,7 @@ import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
+import com.yargisoft.birthify.NetworkConnectionObserver
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserSwipeToDeleteCallback
@@ -38,6 +39,7 @@ class MainPageFragment : Fragment() {
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var adapter: BirthdayAdapter
     private lateinit var itemTouchHelper: ItemTouchHelper
+    private lateinit var networkConnectionObserver: NetworkConnectionObserver
 
 
     override fun onCreateView(
@@ -62,10 +64,19 @@ class MainPageFragment : Fragment() {
         val authFactory = AuthViewModelFactory(authRepository)
         authViewModel = ViewModelProvider(this, authFactory)[AuthViewModel::class]
 
-        //Main Page Açıldığında firebase üzerindeki doğum günlerini bday shared pref'e aktararak senkronize etmiş oluyoruz
-        usersBirthdayViewModel.getUserBirthdaysFromFirebase(userSharedPreferences.getUserId())
-        usersBirthdayViewModel.getPastBirthdaysFromFirebase(userSharedPreferences.getUserId())
-        usersBirthdayViewModel.getDeletedBirthdaysFromFirebase(userSharedPreferences.getUserId())
+
+        networkConnectionObserver = NetworkConnectionObserver(requireContext())
+        networkConnectionObserver.isConnected.observe(viewLifecycleOwner) { isConnected ->
+            if(userSharedPreferences.getUserCredentials().second != "guest"){
+                if (isConnected) {
+                    //Main Page Açıldığında firebase üzerindeki doğum günlerini bday shared pref'e aktararak senkronize etmiş oluyoruz
+                    usersBirthdayViewModel.getUserBirthdaysFromFirebase(userSharedPreferences.getUserId())
+                    usersBirthdayViewModel.getPastBirthdaysFromFirebase(userSharedPreferences.getUserId())
+                    usersBirthdayViewModel.getDeletedBirthdaysFromFirebase(userSharedPreferences.getUserId())
+                }
+            }
+        }
+
 
         usersBirthdayViewModel.getBirthdays()
 

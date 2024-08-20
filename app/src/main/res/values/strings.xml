@@ -85,4 +85,9 @@
     <string name="confirm_password">Confirm Password:</string>
     <string name="there_is_no_past_birthdays">There is no past birthdays</string>
     <string name="send_reset_e_mail">Send Reset E-mail</string>
+    <string name="notification_time">Notification Time</string>
+    <string name="on_the_day">On the day</string>
+    <string name="_1_day_before">1 day before</string>
+    <string name="_1_week_before">1 week before</string>
+    <string name="_1_hour_before">1 hour before</string>
 </resources>

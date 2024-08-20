@@ -1,6 +1,5 @@
 package com.yargisoft.birthify
 
-import NetworkConnectionObserver
 import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
@@ -9,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.OnBackPressedCallback
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
@@ -61,13 +59,13 @@ class MainActivity : AppCompatActivity() {
 
         networkConnectionObserver = NetworkConnectionObserver(this)
 
-        networkConnectionObserver.isConnected.observe(this, Observer { isConnected ->
+        networkConnectionObserver.isConnected.observe(this) { isConnected ->
             if(userSharedPreferences.getUserCredentials().second != "guest"){
                 if (!isConnected) {
                     showNetworkAlertDialog()
                 }
             }
-        })
+        }
 
 
 

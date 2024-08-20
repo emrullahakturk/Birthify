@@ -1,6 +1,5 @@
 package com.yargisoft.birthify.views.auth_user_views
 
-import ResetPasswordDialogFragment
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
@@ -18,14 +17,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputEditText
 import com.yargisoft.birthify.MainActivity
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions.disableViewEnableLottie
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions.enableViewDisableLottie
 import com.yargisoft.birthify.databinding.FragmentAuthProfileBinding
-import com.yargisoft.birthify.databinding.FragmentAuthSettingsBinding
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
@@ -33,7 +30,7 @@ import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
-import com.yargisoft.birthify.views.authentication_views.ChangePasswordDialogFragment
+import com.yargisoft.birthify.dialogs.ChangePasswordDialogFragment
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {

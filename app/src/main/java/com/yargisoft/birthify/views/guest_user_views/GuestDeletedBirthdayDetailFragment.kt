@@ -46,6 +46,10 @@ class GuestDeletedBirthdayDetailFragment : Fragment() {
             .build()
 
 
+
+        //user SharedPreferences
+        userSharedPreferences = UserSharedPreferencesManager(requireContext())
+
         //Guest Birthday ViewModel Tanımlama için gerekenler
         val guestRepository = GuestRepository(requireContext())
         val guestFactory = GuestViewModelFactory(guestRepository)
@@ -59,9 +63,6 @@ class GuestDeletedBirthdayDetailFragment : Fragment() {
 
         //detayı gösterilmek istenen doğum gününü kutucuklara yansıtıyoruz
         binding.birthday= deletedBirthday.birthday
-
-        //user SharedPreferences
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.drawerLayout

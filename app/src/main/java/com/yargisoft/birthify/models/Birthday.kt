@@ -7,7 +7,8 @@ data class Birthday (val id: String = "", // Firestore'da belge ID olarak kullan
                      val birthdayDate: String = "",
                      val recordedDate: String = "",
                      val note: String = "",
-                     val userId : String = ""
+                     val userId : String = "",
+                     val notifyDate : String = "",
     ): Serializable {
 
     override fun toString(): String {
@@ -15,6 +16,7 @@ data class Birthday (val id: String = "", // Firestore'da belge ID olarak kullan
                 "userId= $userId, " +
                 "birthdayDate = $birthdayDate," +
                 " note = $note, " +
+                " notifyDate = $notifyDate, " +
                 "recordedDate = $recordedDate  )"
     }
 
