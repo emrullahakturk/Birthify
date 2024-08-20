@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@color/dialog_fragment_background">
 
         <TextView
             android:id="@+id/option1"
@@ -19,6 +20,7 @@
             android:padding="16dp"
             android:fontFamily="@font/wittgenstein_font"
             android:textStyle="bold"
+            android:textColor="@color/dialog_fragment_tv"
             android:text="@string/on_the_day" />
 
         <TextView
@@ -29,6 +31,7 @@
             android:padding="16dp"
             android:fontFamily="@font/wittgenstein_font"
             android:textStyle="bold"
+            android:textColor="@color/dialog_fragment_tv"
             android:text="@string/_1_day_before" />
 
         <TextView
@@ -39,6 +42,7 @@
             android:padding="16dp"
             android:fontFamily="@font/wittgenstein_font"
             android:textStyle="bold"
+            android:textColor="@color/dialog_fragment_tv"
             android:text="@string/_1_week_before" />
 
         <TextView
@@ -49,6 +53,7 @@
             android:padding="16dp"
             android:fontFamily="@font/wittgenstein_font"
             android:textStyle="bold"
+            android:textColor="@color/dialog_fragment_tv"
             android:text="@string/_1_hour_before" />
     </LinearLayout>
 </layout>

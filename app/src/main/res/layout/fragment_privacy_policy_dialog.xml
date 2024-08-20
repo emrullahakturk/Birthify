@@ -39,8 +39,8 @@
                         android:id="@+id/closeButton"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:background="@color/dialog_fragment_background"
                         android:layout_alignParentEnd="true"
-                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:src="@drawable/ic_close" />
                 </RelativeLayout>
 
@@ -53,10 +53,9 @@
                     android:fontFamily="@font/wittgenstein_font"
                     android:paddingBottom="16dp"
                     android:textStyle="bold"
+                    android:textColor="@color/dialog_fragment_tv"
                     android:text="Privacy Policy"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="?android:attr/textColorPrimary" />
-
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
                 <!-- Section 1 -->
                 <TextView
                     android:id="@+id/tvSection1Title"
@@ -67,7 +66,7 @@
                     android:textStyle="bold"
                     android:text="1. Introduction"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textColor="@color/dialog_fragment_tv"/>
 
                 <TextView
                     android:id="@+id/tvSection1Content"
@@ -77,7 +76,7 @@
                     android:paddingBottom="16dp"
                     android:text="Welcome to Birthify! Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our application."
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="?android:attr/textColorSecondary" />
+                    android:textColor="@color/dialog_fragment_tv"/>
 
                 <!-- Section 2 -->
                 <TextView
@@ -89,7 +88,7 @@
                     android:textStyle="bold"
                     android:text="2. Information Collection"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textColor="@color/dialog_fragment_tv" />
 
                 <TextView
                     android:id="@+id/tvSection2Content"
@@ -99,7 +98,7 @@
                     android:paddingBottom="16dp"
                     android:text="We collect the following types of information:\n\n- Personal Information: When you create an account or use the app, we may collect personal details such as your name, email address, and birthday information.\n- Device Information: We collect information about your device, including hardware model, operating system, and unique device identifiers.\n- Usage Data: We collect data about how you use our app, such as the features you access and the actions you take."
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="?android:attr/textColorSecondary" />
+                    android:textColor="@color/dialog_fragment_tv" />
 
                 <!-- Section 3 -->
                 <TextView
@@ -111,7 +110,7 @@
                     android:textStyle="bold"
                     android:text="3. Use of Information"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textColor="@color/dialog_fragment_tv"/>
 
                 <TextView
                     android:id="@+id/tvSection3Content"
@@ -121,7 +120,7 @@
                     android:paddingBottom="16dp"
                     android:text="We use the collected information to:\n\n- Provide and improve our services.\n- Send you notifications and updates related to your birthdays.\n- Analyze app usage to enhance functionality and user experience."
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="?android:attr/textColorSecondary" />
+                    android:textColor="@color/dialog_fragment_tv" />
 
                 <!-- Section 4 -->
                 <TextView
@@ -133,7 +132,7 @@
                     android:textStyle="bold"
                     android:text="4. Data Sharing and Disclosure"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textColor="@color/dialog_fragment_tv" />
 
                 <TextView
                     android:id="@+id/tvSection4Content"
@@ -143,7 +142,7 @@
                     android:paddingBottom="16dp"
                     android:text="We do not share your personal information with third parties except:\n\n- With Your Consent: If you give us permission to share information.\n- For Legal Reasons: If required by law or to protect our rights and safety."
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="?android:attr/textColorSecondary" />
+                    android:textColor="@color/dialog_fragment_tv" />
 
                 <!-- Section 5 -->
                 <TextView
@@ -155,7 +154,7 @@
                     android:text="5. Security"
                     android:textStyle="bold"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textColor="@color/dialog_fragment_tv" />
 
                 <TextView
                     android:id="@+id/tvSection5Content"
@@ -165,7 +164,7 @@
                     android:paddingBottom="16dp"
                     android:text="We implement reasonable security measures to protect your information from unauthorized access, alteration, disclosure, or destruction."
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="?android:attr/textColorSecondary" />
+                    android:textColor="@color/dialog_fragment_tv" />
 
                 <!-- Section 6 -->
                 <TextView
@@ -177,7 +176,7 @@
                     android:text="6. Your Rights"
                     android:textStyle="bold"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textColor="@color/dialog_fragment_tv"/>
 
                 <TextView
                     android:id="@+id/tvSection6Content"
@@ -187,7 +186,7 @@
                     android:paddingBottom="16dp"
                     android:text="You have the right to:\n\n- Access and update your personal information.\n- Delete your account and personal data.\n- Opt-out of receiving notifications."
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="?android:attr/textColorSecondary" />
+                    android:textColor="@color/dialog_fragment_tv" />
 
                 <!-- Section 7 -->
                 <TextView
@@ -199,7 +198,7 @@
                     android:textStyle="bold"
                     android:text="7. Changes to This Privacy Policy"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textColor="@color/dialog_fragment_tv" />
 
                 <TextView
                     android:id="@+id/tvSection7Content"
@@ -209,7 +208,7 @@
                     android:paddingBottom="16dp"
                     android:text="We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy in the app."
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="?android:attr/textColorSecondary" />
+                    android:textColor="@color/dialog_fragment_tv" />
 
                 <!-- Section 8 -->
                 <TextView
@@ -221,7 +220,7 @@
                     android:text="8. Contact Us"
                     android:textStyle="bold"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="?android:attr/textColorPrimary" />
+                    android:textColor="@color/dialog_fragment_tv" />
 
                 <TextView
                     android:id="@+id/tvSection8Content"
@@ -231,7 +230,7 @@
                     android:paddingBottom="16dp"
                     android:text="If you have any questions or concerns about this Privacy Policy, please contact us at support@birthfiy.com"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="?android:attr/textColorSecondary" />
+                    android:textColor="@color/dialog_fragment_tv" />
 
             </LinearLayout>
         </ScrollView>

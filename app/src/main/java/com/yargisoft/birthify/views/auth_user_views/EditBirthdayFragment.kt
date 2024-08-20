@@ -74,7 +74,7 @@ class EditBirthdayFragment : Fragment() {
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
-        val toolbarMenuButton = binding.toolbarUserEditBirthday.findViewById<View>(R.id.menuButtonToolbar)
+        val toolbarMenuButton = binding.menuButtonToolbar
 
         //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
         UserFrequentlyUsedFunctions.drawerLayoutToggle(

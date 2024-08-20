@@ -86,6 +86,8 @@
     <color name="bottom_navigation_background">#000000</color>
     <color name="bottom_nav_constraint_background">#000000</color>
     <color name="dialog_fragment_background">#000000</color>
+    <color name="dialog_fragment_tv">#FFFFFF</color>
+    <color name="ic_close_button">#FFFFFF</color>
 
 
 

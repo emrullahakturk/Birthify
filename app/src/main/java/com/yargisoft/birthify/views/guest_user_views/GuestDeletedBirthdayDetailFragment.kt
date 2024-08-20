@@ -68,7 +68,7 @@ class GuestDeletedBirthdayDetailFragment : Fragment() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
         // Toolbardaki menü ikonu
-        val menuToolbarIcon: View = binding.toolbarGuestDeletedBirthday.findViewById(R.id.menuButtonToolbar)
+        val toolbarMenuButton = binding.menuButtonToolbar
 
         binding.fabBackButton.setOnClickListener { findNavController().popBackStack() }
 
@@ -110,7 +110,7 @@ class GuestDeletedBirthdayDetailFragment : Fragment() {
             drawerLayout,
             navigationView,
             findNavController(),
-            menuToolbarIcon,
+            toolbarMenuButton,
             requireActivity(),
             userSharedPreferences,
             "GuestDeletedBirthdayDetail"

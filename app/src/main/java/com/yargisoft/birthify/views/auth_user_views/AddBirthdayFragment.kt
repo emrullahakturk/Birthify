@@ -97,7 +97,7 @@ class AddBirthdayFragment : Fragment() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
         // Toolbar üzerindeki menü ikonu ile menüyü açma
-        val toolbarMenuIcon = binding.toolbarUserAdd.findViewById<View>(R.id.menuButtonToolbar)
+        val toolbarMenuButton = binding.menuButtonToolbar
 
 
 
@@ -106,7 +106,7 @@ class AddBirthdayFragment : Fragment() {
             drawerLayout,
             navigationView,
             findNavController(),
-            toolbarMenuIcon,
+            toolbarMenuButton,
             requireActivity(),
             authViewModel,
             birthdayRepository,

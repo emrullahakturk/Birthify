@@ -63,7 +63,7 @@ class ProfileFragment : Fragment() {
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
-        val toolbarMenuButton = binding.toolbarGuestSettings.findViewById<View>(R.id.menuButtonToolbar)
+        val toolbarMenuButton = binding.menuButtonToolbar
 
         UserFrequentlyUsedFunctions.drawerLayoutToggle(
             drawerLayout,
@@ -147,6 +147,58 @@ class ProfileFragment : Fragment() {
         binding.changePasswordCardView.setOnClickListener {
             val dialogFragment = ChangePasswordDialogFragment()
             dialogFragment.show(parentFragmentManager, "ChangePasswordDialog")
+        }
+
+
+        binding.deleteMyAccountCardView.setOnClickListener {
+            disableViewEnableLottie(lottieAnimationView, binding.root)
+
+            AlertDialog.Builder(context)
+                .setTitle("Confirm Deletion Your Account")
+                .setMessage("Are you sure you want to delete your account permanently? This operation cannot be undone.")
+                .setPositiveButton("Yes") { _, _ ->
+
+                    usersBirthdayViewModel.clearAllBirthdays()
+                    authViewModel.deleteUserAccount()
+
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        var isLoadedEmitted = false
+
+                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                            authViewModel.isLoaded.collect { isLoaded ->
+                                if (isLoaded && !isLoadedEmitted) {
+                                    isLoadedEmitted = true
+
+                                    val isSuccess = authViewModel.authSuccess.value
+                                    val errorMessage = authViewModel.authError.value
+
+                                    if (isSuccess) {
+                                        UserFrequentlyUsedFunctions.logout(requireActivity())
+                                    } else {
+                                        Snackbar.make(binding.root, "$errorMessage", Snackbar.LENGTH_SHORT).show()
+                                    }
+                                    enableViewDisableLottie(lottieAnimationView, binding.root)
+                                }
+                            }
+                        }
+                    }
+                }
+                .setNegativeButton("No") { _, _ ->
+                    enableViewDisableLottie(lottieAnimationView,binding.root)
+                }
+                .show()
+        }
+
+        binding.deleteAllBirthdaysCardView.setOnClickListener {
+            AlertDialog.Builder(context)
+                .setTitle("Confirm Deletion All Birthdays")
+                .setMessage("Are you sure you want to delete your birthdays? This operation cannot be undone.")
+                .setPositiveButton("Yes") { _, _ ->
+                    usersBirthdayViewModel.clearAllBirthdays()
+                    findNavController().navigate(R.id.settingsToMainPage)
+                }
+                .setNegativeButton("No") { _, _ -> }
+                .show()
         }
 
         binding.forgotPasswordCardView.setOnClickListener {

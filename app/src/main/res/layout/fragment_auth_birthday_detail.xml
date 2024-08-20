@@ -20,11 +20,40 @@
             android:layout_height="match_parent"
             android:background="@color/birthday_detail_background">
 
-            <include
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarUserDetail"
-                layout="@layout/custom_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/toolbar_background"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/birthifyTvToolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:text="@string/app_name"
+                android:textColor="@color/toolbar_app_name"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbarUserDetail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolbarUserDetail" />
+
+            <ImageView
+                android:id="@+id/menuButtonToolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:contentDescription="@string/toolbar_menu_three_lines"
+                android:src="@drawable/ic_menu_line"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

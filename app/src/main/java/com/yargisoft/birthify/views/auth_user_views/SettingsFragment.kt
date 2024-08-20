@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
@@ -38,6 +40,9 @@ import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
+import com.yargisoft.birthify.views.dialogs.FrequentlyAskedQuestionsDialogFragment
+import com.yargisoft.birthify.views.dialogs.PrivacyPolicyDialogFragment
+import com.yargisoft.birthify.views.dialogs.WhatIsBirthifyDialogFragment
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -88,7 +93,7 @@ class SettingsFragment : Fragment() {
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
-        val toolbarMenuButton = binding.toolbarGuestSettings.findViewById<View>(R.id.menuButtonToolbar)
+        val toolbarMenuButton = binding.menuButtonToolbar
 
         UserFrequentlyUsedFunctions.drawerLayoutToggle(
             drawerLayout,
@@ -120,56 +125,7 @@ class SettingsFragment : Fragment() {
             }
         }
 
-        binding.deleteMyAccountCardView.setOnClickListener {
-            disableViewEnableLottie(lottieAnimationView, binding.root)
 
-            AlertDialog.Builder(context)
-                .setTitle("Confirm Deletion Your Account")
-                .setMessage("Are you sure you want to delete your account permanently? This operation cannot be undone.")
-                .setPositiveButton("Yes") { _, _ ->
-
-                    usersBirthdayViewModel.clearAllBirthdays()
-                    authViewModel.deleteUserAccount()
-
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        var isLoadedEmitted = false
-
-                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                            authViewModel.isLoaded.collect { isLoaded ->
-                                if (isLoaded && !isLoadedEmitted) {
-                                    isLoadedEmitted = true
-
-                                    val isSuccess = authViewModel.authSuccess.value
-                                    val errorMessage = authViewModel.authError.value
-
-                                    if (isSuccess) {
-                                        UserFrequentlyUsedFunctions.logout(requireActivity())
-                                    } else {
-                                        Snackbar.make(binding.root, "$errorMessage", Snackbar.LENGTH_SHORT).show()
-                                    }
-                                    enableViewDisableLottie(lottieAnimationView, binding.root)
-                                }
-                            }
-                        }
-                    }
-                }
-                .setNegativeButton("No") { _, _ ->
-                    enableViewDisableLottie(lottieAnimationView,binding.root)
-                }
-                .show()
-        }
-
-        binding.deleteAllBirthdaysCardView.setOnClickListener {
-            AlertDialog.Builder(context)
-                .setTitle("Confirm Deletion All Birthdays")
-                .setMessage("Are you sure you want to delete your birthdays? This operation cannot be undone.")
-                .setPositiveButton("Yes") { _, _ ->
-                    usersBirthdayViewModel.clearAllBirthdays()
-                    findNavController().navigate(R.id.settingsToMainPage)
-                }
-                .setNegativeButton("No") { _, _ -> }
-                .show()
-        }
 
         // Bildirim izinlerini kontrol et ve Switch'i ayarla
         updateNotificationSwitch()
@@ -206,6 +162,37 @@ class SettingsFragment : Fragment() {
         binding.languageSelectImageView.setOnClickListener {
             showLanguageSelectionDialog(currentLanguage)
         }
+
+        binding.whatIsBirthifyCardView.setOnClickListener {
+            val dialogFragment = WhatIsBirthifyDialogFragment()
+            dialogFragment.show(parentFragmentManager, "WhatIsBirthifyDialog")
+        }
+
+        binding.faqCardView.setOnClickListener {
+            val dialogFragment = FrequentlyAskedQuestionsDialogFragment()
+            dialogFragment.show(parentFragmentManager, "FrequentlyAskedQuestionsDialog")
+        }
+
+        binding.contactUsCardView.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:")
+                putExtra(Intent.EXTRA_EMAIL, arrayOf("support@birthify.com"))
+                putExtra(Intent.EXTRA_SUBJECT, "Support Request")
+                putExtra(Intent.EXTRA_TEXT, "Hello, I need help with...")
+            }
+
+            if (intent.resolveActivity(requireActivity().packageManager) != null) {
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(),"There isn't any e-mail app on your device", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.privacyPolicyCardView.setOnClickListener {
+            val dialogFragment = PrivacyPolicyDialogFragment()
+            dialogFragment.show(parentFragmentManager, "PrivacyPolicyDialog")
+        }
+
 
         binding.logoutCardView.setOnClickListener {
             authViewModel.logoutUser()

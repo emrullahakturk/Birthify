@@ -51,7 +51,7 @@ class GuestAddBirthdayFragment : Fragment() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
         // Toolbar üzerindeki menü ikonu ile menüyü açma
-        val toolbarMenuIcon = binding.toolbarGuestAdd.findViewById<View>(R.id.menuButtonToolbar)
+        val toolbarMenuButton = binding.menuButtonToolbar
 
 
 
@@ -109,7 +109,7 @@ class GuestAddBirthdayFragment : Fragment() {
             drawerLayout,
             navigationView,
             findNavController(),
-            toolbarMenuIcon,
+            toolbarMenuButton,
             requireActivity(),
             userSharedPreferences,
             "GuestAddBirthday"
