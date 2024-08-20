@@ -60,11 +60,27 @@
                     tools:layout_editor_absoluteX="0dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/settings"
+                android:fontFamily="@font/wittgenstein_font"
+                android:textSize="25sp"
+                android:textColor="@color/fab_button_background_detail"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.5"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 card_view:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
-                card_view:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+                card_view:layout_constraintTop_toBottomOf="@+id/textView">
 
                 <ScrollView
                     android:layout_width="match_parent"

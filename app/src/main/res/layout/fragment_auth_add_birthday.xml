@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="notifyDate"
+            type="String" />
 
     </data>
 
@@ -16,7 +19,6 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/guestAddBirthdayConsLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -86,95 +88,129 @@
                     app:layout_constraintTop_toBottomOf="@+id/lineView" />
 
 
-                <LinearLayout
-                    android:id="@+id/linearLayout"
+                <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"
                     app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/recordBirthdayTv">
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:hintEnabled="false"
-                        app:boxBackgroundMode="outline"
-                        app:startIconDrawable="@drawable/ic_account"
-                        app:startIconTint="@color/ic_account_add">
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/recordBirthdayTv">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/birthdayNameEditText"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_edit_text_add_birthday"
-                            android:hint="@string/name"
-                            android:maxLines="1"
-                            android:paddingStart="40dp"
-                            android:paddingEnd="0dp"
-                            android:singleLine="true" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_marginBottom="16dp"
+                            app:boxBackgroundMode="outline"
+                            app:hintEnabled="false"
+                            app:startIconDrawable="@drawable/ic_account"
+                            app:startIconTint="@color/ic_account_add">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:boxBackgroundMode="outline"
-                        app:startIconDrawable="@drawable/ic_date"
-                        app:startIconTint="@color/ic_calendar_add"
-                        app:hintEnabled="false"
-                        >
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/birthdayNameEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rounded_edit_text_add_birthday"
+                                android:hint="@string/name"
+                                android:maxLines="1"
+                                android:paddingStart="40dp"
+                                android:paddingEnd="0dp"
+                                android:singleLine="true" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/birthdayDateEditText"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_edit_text_add_birthday"
-                            android:clickable="true"
-                            android:focusable="false"
-                            android:hint="@string/birthday_date"
-                            android:inputType="none"
-                            android:maxLines="1"
-                            android:paddingStart="40dp"
-                            android:paddingEnd="0dp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_marginBottom="16dp"
+                            app:boxBackgroundMode="outline"
+                            app:hintEnabled="false"
+                            app:startIconDrawable="@drawable/ic_date"
+                            app:startIconTint="@color/ic_calendar_add">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        app:boxBackgroundMode="outline"
-                        app:startIconDrawable="@drawable/ic_note"
-                        app:startIconTint="@color/ic_note_add"
-                        app:hintEnabled="false"
-                        >
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/birthdayDateEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rounded_edit_text_add_birthday"
+                                android:clickable="true"
+                                android:focusable="false"
+                                android:hint="@string/birthday_date"
+                                android:inputType="none"
+                                android:maxLines="1"
+                                android:paddingStart="40dp"
+                                android:paddingEnd="0dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/birthdayNoteEditText"
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/rounded_edit_text_add_birthday"
-                            android:hint="@string/celebration_note"
-                            android:maxLines="10"
-                            android:minLines="10"
-                            android:paddingStart="40dp"
-                            android:paddingEnd="0dp"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_marginBottom="16dp"
+                            app:boxBackgroundMode="outline"
+                            app:hintEnabled="false"
+                            app:startIconDrawable="@drawable/ic_notifications"
+                            app:startIconTint="@color/ic_calendar_add">
 
-                    <Button
-                        android:id="@+id/saveBirthdayButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/save_birthday_button"
-                        android:text="@string/save_birthday" />
-                </LinearLayout>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/notificationTimeEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rounded_edit_text_add_birthday"
+                                android:clickable="true"
+                                android:focusable="false"
+                                android:hint="@string/notification_time"
+                                android:inputType="none"
+                                android:maxLines="1"
+                                android:paddingStart="40dp"
+                                android:paddingEnd="0dp"
+                                android:text="@{notifyDate}" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            app:boxBackgroundMode="outline"
+                            app:hintEnabled="false"
+                            app:startIconDrawable="@drawable/ic_note"
+                            app:startIconTint="@color/ic_note_add">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/birthdayNoteEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/rounded_edit_text_add_birthday"
+                                android:hint="@string/celebration_note"
+                                android:maxLines="10"
+                                android:minLines="10"
+                                android:paddingStart="40dp"
+                                android:paddingEnd="0dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <Button
+                            android:id="@+id/saveBirthdayButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/save_birthday_button"
+                            android:text="@string/save_birthday" />
+                    </LinearLayout>
+                </ScrollView>
 
                 <androidx.coordinatorlayout.widget.CoordinatorLayout
                     android:id="@+id/coordinatorLayout"
@@ -187,13 +223,13 @@
 
                     <com.google.android.material.bottomappbar.BottomAppBar
                         android:id="@+id/bottomAppBar"
-                        android:backgroundTint="@color/bottom_navigation_background"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:navigationIcon="@drawable/ic_search"
-                        app:navigationIconTint="@color/ic_search_bottom"
                         android:layout_gravity="bottom"
-                        app:menu="@menu/bottom_nav_menu">
+                        android:backgroundTint="@color/bottom_navigation_background"
+                        app:menu="@menu/bottom_nav_menu"
+                        app:navigationIcon="@drawable/ic_search"
+                        app:navigationIconTint="@color/ic_search_bottom">
 
 
                     </com.google.android.material.bottomappbar.BottomAppBar>
@@ -205,10 +241,9 @@
                         android:backgroundTint="@color/fab_button_background_add_birthday"
                         app:layout_anchor="@id/bottomAppBar"
                         app:srcCompat="@drawable/ic_back_bottom"
-                        tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+                        tools:ignore="ContentDescription" />
 
                 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

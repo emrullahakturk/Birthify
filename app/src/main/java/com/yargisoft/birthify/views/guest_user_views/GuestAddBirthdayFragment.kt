@@ -71,7 +71,6 @@ class GuestAddBirthdayFragment : Fragment() {
             val bottomSheet = NotifyTimeBottomSheetDialogFragment()
             bottomSheet.setOnOptionSelectedListener { selectedOption ->
                 binding.notifyDate = selectedOption
-                // Seçilen değeri burada kullanabilirsin
             }
             bottomSheet.show(parentFragmentManager, bottomSheet.tag)
         }

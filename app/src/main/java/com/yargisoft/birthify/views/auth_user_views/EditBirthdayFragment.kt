@@ -15,6 +15,7 @@ import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAuthEditBirthdayBinding
+import com.yargisoft.birthify.dialogs.NotifyTimeBottomSheetDialogFragment
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
@@ -89,6 +90,16 @@ class EditBirthdayFragment : Fragment() {
         )
 
 
+        binding.notifyTimeEditText.setOnClickListener {
+            val bottomSheet = NotifyTimeBottomSheetDialogFragment()
+            bottomSheet.setOnOptionSelectedListener { selectedOption ->
+                binding.notifyTimeEditText.setText(selectedOption)
+            }
+            bottomSheet.show(parentFragmentManager, bottomSheet.tag)
+        }
+
+
+
 
         //doğum günü update butonu
         binding.updateBirthdayButton.setOnClickListener {
@@ -96,7 +107,8 @@ class EditBirthdayFragment : Fragment() {
             val updatedBirthday = editedBirthday.birthday.copy(
                 name = binding.birthdayNameEditText.text.toString(),
                 birthdayDate = binding.birthdayDateEditText.text.toString(),
-                note = binding.birthdayNoteEditText.text.toString()
+                note = binding.birthdayNoteEditText.text.toString(),
+                notifyDate = binding.notifyTimeEditText.text.toString()
             )
 
             usersBirthdayViewModel.updateBirthday(updatedBirthday)

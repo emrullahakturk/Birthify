@@ -17,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAuthAddBirthdayBinding
+import com.yargisoft.birthify.dialogs.NotifyTimeBottomSheetDialogFragment
 import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
@@ -64,9 +65,10 @@ class AddBirthdayFragment : Fragment() {
             val birthdayDate = binding.birthdayDateEditText.text.toString()
             val note = binding.birthdayNoteEditText.text.toString()
             val userId =  userSharedPreferences.getUserId()
+            val notifyDate = binding.notificationTimeEditText.text.toString()
             val recordedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).toString()
 
-            val bDay = Birthday(UUID.randomUUID().toString(), name, birthdayDate, recordedDate, note , userId )
+            val bDay = Birthday(UUID.randomUUID().toString(), name, birthdayDate, recordedDate, note , userId, notifyDate)
 
             if (name.isNotEmpty() && birthdayDate.isNotEmpty() && note.isNotEmpty()) {
                 usersBirthdayViewModel.saveBirthday(bDay)
@@ -76,6 +78,13 @@ class AddBirthdayFragment : Fragment() {
                 Snackbar.make(view,"Please fill in all fields",Snackbar.LENGTH_SHORT).show()
             }
         }
+
+        binding.notificationTimeEditText.setOnClickListener{
+            val bottomSheet = NotifyTimeBottomSheetDialogFragment()
+            bottomSheet.setOnOptionSelectedListener { selectedOption ->
+                binding.notifyDate = selectedOption
+            }
+            bottomSheet.show(parentFragmentManager, bottomSheet.tag)        }
 
 
         binding.birthdayDateEditText.setOnClickListener {
