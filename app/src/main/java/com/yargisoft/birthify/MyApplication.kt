@@ -3,7 +3,6 @@ package com.yargisoft.birthify
 import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
-import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 
 class MyApplication : Application() {
     override fun onCreate() {

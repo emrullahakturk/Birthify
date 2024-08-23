@@ -16,7 +16,7 @@ android {
     }
     defaultConfig {
         applicationId = "com.yargisoft.birthify"
-        minSdk = 27
+        minSdk = 31
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -44,7 +44,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.google.android.material:material:1.8.0")
+    implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
      testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
@@ -62,11 +62,13 @@ dependencies {
 
     //Firebase
     implementation ("com.google.firebase:firebase-auth:23.0.0")
-    implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
+    implementation(platform("com.google.firebase:firebase-bom:33.2.0"))
     implementation("com.google.firebase:firebase-analytics")
-    implementation ("com.google.firebase:firebase-firestore:25.0.0")
-    implementation ("com.google.firebase:firebase-messaging:24.0.0")
+    implementation ("com.google.firebase:firebase-firestore:25.1.0")
+    implementation ("com.google.firebase:firebase-messaging:24.0.1")
     implementation ("androidx.appcompat:appcompat:1.7.0")
+    implementation ("androidx.work:work-runtime:2.9.1")
+
 
 
 

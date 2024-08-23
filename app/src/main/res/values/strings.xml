@@ -36,9 +36,10 @@
     <string name="birthday_detail">Birthday Detail</string>
 
 
-    <string name="navigation_drawer_open">Aç</string>
-    <string name="navigation_drawer_close">Kapat</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="settings">Settings</string>
     <string name="log_out">Log Out</string>
@@ -62,7 +63,7 @@
     <string name="add_a_new_birthday">Add A New Birthday</string>
     <string name="toolbar_menu_three_lines">Toolbar Menu Three Lines</string>
     <string name="past_birthdays">Past Birthdays</string>
-    <string name="item_birthday_name">Emrullah Aktürk</string>
+    <string name="item_birthday_name">Emrullah Akturk</string>
     <string name="card_view_icon">Card View Icon</string>
     <string name="card_view_edit_icon">Card View Edit Icon</string>
     <string name="item_birthday_birth_date">Birth Date</string>
@@ -87,10 +88,10 @@
     <string name="send_reset_e_mail">Send Reset E-mail</string>
     <string name="notification_time">Notification Time</string>
     <string name="on_the_day">On the day</string>
-    <string name="_1_day_before">1 day before</string>
-    <string name="_1_week_before">1 week before</string>
-    <string name="_1_hour_before">1 hour before</string>
-    <string name="frequently_asked_questions">Frequently Asked Questions (FAQs)</string>
+    <string name="_1_day_before">1 day ago</string>
+    <string name="_1_week_before">1 week ago</string>
+    <string name="_1_hour_before">1 month ago</string>
+    <string name="frequently_asked_questions">FAQs</string>
     <string name="privacy_amp_policy"><![CDATA[Privacy & Policy]]></string>
     <string name="contact_us">Contact Us</string>
     <string name="what_is_birthify">What is Birthify ?</string>

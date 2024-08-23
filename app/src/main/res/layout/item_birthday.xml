@@ -113,18 +113,18 @@
             app:layout_constraintEnd_toStartOf="@+id/editBirthdayButtonMainPage"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="7dp"
-            android:fontFamily="@font/wittgenstein_font"
-            android:text="@string/edit"
-            android:textColor="@color/item_main_birthday_edit"
-            app:layout_constraintBottom_toTopOf="@+id/editBirthdayButtonMainPage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <TextView-->
+<!--            android:id="@+id/textView8"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="7dp"-->
+<!--            android:layout_marginEnd="7dp"-->
+<!--            android:fontFamily="@font/wittgenstein_font"-->
+<!--            android:text="@string/edit"-->
+<!--            android:textColor="@color/item_main_birthday_edit"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/editBirthdayButtonMainPage"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

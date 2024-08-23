@@ -5,14 +5,18 @@ package com.yargisoft.birthify
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlarmManager
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextPaint
@@ -25,6 +29,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -50,6 +55,10 @@ import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.Calendar
 import java.util.Locale
 
@@ -351,12 +360,23 @@ object UserFrequentlyUsedFunctions {
                 when (condition) {
                     "permanently" -> {
                         usersBirthdayViewModel.permanentlyDeleteBirthday(editedBirthday.id)
+                        cancelBirthdayReminder(editedBirthday.id,context)
+
                     }
                     "soft_delete" -> {
-                       usersBirthdayViewModel.deleteBirthday(editedBirthday.id)
+                        usersBirthdayViewModel.deleteBirthday(editedBirthday.id)
+                        cancelBirthdayReminder(editedBirthday.id,context)
+
                     }
                     "re_save" -> {
-                      usersBirthdayViewModel.reSaveDeletedBirthday(editedBirthday.id)
+                        usersBirthdayViewModel.reSaveDeletedBirthday(editedBirthday.id)
+                        scheduleBirthdayReminder(
+                            editedBirthday.id,
+                            editedBirthday.name,
+                            editedBirthday.birthdayDate,
+                            editedBirthday.notifyDate,
+                            context
+                        )
                     }
                 }
 
@@ -734,6 +754,93 @@ object UserFrequentlyUsedFunctions {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         activity.startActivity(intent)
         activity.finish()
+    }
+
+
+
+
+
+    fun updateBirthdayReminder(birthday: Birthday,context: Context) {
+        // Mevcut alarmı iptal et
+        cancelBirthdayReminder(birthday.id, context)
+
+        // Yeni hatırlatıcıyı ayarla
+        scheduleBirthdayReminder(
+            birthday.id,
+            birthday.name,
+            birthday.birthdayDate,
+            birthday.notifyDate,
+            context
+        )
+    }
+    @SuppressLint("ScheduleExactAlarm")
+    fun scheduleBirthdayReminder(birthdayId: String, birthdayName: String, birthdayDate: String, notifyDate: String, context: Context) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, BirthdayReminderReceiver::class.java).apply {
+            putExtra("birthdayId", birthdayId)
+            putExtra("birthdayName", birthdayName)
+        }
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            birthdayId.hashCode(),
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val reminderTime = calculateReminderTime(birthdayDate, notifyDate)
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, reminderTime, pendingIntent)
+    }
+
+    private fun calculateReminderTime(birthdayDate: String, notifyDate: String): Long {
+        // Tarih formatını tanımla
+        val formatter = DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH)
+
+
+
+        // Geçerli yılı al
+        val currentYear = LocalDate.now().year
+
+
+        // Doğum gününü geçerli yıl ile parse et
+        val parsedBirthdayDate: LocalDate
+        try {
+            parsedBirthdayDate = LocalDate.parse("$birthdayDate $currentYear", formatter)
+        } catch (e: DateTimeParseException) {
+            // Hata durumunda loglama yap
+            e.printStackTrace()
+            throw IllegalArgumentException("Invalid date format for birthdayDate: $birthdayDate")
+        }
+
+        // Hatırlatıcı tarihini hesapla
+        val reminderDateTime = when (notifyDate) {
+            "On the day" -> parsedBirthdayDate.atTime(12, 0) // Doğum günü tarihinde saat 12:00'de
+            "1 day ago" -> parsedBirthdayDate.minusDays(1).atTime(0, 0) // 1 gün önce saat 00:00'da
+            "1 week ago" -> parsedBirthdayDate.minusWeeks(1).atTime(0, 0) // 1 hafta önce saat 00:00'da
+            "1 month ago" -> parsedBirthdayDate.minusMonths(1).atTime(0, 0) // 1 ay önce saat 00:00'da
+            else -> throw IllegalArgumentException("Invalid Notifiy Date")
+        }
+
+        // Zamanı Epoch millisaniye cinsinden döndür
+        return reminderDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+    }
+
+
+    private fun cancelBirthdayReminder(birthdayId: String, context: Context) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, BirthdayReminderReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            birthdayId.hashCode(),
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        alarmManager.cancel(pendingIntent)
+    }
+
+    fun requestExactAlarmPermission(activity: Activity) {
+        val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+        activity.startActivity(intent)
     }
 
 

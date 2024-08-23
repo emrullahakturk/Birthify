@@ -1,6 +1,8 @@
 package com.yargisoft.birthify.views.auth_user_views
 
 import android.app.Activity
+import android.app.AlarmManager
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +16,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions.requestExactAlarmPermission
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions.scheduleBirthdayReminder
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAuthAddBirthdayBinding
@@ -71,8 +75,20 @@ class AddBirthdayFragment : Fragment() {
             val bDay = Birthday(UUID.randomUUID().toString(), name, birthdayDate, recordedDate, note , userId, notifyDate)
 
             if (name.isNotEmpty() && birthdayDate.isNotEmpty() && note.isNotEmpty()) {
-                usersBirthdayViewModel.saveBirthday(bDay)
-                UserFrequentlyUsedFunctions.loadAndStateOperation(viewLifecycleOwner, usersBirthdayViewModel, binding.threePointAnimation, binding.root, findNavController(), R.id.addToMain, navOptions {  })
+
+
+                val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                if (!alarmManager.canScheduleExactAlarms()) {
+                    // İzin talep etmeniz gerekecek
+                    requestExactAlarmPermission(requireActivity())
+                } else {
+                    // İzin zaten verilmiş, alarm ayarlayabilirsiniz
+                    scheduleBirthdayReminder(bDay.id, bDay.name, birthdayDate, notifyDate,requireContext())
+                    usersBirthdayViewModel.saveBirthday(bDay)
+                    UserFrequentlyUsedFunctions.loadAndStateOperation(viewLifecycleOwner, usersBirthdayViewModel, binding.threePointAnimation, binding.root, findNavController(), R.id.addToMain, navOptions {  })
+
+                }
+
             }
             else{
                 Snackbar.make(view,"Please fill in all fields",Snackbar.LENGTH_SHORT).show()
@@ -131,9 +147,6 @@ class AddBirthdayFragment : Fragment() {
                 else -> false
             }
         }
-
-
-
         return binding.root
     }
 

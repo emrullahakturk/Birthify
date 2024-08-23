@@ -257,9 +257,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="bottom"
                         android:backgroundTint="@color/bottom_navigation_background"
-                        app:menu="@menu/bottom_nav_menu"
-                        app:navigationIcon="@drawable/ic_search"
-                        app:navigationIconTint="@color/ic_search_bottom">
+                        app:menu="@menu/bottom_nav_menu">
 
 
                     </com.google.android.material.bottomappbar.BottomAppBar>

@@ -16,6 +16,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var networkConnectionObserver: NetworkConnectionObserver
     private lateinit var userSharedPreferences: UserSharedPreferencesManager
+  /*  private lateinit var guestViewModel: GuestBirthdayViewModel
+    private lateinit var guestViewModelFactory: GuestViewModelFactory
+    private lateinit var guestRepository: GuestRepository
+*/
 
 
     companion object {
@@ -23,13 +27,14 @@ class MainActivity : AppCompatActivity() {
         private const val LANGUAGE_KEY = "AppLanguage"
     }
 
+
+
     override fun attachBaseContext(newBase: Context) {
         val preferences: SharedPreferences = newBase.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val language = preferences.getString(LANGUAGE_KEY, Locale.getDefault().language) ?: Locale.getDefault().language
         val localeUpdatedContext = updateLocale(newBase, language)
         super.attachBaseContext(localeUpdatedContext)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -39,8 +44,11 @@ class MainActivity : AppCompatActivity() {
 
 
 
+      /*  guestRepository = GuestRepository(this)
+        guestViewModelFactory = GuestViewModelFactory(guestRepository)
+        guestViewModel = ViewModelProvider(this, guestViewModelFactory)[GuestBirthdayViewModel::class.java]
 
-
+*/
         userSharedPreferences = UserSharedPreferencesManager(this)
 
 
@@ -67,7 +75,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
 
 
 

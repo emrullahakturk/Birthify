@@ -20,18 +20,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.yargisoft.birthify.MainActivity
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
-import com.yargisoft.birthify.UserFrequentlyUsedFunctions.disableViewEnableLottie
-import com.yargisoft.birthify.UserFrequentlyUsedFunctions.enableViewDisableLottie
 import com.yargisoft.birthify.databinding.FragmentAuthSettingsBinding
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
@@ -43,7 +37,6 @@ import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
 import com.yargisoft.birthify.views.dialogs.FrequentlyAskedQuestionsDialogFragment
 import com.yargisoft.birthify.views.dialogs.PrivacyPolicyDialogFragment
 import com.yargisoft.birthify.views.dialogs.WhatIsBirthifyDialogFragment
-import kotlinx.coroutines.launch
 import java.util.Locale
 
 class SettingsFragment : Fragment() {
@@ -81,7 +74,7 @@ class SettingsFragment : Fragment() {
 
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
-        val lottieAnimationView = binding.threePointAnimation
+       // val lottieAnimationView = binding.threePointAnimation
 
         authRepository = AuthRepository(userSharedPreferences.preferences)
         authViewModelFactory = AuthViewModelFactory(authRepository)

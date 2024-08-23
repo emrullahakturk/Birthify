@@ -1,5 +1,7 @@
 package com.yargisoft.birthify.views.guest_user_views
 
+import android.app.AlarmManager
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +15,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
+import com.yargisoft.birthify.GuestFrequentlyUsedFunctions.requestExactAlarmPermission
+import com.yargisoft.birthify.GuestFrequentlyUsedFunctions.updateBirthdayReminder
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentGuestEditBirthdayBinding
 import com.yargisoft.birthify.views.dialogs.NotifyTimeBottomSheetDialogFragment
@@ -20,6 +24,7 @@ import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
 import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
+
 
 class GuestEditBirthdayFragment : Fragment() {
 
@@ -96,17 +101,25 @@ class GuestEditBirthdayFragment : Fragment() {
                 notifyDate = binding.notifyTimeEditText.text.toString()
             )
 
-            guestBirthdayViewModel.updateBirthday(updatedBirthday)
 
-            GuestFrequentlyUsedFunctions.loadAndStateOperation(
-                viewLifecycleOwner,
-                binding.threePointAnimation,
-                binding.root,
-                findNavController(),
-                R.id.guestEditToMain,
-                navOptions
-            )
 
+            val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            if (!alarmManager.canScheduleExactAlarms()) {
+                // İzin talep etmeniz gerekecek
+                requestExactAlarmPermission(requireActivity())
+            } else {
+                // İzin zaten verilmiş, alarm ayarlayabilirsiniz
+                updateBirthdayReminder(updatedBirthday,requireContext())
+                guestBirthdayViewModel.updateBirthday(updatedBirthday)
+                GuestFrequentlyUsedFunctions.loadAndStateOperation(
+                    viewLifecycleOwner,
+                    binding.threePointAnimation,
+                    binding.root,
+                    findNavController(),
+                    R.id.guestEditToMain,
+                    navOptions
+                )
+            }
         }
 
         binding.notifyTimeEditText.setOnClickListener {
@@ -125,7 +138,7 @@ class GuestEditBirthdayFragment : Fragment() {
             findNavController().popBackStack()
 
         }
-        binding.toolbarGuestEditBirthday.findViewById<View>(R.id.menuButtonToolbar).setOnClickListener {
+        binding.menuButtonToolbar.setOnClickListener {
                 GuestFrequentlyUsedFunctions.drawerLayoutToggle(
                     drawerLayout,
                     navigationView,
@@ -158,5 +171,7 @@ class GuestEditBirthdayFragment : Fragment() {
 
         return binding.root
     }
+
+
 
 }

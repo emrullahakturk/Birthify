@@ -37,15 +37,15 @@ class NotifyTimeBottomSheetDialogFragment : BottomSheetDialogFragment() {
             dismiss()
         }
         binding.option2.setOnClickListener {
-            onOptionSelected?.invoke("1 day before")
+            onOptionSelected?.invoke("1 day ago")
             dismiss()
         }
         binding.option3.setOnClickListener {
-            onOptionSelected?.invoke("1 week before")
+            onOptionSelected?.invoke("1 week ago")
             dismiss()
         }
         binding.option4.setOnClickListener {
-            onOptionSelected?.invoke("1 hour before")
+            onOptionSelected?.invoke("1 month ago")
             dismiss()
         }
     }

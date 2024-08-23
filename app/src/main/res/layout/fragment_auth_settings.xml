@@ -81,6 +81,7 @@
                     android:src="@drawable/ic_menu_line"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <View
                     android:id="@+id/lineView"
                     android:layout_width="match_parent"
@@ -176,8 +177,8 @@
                                         android:layout_marginStart="10dp"
                                         android:fontFamily="@font/wittgenstein_font"
                                         android:text="@string/language"
-                                        android:textStyle="bold"
                                         android:textColor="#000000"
+                                        android:textStyle="bold"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
                                         card_view:layout_constraintStart_toEndOf="@+id/languageImageView"
                                         card_view:layout_constraintTop_toTopOf="parent"
@@ -228,8 +229,8 @@
                                         android:layout_marginStart="10dp"
                                         android:fontFamily="@font/wittgenstein_font"
                                         android:text="@string/notifications"
-                                        android:textStyle="bold"
                                         android:textColor="#000000"
+                                        android:textStyle="bold"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
                                         card_view:layout_constraintStart_toEndOf="@+id/notificationsImageView"
                                         card_view:layout_constraintTop_toTopOf="parent"
@@ -295,8 +296,8 @@
                                         android:layout_marginStart="10dp"
                                         android:fontFamily="@font/wittgenstein_font"
                                         android:text="@string/dark_theme"
-                                        android:textStyle="bold"
                                         android:textColor="#000000"
+                                        android:textStyle="bold"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
                                         card_view:layout_constraintStart_toEndOf="@+id/darkThemeImageView"
                                         card_view:layout_constraintTop_toTopOf="parent"
@@ -436,8 +437,8 @@
                                         android:layout_marginStart="10dp"
                                         android:fontFamily="@font/wittgenstein_font"
                                         android:text="@string/frequently_asked_questions"
-                                        android:textStyle="bold"
                                         android:textColor="#000000"
+                                        android:textStyle="bold"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
                                         card_view:layout_constraintStart_toEndOf="@+id/faqImageView"
                                         card_view:layout_constraintTop_toTopOf="parent"
@@ -499,8 +500,8 @@
                                         android:layout_marginStart="10dp"
                                         android:fontFamily="@font/wittgenstein_font"
                                         android:text="@string/contact_us"
-                                        android:textStyle="bold"
                                         android:textColor="#000000"
+                                        android:textStyle="bold"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
                                         card_view:layout_constraintStart_toEndOf="@+id/contactUsImageView"
                                         card_view:layout_constraintTop_toTopOf="parent"
@@ -527,11 +528,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="20dp"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="20dp"
                                 card_view:cardBackgroundColor="#FFFFFF"
                                 card_view:cardCornerRadius="35dp"
                                 card_view:cardElevation="8dp"
+                                card_view:layout_constraintEnd_toEndOf="parent"
+                                card_view:layout_constraintHorizontal_bias="0.5"
+                                card_view:layout_constraintStart_toStartOf="parent"
                                 card_view:layout_constraintTop_toBottomOf="@+id/contactUsCardView">
 
 
@@ -560,8 +562,8 @@
                                         android:layout_marginStart="10dp"
                                         android:fontFamily="@font/wittgenstein_font"
                                         android:text="@string/privacy_amp_policy"
-                                        android:textStyle="bold"
                                         android:textColor="#000000"
+                                        android:textStyle="bold"
                                         card_view:layout_constraintBottom_toBottomOf="parent"
                                         card_view:layout_constraintStart_toEndOf="@+id/privacyPolicyImageView"
                                         card_view:layout_constraintTop_toTopOf="parent"
@@ -593,8 +595,10 @@
                                 card_view:cardCornerRadius="35dp"
                                 card_view:cardElevation="8dp"
                                 card_view:layout_constraintBottom_toBottomOf="parent"
-                                card_view:layout_constraintTop_toTopOf="@id/privacyPolicyCardView"
-                                tools:layout_editor_absoluteX="20dp">
+                                card_view:layout_constraintEnd_toEndOf="parent"
+                                card_view:layout_constraintHorizontal_bias="0.5"
+                                card_view:layout_constraintStart_toStartOf="parent"
+                                card_view:layout_constraintTop_toBottomOf="@+id/privacyPolicyCardView">
 
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -660,9 +664,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="bottom"
                     android:backgroundTint="@color/bottom_navigation_background"
-                    app:menu="@menu/bottom_nav_menu"
-                    app:navigationIcon="@drawable/ic_search"
-                    app:navigationIconTint="@color/ic_search_bottom">
+                    app:menu="@menu/bottom_nav_menu">
 
 
                 </com.google.android.material.bottomappbar.BottomAppBar>

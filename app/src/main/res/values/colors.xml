@@ -62,7 +62,6 @@
     <color name="click_to_add_tv">#3F744C</color>
     <color name="birthdays_tv">#3a5a40</color>
     <color name="nav_drawer_sub_header_tv">#386641</color>
-    <color name="there_is_no_deleted_tv">#3F744C</color>
     <color name="deleted_birthdays_tv">#3F744C</color>
     <color name="button_text">#FFFFFF</color>
     <color name="birthify_first_page_tv">#DF717D</color>
@@ -156,6 +155,7 @@
     <color name="rounded_edit_trash">#000000</color>
     <color name="ic_dots_trash">#000000</color>
     <color name="ic_search_trash">#000000</color>
+    <color name="there_is_no_deleted_tv">#7c606b</color>
     <color name="sorting_options_tv_trash">#000000</color>
     <color name="ic_navigation_icons_trash">#7c606b</color>
     <color name="nav_drawer_sub_header_tv_trash">#000000</color>

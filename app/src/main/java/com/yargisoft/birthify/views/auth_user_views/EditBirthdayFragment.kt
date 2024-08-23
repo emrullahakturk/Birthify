@@ -1,5 +1,7 @@
 package com.yargisoft.birthify.views.auth_user_views
 
+import android.app.AlarmManager
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,8 +14,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.navigation.NavigationView
-import com.yargisoft.birthify.UserFrequentlyUsedFunctions
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions.requestExactAlarmPermission
 import com.yargisoft.birthify.R
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.databinding.FragmentAuthEditBirthdayBinding
 import com.yargisoft.birthify.views.dialogs.NotifyTimeBottomSheetDialogFragment
 import com.yargisoft.birthify.repositories.AuthRepository
@@ -111,18 +114,24 @@ class EditBirthdayFragment : Fragment() {
                 notifyDate = binding.notifyTimeEditText.text.toString()
             )
 
-            usersBirthdayViewModel.updateBirthday(updatedBirthday)
-
-           UserFrequentlyUsedFunctions.loadAndStateOperation(
-               viewLifecycleOwner,
-               usersBirthdayViewModel,
-               binding.threePointAnimation,
-               binding.root,
-               findNavController(),
-               R.id.editToMain,
-               navOptions
-               )
-
+            val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            if (!alarmManager.canScheduleExactAlarms()) {
+                // İzin talep etmeniz gerekecek
+                requestExactAlarmPermission(requireActivity())
+            } else {
+                // İzin zaten verilmiş, alarm ayarlayabilirsiniz
+                UserFrequentlyUsedFunctions.updateBirthdayReminder(updatedBirthday,requireContext())
+                usersBirthdayViewModel.updateBirthday(updatedBirthday)
+                UserFrequentlyUsedFunctions.loadAndStateOperation(
+                    viewLifecycleOwner,
+                    usersBirthdayViewModel,
+                    binding.threePointAnimation,
+                    binding.root,
+                    findNavController(),
+                    R.id.editToMain,
+                    navOptions
+                )
+            }
         }
 
         binding.birthdayDateEditText.setOnClickListener {
