@@ -69,7 +69,7 @@ class GuestResetPasswordFragment : Fragment() {
                     forgotPassTextInputLayout.error = null
                     forgotPassTextInputLayout.isErrorEnabled = false //error yazıdı gittiğinde yazıdan kalan boşluk bu kod ile gider
                 } else {
-                    forgotPassTextInputLayout.error = "Invalid email address"
+                    forgotPassTextInputLayout.error = getString(R.string.invalid_email_adress)
 
                 }
             }

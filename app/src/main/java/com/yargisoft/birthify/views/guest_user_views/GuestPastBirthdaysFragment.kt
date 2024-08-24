@@ -147,6 +147,11 @@ class GuestPastBirthdaysFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        guestBirthdayViewModel.getPastBirthdays()
+    }
+
 
 
 }

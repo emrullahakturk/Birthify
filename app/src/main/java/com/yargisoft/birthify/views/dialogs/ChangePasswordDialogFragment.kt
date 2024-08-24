@@ -89,7 +89,7 @@ class ChangePasswordDialogFragment : DialogFragment() {
                                             val errorMessage = authViewModel.authError.value
 
                                             if (isSuccess) {
-                                                Snackbar.make(dialog.findViewById(android.R.id.content), "You successfully changed your password", Snackbar.LENGTH_SHORT).show()
+                                                Snackbar.make(dialog.findViewById(android.R.id.content), getString(R.string.changed_password_snackbar), Snackbar.LENGTH_SHORT).show()
                                                 delay(2000)
                                                 dialog.dismiss()
                                             } else {
@@ -104,11 +104,11 @@ class ChangePasswordDialogFragment : DialogFragment() {
                         }, 1500)
 
                     }else{
-                        Snackbar.make(dialog.findViewById(android.R.id.content), "Please enter a valid password.", 2000).show()
+                        Snackbar.make(dialog.findViewById(android.R.id.content), getString(R.string.enter_password_snackbar), 2000).show()
                         enableViewDisableLottie(lottieAnimationView, dialog.findViewById(android.R.id.content))
                     }
             }else {
-                Snackbar.make(dialog.findViewById(android.R.id.content), "Your password does not match.", 2000).show()
+                Snackbar.make(dialog.findViewById(android.R.id.content), getString(R.string.password_does_not_match_snackbar), 2000).show()
                 enableViewDisableLottie(lottieAnimationView, dialog.findViewById(android.R.id.content))
             }
         }
@@ -123,7 +123,7 @@ class ChangePasswordDialogFragment : DialogFragment() {
                     newPasswordTextInput.error = ""
                     newPasswordTextInput.isErrorEnabled = false
                 } else {
-                    newPasswordTextInput.error = "Password must be min 6, max 12 characters; include an uppercase letter, a number, and a special character"
+                    newPasswordTextInput.error = getString(R.string.password_error)
                     newPasswordTextInput.isErrorEnabled = true
                 }
             }
@@ -149,7 +149,7 @@ class ChangePasswordDialogFragment : DialogFragment() {
                     confirmPasswordTextInput.error = ""
                     confirmPasswordTextInput.isErrorEnabled = false
                 } else {
-                    confirmPasswordTextInput.error =  "Password must be min 6, max 12 characters; include an uppercase letter, a number, and a special character"
+                    confirmPasswordTextInput.error =  getString(R.string.password_error)
                     confirmPasswordTextInput.isErrorEnabled = true
                 }
             }

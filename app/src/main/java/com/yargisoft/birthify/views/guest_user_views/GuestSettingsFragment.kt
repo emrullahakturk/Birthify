@@ -123,13 +123,13 @@ class GuestSettingsFragment : Fragment() {
         }
         binding.deleteAllBirthdaysCardView.setOnClickListener {
             AlertDialog.Builder(context)
-                .setTitle("Confirm Deletion All Birthdays")
-                .setMessage("Are you sure you want to delete your birthdays? This operation cannot be undone.")
-                .setPositiveButton("Yes") { _, _ ->
+                .setTitle(getString(R.string.confirm_deletion_all_birthdays_title))
+                .setMessage(getString(R.string.confirm_deletion_all_birthdays))
+                .setPositiveButton(getString(R.string.yes)) { _, _ ->
                     guestBirthdayViewModel.clearAllBirthdays()
                     findNavController().navigate(R.id.guestSettingsToMain)
                 }
-                .setNegativeButton("No") { _, _ -> }
+                .setNegativeButton(getString(R.string.no)) { _, _ -> }
                 .show()
         }
 
@@ -188,7 +188,7 @@ class GuestSettingsFragment : Fragment() {
             if (intent.resolveActivity(requireActivity().packageManager) != null) {
                 startActivity(intent)
             } else {
-                Toast.makeText(requireContext(),"There isn't any e-mail app on your device",Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),getString(R.string.support_email_snackbar),Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -211,7 +211,7 @@ class GuestSettingsFragment : Fragment() {
         val languageCodes = arrayOf("en", "tr") // Dil kodları
 
         AlertDialog.Builder(requireContext())
-            .setTitle("Select Language")
+            .setTitle(getString(R.string.select_language_title))
             .setItems(languages) { _, which ->
                 val selectedLanguage = languageCodes[which]
                 if (selectedLanguage != currentLanguage) {

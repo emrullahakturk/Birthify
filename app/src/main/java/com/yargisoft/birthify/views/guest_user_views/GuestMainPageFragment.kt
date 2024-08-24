@@ -195,4 +195,9 @@ class GuestMainPageFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onResume() {
+        super.onResume()
+        guestBirthdayViewModel.getBirthdays()
+    }
 }

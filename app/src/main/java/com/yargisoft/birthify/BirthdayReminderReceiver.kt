@@ -7,19 +7,20 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.getString
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Locale
 
 class BirthdayReminderReceiver : BroadcastReceiver() {
+    private lateinit var notificationText : String
     override fun onReceive(context: Context, intent: Intent) {
-        // Bildirim göndermek için gerekli işlemleri burada yapacaksınız
+
         val birthdayId = intent.getStringExtra("birthdayId") // Doğum günü ID'sini al
         val birthdayName = intent.getStringExtra("birthdayName") // Doğum günü adını al
         val birthdayDate = intent.getStringExtra("birthdayDate") // Doğum günü tarihini al
 
-        // Bildirimi oluştur ve göster
         createNotification(context, birthdayId, birthdayName,birthdayDate)
     }
 
@@ -51,17 +52,31 @@ class BirthdayReminderReceiver : BroadcastReceiver() {
         val birthday = LocalDate.parse("$birthdayDate ${LocalDate.now().year}", formatter)
         val today = LocalDate.now()
 
-        // Tarih farkını hesaplayın
+        // Tarih farkı
         val daysDifference = ChronoUnit.DAYS.between(today, birthday)
 
-        // Bildirim metnini belirleyin
-        val notificationText = when {
+
+
+        // Bildirim metni
+        val notificationTextEnglish = when {
             daysDifference < 0 -> "${birthdayName}'s birthday has passed."
             daysDifference == 0L -> "It's $birthdayName's birthday today!"
             else -> "$birthdayName's birthday is coming up on $birthdayDate."
         }
 
-        // Bildirimi oluştur ve gönder
+        val notificationTextTurkish= when {
+            daysDifference < 0 -> "${birthdayName}'s birthday has passed."
+            daysDifference == 0L -> "It's $birthdayName's birthday today!"
+            else -> "$birthdayName's birthday is coming up on $birthdayDate."
+        }
+
+        notificationText = when(Locale.getDefault().language){
+            "English" -> notificationTextEnglish
+            "Türkçe" -> notificationTextTurkish
+            else -> notificationTextEnglish
+        }
+
+
         val notification = NotificationCompat.Builder(context, channelId)
             .setContentTitle("Birthify")
             .setContentText(notificationText)

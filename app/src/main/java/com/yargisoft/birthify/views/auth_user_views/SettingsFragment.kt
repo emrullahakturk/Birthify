@@ -178,7 +178,7 @@ class SettingsFragment : Fragment() {
             if (intent.resolveActivity(requireActivity().packageManager) != null) {
                 startActivity(intent)
             } else {
-                Toast.makeText(requireContext(),"There isn't any e-mail app on your device", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),getString(R.string.support_email_snackbar), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -217,7 +217,7 @@ class SettingsFragment : Fragment() {
         val languageCodes = arrayOf("en", "tr") // Dil kodları
 
         AlertDialog.Builder(requireContext())
-            .setTitle("Select Language")
+            .setTitle(getString(R.string.select_language_title))
             .setItems(languages) { _, which ->
                 val selectedLanguage = languageCodes[which]
                 if (selectedLanguage != currentLanguage) {

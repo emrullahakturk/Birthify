@@ -29,6 +29,7 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getString
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -353,9 +354,9 @@ object UserFrequentlyUsedFunctions {
     fun showConfirmationDialog(view: View, context: Context, usersBirthdayViewModel:UsersBirthdayViewModel, editedBirthday:Birthday, lottieAnimationView: LottieAnimationView, viewLifecycleOwner:LifecycleOwner, condition: String, findNavController: NavController, action:Int, navOptions: NavOptions )
     {
         AlertDialog.Builder(context)
-            .setTitle("Confirm Operation")
-            .setMessage("Are you sure you want to do this operation?")
-            .setPositiveButton("Yes") { _, _ ->
+            .setTitle(getString(context,R.string.confirm_operation_title))
+            .setMessage(getString(context,R.string.confirm_operation))
+            .setPositiveButton(getString(context,R.string.yes)) { _, _ ->
 
                 when (condition) {
                     "permanently" -> {
@@ -385,7 +386,7 @@ object UserFrequentlyUsedFunctions {
 
                 loadAndStateOperation(viewLifecycleOwner,usersBirthdayViewModel,lottieAnimationView,view,findNavController,action, navOptions )
             }
-            .setNegativeButton("No"){_,_->
+            .setNegativeButton(getString(context,R.string.no)){_,_->
                 //animasyonu durdurup view'i visible yapıyoruz
                 enableViewDisableLottie(lottieAnimationView,view)
             }
@@ -403,7 +404,8 @@ object UserFrequentlyUsedFunctions {
         authViewModel: AuthViewModel,
         lottieAnimationView: LottieAnimationView,
         viewLifecycleOwner: LifecycleOwner,
-        findNavController: NavController
+        findNavController: NavController,
+        context: Context
     ) {
         if (isValidEmail(email) && password.isNotEmpty()) {
 
@@ -424,7 +426,7 @@ object UserFrequentlyUsedFunctions {
                                 val errorMessage = authViewModel.authError.value
 
                                 if (isSuccess) {
-                                    Snackbar.make(view, "You successfully logged in", Snackbar.LENGTH_SHORT).show()
+                                    Snackbar.make(view, getString(context,R.string.successfully_logged_in), Snackbar.LENGTH_SHORT).show()
                                     navigateToFragmentAndClearStack(findNavController, R.id.loginPageFragment, R.id.loginToMain)
                                 } else {
                                     Snackbar.make(view, errorMessage ?: "Unknown error", Snackbar.LENGTH_SHORT).show()
@@ -440,7 +442,7 @@ object UserFrequentlyUsedFunctions {
             },1500)
 
         } else {
-            Snackbar.make(view, "Please fill in all fields", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(view, getString(context,R.string.fill_in_all_fields), Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -456,7 +458,8 @@ object UserFrequentlyUsedFunctions {
         view: View,
         findNavController: NavController,
         action: Int,
-        navOptions: NavOptions
+        navOptions: NavOptions,
+        context: Context
     ) {
         if (isValidPassword(password) && isValidEmail(email) && isValidFullName(name)) {
 
@@ -478,7 +481,7 @@ object UserFrequentlyUsedFunctions {
                                 val errorMessage = viewModel.authError.value
 
                                 if (isSuccess) {
-                                    Snackbar.make(view, "Registration successful", Snackbar.LENGTH_SHORT).show()
+                                    Snackbar.make(view, getString(context,R.string.registration_successful), Snackbar.LENGTH_SHORT).show()
                                     findNavController.navigate(action, null, navOptions)
                                 } else {
                                     Snackbar.make(view, errorMessage ?: "Unknown error", Snackbar.LENGTH_SHORT).show()
@@ -493,7 +496,7 @@ object UserFrequentlyUsedFunctions {
 
 
         } else {
-            Snackbar.make(view, "Please correctly fill in all fields", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(view, getString(context,R.string.fill_in_fields_correctly), Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -524,7 +527,8 @@ object UserFrequentlyUsedFunctions {
         view: View,
         findNavController: NavController,
         action: Int,
-        navOptions: NavOptions
+        navOptions: NavOptions,
+        context: Context
     ) {
         if (isValidEmail(email)) {
 
@@ -545,7 +549,7 @@ object UserFrequentlyUsedFunctions {
                                 val errorMessage = viewModel.authError.value
 
                                 if (isSuccess) {
-                                    Snackbar.make(view, "Password reset email sent successfully", Snackbar.LENGTH_SHORT).show()
+                                    Snackbar.make(view, getString(context,R.string.password_reset_mail_successful), Snackbar.LENGTH_SHORT).show()
                                     findNavController.navigate(action, null, navOptions)
                                 } else {
                                     Snackbar.make(view, errorMessage ?: "Unknown error", Snackbar.LENGTH_SHORT).show()
@@ -560,7 +564,7 @@ object UserFrequentlyUsedFunctions {
             },1500)
 
         } else {
-            Snackbar.make(view, "Please enter a valid email address", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(view, getString(context,R.string.please_enter_a_valid_email), Snackbar.LENGTH_SHORT).show()
         }
     }
 

@@ -128,7 +128,7 @@ class GuestAddBirthdayFragment : Fragment() {
 
 
             } else {
-                Snackbar.make(view, "Please fill in all fields", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, getString(R.string.fill_in_all_fields), Snackbar.LENGTH_SHORT).show()
             }
         }
 

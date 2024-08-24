@@ -93,9 +93,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun showNetworkAlertDialog() {
         val alertDialog = AlertDialog.Builder(this)
-            .setTitle("Connection Error")
-            .setMessage("Your internet connection is lost. Your birthdays will not be saved in the database without an internet connection. Please check your internet connection..")
-            .setPositiveButton("Ok") { dialog, _ ->
+            .setTitle(getString(R.string.connection_error_title))
+            .setMessage(getString(R.string.connection_error))
+            .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                 dialog.dismiss()
             }
             .create()

@@ -29,6 +29,7 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getString
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -315,9 +316,9 @@ object GuestFrequentlyUsedFunctions {
     fun showConfirmationDialog(view: View, context: Context, guestBirthdayViewModel:GuestBirthdayViewModel, editedBirthday:Birthday, lottieAnimationView: LottieAnimationView, viewLifecycleOwner:LifecycleOwner, condition: String, findNavController: NavController, action:Int,navOptions: NavOptions )
     {
         AlertDialog.Builder(context)
-            .setTitle("Confirm Operation")
-            .setMessage("Are you sure you want to do this operation?")
-            .setPositiveButton("Yes") { _, _ ->
+            .setTitle(getString(context,R.string.confirm_operation_title))
+            .setMessage(getString(context,R.string.confirm_operation))
+            .setPositiveButton(getString(context,R.string.yes)) { _, _ ->
 
                 when (condition) {
                     "permanently" -> {
@@ -335,7 +336,7 @@ object GuestFrequentlyUsedFunctions {
 
                 loadAndStateOperation(viewLifecycleOwner,lottieAnimationView,view,findNavController,action, navOptions )
             }
-            .setNegativeButton("No"){_,_->
+            .setNegativeButton(getString(context,R.string.no)){_,_->
                 //animasyonu durdurup view'i visible yapıyoruz
                 enableViewDisableLottie(lottieAnimationView,view)
             }
@@ -525,7 +526,7 @@ object GuestFrequentlyUsedFunctions {
                                 val errorMessage = authViewModel.authError.value
 
                                 if (isSuccess) {
-                                    Snackbar.make(view, "You successfully logged in", Snackbar.LENGTH_SHORT).show()
+                                    Snackbar.make(view, getString(context,R.string.successfully_logged_in), Snackbar.LENGTH_SHORT).show()
 
                                     val navOptions = NavOptions.Builder()
                                         .setPopUpTo(R.id.guest_auth_nav, inclusive = true)
@@ -533,9 +534,9 @@ object GuestFrequentlyUsedFunctions {
                                         .build()
 
                                      AlertDialog.Builder(context)
-                                             .setTitle("Confirm Synchronization")
-                                             .setMessage("Do you want to sync your birthdays with your new account? Otherwise your birthdays will be deleted")
-                                             .setPositiveButton("Yes") { _, _ ->
+                                             .setTitle(getString(context,R.string.confirm_synchronization_title))
+                                             .setMessage(getString(context,R.string.confirm_synchronization))
+                                             .setPositiveButton(getString(context,R.string.yes)) { _, _ ->
 
                                                  saveBirthdaysToFirebase(guestViewModel.birthdayList.value)
                                                  savePastBirthdaysToFirebase(guestViewModel.pastBirthdayList.value)
@@ -549,7 +550,7 @@ object GuestFrequentlyUsedFunctions {
 
                                                  findNavController.navigate(R.id.guestLoginToMainNavGraph,null,navOptions)
                                              }
-                                             .setNegativeButton("No"){_,_->
+                                             .setNegativeButton(getString(context,R.string.no)){_,_->
 
                                                  //animasyonu durdurup view'i visible yapıyoruz
                                                  enableViewDisableLottie(lottieAnimationView, view)
@@ -590,7 +591,7 @@ object GuestFrequentlyUsedFunctions {
             },1500)
 
         } else {
-            Snackbar.make(view, "Please fill in all fields", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(view, getString(context,R.string.fill_in_all_fields), Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -606,7 +607,8 @@ object GuestFrequentlyUsedFunctions {
         view: View,
         findNavController: NavController,
         action: Int,
-        navOptions: NavOptions
+        navOptions: NavOptions,
+        context:Context
     ) {
         if (isValidPassword(password) && isValidEmail(email) && isValidFullName(name)
         ) {
@@ -628,7 +630,7 @@ object GuestFrequentlyUsedFunctions {
                                 val errorMessage = viewModel.authError.value
 
                                 if (isSuccess) {
-                                    Snackbar.make(view, "Registration successful", Snackbar.LENGTH_SHORT).show()
+                                    Snackbar.make(view, getString(context,R.string.registration_successful), Snackbar.LENGTH_SHORT).show()
                                     findNavController.navigate(action, null, navOptions)
                                 } else {
                                     Snackbar.make(view, errorMessage ?: "Unknown error", Snackbar.LENGTH_SHORT).show()
@@ -646,7 +648,7 @@ object GuestFrequentlyUsedFunctions {
 
 
         } else {
-            Snackbar.make(view, "Please correctly fill in all fields", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(view, getString(context, R.string.fill_in_fields_correctly), Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -661,7 +663,8 @@ object GuestFrequentlyUsedFunctions {
         view: View,
         findNavController: NavController,
         action: Int,
-        navOptions: NavOptions
+        navOptions: NavOptions,
+        context: Context
     ) {
         if (isValidEmail(email)) {
 
@@ -682,7 +685,7 @@ object GuestFrequentlyUsedFunctions {
                                 val errorMessage = viewModel.authError.value
 
                                 if (isSuccess) {
-                                    Snackbar.make(view, "Password reset email sent successfully", Snackbar.LENGTH_SHORT).show()
+                                    Snackbar.make(view, getString(context, R.string.password_reset_mail_successful), Snackbar.LENGTH_SHORT).show()
                                     findNavController.navigate(action, null, navOptions)
                                 } else {
                                     Snackbar.make(view, errorMessage ?: "Unknown error", Snackbar.LENGTH_SHORT).show()
@@ -700,7 +703,7 @@ object GuestFrequentlyUsedFunctions {
             },1500)
 
         } else {
-            Snackbar.make(view, "Please enter a valid email address", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(view, getString(context,R.string.please_enter_a_valid_email), Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -911,8 +914,5 @@ object GuestFrequentlyUsedFunctions {
         val sharedPreferences = context.getSharedPreferences("AlarmPrefs", Context.MODE_PRIVATE)
         return sharedPreferences.getBoolean(birthdayId, false)
     }
-
-
-
 
 }

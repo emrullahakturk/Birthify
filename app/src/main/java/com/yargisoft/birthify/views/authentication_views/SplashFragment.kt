@@ -90,7 +90,7 @@ class SplashFragment : Fragment() {
                     if (isValid) {
                         navigateToFragmentAndClearStack(findNavController(), R.id.splashFragment, R.id.splashToMainNavGraph)
                     } else {
-                        Snackbar.make(requireView(),"Logged in from another device. Logging out",2000).show()
+                        Snackbar.make(requireView(),getString(R.string.logged_another_device),Snackbar.LENGTH_SHORT).show()
                         userSharedPreferencesManager.clearUserSession()
                         navigateToFragmentAndClearStack(findNavController(), R.id.splashFragment, R.id.splashToFirstPage)
                     }

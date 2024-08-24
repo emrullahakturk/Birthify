@@ -84,7 +84,7 @@ class RegisterFragment : Fragment() {
                     emailTextInputLayout.error = null
                     emailTextInputLayout.isErrorEnabled = false //error yazıdı gittiğinde yazıdan kalan boşluk bu kod ile gider
                 } else {
-                    emailTextInputLayout.error = "Invalid email address"
+                    emailTextInputLayout.error = getString(R.string.invalid_email_adress)
 
                 }
             }
@@ -118,7 +118,7 @@ class RegisterFragment : Fragment() {
                     registerPassTextInput.error = ""
                     registerPassTextInput.isErrorEnabled = false
                 } else {
-                    registerPassTextInput.error = "Password must be min 6, max 12 characters; include an uppercase letter, a number, and a special character"
+                    registerPassTextInput.error = getString(R.string.password_error)
                     registerPassTextInput.isErrorEnabled = true
                 }
             }
@@ -145,7 +145,7 @@ class RegisterFragment : Fragment() {
                     registerFullNameTextInput.error = ""
                     registerFullNameTextInput.isErrorEnabled = false
                 } else {
-                    registerFullNameTextInput.error = "Full Name must be at least two words, without punctuation or numbers. Every words must contain at least 2 letter"
+                    registerFullNameTextInput.error = getString(R.string.name_error)
                     registerFullNameTextInput.isErrorEnabled = true
                 }
             }

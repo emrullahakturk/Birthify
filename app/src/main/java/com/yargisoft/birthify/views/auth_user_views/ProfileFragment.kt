@@ -155,13 +155,13 @@ class ProfileFragment : Fragment() {
 
         binding.deleteAllBirthdaysCardView.setOnClickListener {
             AlertDialog.Builder(context)
-                .setTitle("Confirm Deletion All Birthdays")
-                .setMessage("Are you sure you want to delete your birthdays? This operation cannot be undone.")
-                .setPositiveButton("Yes") { _, _ ->
+                .setTitle(getString(R.string.confirm_deletion_all_birthdays_title))
+                .setMessage(getString(R.string.confirm_deletion_all_birthdays))
+                .setPositiveButton(getString(R.string.yes)) { _, _ ->
                     usersBirthdayViewModel.clearAllBirthdays()
                     findNavController().navigate(R.id.settingsToMainPage)
                 }
-                .setNegativeButton("No") { _, _ -> }
+                .setNegativeButton(getString(R.string.no)) { _, _ -> }
                 .show()
         }
 
@@ -170,9 +170,9 @@ class ProfileFragment : Fragment() {
             disableViewEnableLottie(lottieAnimationView, binding.root)
 
             AlertDialog.Builder(context)
-                .setTitle("Reset Password")
-                .setMessage("Password reset informations will send to your e-mail")
-                .setPositiveButton("Yes") { _, _ ->
+                .setTitle(getString(R.string.reset_password_alert))
+                .setMessage(getString(R.string.reset_password_alert))
+                .setPositiveButton(getString(R.string.yes)) { _, _ ->
 
                     authViewModel.resetPassword(userSharedPreferences.getUserCredentials().first.toString())
 
@@ -188,7 +188,7 @@ class ProfileFragment : Fragment() {
                                     val errorMessage = authViewModel.authError.value
 
                                     if (isSuccess) {
-                                        Snackbar.make(binding.root, "Reset e-mail successfully sent ", Snackbar.LENGTH_SHORT).show()
+                                        Snackbar.make(binding.root, getString(R.string.reset_password_snackbar), Snackbar.LENGTH_SHORT).show()
 
                                     } else {
                                         Snackbar.make(binding.root, "$errorMessage", Snackbar.LENGTH_SHORT).show()
@@ -199,7 +199,7 @@ class ProfileFragment : Fragment() {
                         }
                     }
                 }
-                .setNegativeButton("No") { _, _ ->
+                .setNegativeButton(getString(R.string.no)) { _, _ ->
                     enableViewDisableLottie(lottieAnimationView,binding.root)
                 }
                 .show()

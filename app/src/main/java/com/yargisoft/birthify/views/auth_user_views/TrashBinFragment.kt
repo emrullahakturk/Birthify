@@ -192,4 +192,10 @@ class TrashBinFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onResume() {
+        super.onResume()
+        usersBirthdayViewModel.getDeletedBirthdaysFromFirebase(userSharedPreferences.getUserId())
+        usersBirthdayViewModel.getDeletedBirthdays()
+    }
 }

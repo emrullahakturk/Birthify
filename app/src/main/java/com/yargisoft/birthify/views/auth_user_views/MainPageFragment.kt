@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -84,7 +83,6 @@ class MainPageFragment : Fragment() {
 
 
         usersBirthdayViewModel.getBirthdays()
-        usersBirthdayViewModel.getPastBirthdays()
 
 
         //Geçmiş doğum günlerini burada filtreleyerek pastBirthdays'e gödneriyoruz
@@ -105,10 +103,7 @@ class MainPageFragment : Fragment() {
                     requestExactAlarmPermission(requireActivity())
                 } else {
                     if (!isAlarmScheduled(birthday.id,requireContext())) {
-                        Log.e("tagımıs","Hatırlatıcı kuruldu ${birthday.id}")
                         scheduleBirthdayReminder(birthday.id, birthday.name, birthday.birthdayDate, birthday.notifyDate, requireContext())
-                    } else {
-                        Log.e("tagımıs","Zaten var olan bir hatırlatıcı bulundu.")
                     }
                 }
             }
@@ -225,7 +220,27 @@ class MainPageFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onResume() {
+
+        super.onResume()
+
+        usersBirthdayViewModel.getUserBirthdaysFromFirebase(userSharedPreferences.getUserId())
+        usersBirthdayViewModel.getBirthdays()
+
+        if (usersBirthdayViewModel.birthdayList.value != null) {
+            usersBirthdayViewModel.birthdayList.value!!.forEach { birthday ->
+
+                val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                if (!alarmManager.canScheduleExactAlarms()) {
+                    requestExactAlarmPermission(requireActivity())
+                } else {
+                    if (!isAlarmScheduled(birthday.id,requireContext())) {
+                        scheduleBirthdayReminder(birthday.id, birthday.name, birthday.birthdayDate, birthday.notifyDate, requireContext())
+                    }
+                }
+            }
+        }
+    }
+
 }
-
-
-

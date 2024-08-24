@@ -59,7 +59,7 @@ class LoginPageFragment : Fragment() {
                     loginEmailTextInput.error = null
                     loginEmailTextInput.isErrorEnabled = false //error yazıdı gittiğinde yazıdan kalan boşluk bu kod ile gider
                 } else {
-                    loginEmailTextInput.error = "Invalid email address"
+                    loginEmailTextInput.error = getString(R.string.invalid_email_adress)
 
                 }
             }
