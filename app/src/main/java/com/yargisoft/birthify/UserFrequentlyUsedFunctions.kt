@@ -13,7 +13,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import android.graphics.Typeface
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
@@ -22,14 +21,12 @@ import android.text.SpannableString
 import android.text.TextPaint
 import android.text.style.ForegroundColorSpan
 import android.text.style.TypefaceSpan
-import android.util.Log
 import android.util.Patterns
 import android.view.ContextThemeWrapper
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -42,6 +39,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -360,23 +360,26 @@ object UserFrequentlyUsedFunctions {
                 when (condition) {
                     "permanently" -> {
                         usersBirthdayViewModel.permanentlyDeleteBirthday(editedBirthday.id)
-                        cancelBirthdayReminder(editedBirthday.id,context)
+                        cancelBirthdayReminder(
+                            editedBirthday.id,
+                            editedBirthday.name,
+                            editedBirthday.birthdayDate,
+                            context
+                        )
 
                     }
                     "soft_delete" -> {
                         usersBirthdayViewModel.deleteBirthday(editedBirthday.id)
-                        cancelBirthdayReminder(editedBirthday.id,context)
+                        cancelBirthdayReminder(
+                            editedBirthday.id,
+                            editedBirthday.name,
+                            editedBirthday.birthdayDate,
+                            context
+                        )
 
                     }
                     "re_save" -> {
                         usersBirthdayViewModel.reSaveDeletedBirthday(editedBirthday.id)
-                        scheduleBirthdayReminder(
-                            editedBirthday.id,
-                            editedBirthday.name,
-                            editedBirthday.birthdayDate,
-                            editedBirthday.notifyDate,
-                            context
-                        )
                     }
                 }
 
@@ -423,9 +426,7 @@ object UserFrequentlyUsedFunctions {
                                 if (isSuccess) {
                                     Snackbar.make(view, "You successfully logged in", Snackbar.LENGTH_SHORT).show()
                                     navigateToFragmentAndClearStack(findNavController, R.id.loginPageFragment, R.id.loginToMain)
-                                    Log.e("tagımıs", "navigated")
                                 } else {
-                                    Log.e("tagımıs", "no navigated")
                                     Snackbar.make(view, errorMessage ?: "Unknown error", Snackbar.LENGTH_SHORT).show()
                                 }
 
@@ -459,7 +460,6 @@ object UserFrequentlyUsedFunctions {
     ) {
         if (isValidPassword(password) && isValidEmail(email) && isValidFullName(name)) {
 
-            Log.e("tagımıs", "butona tıkladın")
 
             viewModel.registerUser(name, email, password)
 
@@ -625,6 +625,7 @@ object UserFrequentlyUsedFunctions {
                            menuButtonToolbar:View,
                            activity: Activity,
                            authViewModel: AuthViewModel,
+                           userBirthdayViewModel: UsersBirthdayViewModel,
                            birthdayRepository:BirthdayRepository,
                            userSharedPreferences:UserSharedPreferencesManager,
                            sourcePage:String
@@ -664,6 +665,24 @@ object UserFrequentlyUsedFunctions {
                     birthdayRepository.clearBirthdays()
                     birthdayRepository.clearDeletedBirthdays()
                     birthdayRepository.clearPastBirthdays()
+
+
+                    val birthdayList = userBirthdayViewModel.birthdayList.value ?: emptyList()
+                    val birthdayIds = birthdayList.map{ it.id }.toTypedArray()
+
+
+                    // WorkManager için data oluştur
+                    val inputData = Data.Builder()
+                        .putStringArray("BIRTHDAY_IDS", birthdayIds)
+                        .build()
+
+                    // WorkManager işini oluştur ve başlat
+                    val cancelRemindersWork = OneTimeWorkRequestBuilder<CancelRemindersWorker>()
+                        .setInputData(inputData)
+                        .build()
+
+                    WorkManager.getInstance(activity).enqueue(cancelRemindersWork)
+
                     logout(activity)
 
                 }
@@ -762,7 +781,12 @@ object UserFrequentlyUsedFunctions {
 
     fun updateBirthdayReminder(birthday: Birthday,context: Context) {
         // Mevcut alarmı iptal et
-        cancelBirthdayReminder(birthday.id, context)
+        cancelBirthdayReminder(
+            birthday.id,
+            birthday.name,
+            birthday.birthdayDate,
+            context
+        )
 
         // Yeni hatırlatıcıyı ayarla
         scheduleBirthdayReminder(
@@ -779,6 +803,7 @@ object UserFrequentlyUsedFunctions {
         val intent = Intent(context, BirthdayReminderReceiver::class.java).apply {
             putExtra("birthdayId", birthdayId)
             putExtra("birthdayName", birthdayName)
+            putExtra("birthdayDate", birthdayDate)
         }
 
         val pendingIntent = PendingIntent.getBroadcast(
@@ -790,6 +815,8 @@ object UserFrequentlyUsedFunctions {
 
         val reminderTime = calculateReminderTime(birthdayDate, notifyDate)
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, reminderTime, pendingIntent)
+        saveAlarmStatus(birthdayId, true, context)
+
     }
 
     private fun calculateReminderTime(birthdayDate: String, notifyDate: String): Long {
@@ -814,7 +841,7 @@ object UserFrequentlyUsedFunctions {
 
         // Hatırlatıcı tarihini hesapla
         val reminderDateTime = when (notifyDate) {
-            "On the day" -> parsedBirthdayDate.atTime(12, 0) // Doğum günü tarihinde saat 12:00'de
+            "On the day" -> parsedBirthdayDate.atTime(0, 0) // Doğum günü tarihinde saat 12:00'de
             "1 day ago" -> parsedBirthdayDate.minusDays(1).atTime(0, 0) // 1 gün önce saat 00:00'da
             "1 week ago" -> parsedBirthdayDate.minusWeeks(1).atTime(0, 0) // 1 hafta önce saat 00:00'da
             "1 month ago" -> parsedBirthdayDate.minusMonths(1).atTime(0, 0) // 1 ay önce saat 00:00'da
@@ -826,22 +853,44 @@ object UserFrequentlyUsedFunctions {
     }
 
 
-    private fun cancelBirthdayReminder(birthdayId: String, context: Context) {
+    fun cancelBirthdayReminder(birthdayId: String, birthdayName:String, birthdayDate:String, context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, BirthdayReminderReceiver::class.java)
+        val intent = Intent(context, BirthdayReminderReceiver::class.java).apply {
+            putExtra("birthdayId", birthdayId)
+            putExtra("birthdayName", birthdayName)
+            putExtra("birthdayDate", birthdayDate)
+        }
+
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             birthdayId.hashCode(),
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
         )
         alarmManager.cancel(pendingIntent)
+        saveAlarmStatus(birthdayId, false, context)
     }
+
 
     fun requestExactAlarmPermission(activity: Activity) {
         val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
         activity.startActivity(intent)
     }
+
+
+    private fun saveAlarmStatus(birthdayId: String, isScheduled: Boolean, context: Context) {
+        val sharedPreferences = context.getSharedPreferences("AlarmPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean(birthdayId, isScheduled)
+        editor.apply()
+    }
+
+    fun isAlarmScheduled(birthdayId: String, context: Context): Boolean {
+        val sharedPreferences = context.getSharedPreferences("AlarmPrefs", Context.MODE_PRIVATE)
+        return sharedPreferences.getBoolean(birthdayId, false)
+    }
+
+
 
 
 }

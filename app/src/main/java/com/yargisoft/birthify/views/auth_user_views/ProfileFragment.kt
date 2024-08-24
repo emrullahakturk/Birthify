@@ -1,8 +1,6 @@
 package com.yargisoft.birthify.views.auth_user_views
 
-import android.app.Activity
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,9 +15,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.yargisoft.birthify.MainActivity
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions.cancelBirthdayReminder
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions.disableViewEnableLottie
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions.enableViewDisableLottie
 import com.yargisoft.birthify.databinding.FragmentAuthProfileBinding
@@ -72,6 +70,7 @@ class ProfileFragment : Fragment() {
             toolbarMenuButton,
             requireActivity(),
             authViewModel,
+            usersBirthdayViewModel,
             birthdayRepository,
             userSharedPreferences,
             "Profile"
@@ -140,7 +139,10 @@ class ProfileFragment : Fragment() {
             birthdayRepository.clearBirthdays()
             birthdayRepository.clearDeletedBirthdays()
             birthdayRepository.clearPastBirthdays()
-            logout(requireActivity())
+            usersBirthdayViewModel.birthdayList.value?.forEach { birthday ->
+                cancelBirthdayReminder(birthday.id,birthday.name,birthday.birthdayDate,requireContext())
+            }
+            UserFrequentlyUsedFunctions.logout(requireActivity())
         }
 
 
@@ -150,44 +152,6 @@ class ProfileFragment : Fragment() {
         }
 
 
-        binding.deleteMyAccountCardView.setOnClickListener {
-            disableViewEnableLottie(lottieAnimationView, binding.root)
-
-            AlertDialog.Builder(context)
-                .setTitle("Confirm Deletion Your Account")
-                .setMessage("Are you sure you want to delete your account permanently? This operation cannot be undone.")
-                .setPositiveButton("Yes") { _, _ ->
-
-                    usersBirthdayViewModel.clearAllBirthdays()
-                    authViewModel.deleteUserAccount()
-
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        var isLoadedEmitted = false
-
-                        viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                            authViewModel.isLoaded.collect { isLoaded ->
-                                if (isLoaded && !isLoadedEmitted) {
-                                    isLoadedEmitted = true
-
-                                    val isSuccess = authViewModel.authSuccess.value
-                                    val errorMessage = authViewModel.authError.value
-
-                                    if (isSuccess) {
-                                        UserFrequentlyUsedFunctions.logout(requireActivity())
-                                    } else {
-                                        Snackbar.make(binding.root, "$errorMessage", Snackbar.LENGTH_SHORT).show()
-                                    }
-                                    enableViewDisableLottie(lottieAnimationView, binding.root)
-                                }
-                            }
-                        }
-                    }
-                }
-                .setNegativeButton("No") { _, _ ->
-                    enableViewDisableLottie(lottieAnimationView,binding.root)
-                }
-                .show()
-        }
 
         binding.deleteAllBirthdaysCardView.setOnClickListener {
             AlertDialog.Builder(context)
@@ -242,15 +206,5 @@ class ProfileFragment : Fragment() {
         }
 
         return binding.root
-    }
-
-
-    // Logout fonksiyonu
-    private fun logout(activity: Activity) {
-        // Mevcut aktiviteyi kapatır ve yeni bir aktivite başlatır yani uygulama sıfırdan başlamış gibi olur
-        val intent = Intent(activity, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        activity.startActivity(intent)
-        activity.finish()
     }
 }

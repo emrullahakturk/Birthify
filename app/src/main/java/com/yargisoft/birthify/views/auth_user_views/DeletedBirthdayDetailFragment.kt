@@ -112,6 +112,7 @@ class DeletedBirthdayDetailFragment : Fragment() {
             toolbarMenuButton,
             requireActivity(),
             authViewModel,
+            usersBirthdayViewModel,
             birthdayRepository,
             userSharedPreferences,
             "DeletedBirthdayDetail"

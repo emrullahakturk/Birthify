@@ -87,6 +87,7 @@
     <string name="_1_day_before">1 day ago</string>
     <string name="_1_week_before">1 week ago</string>
     <string name="_1_hour_before">1 month ago</string>
+    <string name="necessary_permission">"You need to grant the necessary permissions for the application to work properly and send you notifications."</string>
     <string name="frequently_asked_questions">Frequently Asked Questions (FAQs)</string>
     <string name="privacy_amp_policy"><![CDATA[Privacy & Policy]]></string>
     <string name="contact_us">Contact Us</string>

@@ -48,6 +48,8 @@ class BirthdayRepository (context: Context){
 //            .addOnFailureListener { onComplete(false) }
     }
 
+
+
     //doğum gününü localden ve firebase'den silme fonksiyonu
     fun deleteBirthday(birthdayId: String) {
         val birthdays = getBirthdays().toMutableList()
@@ -232,6 +234,60 @@ class BirthdayRepository (context: Context){
         }
 
     }
+
+
+
+
+
+
+
+/*
+
+    //geçmiş doğum günlerini ve yaklaşan doğum günlerini ayıran fonksiyon
+    fun filterPastUpcomingBirthdays(pastBirthdays: List<Birthday>) {
+        val currentDate = LocalDate.now()
+        val upcomingBirthdays = pastBirthdays.filter {
+            val parts = it.birthdayDate.split(" ")
+            val day = parts[0].toInt()
+            val month = Month.valueOf(parts[1].uppercase(Locale.ENGLISH))
+            val birthdayDate = LocalDate.of(currentDate.year, month, day)
+            birthdayDate.isAfter(currentDate)
+        }
+
+        saveBirthdays(upcomingBirthdays)
+
+        upcomingBirthdays.forEach { upcomingBirthday ->
+            //geçmiş doğum günlerini tek tek firebase'e kaydediyoruz
+            saveBirthdayToFirebase(upcomingBirthday)
+
+            //geçmiş doğum günlerini tek tek firebase üzerinden ve local listeden kaldırıyoruz (yukarda past_birthdays olarak halihazırda kaydediyoruz)
+            removeBirthdayFromPastList(upcomingBirthday.id)
+        }
+    }
+
+    private fun removeBirthdayFromPastList(birthdayId: String) {
+        val birthdays = getPastBirthdays().toMutableList()
+        val birthdayToDelete = birthdays.find { it.id == birthdayId }
+        if (birthdayToDelete != null) {
+            birthdays.remove(birthdayToDelete)
+            savePastBirthdays(birthdays)
+
+            //firebase üzerinden doğum gününü siliyoruz (deleted_birthdaye aktarmadan, çünkü öncesinde pasta aktarıldı)
+            val birthdayRef = firestore.collection("past_birthdays").document(birthdayId)
+            firestore.runTransaction { transaction ->
+                transaction.delete(birthdayRef)
+            }
+//                .addOnSuccessListener { onComplete(true) }
+//                .addOnFailureListener { onComplete(false) }
+        }
+
+    }
+
+
+*/
+
+
+
 
 
     //Bu fonksiyonlar kullanıcı hesabını "tamamen"!!! sildiğinde çalıştırılacak

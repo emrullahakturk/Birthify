@@ -38,6 +38,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -48,7 +51,6 @@ import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.adapters.DeletedBirthdayAdapter
 import com.yargisoft.birthify.adapters.PastBirthdayAdapter
 import com.yargisoft.birthify.models.Birthday
-import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
 import kotlinx.coroutines.launch
@@ -151,7 +153,7 @@ object GuestFrequentlyUsedFunctions {
 
             // wittgenstein_font ataması yapma
             val typeface = ResourcesCompat.getFont(context, R.font.wittgenstein_font)
-            spanString.setSpan(UserFrequentlyUsedFunctions.CustomTypefaceSpan(typeface), 0, spanString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spanString.setSpan(CustomTypefaceSpan(typeface), 0, spanString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
             menuItem.title = spanString
         }
@@ -200,7 +202,7 @@ object GuestFrequentlyUsedFunctions {
 
             // wittgenstein_font ataması yapma
             val typeface = ResourcesCompat.getFont(context, R.font.wittgenstein_font)
-            spanString.setSpan(UserFrequentlyUsedFunctions.CustomTypefaceSpan(typeface), 0, spanString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spanString.setSpan(CustomTypefaceSpan(typeface), 0, spanString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
 
 
@@ -243,7 +245,7 @@ object GuestFrequentlyUsedFunctions {
 
             // wittgenstein_font ataması yapma
             val typeface = ResourcesCompat.getFont(context, R.font.wittgenstein_font)
-            spanString.setSpan(UserFrequentlyUsedFunctions.CustomTypefaceSpan(typeface), 0, spanString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            spanString.setSpan(CustomTypefaceSpan(typeface), 0, spanString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
 
             menuItem.title = spanString
@@ -320,22 +322,14 @@ object GuestFrequentlyUsedFunctions {
                 when (condition) {
                     "permanently" -> {
                         guestBirthdayViewModel.permanentlyDeleteBirthday(editedBirthday.id)
-                        cancelBirthdayReminder(editedBirthday.id,context)
+                        cancelBirthdayReminder(editedBirthday.id,editedBirthday.name,editedBirthday.birthdayDate,context)
                     }
                     "soft_delete" -> {
                         guestBirthdayViewModel.deleteBirthday(editedBirthday.id)
-                        cancelBirthdayReminder(editedBirthday.id,context)
+                        cancelBirthdayReminder(editedBirthday.id,editedBirthday.name,editedBirthday.birthdayDate,context)
                     }
                     "re_save" -> {
                         guestBirthdayViewModel.reSaveDeletedBirthday(editedBirthday.id)
-                        scheduleBirthdayReminder(
-                            editedBirthday.id,
-                            editedBirthday.name,
-                            editedBirthday.birthdayDate,
-                            editedBirthday.notifyDate,
-                            context
-                        )
-
                     }
                 }
 
@@ -397,7 +391,6 @@ object GuestFrequentlyUsedFunctions {
                                 findNavController: NavController,
                                 menuButtonToolbar:View,
                                 activity: Activity,
-                                userSharedPreferences:UserSharedPreferencesManager,
                                 sourcePage:String
     ){
 
@@ -510,7 +503,8 @@ object GuestFrequentlyUsedFunctions {
         viewLifecycleOwner: LifecycleOwner,
         findNavController:NavController,
         context:Context,
-        guestViewModel:GuestBirthdayViewModel
+        guestViewModel:GuestBirthdayViewModel,
+        activity: Activity
     ) {
         if (isValidEmail(email) && password.isNotEmpty()) {
 
@@ -543,17 +537,41 @@ object GuestFrequentlyUsedFunctions {
                                              .setMessage("Do you want to sync your birthdays with your new account? Otherwise your birthdays will be deleted")
                                              .setPositiveButton("Yes") { _, _ ->
 
-                                                    saveBirthdaysToFirebase(guestViewModel.birthdayList.value)
-                                                    savePastBirthdaysToFirebase(guestViewModel.pastBirthdayList.value)
-                                                    saveDeletedBirthdaysToFirebase(guestViewModel.deletedBirthdayList.value)
+                                                 saveBirthdaysToFirebase(guestViewModel.birthdayList.value)
+                                                 savePastBirthdaysToFirebase(guestViewModel.pastBirthdayList.value)
+                                                 saveDeletedBirthdaysToFirebase(guestViewModel.deletedBirthdayList.value)
 
+                                                 val birthdayList = guestViewModel.birthdayList.value ?: emptyList()
+
+                                                 birthdayList.forEach { birthday ->
+                                                     cancelBirthdayReminder(birthday.id,birthday.name,birthday.birthdayDate,context)
+                                                 }
 
                                                  findNavController.navigate(R.id.guestLoginToMainNavGraph,null,navOptions)
-
                                              }
                                              .setNegativeButton("No"){_,_->
+
                                                  //animasyonu durdurup view'i visible yapıyoruz
                                                  enableViewDisableLottie(lottieAnimationView, view)
+
+                                                 //Kullanıcı No dediği için senkronize edilmeyen doğum günlerinin reminder'larını iptal ediyoruz
+                                                 val birthdayList = guestViewModel.birthdayList.value ?: emptyList()
+                                                 val birthdayIds = birthdayList.map{ it.id }.toTypedArray()
+
+
+                                                 // WorkManager için data oluştur
+                                                 val inputData = Data.Builder()
+                                                     .putStringArray("BIRTHDAY_IDS", birthdayIds)
+                                                     .build()
+
+                                                 // WorkManager işini oluştur ve başlat
+                                                 val cancelRemindersWork = OneTimeWorkRequestBuilder<CancelRemindersWorker>()
+                                                     .setInputData(inputData)
+                                                     .build()
+
+                                                 WorkManager.getInstance(activity).enqueue(cancelRemindersWork)
+
+
                                                  findNavController.navigate(R.id.guestLoginToMainNavGraph,null,navOptions)
                                              }
                                              .show()
@@ -791,7 +809,7 @@ object GuestFrequentlyUsedFunctions {
 
     fun updateBirthdayReminder(birthday: Birthday,context: Context) {
         // Mevcut alarmı iptal et
-        cancelBirthdayReminder(birthday.id, context)
+        cancelBirthdayReminder(birthday.id,birthday.name,birthday.birthdayDate,context)
 
         // Yeni hatırlatıcıyı ayarla
         scheduleBirthdayReminder(
@@ -808,6 +826,7 @@ object GuestFrequentlyUsedFunctions {
         val intent = Intent(context, BirthdayReminderReceiver::class.java).apply {
             putExtra("birthdayId", birthdayId)
             putExtra("birthdayName", birthdayName)
+            putExtra("birthdayDate", birthdayDate)
         }
 
         val pendingIntent = PendingIntent.getBroadcast(
@@ -819,6 +838,8 @@ object GuestFrequentlyUsedFunctions {
 
         val reminderTime = calculateReminderTime(birthdayDate, notifyDate)
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, reminderTime, pendingIntent)
+         saveAlarmStatus(birthdayId,true,context)
+
     }
 
      private fun calculateReminderTime(birthdayDate: String, notifyDate: String): Long {
@@ -843,11 +864,11 @@ object GuestFrequentlyUsedFunctions {
 
         // Hatırlatıcı tarihini hesapla
         val reminderDateTime = when (notifyDate) {
-            "On the day" -> parsedBirthdayDate.atTime(12, 0) // Doğum günü tarihinde saat 12:00'de
+            "On the day" -> parsedBirthdayDate.atTime(0, 0) // Doğum günü tarihinde saat 12:00'de
             "1 day ago" -> parsedBirthdayDate.minusDays(1).atTime(0, 0) // 1 gün önce saat 00:00'da
             "1 week ago" -> parsedBirthdayDate.minusWeeks(1).atTime(0, 0) // 1 hafta önce saat 00:00'da
             "1 month ago" -> parsedBirthdayDate.minusMonths(1).atTime(0, 0) // 1 ay önce saat 00:00'da
-            else -> throw IllegalArgumentException("Invalid Notifiy Date")
+            else -> throw IllegalArgumentException("Invalid Notify Date")
         }
 
         // Zamanı Epoch millisaniye cinsinden döndür
@@ -855,21 +876,40 @@ object GuestFrequentlyUsedFunctions {
     }
 
 
-    private fun cancelBirthdayReminder(birthdayId: String, context: Context) {
+     private fun cancelBirthdayReminder(birthdayId: String, birthdayName:String, birthdayDate:String, context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, BirthdayReminderReceiver::class.java)
+        val intent = Intent(context, BirthdayReminderReceiver::class.java).apply {
+            putExtra("birthdayId", birthdayId)
+            putExtra("birthdayName", birthdayName)
+            putExtra("birthdayDate", birthdayDate)
+        }
+
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             birthdayId.hashCode(),
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
         )
         alarmManager.cancel(pendingIntent)
+        saveAlarmStatus(birthdayId,false,context)
     }
 
     fun requestExactAlarmPermission(activity: Activity) {
         val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
         activity.startActivity(intent)
+    }
+
+
+    fun saveAlarmStatus(birthdayId: String, isScheduled: Boolean, context: Context) {
+        val sharedPreferences = context.getSharedPreferences("AlarmPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean(birthdayId, isScheduled)
+        editor.apply()
+    }
+
+    fun isAlarmScheduled(birthdayId: String, context: Context): Boolean {
+        val sharedPreferences = context.getSharedPreferences("AlarmPrefs", Context.MODE_PRIVATE)
+        return sharedPreferences.getBoolean(birthdayId, false)
     }
 
 

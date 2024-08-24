@@ -95,6 +95,7 @@ class SettingsFragment : Fragment() {
             toolbarMenuButton,
             requireActivity(),
             authViewModel,
+            usersBirthdayViewModel,
             birthdayRepository,
             userSharedPreferences,
             "Settings"

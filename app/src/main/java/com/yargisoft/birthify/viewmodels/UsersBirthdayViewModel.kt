@@ -58,10 +58,13 @@ class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewM
     fun filterPastAndUpcomingBirthdays(birthdays:List<Birthday>){
         repository.filterPastAndUpcomingBirthdays(birthdays)
     }
+   /* fun filterUpcomingBirthdays(pastBirthdays:List<Birthday>){
+        repository.filterPastUpcomingBirthdays(pastBirthdays)
+    }
+*/
 
 
-
-    //Kullanıcı hesabını sildiğinde çalıştırılacak fonksiyonlar (lokalden tüm doğum günlerini siler)
+   /* //Kullanıcı hesabını sildiğinde çalıştırılacak fonksiyonlar (lokalden tüm doğum günlerini siler)
     fun clearDeletedBirthdays(){
         repository.clearDeletedBirthdays()
     }
@@ -82,7 +85,7 @@ class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewM
     fun clearPastBirthdaysFirebase(){
         repository.clearPastBirthdaysFirebase()
     }
-
+*/
     fun clearAllBirthdays(){
         repository.clearAllBirthdays()
     }

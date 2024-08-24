@@ -150,7 +150,6 @@ class GuestAddBirthdayFragment : Fragment() {
             findNavController(),
             toolbarMenuButton,
             requireActivity(),
-            userSharedPreferences,
             "GuestAddBirthday"
         )
 

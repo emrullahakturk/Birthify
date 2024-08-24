@@ -1,9 +1,11 @@
 package com.yargisoft.birthify.views.auth_user_views
 
+import android.app.AlarmManager
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +19,12 @@ import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
+import com.yargisoft.birthify.GuestFrequentlyUsedFunctions.scheduleBirthdayReminder
 import com.yargisoft.birthify.NetworkConnectionObserver
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions.isAlarmScheduled
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions.requestExactAlarmPermission
 import com.yargisoft.birthify.UserSwipeToDeleteCallback
 import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentAuthMainPageBinding
@@ -79,15 +84,35 @@ class MainPageFragment : Fragment() {
 
 
         usersBirthdayViewModel.getBirthdays()
+        usersBirthdayViewModel.getPastBirthdays()
 
 
         //Geçmiş doğum günlerini burada filtreleyerek pastBirthdays'e gödneriyoruz
         val listForFilter = usersBirthdayViewModel.birthdayList.value ?: emptyList()
         usersBirthdayViewModel.filterPastAndUpcomingBirthdays(listForFilter)
 
+
         //filtreleme sonrası doğum günlerini liveDataya aktarıyoruz
         usersBirthdayViewModel.getBirthdays()
 
+        //doğum günlerini kontrol ederek reminder'ı olmayan doğum gününe reminder ekliyoruz
+        if (usersBirthdayViewModel.birthdayList.value != null) {
+            usersBirthdayViewModel.birthdayList.value!!.forEach { birthday ->
+
+
+                val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                if (!alarmManager.canScheduleExactAlarms()) {
+                    requestExactAlarmPermission(requireActivity())
+                } else {
+                    if (!isAlarmScheduled(birthday.id,requireContext())) {
+                        Log.e("tagımıs","Hatırlatıcı kuruldu ${birthday.id}")
+                        scheduleBirthdayReminder(birthday.id, birthday.name, birthday.birthdayDate, birthday.notifyDate, requireContext())
+                    } else {
+                        Log.e("tagımıs","Zaten var olan bir hatırlatıcı bulundu.")
+                    }
+                }
+            }
+        }
 
 
         // DrawerLayout ve NavigationView tanımlamaları
@@ -103,6 +128,7 @@ class MainPageFragment : Fragment() {
             toolbarMenuButton,
             requireActivity(),
             authViewModel,
+            usersBirthdayViewModel,
             birthdayRepository,
             userSharedPreferences,
             "MainPage"

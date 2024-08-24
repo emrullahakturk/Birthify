@@ -117,7 +117,8 @@ class GuestLoginPageFragment : Fragment() {
                 viewLifecycleOwner,
                 findNavController(),
                 requireContext(),
-                guestViewModel
+                guestViewModel,
+                requireActivity()
             )
         }
         return binding.root

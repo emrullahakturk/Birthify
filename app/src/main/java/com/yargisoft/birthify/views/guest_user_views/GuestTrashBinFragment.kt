@@ -158,7 +158,6 @@ class GuestTrashBinFragment : Fragment() {
             findNavController(),
             toolbarMenuButton,
             requireActivity(),
-            userSharedPreferences,
             "GuestTrashBin"
         )
 

@@ -1,7 +1,5 @@
 package com.yargisoft.birthify.views.guest_user_views
 
-import android.app.AlarmManager
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,8 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
-import com.yargisoft.birthify.GuestFrequentlyUsedFunctions.requestExactAlarmPermission
-import com.yargisoft.birthify.GuestFrequentlyUsedFunctions.updateBirthdayReminder
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentGuestDeletedBirthdayDetailBinding
 import com.yargisoft.birthify.repositories.AuthRepository
@@ -79,24 +75,18 @@ class GuestDeletedBirthdayDetailFragment : Fragment() {
 
         binding.reSaveButton.setOnClickListener {
 
-            val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            if (!alarmManager.canScheduleExactAlarms()) {
-                // İzin talep etmeniz gerekecek
-                requestExactAlarmPermission(requireActivity())
-            } else {
-                GuestFrequentlyUsedFunctions.showConfirmationDialog(
-                    binding.root,
-                    requireContext(),
-                    guestBirthdayViewModel,
-                    deletedBirthday.birthday,
-                    binding.threePointAnimation,
-                    viewLifecycleOwner,
-                    "re_save",
-                    findNavController(),
-                    R.id.guestDeletedDetailToTrashBin,
-                    navOptions
-                )
-            }
+            GuestFrequentlyUsedFunctions.showConfirmationDialog(
+                binding.root,
+                requireContext(),
+                guestBirthdayViewModel,
+                deletedBirthday.birthday,
+                binding.threePointAnimation,
+                viewLifecycleOwner,
+                "re_save",
+                findNavController(),
+                R.id.guestDeletedDetailToTrashBin,
+                navOptions
+            )
 
         }
 
@@ -124,7 +114,6 @@ class GuestDeletedBirthdayDetailFragment : Fragment() {
             findNavController(),
             toolbarMenuButton,
             requireActivity(),
-            userSharedPreferences,
             "GuestDeletedBirthdayDetail"
         )
 

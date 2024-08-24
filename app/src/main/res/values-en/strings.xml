@@ -93,6 +93,8 @@
     <string name="frequently_asked_questions">Frequently Asked Questions (FAQs)</string>
     <string name="privacy_amp_policy"><![CDATA[Privacy & Policy]]></string>
     <string name="contact_us">Contact Us</string>
+    <string name="necessary_permission">"You need to grant the necessary permissions for the application to work properly and send you notifications."</string>
+
     <string name="what_is_birthify">What is Birthify ?</string>
     <string name="_1_how_do_i_add_a_new_birthday">1. How do I add a new birthday?</string>
     <string name="to_add_a_new_birthday_simply_navigate_to_the_add_birthday_screen_enter_the_name_and_date_and_choose_when_you_d_like_to_be_reminded_then_click_save">To add a new birthday, simply navigate to the \'Add Birthday\' screen, enter the name and date, and choose when you\'d like to be reminded. Then, click \'Save\'.</string>

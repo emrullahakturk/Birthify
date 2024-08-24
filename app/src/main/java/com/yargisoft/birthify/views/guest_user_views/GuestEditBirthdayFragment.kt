@@ -68,7 +68,6 @@ class GuestEditBirthdayFragment : Fragment() {
             findNavController(),
             toolbarMenuButton,
             requireActivity(),
-            userSharedPreferences,
             "GuestBirthdayEdit"
         )
 
@@ -138,17 +137,7 @@ class GuestEditBirthdayFragment : Fragment() {
             findNavController().popBackStack()
 
         }
-        binding.menuButtonToolbar.setOnClickListener {
-                GuestFrequentlyUsedFunctions.drawerLayoutToggle(
-                    drawerLayout,
-                    navigationView,
-                    findNavController(),
-                    toolbarMenuButton,
-                    requireActivity(),
-                    userSharedPreferences,
-                    "GuestMainPage"
-                    )
-        }
+
 
         binding.bottomAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {

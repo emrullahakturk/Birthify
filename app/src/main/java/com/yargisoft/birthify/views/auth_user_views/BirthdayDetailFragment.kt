@@ -75,14 +75,12 @@ class BirthdayDetailFragment : Fragment() {
             toolbarMenuButton,
             requireActivity(),
             authViewModel,
+            usersBirthdayViewModel,
             birthdayRepository,
             userSharedPreferences,
             "BirthdayDetail"
         )
 
-        binding.toolbarUserDetail.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
-            findNavController().navigate(R.id.detailToAdd)
-        }
 
         binding.birthdayEditButton.setOnClickListener {
             val action = BirthdayDetailFragmentDirections.detailToEdit(

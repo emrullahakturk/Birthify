@@ -101,7 +101,6 @@ class GuestSettingsFragment : Fragment() {
             findNavController(),
             toolbarMenuButton,
             requireActivity(),
-            userSharedPreferences,
             "GuestSettings"
         )
 

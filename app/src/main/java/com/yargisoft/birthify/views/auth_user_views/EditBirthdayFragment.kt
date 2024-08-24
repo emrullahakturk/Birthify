@@ -87,6 +87,7 @@ class EditBirthdayFragment : Fragment() {
             toolbarMenuButton,
             requireActivity(),
             authViewModel,
+            usersBirthdayViewModel,
             birthdayRepository,
             userSharedPreferences,
             "BirthdayEdit"

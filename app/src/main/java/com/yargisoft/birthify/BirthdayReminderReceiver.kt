@@ -6,36 +6,65 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.core.app.NotificationCompat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
+import java.util.Locale
 
 class BirthdayReminderReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         // Bildirim göndermek için gerekli işlemleri burada yapacaksınız
         val birthdayId = intent.getStringExtra("birthdayId") // Doğum günü ID'sini al
         val birthdayName = intent.getStringExtra("birthdayName") // Doğum günü adını al
+        val birthdayDate = intent.getStringExtra("birthdayDate") // Doğum günü tarihini al
 
         // Bildirimi oluştur ve göster
-        createNotification(context, birthdayId, birthdayName)
+        createNotification(context, birthdayId, birthdayName,birthdayDate)
     }
 
-    private fun createNotification(context: Context, birthdayId: String?, birthdayName: String?) {
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private fun createNotification(
+        context: Context,
+        birthdayId: String?,
+        birthdayName: String?,
+        birthdayDate: String?
+    ) {
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val channelId = "birthday_reminder_channel"
         val channelName = "Birthday Reminder"
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
-            notificationManager.createNotificationChannel(channel)
-        }
+        val channel =
+            NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
+        notificationManager.createNotificationChannel(channel)
 
         val notificationIntent = Intent(context, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(context, birthdayId.hashCode(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            birthdayId.hashCode(),
+            notificationIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
 
+        // Tarih formatı ve günümüz tarihi
+        val formatter = DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH)
+        val birthday = LocalDate.parse("$birthdayDate ${LocalDate.now().year}", formatter)
+        val today = LocalDate.now()
 
+        // Tarih farkını hesaplayın
+        val daysDifference = ChronoUnit.DAYS.between(today, birthday)
+
+        // Bildirim metnini belirleyin
+        val notificationText = when {
+            daysDifference < 0 -> "${birthdayName}'s birthday has passed."
+            daysDifference == 0L -> "It's $birthdayName's birthday today!"
+            else -> "$birthdayName's birthday is coming up on $birthdayDate."
+        }
+
+        // Bildirimi oluştur ve gönder
         val notification = NotificationCompat.Builder(context, channelId)
             .setContentTitle("Birthify")
-            .setContentText("It's $birthdayName's birthday today!")
+            .setContentText(notificationText)
             .setSmallIcon(R.drawable.ic_cake)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)

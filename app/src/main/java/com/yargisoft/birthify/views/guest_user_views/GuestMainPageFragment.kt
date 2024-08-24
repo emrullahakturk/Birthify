@@ -1,9 +1,11 @@
 package com.yargisoft.birthify.views.guest_user_views
 
+import android.app.AlarmManager
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
+import com.yargisoft.birthify.GuestFrequentlyUsedFunctions.isAlarmScheduled
+import com.yargisoft.birthify.GuestFrequentlyUsedFunctions.requestExactAlarmPermission
+import com.yargisoft.birthify.GuestFrequentlyUsedFunctions.scheduleBirthdayReminder
 import com.yargisoft.birthify.GuestSwipeToDeleteCallback
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.BirthdayAdapter
@@ -59,6 +64,26 @@ class GuestMainPageFragment : Fragment() {
         //Liste filtrelemeden sonra doğum günlerini tekrar birthdaylist'e aktarıyoruz
         guestBirthdayViewModel.getBirthdays()
 
+        //doğum günlerini kontrol ederek reminder'ı olmayan doğum gününe reminder ekliyoruz
+        if (guestBirthdayViewModel.birthdayList.value != null) {
+            guestBirthdayViewModel.birthdayList.value!!.forEach { birthday ->
+
+
+                val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                if (!alarmManager.canScheduleExactAlarms()) {
+                    requestExactAlarmPermission(requireActivity())
+                } else {
+                   if (!isAlarmScheduled(birthday.id,requireContext())){
+                       scheduleBirthdayReminder(birthday.id, birthday.name, birthday.birthdayDate, birthday.notifyDate, requireContext())
+                       Log.e("tagımıs","alarm kuruldu")
+                   }else{
+                       Log.e("tagımıs","alarm zaten var lan")
+                   }
+                }
+            }
+        }
+
+
 
         //user SharedPreferences
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
@@ -76,7 +101,6 @@ class GuestMainPageFragment : Fragment() {
             findNavController(),
             toolbarMenuButton,
             requireActivity(),
-            userSharedPreferences,
             "GuestMainPage"
         )
 
@@ -158,7 +182,6 @@ class GuestMainPageFragment : Fragment() {
             }
         }
 
-
         binding.bottomAppBar.setNavigationOnClickListener {
             binding.searchEditText.requestFocus()
             //tıklandıktan sonra klavyenin açılmasını sağlar
@@ -172,5 +195,4 @@ class GuestMainPageFragment : Fragment() {
 
         return binding.root
     }
-
 }

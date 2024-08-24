@@ -87,6 +87,8 @@
     <string name="there_is_no_past_birthdays">There is no past birthdays</string>
     <string name="send_reset_e_mail">Send Reset E-mail</string>
     <string name="notification_time">Notification Time</string>
+    <string name="necessary_permission">"You need to grant the necessary permissions for the application to work properly and send you notifications."</string>
+
     <string name="on_the_day">On the day</string>
     <string name="_1_day_before">1 day ago</string>
     <string name="_1_week_before">1 week ago</string>
