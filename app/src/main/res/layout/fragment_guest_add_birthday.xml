@@ -158,6 +158,7 @@
                                 android:background="@drawable/rounded_edit_text_add_birthday"
                                 android:hint="@string/name"
                                 android:maxLines="1"
+                                android:maxLength="30"
                                 android:paddingStart="40dp"
                                 android:paddingEnd="0dp"
                                 android:singleLine="true" />

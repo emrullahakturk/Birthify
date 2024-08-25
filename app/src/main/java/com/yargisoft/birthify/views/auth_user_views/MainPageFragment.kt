@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -64,9 +65,13 @@ class MainPageFragment : Fragment() {
         usersBirthdayViewModel = ViewModelProvider(this, birthdayFactory)[UsersBirthdayViewModel::class]
 
         //Auth ViewModel Tanımlama için gerekenler
-        val authRepository = AuthRepository(userSharedPreferences.preferences)
+        val authRepository = AuthRepository(userSharedPreferences.preferences,requireContext())
         val authFactory = AuthViewModelFactory(authRepository)
         authViewModel = ViewModelProvider(this, authFactory)[AuthViewModel::class]
+
+        authViewModel.getUserCredentials()
+
+        Log.e("tagımıs", authViewModel.userCredentials.toString())
 
 
         networkConnectionObserver = NetworkConnectionObserver(requireContext())

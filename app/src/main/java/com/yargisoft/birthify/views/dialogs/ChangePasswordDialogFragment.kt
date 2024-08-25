@@ -46,7 +46,7 @@ class ChangePasswordDialogFragment : DialogFragment() {
 
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
-        authRepository = AuthRepository(userSharedPreferences.preferences)
+        authRepository = AuthRepository(userSharedPreferences.preferences,requireContext())
         authViewModelFactory = AuthViewModelFactory(authRepository)
         authViewModel = ViewModelProvider(this, authViewModelFactory)[AuthViewModel::class]
 

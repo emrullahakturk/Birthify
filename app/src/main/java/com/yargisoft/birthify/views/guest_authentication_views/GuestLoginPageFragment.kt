@@ -47,7 +47,7 @@ class GuestLoginPageFragment : Fragment() {
         userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
         //repo factory ve viewmodel tanımlamaları
-        val repository = AuthRepository(userSharedPreferences.preferences)
+        val repository = AuthRepository(userSharedPreferences.preferences,requireContext())
         val factory = AuthViewModelFactory(repository)
         authViewModel = ViewModelProvider(this,factory)[AuthViewModel::class.java]
 

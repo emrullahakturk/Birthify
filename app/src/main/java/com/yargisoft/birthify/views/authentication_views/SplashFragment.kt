@@ -34,7 +34,7 @@ class SplashFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_splash, container, false)
 
         userSharedPreferencesManager = UserSharedPreferencesManager(requireContext())
-        authRepository = AuthRepository(userSharedPreferencesManager.preferences)
+        authRepository = AuthRepository(userSharedPreferencesManager.preferences,requireContext())
 
 
         // İzin isteme işlemini başlatmak için launcher

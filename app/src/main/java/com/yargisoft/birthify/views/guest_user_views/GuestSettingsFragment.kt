@@ -83,7 +83,7 @@ class GuestSettingsFragment : Fragment() {
 //        val lottieAnimationView = binding.threePointAnimation
 
 
-        authRepository = AuthRepository(userSharedPreferences.preferences)
+        authRepository = AuthRepository(userSharedPreferences.preferences,requireContext())
         authViewModelFactory = AuthViewModelFactory(authRepository)
         authViewModel = ViewModelProvider(this, authViewModelFactory)[AuthViewModel::class]
 

@@ -44,7 +44,7 @@ class LoginPageFragment : Fragment() {
 
 
         //repo factory ve viewmodel tanımlamaları
-        val repository = AuthRepository(userSharedPreferences.preferences)
+        val repository = AuthRepository(userSharedPreferences.preferences,requireContext())
         val factory = AuthViewModelFactory(repository)
         viewModel = ViewModelProvider(this,factory)[AuthViewModel::class.java]
 

@@ -1,18 +1,26 @@
 package com.yargisoft.birthify.repositories
 
+import android.content.Context
 import android.content.SharedPreferences
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.UUID
 
-class AuthRepository(private val sharedPreferences: SharedPreferences) {
+class AuthRepository(private val sharedPreferences: SharedPreferences, context:Context) {
 
     private val auth = FirebaseAuth.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
+    private val credentialPreferences: SharedPreferences = context.getSharedPreferences("user_credentials", Context.MODE_PRIVATE)
+
 
     // Function to register a new user
      fun registerUser(name: String, email: String, password: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
@@ -246,5 +254,59 @@ class AuthRepository(private val sharedPreferences: SharedPreferences) {
                 }
         } ?: onFailure("User not logged in.")
     }
+
+    fun getUserCredentials(onSuccess: (Map<String, Any>) -> Unit, onFailure: (String) -> Unit) {
+        val user = auth.currentUser
+        if (user != null) {
+            // Fetch user information from Firebase Authentication
+            val userId = user.uid
+            val email = user.email ?: "No email available"
+
+            // Fetch additional user information from Firestore
+            firestore.collection("users").document(userId).get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val document = task.result
+                        if (document != null && document.exists()) {
+                            // Extract user data from Firestore document
+                            val name = document.getString("name") ?: "No name available"
+                            val token = document.getString("token") ?: "No token available"
+                            val recordedDate = document.getTimestamp("recordedDate") ?: Timestamp(seconds = 0, nanoseconds = 0)
+
+                            // Create a map with the user credentials
+                            val userCredentials = mapOf(
+                                "userId" to userId,
+                                "email" to email,
+                                "name" to name,
+                                "token" to token,
+                                "recordedDate" to recordedDate,
+                            )
+
+                            val editor = credentialPreferences.edit()
+                            editor.putString("name", name)
+                            editor.putString("email", email)
+
+                            val instant = Instant.ofEpochSecond(recordedDate.seconds, recordedDate.nanoseconds.toLong())
+                            val dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+                            val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")
+                            val formattedDateTime = dateTime.format(formatter)
+
+                            editor.putString("recordedDate", formattedDateTime)
+                            editor.apply()
+
+                            // Return the user credentials via the success callback
+                            onSuccess(userCredentials)
+                        } else {
+                            onFailure("User document does not exist.")
+                        }
+                    } else {
+                        onFailure("Failed to retrieve user data from Firestore: ${task.exception?.message}")
+                    }
+                }
+        } else {
+            onFailure("No user is currently logged in.")
+        }
+    }
+
 }
 

@@ -177,6 +177,7 @@
                                 android:background="@drawable/rounded_edit_text_edit"
                                 android:fontFamily="@font/wittgenstein_font"
                                 android:maxLines="1"
+                                android:maxLength="30"
                                 android:paddingStart="40dp"
                                 android:paddingEnd="0dp"
                                 android:text="@{birthday.name}"

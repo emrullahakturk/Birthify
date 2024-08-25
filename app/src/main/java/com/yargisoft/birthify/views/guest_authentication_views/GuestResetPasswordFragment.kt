@@ -48,7 +48,7 @@ class GuestResetPasswordFragment : Fragment() {
 
 
         //viewModel tanımlama için gerekli kodlar
-        val repository = AuthRepository(userSharedPreferences.preferences)
+        val repository = AuthRepository(userSharedPreferences.preferences,requireContext())
         val factory= AuthViewModelFactory(repository)
         authViewModel = ViewModelProvider(this, factory )[AuthViewModel::class.java]
 

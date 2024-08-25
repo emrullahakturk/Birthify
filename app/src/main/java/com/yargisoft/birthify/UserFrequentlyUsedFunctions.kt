@@ -645,11 +645,13 @@ object UserFrequentlyUsedFunctions {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+
         // NavigationView'deki öğeler için click listener
         navigationView.setNavigationItemSelectedListener { menuItem ->
             // Menü öğelerine tıklandığında yapılacak işlemler
             when (menuItem.itemId) {
                 R.id.labelBirthdays -> {
+
                     when(sourcePage){
                         "MainPage"->  ""
                         "TrashBin"-> findNavController.navigate(R.id.trashToMainPage)
@@ -660,6 +662,7 @@ object UserFrequentlyUsedFunctions {
                         "BirthdayDetail"-> findNavController.navigate(R.id.birthdayDetailToMain)
                         "AddBirthday"-> findNavController.navigate(R.id.addToMain)
                         "PastBirthdays"-> findNavController.navigate(R.id.pastBirthdaysToMainPage)
+                        "MyAccount"-> findNavController.navigate(R.id.accountDetailsToMain)
                     }
                 }
 
@@ -675,12 +678,12 @@ object UserFrequentlyUsedFunctions {
                     val birthdayIds = birthdayList.map{ it.id }.toTypedArray()
 
 
-                    // WorkManager için data oluştur
+                    // WorkManager için data oluşturma
                     val inputData = Data.Builder()
                         .putStringArray("BIRTHDAY_IDS", birthdayIds)
                         .build()
 
-                    // WorkManager işini oluştur ve başlat
+                    // WorkManager işini oluşturma ve başlatma
                     val cancelRemindersWork = OneTimeWorkRequestBuilder<CancelRemindersWorker>()
                         .setInputData(inputData)
                         .build()
@@ -702,6 +705,7 @@ object UserFrequentlyUsedFunctions {
                         "BirthdayDetail"-> findNavController.navigate(R.id.detailToTrash)
                         "AddBirthday"-> findNavController.navigate(R.id.addToTrash)
                         "PastBirthdays"-> findNavController.navigate(R.id.pastBirthdaysToTrashBin)
+                        "MyAccount"-> findNavController.navigate(R.id.accountDetailsToTrashBin)
                     }
                 }
 
@@ -716,6 +720,7 @@ object UserFrequentlyUsedFunctions {
                         "BirthdayDetail"-> findNavController.navigate(R.id.detailToSettings)
                         "AddBirthday"-> findNavController.navigate(R.id.addToSettings)
                         "PastBirthdays"-> findNavController.navigate(R.id.pastBirthdaysToSettings)
+                        "MyAccount"-> findNavController.navigate(R.id.accountDetailsToSettings)
                     }
                 }
 
@@ -730,6 +735,7 @@ object UserFrequentlyUsedFunctions {
                         "Profile" ->  ""
                         "Settings" ->findNavController.navigate(R.id.settingsToProfile)
                         "PastBirthdays"-> findNavController.navigate(R.id.pastBirthdaysToProfile)
+                        "MyAccount"-> findNavController.navigate(R.id.accountDetailsToProfile)
                     }
                 }
                 R.id.labelPastBirthdays -> {
@@ -742,6 +748,7 @@ object UserFrequentlyUsedFunctions {
                         "AddBirthday"-> findNavController.navigate(R.id.addToPastBirthdays)
                         "Settings"-> findNavController.navigate(R.id.settingsToPastBirthdays)
                         "PastBirthdays"-> ""
+                        "MyAccount"-> findNavController.navigate(R.id.accountDetailsToPastBirthdays)
                     }
                 }
 
@@ -871,8 +878,12 @@ object UserFrequentlyUsedFunctions {
             intent,
             PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
         )
-        alarmManager.cancel(pendingIntent)
-        saveAlarmStatus(birthdayId, false, context)
+
+        if (pendingIntent != null){
+            alarmManager.cancel(pendingIntent)
+            saveAlarmStatus(birthdayId, false, context)
+        }
+
     }
 
 
@@ -882,7 +893,7 @@ object UserFrequentlyUsedFunctions {
     }
 
 
-    private fun saveAlarmStatus(birthdayId: String, isScheduled: Boolean, context: Context) {
+    fun saveAlarmStatus(birthdayId: String, isScheduled: Boolean, context: Context) {
         val sharedPreferences = context.getSharedPreferences("AlarmPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putBoolean(birthdayId, isScheduled)

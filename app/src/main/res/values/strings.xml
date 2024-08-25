@@ -92,6 +92,9 @@
     <string name="confirm_deletion_all_birthdays">Are you sure you want to delete your birthdays? This operation cannot be undone.s</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_deletion_account">Are you sure you want to delete your account permanently? This operation cannot be undone.</string>
+    <string name="confirm_deletion_account_title">Confirm Deletion Your Account</string>
     <string name="reset_password_title_alert">Reset Password"</string>
     <string name="reset_password_alert">Password reset informations will send to your e-mail</string>
     <string name="reset_password_snackbar">Reset e-mail successfully sent"</string>
@@ -116,7 +119,7 @@
     <string name="please_enter_a_valid_email">Please enter a valid email address</string>
     <string name="connection_error_title">Connection Error</string>
     <string name="connection_error">Your internet connection is lost. Your birthdays will not be saved in the database without an internet connection. Please check your internet connection..</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="on_the_day">On the day</string>
     <string name="_1_day_before">1 day ago</string>
     <string name="_1_week_before">1 week ago</string>
@@ -141,4 +144,5 @@
     <string name="card_background_image">card_background_image</string>
     <string name="close_btn">Close Btn</string>
     <string name="what_is_birthify_paragraph">Welcome to Birthify, your friendly and intuitive companion for keeping track of and celebrating birthdays! Our app is designed to make managing birthdays effortless and fun. With Birthify, you\'ll never miss a special occasion again.\n\nAt its core, Birthify helps you keep all your important birthday dates in one convenient place. Whether it\'s a friend\'s, family member\'s, or your own birthday, our app ensures you stay on top of every celebration. You can set personalized reminders so you’ll always know when a birthday is approaching, giving you ample time to prepare for the festivities.\n\nIn addition to tracking and reminding you of birthdays, Birthify lets you send digital greeting cards right from the app. Choose from a variety of beautiful and heartfelt designs to make every birthday even more special. Our user-friendly interface is designed to make this process smooth and enjoyable.\n\nWe\'re here to help you create memorable moments and stay connected with your loved ones. Have any questions or feedback? Feel free to reach out to us at \'support@birthify.com\'. We look forward to hearing from you!</string>
+    <string name="recorded_date">Recorded Date</string>
 </resources>

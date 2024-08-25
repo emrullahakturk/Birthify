@@ -53,7 +53,7 @@ class TrashBinFragment : Fragment() {
         usersBirthdayViewModel = ViewModelProvider(this, birthdayViewModelFactory)[UsersBirthdayViewModel::class]
 
         //Birthday ViewModel Initialization
-        val authRepository = AuthRepository(userSharedPreferences.preferences)
+        val authRepository = AuthRepository(userSharedPreferences.preferences,requireContext())
         val authViewModelFactory = AuthViewModelFactory(authRepository)
         authViewModel = ViewModelProvider(this, authViewModelFactory)[AuthViewModel::class]
 

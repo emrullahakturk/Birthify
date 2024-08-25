@@ -12,7 +12,7 @@
     android:layout_marginLeft="20dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    card_view:cardCornerRadius="35dp"
+    card_view:cardCornerRadius="10dp"
     card_view:cardElevation="8dp"
     card_view:cardBackgroundColor="#FFFFFF"
     >
@@ -73,7 +73,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
-            app:srcCompat="@drawable/ic_account_item_past"
+            app:srcCompat="@drawable/ic_cake_bottom"
             tools:ignore="ContentDescription" />
 
         <TextView

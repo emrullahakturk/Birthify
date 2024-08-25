@@ -1,5 +1,6 @@
 package com.yargisoft.birthify.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yargisoft.birthify.repositories.AuthRepository
@@ -16,6 +17,11 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
 
     private var _authError = MutableStateFlow<String?>("")
     val authError: MutableStateFlow<String?> get() = _authError
+
+    private var _userCredentials = MutableStateFlow<Map<String, Any>?>(null)
+    val userCredentials: MutableStateFlow<Map<String, Any>?> get() = _userCredentials
+
+
 
     fun updatePassword(currentPassword: String, newPassword:String){
         viewModelScope.launch {
@@ -158,6 +164,26 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
                     _isLoaded.value = true
                 },
                 onFailure = { errorMessage ->
+                    _authSuccess.value = false
+                    _authError.value = errorMessage
+                    _isLoaded.value = true
+                }
+            )
+        }
+    }
+
+    fun getUserCredentials() {
+        viewModelScope.launch {
+            _isLoaded.value = false
+            authRepository.getUserCredentials(
+                onSuccess = { credentials ->
+                    _userCredentials.value = credentials
+                    _authSuccess.value = true
+                    _authError.value = null
+                    _isLoaded.value = true
+                },
+                onFailure = { errorMessage ->
+                     _userCredentials.value = null
                     _authSuccess.value = false
                     _authError.value = errorMessage
                     _isLoaded.value = true

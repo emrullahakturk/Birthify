@@ -76,7 +76,7 @@ class SettingsFragment : Fragment() {
 
        // val lottieAnimationView = binding.threePointAnimation
 
-        authRepository = AuthRepository(userSharedPreferences.preferences)
+        val authRepository = AuthRepository(userSharedPreferences.preferences,requireContext())
         authViewModelFactory = AuthViewModelFactory(authRepository)
         authViewModel = ViewModelProvider(this, authViewModelFactory)[AuthViewModel::class]
 
@@ -181,6 +181,7 @@ class SettingsFragment : Fragment() {
                 Toast.makeText(requireContext(),getString(R.string.support_email_snackbar), Toast.LENGTH_SHORT).show()
             }
         }
+
 
         binding.privacyPolicyCardView.setOnClickListener {
             val dialogFragment = PrivacyPolicyDialogFragment()

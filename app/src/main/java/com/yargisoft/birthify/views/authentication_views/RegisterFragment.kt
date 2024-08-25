@@ -47,7 +47,7 @@ class RegisterFragment : Fragment() {
             .setPopUpTo(R.id.registerFragment, inclusive = true)
             .build()
 
-        val repository = AuthRepository(userSharedPreferences.preferences)
+        val repository = AuthRepository(userSharedPreferences.preferences,requireContext())
         val factory= AuthViewModelFactory(repository)
         viewModel = ViewModelProvider(this,factory)[AuthViewModel::class.java]
 

@@ -16,7 +16,7 @@
     <string name="dont_have_account">Bir hesabınız yok mu ?</string>
     <string name="sign_up">Kaydol</string>
     <string name="welcome_back">Hoşgeldiniz</string>
-    <string name="name">İsim</string>
+    <string name="name">Ad Soyad</string>
     <string name="e_mail">E-Posta</string>
     <string name="enter_e_mail">Şifrenizi sıfırlamak için e-postanızı giriniz.</string>
     <string name="reset_password">Şifremi Sıfırla</string>
@@ -92,6 +92,9 @@
     <string name="confirm_deletion_all_birthdays">Doğum günlerinizi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.</string>
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
+    <string name="cancel">İptal</string>
+    <string name="confirm_deletion_account">Hesabınızın kalıcı olarak silinmesini onaylıyor musunuz? Bu işlem geri alınamaz.</string>
+    <string name="confirm_deletion_account_title">Hesabınız Tamamen Silinecek</string>
     <string name="reset_password_title_alert">Şifre Sıfırlama</string>
     <string name="reset_password_alert">Şifre sıfırlama bilgileri e-postanıza gönderilecek</string>
     <string name="reset_password_snackbar">Şifre sıfırlama e-postası gönderildi</string>
@@ -144,4 +147,8 @@
     <string name="_6_how_do_i_contact_support">6. Destekle nasıl iletişime geçerim?</string>
     <string name="if_you_need_further_assistance_you_can_contact_us_via_the_help_center_in_the_app_just_click_on_the_contact_us_button_and_it_will_open_your_email_client_with_our_support_email_pre_filled">Daha fazla yardıma ihtiyacınız olursa, uygulamadaki \'Yardım Merkezi\' üzerinden bize ulaşabilirsiniz. \'Bize Ulaşın\' butonuna tıklayın, ve e-posta istemciniz destek e-posta adresimizle önceden doldurulmuş olarak açılacaktır.</string>
 -->
+    <string name="recorded_date">Kayıt Tarihi</string>
+    <string name="close_btn">Kapatma Btn</string>
+
+
 </resources>

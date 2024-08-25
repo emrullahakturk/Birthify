@@ -32,10 +32,11 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
             return BirthdayViewHolder(view)
         }
 
+        @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(holder: BirthdayViewHolder, position: Int) {
             val birthday = birthdayList[position]
             holder.nameTextView.text = birthday.name
-            holder.birthdayDateTextView.text = birthday.birthdayDate
+            holder.birthdayDateTextView.text = "New age on " + birthday.birthdayDate
             holder.noteTextView.text = birthday.note
             holder.editButton.setOnClickListener {onEditClick(birthday)}
             holder.toDetailView.setOnClickListener{onDetailClick(birthday)}

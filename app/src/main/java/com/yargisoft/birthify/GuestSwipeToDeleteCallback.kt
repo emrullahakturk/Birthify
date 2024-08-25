@@ -88,7 +88,7 @@ class GuestSwipeToDeleteCallback(
                 background.left = itemView.left.toFloat()
             }
 
-            val cornerRadius = 100f  // Border radius değerini burada ayarlayabilirsiniz
+            val cornerRadius = 40f  // Border radius değerini burada ayarlayabilirsiniz
             c.drawRoundRect(background, cornerRadius, cornerRadius, paint)
 
             val deleteIcon = ContextCompat.getDrawable(adapter.context, R.drawable.ic_delete)!!

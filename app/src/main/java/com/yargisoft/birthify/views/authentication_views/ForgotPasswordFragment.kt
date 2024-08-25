@@ -48,8 +48,8 @@ class ForgotPasswordFragment : Fragment() {
 
 
         //viewModel tanımlama için gerekli kodlar
-        val repository = AuthRepository(userSharedPreferences.preferences)
-        val factory= AuthViewModelFactory(repository)
+        val authRepository = AuthRepository(userSharedPreferences.preferences,requireContext())
+        val factory= AuthViewModelFactory(authRepository)
         viewModel = ViewModelProvider(this, factory )[AuthViewModel::class.java]
 
 

@@ -4,7 +4,6 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 
@@ -34,8 +33,11 @@ class CancelRemindersWorker(
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
-        alarmManager.cancel(pendingIntent)
-        GuestFrequentlyUsedFunctions.saveAlarmStatus(birthdayId,false,context)
-        Log.d("tagımıs","Alarm iptal edildi ${GuestFrequentlyUsedFunctions.isAlarmScheduled(birthdayId,context)}")
+
+        if (pendingIntent != null){
+            alarmManager.cancel(pendingIntent)
+            UserFrequentlyUsedFunctions.saveAlarmStatus(birthdayId,false,context)
+        }
+
     }
 }

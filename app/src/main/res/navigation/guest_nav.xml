@@ -10,19 +10,39 @@
         android:label="GuestAddBirthdayFragment" >
         <action
             android:id="@+id/guestAddToMain"
-            app:destination="@id/guestMainPageFragment" />
+            app:destination="@id/guestMainPageFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/guestAddToPastBirthdays"
-            app:destination="@id/guestPastBirthdaysFragment" />
+            app:destination="@id/guestPastBirthdaysFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/guestAddToTrashBin"
-            app:destination="@id/guestTrashBinFragment" />
+            app:destination="@id/guestTrashBinFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestAddToSettings"
-            app:destination="@id/guestSettingsFragment" />
+            app:destination="@id/guestSettingsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/guestAddToLogin"
-            app:destination="@id/guest_auth_nav" />
+            app:destination="@id/guest_auth_nav"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 
 
     </fragment>
@@ -36,19 +56,39 @@
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/guestDetailToPastBirthdays"
-            app:destination="@id/guestPastBirthdaysFragment" />
+            app:destination="@id/guestPastBirthdaysFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestDetailToEdit"
-            app:destination="@id/guestEditBirthdayFragment" />
+            app:destination="@id/guestEditBirthdayFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestDetailToTrashBin"
-            app:destination="@id/guestTrashBinFragment" />
+            app:destination="@id/guestTrashBinFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestDetailToSettings"
-            app:destination="@id/guestSettingsFragment" />
+            app:destination="@id/guestSettingsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestDetailToLogin"
-            app:destination="@id/guest_auth_nav" />
+            app:destination="@id/guest_auth_nav"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <argument
             android:name="birthday"
             app:argType="com.yargisoft.birthify.models.Birthday" />
@@ -59,19 +99,39 @@
         android:label="GuestDeletedBirthdayDetailFragment" >
         <action
             android:id="@+id/guestDeletedDetailToMain"
-            app:destination="@id/guestMainPageFragment" />
+            app:destination="@id/guestMainPageFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestDeletedDetailToPastBirthdays"
-            app:destination="@id/guestPastBirthdaysFragment" />
+            app:destination="@id/guestPastBirthdaysFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestDeletedDetailToTrashBin"
-            app:destination="@id/guestTrashBinFragment" />
+            app:destination="@id/guestTrashBinFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestDeletedDetailToSettings"
-            app:destination="@id/guestSettingsFragment" />
+            app:destination="@id/guestSettingsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/guestDeletedDetailToLogin"
-            app:destination="@id/guest_auth_nav" />
+            app:destination="@id/guest_auth_nav"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <argument
             android:name="birthday"
             app:argType="com.yargisoft.birthify.models.Birthday" />
@@ -82,19 +142,39 @@
         android:label="GuestEditBirthdayFragment" >
         <action
             android:id="@+id/guestEditToMain"
-            app:destination="@id/guestMainPageFragment" />
+            app:destination="@id/guestMainPageFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/guestEditToPastBirthdays"
-            app:destination="@id/guestPastBirthdaysFragment" />
+            app:destination="@id/guestPastBirthdaysFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestEditToTrashBin"
-            app:destination="@id/guestTrashBinFragment" />
+            app:destination="@id/guestTrashBinFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/guestEditToSettings"
-            app:destination="@id/guestSettingsFragment" />
+            app:destination="@id/guestSettingsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestEditToLogin"
-            app:destination="@id/guest_auth_nav" />
+            app:destination="@id/guest_auth_nav"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <argument
             android:name="birthday"
             app:argType="com.yargisoft.birthify.models.Birthday" />
@@ -105,31 +185,67 @@
         android:label="GuestMainPageFragment" >
         <action
             android:id="@+id/guestMainToMain"
-            app:destination="@id/guestMainPageFragment" />
+            app:destination="@id/guestMainPageFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestMainToPastBirthdays"
-            app:destination="@id/guestPastBirthdaysFragment" />
+            app:destination="@id/guestPastBirthdaysFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestMainToAddBirthday"
-            app:destination="@id/guestAddBirthdayFragment" />
+            app:destination="@id/guestAddBirthdayFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestMainToDetail"
-            app:destination="@id/guestBirthdayDetailFragment" />
+            app:destination="@id/guestBirthdayDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestMainToEditBirthday"
-            app:destination="@id/guestEditBirthdayFragment" />
+            app:destination="@id/guestEditBirthdayFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestMainToDeletedBirthdayDetail"
-            app:destination="@id/guestDeletedBirthdayDetailFragment" />
+            app:destination="@id/guestDeletedBirthdayDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/guestMainToTrashBin"
-            app:destination="@id/guestTrashBinFragment" />
+            app:destination="@id/guestTrashBinFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestMainToSettings"
-            app:destination="@id/guestSettingsFragment" />
+            app:destination="@id/guestSettingsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestMainToLogin"
-            app:destination="@id/guest_auth_nav" />
+            app:destination="@id/guest_auth_nav"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment
         android:id="@+id/guestTrashBinFragment"
@@ -138,25 +254,53 @@
 
         <action
             android:id="@+id/guestTrashBinToMain"
-            app:destination="@id/guestMainPageFragment" />
+            app:destination="@id/guestMainPageFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestTrashBinToPastBirthdays"
-            app:destination="@id/guestPastBirthdaysFragment" />
+            app:destination="@id/guestPastBirthdaysFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestTrashToAddBirthday"
-            app:destination="@id/guestAddBirthdayFragment" />
+            app:destination="@id/guestAddBirthdayFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
        <action
             android:id="@+id/guestTrashBinToDeletedDetail"
-            app:destination="@id/guestDeletedBirthdayDetailFragment" />
+            app:destination="@id/guestDeletedBirthdayDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestTrashBinToTrashBin"
-            app:destination="@id/guestTrashBinFragment" />
+            app:destination="@id/guestTrashBinFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestTrashBinToSettings"
-            app:destination="@id/guestSettingsFragment" />
+            app:destination="@id/guestSettingsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestTrashBinToLogin"
-            app:destination="@id/guest_auth_nav" />
+            app:destination="@id/guest_auth_nav"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 
     </fragment>
     <fragment
@@ -166,31 +310,67 @@
         tools:layout="@layout/fragment_guest_settings" >
         <action
             android:id="@+id/guestSettingsToMain"
-            app:destination="@id/guestMainPageFragment" />
+            app:destination="@id/guestMainPageFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestSettingsToPastBirthdays"
-            app:destination="@id/guestPastBirthdaysFragment" />
+            app:destination="@id/guestPastBirthdaysFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestSettingsToAddBirthday"
-            app:destination="@id/guestAddBirthdayFragment" />
+            app:destination="@id/guestAddBirthdayFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/guestSettingsToDetail"
-            app:destination="@id/guestBirthdayDetailFragment" />
+            app:destination="@id/guestBirthdayDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/guestSettingsToEditBirthday"
-            app:destination="@id/guestEditBirthdayFragment" />
+            app:destination="@id/guestEditBirthdayFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/guestSettingsToDeletedBirthdayDetail"
-            app:destination="@id/guestDeletedBirthdayDetailFragment" />
+            app:destination="@id/guestDeletedBirthdayDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/guestSettingsToTrashBin"
-            app:destination="@id/guestTrashBinFragment" />
+            app:destination="@id/guestTrashBinFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestSettingsToSettings"
-            app:destination="@id/guestSettingsFragment" />
+            app:destination="@id/guestSettingsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestSettingsToLogin"
-            app:destination="@id/guest_auth_nav" />
+            app:destination="@id/guest_auth_nav"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment
         android:id="@+id/guestPastBirthdaysFragment"
@@ -199,25 +379,53 @@
 
         <action
             android:id="@+id/guestPastToMain"
-            app:destination="@id/guestMainPageFragment" />
+            app:destination="@id/guestMainPageFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestPastToPastBirthdays"
-            app:destination="@id/guestPastBirthdaysFragment" />
+            app:destination="@id/guestPastBirthdaysFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestPastToAddBirthday"
-            app:destination="@id/guestAddBirthdayFragment" />
+            app:destination="@id/guestAddBirthdayFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestPastToDeletedDetail"
-            app:destination="@id/guestDeletedBirthdayDetailFragment" />
+            app:destination="@id/guestDeletedBirthdayDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/guestPastToTrashBin"
-            app:destination="@id/guestTrashBinFragment" />
+            app:destination="@id/guestTrashBinFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestPastToSettings"
-            app:destination="@id/guestSettingsFragment" />
+            app:destination="@id/guestSettingsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
         <action
             android:id="@+id/guestPastToLogin"
-            app:destination="@id/guest_auth_nav" />
+            app:destination="@id/guest_auth_nav"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 
     </fragment>
     <include app:graph="@navigation/guest_auth_nav" />
