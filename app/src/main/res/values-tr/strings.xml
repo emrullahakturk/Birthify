@@ -128,7 +128,10 @@
     <string name="privacy_amp_policy"><![CDATA[Gizlilik ve Politika]]></string>
     <string name="contact_us">Bize Ulaşın</string>
     <string name="what_is_birthify">Birthify Nedir?</string>
-    <string name="_1_how_do_i_add_a_new_birthday">1. Yeni bir doğum günü nasıl eklerim?</string>
+    <string name="back">Back</string>
+    <string name="card_background_image">card_background_image</string>
+    <string name="what_is_birthify_paragraph">Welcome to Birthify, your friendly and intuitive companion for keeping track of and celebrating birthdays! Our app is designed to make managing birthdays effortless and fun. With Birthify, you\'ll never miss a special occasion again.\n\nAt its core, Birthify helps you keep all your important birthday dates in one convenient place. Whether it\'s a friend\'s, family member\'s, or your own birthday, our app ensures you stay on top of every celebration. You can set personalized reminders so you’ll always know when a birthday is approaching, giving you ample time to prepare for the festivities.\n\nIn addition to tracking and reminding you of birthdays, Birthify lets you send digital greeting cards right from the app. Choose from a variety of beautiful and heartfelt designs to make every birthday even more special. Our user-friendly interface is designed to make this process smooth and enjoyable.\n\nWe\'re here to help you create memorable moments and stay connected with your loved ones. Have any questions or feedback? Feel free to reach out to us at \'support@birthify.com\'. We look forward to hearing from you!</string>
+    <!--<string name="_1_how_do_i_add_a_new_birthday">1. Yeni bir doğum günü nasıl eklerim?</string>
     <string name="to_add_a_new_birthday_simply_navigate_to_the_add_birthday_screen_enter_the_name_and_date_and_choose_when_you_d_like_to_be_reminded_then_click_save">Yeni bir doğum günü eklemek için, \'Doğum Günü Ekle\' ekranına gidin, isim ve tarihi girin ve hatırlatılmak istediğiniz zamanı seçin. Ardından 'Kaydet' butonuna tıklayın.</string>
     <string name="_2_how_can_i_set_a_reminder_for_a_birthday">2. Bir doğum günü için hatırlatıcıyı nasıl ayarlarım?</string>
     <string name="while_adding_or_editing_a_birthday_you_can_choose_when_you_want_to_receive_a_reminder_e_g_one_day_before_one_week_before_etc_the_reminder_will_be_sent_to_your_device_based_on_the_selected_date_and_time">Bir doğum günü eklerken veya düzenlerken, ne zaman bir hatırlatıcı almak istediğinizi seçebilirsiniz (örneğin, bir gün önce, bir hafta önce vb.). Hatırlatıcı, seçilen tarih ve saate göre cihazınıza gönderilecektir.</string>
@@ -140,4 +143,5 @@
     <string name="to_delete_a_birthday_go_to_the_edit_birthday_screen_scroll_down_and_click_on_the_delete_button_you_will_be_asked_to_confirm_before_the_birthday_is_permanently_removed">Bir doğum gününü silmek için, \'Doğum Gününü Düzenle\' ekranına gidin, aşağı kaydırın ve \'Sil' butonuna tıklayın. Doğum günü kalıcı olarak silinmeden önce onaylamanız istenecektir.</string>
     <string name="_6_how_do_i_contact_support">6. Destekle nasıl iletişime geçerim?</string>
     <string name="if_you_need_further_assistance_you_can_contact_us_via_the_help_center_in_the_app_just_click_on_the_contact_us_button_and_it_will_open_your_email_client_with_our_support_email_pre_filled">Daha fazla yardıma ihtiyacınız olursa, uygulamadaki \'Yardım Merkezi\' üzerinden bize ulaşabilirsiniz. \'Bize Ulaşın\' butonuna tıklayın, ve e-posta istemciniz destek e-posta adresimizle önceden doldurulmuş olarak açılacaktır.</string>
+-->
 </resources>

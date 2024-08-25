@@ -269,7 +269,7 @@
                         android:backgroundTint="@color/fab_button_background_add_birthday"
                         app:layout_anchor="@id/bottomAppBar"
                         app:srcCompat="@drawable/ic_back_bottom"
-                        tools:ignore="ContentDescription" />
+                        android:contentDescription="@string/back" />
 
                 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

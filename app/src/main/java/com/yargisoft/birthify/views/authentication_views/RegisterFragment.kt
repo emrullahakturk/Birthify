@@ -189,7 +189,8 @@ class RegisterFragment : Fragment() {
                 binding.root,
                 findNavController(),
                 R.id.registerToLogin,
-                navOptions
+                navOptions,
+                requireContext()
                 )
         }
         return binding.root

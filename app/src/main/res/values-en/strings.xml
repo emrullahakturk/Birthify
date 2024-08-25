@@ -105,8 +105,6 @@
     <string name="enter_password_snackbar">Please enter a valid password.</string>
     <string name="password_does_not_match_snackbar">Your password does not match.</string>
     <string name="fill_in_all_fields">Please fill in all fields.</string>
-    <string name="birthday_passed">\'s birthday has passed.</string>
-    <string name="birthday_coming_up">\'s birthday is coming up on</string>
     <string name="confirm_operation_title">Confirm Operation</string>
     <string name="confirm_operation">Are you sure you want to do this operation?</string>
     <string name="successfully_logged_in">You successfully logged in</string>
@@ -118,7 +116,7 @@
     <string name="please_enter_a_valid_email">Please enter a valid email address</string>
     <string name="connection_error_title">Connection Error</string>
     <string name="connection_error">Your internet connection is lost. Your birthdays will not be saved in the database without an internet connection. Please check your internet connection..</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="on_the_day">On the day</string>
     <string name="_1_day_before">1 day ago</string>
     <string name="_1_week_before">1 week ago</string>
@@ -139,4 +137,7 @@
     <string name="to_delete_a_birthday_go_to_the_edit_birthday_screen_scroll_down_and_click_on_the_delete_button_you_will_be_asked_to_confirm_before_the_birthday_is_permanently_removed">To delete a birthday, go to the \'Edit Birthday\' screen, scroll down, and click on the \'Delete\' button. You will be asked to confirm before the birthday is permanently removed.</string>
     <string name="_6_how_do_i_contact_support">6. How do I contact support?</string>
     <string name="if_you_need_further_assistance_you_can_contact_us_via_the_help_center_in_the_app_just_click_on_the_contact_us_button_and_it_will_open_your_email_client_with_our_support_email_pre_filled">If you need further assistance, you can contact us via the \'Help Center\' in the app. Just click on the \'Contact Us\' button, and it will open your email client with our support email pre-filled.</string>
+    <string name="back">Back</string>
+    <string name="card_background_image">card_background_image</string>
+    <string name="what_is_birthify_paragraph">Welcome to Birthify, your friendly and intuitive companion for keeping track of and celebrating birthdays! Our app is designed to make managing birthdays effortless and fun. With Birthify, you\'ll never miss a special occasion again.\n\nAt its core, Birthify helps you keep all your important birthday dates in one convenient place. Whether it\'s a friend\'s, family member\'s, or your own birthday, our app ensures you stay on top of every celebration. You can set personalized reminders so you’ll always know when a birthday is approaching, giving you ample time to prepare for the festivities.\n\nIn addition to tracking and reminding you of birthdays, Birthify lets you send digital greeting cards right from the app. Choose from a variety of beautiful and heartfelt designs to make every birthday even more special. Our user-friendly interface is designed to make this process smooth and enjoyable.\n\nWe\'re here to help you create memorable moments and stay connected with your loved ones. Have any questions or feedback? Feel free to reach out to us at \'support@birthify.com\'. We look forward to hearing from you!</string>
 </resources>

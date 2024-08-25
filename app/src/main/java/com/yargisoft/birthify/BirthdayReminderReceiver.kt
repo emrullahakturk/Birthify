@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.getString
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -64,11 +63,12 @@ class BirthdayReminderReceiver : BroadcastReceiver() {
             else -> "$birthdayName's birthday is coming up on $birthdayDate."
         }
 
-        val notificationTextTurkish= when {
-            daysDifference < 0 -> "${birthdayName}'s birthday has passed."
-            daysDifference == 0L -> "It's $birthdayName's birthday today!"
-            else -> "$birthdayName's birthday is coming up on $birthdayDate."
+        val notificationTextTurkish = when {
+            daysDifference < 0 -> "${birthdayName}'nin doğum günü geçti."
+            daysDifference == 0L -> "Bugün ${birthdayName}'nin doğum günü!"
+            else -> "${birthdayName}'nin doğum günü $birthdayDate tarihinde yaklaşıyor."
         }
+
 
         notificationText = when(Locale.getDefault().language){
             "English" -> notificationTextEnglish

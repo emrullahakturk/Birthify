@@ -195,7 +195,8 @@ class GuestRegisterFragment : Fragment() {
                 binding.root,
                 findNavController(),
                 R.id.guestRegisterToLogin,
-                navOptions
+                navOptions,
+                  requireContext()
             )
         }
 

@@ -16,12 +16,14 @@
             android:id="@+id/closeButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:elevation="2dp"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_close"
             android:background="@color/dialog_fragment_background"
+            android:elevation="2dp"
+            android:src="@drawable/ic_close"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck"
+            android:contentDescription="@string/close_btn"/>
 
 
         <ScrollView
@@ -50,7 +52,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/wittgenstein_font"
                     android:paddingBottom="16dp"
-                    android:text="What is Birthify?"
+                    android:text="@string/what_is_birthify"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textColor="@color/dialog_fragment_tv" />
 
@@ -61,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/wittgenstein_font"
                     android:textColor="@color/dialog_fragment_tv"
-                    android:text="    Welcome to Birthify, your friendly and intuitive companion for keeping track of and celebrating birthdays! Our app is designed to make managing birthdays effortless and fun. With Birthify, you'll never miss a special occasion again.\n\nAt its core, Birthify helps you keep all your important birthday dates in one convenient place. Whether it's a friend's, family member's, or your own birthday, our app ensures you stay on top of every celebration. You can set personalized reminders so you’ll always know when a birthday is approaching, giving you ample time to prepare for the festivities.\n\nIn addition to tracking and reminding you of birthdays, Birthify lets you send digital greeting cards right from the app. Choose from a variety of beautiful and heartfelt designs to make every birthday even more special. Our user-friendly interface is designed to make this process smooth and enjoyable.\n\nWe're here to help you create memorable moments and stay connected with your loved ones. Have any questions or feedback? Feel free to reach out to us at 'support@birthify.com'. We look forward to hearing from you!"
+                    android:text="@string/what_is_birthify_paragraph"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
             </LinearLayout>

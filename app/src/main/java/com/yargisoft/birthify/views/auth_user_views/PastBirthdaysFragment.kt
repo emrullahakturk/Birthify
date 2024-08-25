@@ -129,8 +129,15 @@ class PastBirthdaysFragment : Fragment() {
         })
 
         binding.toolbarPastBirthdays.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
-            findNavController().navigate(R.id.pastBirthdaysToAddBirthday)
+
+            binding.searchEditText.requestFocus()
+            //tıklandıktan sonra klavyenin açılmasını sağlar
+            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT)
+
         }
+
+
 
         binding.fabBackPastBirthdays.setOnClickListener {
         findNavController().popBackStack()

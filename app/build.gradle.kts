@@ -70,6 +70,13 @@ dependencies {
     implementation ("androidx.work:work-runtime:2.9.1")
 
 
+    //Test Implementations
+    testImplementation ("junit:junit:4.13.2")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation ("org.mockito:mockito-core:4.11.0")
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:4.1.0")
+    testImplementation ("androidx.arch.core:core-testing:2.2.0")
+
 
 
 

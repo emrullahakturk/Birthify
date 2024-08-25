@@ -22,7 +22,7 @@
         android:layout_height="90dp"
         android:scaleType="centerCrop"
         android:src="@drawable/item_background_gradient"
-        tools:ignore="HardcodedText" />
+        android:contentDescription="@string/card_background_image" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -88,8 +88,8 @@
 
         <ImageView
             android:id="@+id/editBirthdayButtonMainPage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginEnd="7dp"
             android:clickable="true"
             android:focusable="true"

@@ -101,6 +101,7 @@ class LoginPageFragment : Fragment() {
                 binding.threePointAnimation,
                 viewLifecycleOwner,
                 findNavController(),
+                requireContext()
                 )
         }
 

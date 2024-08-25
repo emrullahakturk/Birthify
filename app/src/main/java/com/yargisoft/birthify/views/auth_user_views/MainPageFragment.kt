@@ -129,6 +129,13 @@ class MainPageFragment : Fragment() {
             "MainPage"
         )
 
+        binding.toolbarUserMain.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
+            binding.searchEditText.requestFocus()
+            //tıklandıktan sonra klavyenin açılmasını sağlar
+            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT)
+
+        }
 
 
          val adapterList= usersBirthdayViewModel.birthdayList.value ?: emptyList()

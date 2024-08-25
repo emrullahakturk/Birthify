@@ -105,7 +105,8 @@ class GuestResetPasswordFragment : Fragment() {
                 binding.root,
                 findNavController(),
                 R.id.guestResetToLogin,
-                navOptions
+                navOptions,
+                requireContext()
             )
 
         }

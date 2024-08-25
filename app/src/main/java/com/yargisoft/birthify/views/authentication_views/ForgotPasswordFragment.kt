@@ -105,7 +105,8 @@ class ForgotPasswordFragment : Fragment() {
                binding.root,
                findNavController(),
                R.id.forgotToLogin,
-               navOptions
+               navOptions,
+               requireContext()
            )
 
         }
