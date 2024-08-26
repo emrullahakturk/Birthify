@@ -237,9 +237,6 @@ class MainPageFragment : Fragment() {
 
         super.onResume()
 
-        usersBirthdayViewModel.getUserBirthdaysFromFirebase(userSharedPreferences.getUserId())
-        usersBirthdayViewModel.getBirthdays()
-
         if (usersBirthdayViewModel.birthdayList.value != null) {
             usersBirthdayViewModel.birthdayList.value!!.forEach { birthday ->
 

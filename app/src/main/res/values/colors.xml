@@ -24,8 +24,10 @@
     <color name="ic_clock_bottom_menu">#000000</color>
     <color name="ic_delete">#000000</color>
     <color name="ic_dots">#3a5a40</color>
-    <color name="ic_edit">#344e41</color>
+    <color name="ic_edit">#000000</color>
     <color name="ic_lock">#000000</color>
+    <color name="ic_lock_profile">#000000</color>
+    <color name="ic_logout_profile">#000000</color>
     <color name="ic_logout">#3F744C</color>
     <color name="ic_mail">#000000</color>
     <color name="ic_note">#3F744C</color>

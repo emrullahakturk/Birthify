@@ -163,7 +163,7 @@
                         android:id="@+id/scrollView"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:visibility="visible"
                         app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
                         app:layout_constraintEnd_toEndOf="parent"

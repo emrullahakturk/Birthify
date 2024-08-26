@@ -2,6 +2,7 @@ package com.yargisoft.birthify.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +18,12 @@ class DeletedBirthdayAdapter(private var deletedBirthdayList: List<Birthday>,
                             private val textView: TextView
 ) : RecyclerView.Adapter<DeletedBirthdayAdapter.DeletedBirthdayViewHolder>() {
 
+    val preferences: SharedPreferences = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
 
 
     class DeletedBirthdayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameCardTv)
         val birthdayDateTextView: TextView = itemView.findViewById(R.id.birthdayDateCardTv)
-        val noteTextView: TextView = itemView.findViewById(R.id.noteCardTv)
         val toDetailView: CardView = itemView.findViewById(R.id.birthdayCardView)
     }
 
@@ -35,8 +36,11 @@ class DeletedBirthdayAdapter(private var deletedBirthdayList: List<Birthday>,
     override fun onBindViewHolder(holder: DeletedBirthdayViewHolder, position: Int) {
         val birthday = deletedBirthdayList[position]
         holder.nameTextView.text = birthday.name
-        holder.birthdayDateTextView.text = birthday.birthdayDate
-        holder.noteTextView.text = birthday.note
+        holder.birthdayDateTextView.text = when (preferences.getString("AppLanguage", null)) {
+            "en" -> "Birthday Date: ${birthday.birthdayDate}"
+            "tr" -> "Doğum Tarihi: ${birthday.birthdayDate}"
+            else -> "Birthday Date: ${birthday.birthdayDate}"
+        }
         holder.toDetailView.setOnClickListener{
             onDetailClick(birthday)
         }

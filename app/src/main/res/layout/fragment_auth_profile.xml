@@ -174,6 +174,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                                     android:fontFamily="@font/wittgenstein_font"
                                     android:text="@string/account_details"
                                     android:textStyle="bold"
+                                    android:textColor="@color/black"
                                     card_view:layout_constraintBottom_toBottomOf="parent"
                                     card_view:layout_constraintStart_toEndOf="@+id/imageView66"
                                     card_view:layout_constraintTop_toTopOf="parent"
@@ -227,6 +228,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                                     android:fontFamily="@font/wittgenstein_font"
                                     android:text="@string/change_password"
                                     android:textStyle="bold"
+                                    android:textColor="@color/black"
                                     card_view:layout_constraintBottom_toBottomOf="parent"
                                     card_view:layout_constraintStart_toEndOf="@+id/changePasswordImageView"
                                     card_view:layout_constraintTop_toTopOf="parent"
@@ -241,7 +243,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                                     card_view:layout_constraintBottom_toBottomOf="parent"
                                     card_view:layout_constraintStart_toStartOf="parent"
                                     card_view:layout_constraintTop_toTopOf="parent"
-                                    card_view:srcCompat="@drawable/ic_lock" />
+                                    card_view:srcCompat="@drawable/ic_lock_profile" />
 
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -278,6 +280,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                                     android:fontFamily="@font/wittgenstein_font"
                                     android:text="@string/forgot_password_settings"
                                     android:textStyle="bold"
+                                    android:textColor="@color/black"
                                     card_view:layout_constraintBottom_toBottomOf="parent"
                                     card_view:layout_constraintStart_toEndOf="@+id/forgotPasswordImageView"
                                     card_view:layout_constraintTop_toTopOf="parent"
@@ -330,6 +333,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                                     android:fontFamily="@font/wittgenstein_font"
                                     android:text="@string/archive_my_birthdays"
                                     android:textStyle="bold"
+                                    android:textColor="@color/black"
                                     card_view:layout_constraintBottom_toBottomOf="parent"
                                     card_view:layout_constraintStart_toEndOf="@+id/notificationsImageView"
                                     card_view:layout_constraintTop_toTopOf="parent"
@@ -382,6 +386,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                                     android:fontFamily="@font/wittgenstein_font"
                                     android:text="@string/reload_my_archived_birthdays"
                                     android:textStyle="bold"
+                                    android:textColor="@color/black"
                                     card_view:layout_constraintBottom_toBottomOf="parent"
                                     card_view:layout_constraintStart_toEndOf="@+id/darkThemeImageView"
                                     card_view:layout_constraintTop_toTopOf="parent"
@@ -541,6 +546,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                                     android:fontFamily="@font/wittgenstein_font"
                                     android:text="@string/logout"
                                     android:textStyle="bold"
+                                    android:textColor="@color/black"
                                     card_view:layout_constraintBottom_toBottomOf="parent"
                                     card_view:layout_constraintStart_toEndOf="@+id/logoutImageView"
                                     card_view:layout_constraintTop_toTopOf="parent"
@@ -554,7 +560,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                                     card_view:layout_constraintBottom_toBottomOf="parent"
                                     card_view:layout_constraintStart_toStartOf="parent"
                                     card_view:layout_constraintTop_toTopOf="parent"
-                                    card_view:srcCompat="@drawable/ic_logout" />
+                                    card_view:srcCompat="@drawable/ic_logout_profile" />
 
 
                             </androidx.constraintlayout.widget.ConstraintLayout>

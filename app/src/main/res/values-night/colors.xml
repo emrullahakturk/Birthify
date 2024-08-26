@@ -21,6 +21,8 @@
     <color name="ic_delete">#FFFFFF</color>
     <color name="ic_dots">#3F744C</color>
     <color name="ic_lock">#FFFFFF</color>
+    <color name="ic_lock_profile">#000000</color>
+    <color name="ic_logout_profile">#000000</color>
     <color name="ic_logout">#FFFFFF</color>
     <color name="ic_mail">#FFFFFF</color>
     <color name="ic_note">#FFFFFF</color>
