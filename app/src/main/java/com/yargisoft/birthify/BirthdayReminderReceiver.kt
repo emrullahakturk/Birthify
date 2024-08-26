@@ -6,14 +6,17 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.core.app.NotificationCompat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Locale
 
-class BirthdayReminderReceiver : BroadcastReceiver() {
+class BirthdayReminderReceiver(context: Context): BroadcastReceiver() {
     private lateinit var notificationText : String
+    val preferences: SharedPreferences = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+
     override fun onReceive(context: Context, intent: Intent) {
 
         val birthdayId = intent.getStringExtra("birthdayId") // Doğum günü ID'sini al
@@ -56,23 +59,23 @@ class BirthdayReminderReceiver : BroadcastReceiver() {
 
 
 
-        // Bildirim metni
+        // Notification text
         val notificationTextEnglish = when {
-            daysDifference < 0 -> "${birthdayName}'s birthday has passed."
-            daysDifference == 0L -> "It's $birthdayName's birthday today!"
-            else -> "$birthdayName's birthday is coming up on $birthdayDate."
+            daysDifference < 0 -> "${birthdayName}'s birthday has already passed, leaving us with cherished memories."
+            daysDifference == 0L -> "Today is ${birthdayName}'s birthday! Time to celebrate!"
+            else -> "${birthdayName}'s birthday is approaching on $birthdayDate. Mark your calendar!"
         }
 
         val notificationTextTurkish = when {
-            daysDifference < 0 -> "${birthdayName}'nin doğum günü geçti."
-            daysDifference == 0L -> "Bugün ${birthdayName}'nin doğum günü!"
-            else -> "${birthdayName}'nin doğum günü $birthdayDate tarihinde yaklaşıyor."
+            daysDifference < 0 -> "${birthdayName}'nin doğum günü geçmişin tatlı hatıraları arasında yerini aldı."
+            daysDifference == 0L -> "Bugün ${birthdayName}'nin doğum günü! Kutlamalar başlasın!"
+            else -> "${birthdayName}'nin doğum günü ${birthdayDate} tarihinde yaklaşıyor. Tarihi takvimlerinize not edin!"
         }
 
 
-        notificationText = when(Locale.getDefault().language){
-            "English" -> notificationTextEnglish
-            "Türkçe" -> notificationTextTurkish
+        notificationText = when(preferences.getString("AppLanguage", null)){
+            "en" -> notificationTextEnglish
+            "tr" -> notificationTextTurkish
             else -> notificationTextEnglish
         }
 
