@@ -65,7 +65,7 @@
     <color name="nav_drawer_sub_header_tv">#FFFFFF</color>
     <color name="there_is_no_deleted_tv">#FFFFFF</color>
     <color name="deleted_birthdays_tv">#FFFFFF</color>
-    <color name="button_text">#FFFFFF</color>
+    <color name="button_text">#ffffff</color>
     <color name="birthify_first_page_tv">#FFFFFF</color>
     <color name="remember_me_cbox">#000000</color>
 
@@ -74,6 +74,7 @@
     <color name="sign_in_button">#FFFFFF</color>
     <color name="register_button">#FFFFFF</color>
     <color name="reset_password_button">#FFFFFF</color>
+    <color name="reset_password_button_text_color">#000000</color>
     <color name="sort_button_background">#000000</color>
     <color name="fab_button_background">#202020</color>
     <color name="update_birthday_button">#3F744C</color>
@@ -103,7 +104,7 @@
 
 
     <!--String renkleri-->
-    <color name="dont_have_tv">#FF99654C</color>
+    <color name="dont_have_tv">#ffffff</color>
 
 
     <!--Button renkleri-->
@@ -118,13 +119,13 @@
     <!-- Detail Page renkleri-->
     <color name="birthday_detail_background">#000000</color>
     <color name="birthday_detail_tv">#FFFFFF</color>
-    <color name="rounded_edit_detail">#a3cef1</color>
-    <color name="fab_button_background_detail">#c0aba4</color>
-    <color name="nav_drawer_sub_header_tv_detail">#c0aba4</color>
-    <color name="ic_note_detail">#c0aba4</color>
-    <color name="ic_calendar_detail">#c0aba4</color>
-    <color name="ic_account_detail">#c0aba4</color>
-    <color name="birthday_edit_button">#c0aba4</color>
+    <color name="rounded_edit_detail">#ffffff</color>
+    <color name="fab_button_background_detail">#7c606b</color>
+    <color name="nav_drawer_sub_header_tv_detail">#ffffff</color>
+    <color name="ic_note_detail">#ffffff</color>
+    <color name="ic_calendar_detail">#ffffff</color>
+    <color name="ic_account_detail">#ffffff</color>
+    <color name="birthday_edit_button">#7c606b</color>
 
 
 
@@ -148,14 +149,14 @@
 
     <!--Deleted Detail Page renkleri-->
     <color name="deleted_birthday_detail_background">#000000</color>
-    <color name="re_save_button_deleted_detail">#c0aba4</color>
-    <color name="fab_button_background_deleted_detail">#c0aba4</color>
+    <color name="re_save_button_deleted_detail">#619b8a</color>
+    <color name="fab_button_background_deleted_detail">#619b8a</color>
     <color name="birthday_deleted_detail_tv">#FFFFFF</color>
-    <color name="ic_navigation_icons_deleted_detail">#c0aba4</color>
-    <color name="nav_drawer_sub_header_tv_deleted_detail">#c0aba4</color>
-    <color name="ic_calendar_deleted_detail">#c0aba4</color>
-    <color name="ic_note_deleted_detail">#c0aba4</color>
-    <color name="ic_account_deleted_detail">#c0aba4</color>
+    <color name="ic_navigation_icons_deleted_detail">#619b8a</color>
+    <color name="nav_drawer_sub_header_tv_deleted_detail">#ffffff</color>
+    <color name="ic_calendar_deleted_detail">#ffffff</color>
+    <color name="ic_note_deleted_detail">#ffffff</color>
+    <color name="ic_account_deleted_detail">#ffffff</color>
 
     <!--İtem Deleted Birthdays renkleri-->
     <color name="item_deleted_birthday_name">#000000</color>
@@ -166,20 +167,20 @@
 
     <!--Trash Page renkleri-->
     <color name="trash_bin_background">#000000</color>
-    <color name="fab_button_background_trash">#7c606b</color>
+    <color name="fab_button_background_trash">#b0dacd</color>
     <color name="sort_button_background_trash">#000000</color>
-    <color name="deleted_birthdays_tv_trash">#FFFFFF</color>
+    <color name="deleted_birthdays_tv_trash">#b0dacd</color>
     <color name="rounded_edit_trash">#FFFFFF</color>
-    <color name="ic_dots_trash">#7c606b</color>
-    <color name="ic_search_trash">#7c606b</color>
-    <color name="sorting_options_tv_trash">#7c606b</color>
-    <color name="ic_navigation_icons_trash">#7c606b</color>
-    <color name="nav_drawer_sub_header_tv_trash">#7c606b</color>
+    <color name="ic_dots_trash">#ffffff</color>
+    <color name="ic_search_trash">#ffffff</color>
+    <color name="sorting_options_tv_trash">#ffffff</color>
+    <color name="ic_navigation_icons_trash">#b0dacd</color>
+    <color name="nav_drawer_sub_header_tv_trash">#ffffff</color>
 
     <!--Edit Page renkleri-->
     <color name="edit_birthday_background">#000000</color>
-    <color name="fab_button_background_edit">#c0aba4</color>
-    <color name="update_birthday_button_edit">#c0aba4</color>
+    <color name="fab_button_background_edit">#7c606b</color>
+    <color name="update_birthday_button_edit">#7c606b</color>
     <color name="delete_birthday_button_edit">#FF0000</color>
     <color name="rounded_edit_edit">#FFFFFF</color>
     <color name="ic_back_edit">#000000</color>
@@ -192,15 +193,15 @@
 
     <!--Add Page renkleri-->
     <color name="add_birthday_page_background">#000000</color>
-    <color name="record_the_birthday_tv">#e5e5e5</color>
-    <color name="nav_drawer_sub_header_tv_add">#7c606b</color>
-    <color name="fab_button_background_add_birthday">#c0aba4</color>
-    <color name="save_birthday_button">#c0aba4</color>
+    <color name="record_the_birthday_tv">#ffffff</color>
+    <color name="nav_drawer_sub_header_tv_add">#ffffff</color>
+    <color name="fab_button_background_add_birthday">#619b8a</color>
+    <color name="save_birthday_button">#619b8a</color>
     <color name="rounded_edit_add">#FFFFFF</color>
     <color name="ic_note_add">#e5e5e5</color>
     <color name="ic_calendar_add">#e5e5e5</color>
     <color name="ic_account_add">#e5e5e5</color>
-    <color name="ic_navigation_icons_add">#7c606b</color>
+    <color name="ic_navigation_icons_add">#619b8a</color>
 
     <!--İtem Main Birthdays renkleri-->
     <color name="item_main_birthday_name">#000000</color>
@@ -212,15 +213,15 @@
 
     <!--Main Page renkleri-->
     <color name="main_page_background">#000000</color>
-    <color name="fab_button_background_main">#B39D7C</color>
-    <color name="sorting_options_tv_main">#B39D7C</color>
+    <color name="fab_button_background_main">#b0dacd</color>
+    <color name="sorting_options_tv_main">#ffffff</color>
     <color name="sort_button_background_main">#000000</color>
-    <color name="rounded_edit_main">#B39D7C</color>
-    <color name="birthdays_tv_main">#eee0cb</color>
-    <color name="ic_navigation_icons_main">#B39D7C</color>
-    <color name="nav_drawer_sub_header_tv_main">#B39D7C</color>
-    <color name="ic_dots_main">#B39D7C</color>
-    <color name="ic_search_main">#B39D7C</color>
+    <color name="rounded_edit_main">#ffffff</color>
+    <color name="birthdays_tv_main">#b0dacd</color>
+    <color name="ic_navigation_icons_main">#b0dacd</color>
+    <color name="nav_drawer_sub_header_tv_main">#ffffff</color>
+    <color name="ic_dots_main">#ffffff</color>
+    <color name="ic_search_main">#ffffff</color>
 
     <!--İtem Past Birthdays renkleri-->
     <color name="item_past_birthday_name">#000000</color>
@@ -232,15 +233,15 @@
     <!--Past Birthdays renkleri-->
     <color name="past_birthdays_background">#000000</color>
     <color name="rounded_edit_past">#FFFFFF</color>
-    <color name="ic_dots_past">#7c606b</color>
-    <color name="past_birthdays_tv">#FFFFFF</color>
-    <color name="ic_search_past">#7c606b</color>
-    <color name="sorting_options_tv_past">#7c606b</color>
+    <color name="ic_dots_past">#ffffff</color>
+    <color name="past_birthdays_tv">#7c606b</color>
+    <color name="ic_search_past">#ffffff</color>
+    <color name="sorting_options_tv_past">#ffffff</color>
     <color name="sort_button_background_past">#000000</color>
     <color name="fab_button_background_past">#7c606b</color>
     <color name="navigation_drawer_background_past">#FFFFFF</color>
     <color name="ic_navigation_icons_past">#7c606b</color>
-    <color name="nav_drawer_sub_header_tv_past">#7c606b</color>
+    <color name="nav_drawer_sub_header_tv_past">#ffffff</color>
     <color name="line_view_past">#7c606b</color>
     <color name="click_to_add_tv_past">#7c606b</color>
 

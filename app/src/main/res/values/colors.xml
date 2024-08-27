@@ -76,6 +76,7 @@
     <color name="create_account_button">#815642</color>
     <color name="register_button">#815642</color>
     <color name="reset_password_button">#815642</color>
+    <color name="reset_password_button_text_color">#ffffff</color>
     <color name="fab_button_background">#619b8a</color>
     <color name="delete_birthday_button">#FF0000</color>
     <color name="re_save_button">#3F744C</color>
