@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="red">#FF0000</color>
     <color name="white">#FFFFFFFF</color>
+
     <color name="green_login">#3F744C</color>
     <color name="box_color">#BB8266</color>
     <color name="checked_color">#3F744C</color> <!-- Seçili durumda renk -->
@@ -190,6 +191,7 @@
     <color name="ic_navigation_icons_add">#4e8084</color>
 
     <!--İtem Main Birthdays renkleri-->
+    <color name="item_birthday_background">#F0EEEE</color>
     <color name="item_main_birthday_name">#000000</color>
     <color name="item_main_birth_date">#000000</color>
     <color name="item_main_birthday_edit">#000000</color>

@@ -361,13 +361,6 @@ object UserFrequentlyUsedFunctions {
                 when (condition) {
                     "permanently" -> {
                         usersBirthdayViewModel.permanentlyDeleteBirthday(editedBirthday.id)
-                        cancelBirthdayReminder(
-                            editedBirthday.id,
-                            editedBirthday.name,
-                            editedBirthday.birthdayDate,
-                            context
-                        )
-
                     }
                     "soft_delete" -> {
                         usersBirthdayViewModel.deleteBirthday(editedBirthday.id)

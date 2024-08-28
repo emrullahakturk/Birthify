@@ -323,7 +323,6 @@ object GuestFrequentlyUsedFunctions {
                 when (condition) {
                     "permanently" -> {
                         guestBirthdayViewModel.permanentlyDeleteBirthday(editedBirthday.id)
-                        cancelBirthdayReminder(editedBirthday.id,editedBirthday.name,editedBirthday.birthdayDate,context)
                     }
                     "soft_delete" -> {
                         guestBirthdayViewModel.deleteBirthday(editedBirthday.id)

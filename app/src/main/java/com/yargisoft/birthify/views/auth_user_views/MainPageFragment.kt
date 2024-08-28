@@ -1,7 +1,9 @@
 package com.yargisoft.birthify.views.auth_user_views
 
+import android.Manifest
 import android.app.AlarmManager
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +13,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -45,6 +49,7 @@ class MainPageFragment : Fragment() {
     private lateinit var adapter: BirthdayAdapter
     private lateinit var itemTouchHelper: ItemTouchHelper
     private lateinit var networkConnectionObserver: NetworkConnectionObserver
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
 
     override fun onCreateView(
@@ -53,6 +58,32 @@ class MainPageFragment : Fragment() {
     ): View {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_main_page, container, false)
+
+
+        // SharedPreferences ile ilk açılışı kontrolü
+        val sharedPreferences = requireContext().getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+        val isFirstLaunch = sharedPreferences.getBoolean("isFirstLaunch", true)
+
+
+        // İzin isteme işlemini başlatmak için launcher
+        requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                Log.d("NotificationPermission", "Bildirim izni verildi.")
+            } else {
+                Log.d("NotificationPermission", "Bildirim izni reddedildi.")
+            }
+        }
+
+        if (isFirstLaunch) {
+            // İlk açılışsa bildirim izni istenir
+            requestNotificationPermission()
+            sharedPreferences.edit().putBoolean("isFirstLaunch", false).apply()
+        }
+
+
+
 
 
         //user SharedPreferences
@@ -249,6 +280,12 @@ class MainPageFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 

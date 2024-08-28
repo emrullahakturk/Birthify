@@ -13,25 +13,27 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Locale
 
-class BirthdayReminderReceiver(context: Context): BroadcastReceiver() {
-    private lateinit var notificationText : String
-    val preferences: SharedPreferences = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+class BirthdayReminderReceiver: BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
+        val preferences: SharedPreferences = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
 
         val birthdayId = intent.getStringExtra("birthdayId") // Doğum günü ID'sini al
         val birthdayName = intent.getStringExtra("birthdayName") // Doğum günü adını al
         val birthdayDate = intent.getStringExtra("birthdayDate") // Doğum günü tarihini al
 
-        createNotification(context, birthdayId, birthdayName,birthdayDate)
+        createNotification(context, birthdayId, birthdayName,birthdayDate,preferences)
     }
 
     private fun createNotification(
         context: Context,
         birthdayId: String?,
         birthdayName: String?,
-        birthdayDate: String?
+        birthdayDate: String?,
+        preferences: SharedPreferences
     ) {
+        val notificationText: String
+
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -69,7 +71,7 @@ class BirthdayReminderReceiver(context: Context): BroadcastReceiver() {
         val notificationTextTurkish = when {
             daysDifference < 0 -> "${birthdayName}'nin doğum günü geçmişin tatlı hatıraları arasında yerini aldı."
             daysDifference == 0L -> "Bugün ${birthdayName}'nin doğum günü! Kutlamalar başlasın!"
-            else -> "${birthdayName}'nin doğum günü ${birthdayDate} tarihinde yaklaşıyor. Tarihi takvimlerinize not edin!"
+            else -> "${birthdayName}'nin doğum günü $birthdayDate tarihinde yaklaşıyor. Tarihi takvimlerinize not edin!"
         }
 
 

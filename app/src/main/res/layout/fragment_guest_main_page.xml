@@ -166,6 +166,7 @@
                         android:layout_height="0dp"
                         android:layout_marginTop="10dp"
                         android:visibility="visible"
+                        android:paddingBottom="10dp"
                         app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"

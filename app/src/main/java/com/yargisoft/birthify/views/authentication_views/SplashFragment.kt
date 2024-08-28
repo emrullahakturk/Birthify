@@ -1,8 +1,5 @@
 package com.yargisoft.birthify.views.authentication_views
 
-import android.Manifest
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,8 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -24,7 +19,6 @@ import com.yargisoft.birthify.repositories.AuthRepository
 
 class SplashFragment : Fragment() {
     private lateinit var userSharedPreferencesManager: UserSharedPreferencesManager
-    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var authRepository: AuthRepository
     private val firestore = FirebaseFirestore.getInstance()
 
@@ -36,44 +30,13 @@ class SplashFragment : Fragment() {
         userSharedPreferencesManager = UserSharedPreferencesManager(requireContext())
         authRepository = AuthRepository(userSharedPreferencesManager.preferences,requireContext())
 
+        checkSession()
 
-        // İzin isteme işlemini başlatmak için launcher
-        requestPermissionLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                Log.d("NotificationPermission", "Bildirim izni verildi.")
-            } else {
-                Log.d("NotificationPermission", "Bildirim izni reddedildi.")
-            }
-            // İzin işlemi tamamlandıktan sonra oturum kontrolünü yap
-            checkSession()
-        }
-
-        // SharedPreferences ile ilk açılışı kontrolü
-        val sharedPreferences = requireContext().getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
-        val isFirstLaunch = sharedPreferences.getBoolean("isFirstLaunch", true)
-
-        if (isFirstLaunch) {
-            // İlk açılışsa bildirim izni istenir
-            requestNotificationPermission()
-            sharedPreferences.edit().putBoolean("isFirstLaunch", false).apply()
-        } else {
-            // İlk açılış değilse direkt oturum kontrolünü yap
-            checkSession()
-        }
 
         return view
     }
 
-    private fun requestNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
 
-        } else {
-            checkSession() // Eski Android sürümlerinde direkt oturum kontrolüne geç
-        }
-    }
 
     private fun checkSession() {
         Handler(Looper.getMainLooper()).postDelayed({

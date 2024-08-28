@@ -213,12 +213,12 @@
 
     <!--Main Page renkleri-->
     <color name="main_page_background">#000000</color>
-    <color name="fab_button_background_main">#b0dacd</color>
+    <color name="fab_button_background_main">#013C2A</color>
     <color name="sorting_options_tv_main">#ffffff</color>
     <color name="sort_button_background_main">#000000</color>
     <color name="rounded_edit_main">#ffffff</color>
-    <color name="birthdays_tv_main">#b0dacd</color>
-    <color name="ic_navigation_icons_main">#b0dacd</color>
+    <color name="birthdays_tv_main">#ffffff</color>
+    <color name="ic_navigation_icons_main">#013C2A</color>
     <color name="nav_drawer_sub_header_tv_main">#ffffff</color>
     <color name="ic_dots_main">#ffffff</color>
     <color name="ic_search_main">#ffffff</color>
