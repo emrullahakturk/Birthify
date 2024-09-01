@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Reminder App README</title>
+    <title>Birthday Reminder App</title>
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,10 +52,10 @@
 </ul>
 
 <h2><strong>Screenshots</strong></h2>
-<img src="https://github.com/user-attachments/assets/4589eb1c-2026-46f0-a29e-75e208756681" alt="Home Screen" width="360" height="740"/>
-<img src="https://github.com/user-attachments/assets/de378058-4cff-422b-bffb-b4f9f84d0af2" alt="Birthday List" width="360" height="740"/>
-<img src="https://github.com/user-attachments/assets/a6d8b652-6627-4a2b-8c8f-c6f2489c15c6" alt="Add Birthday" width="360" height="740"/>
-<img src="https://github.com/user-attachments/assets/f51459f3-ab43-42c5-b473-a1f5251318d7" alt="Set Reminder" width="360" height="740"/>
+<img src="https://github.com/user-attachments/assets/4589eb1c-2026-46f0-a29e-75e208756681" alt="Home Screen" width="180" height="370"/>
+<img src="https://github.com/user-attachments/assets/de378058-4cff-422b-bffb-b4f9f84d0af2" alt="Birthday List" width="180" height="370"/>
+<img src="https://github.com/user-attachments/assets/a6d8b652-6627-4a2b-8c8f-c6f2489c15c6" alt="Add Birthday" width="180" height="370"/>
+<img src="https://github.com/user-attachments/assets/f51459f3-ab43-42c5-b473-a1f5251318d7" alt="Set Reminder" width="180" height="370"/>
 
 <h2><strong>Tech Stack</strong></h2>
 <ul>
