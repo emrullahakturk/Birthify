@@ -12,9 +12,12 @@ Search Functionality: Quickly find a birthday entry using the search bar.
 Data Persistence: All user data is securely stored in Firebase.
 
 Screenshots
-<img src="https://github.com/user-attachments/assets/4589eb1c-2026-46f0-a29e-75e208756681" alt="Home Screen" width="300" height="300"/>
-<img src="![unnamed](https://github.com/user-attachments/assets/de378058-4cff-422b-bffb-b4f9f84d0af2)" alt="Home Screen" width="300" height="300"/>
-<img src="![unnamed](https://github.com/user-attachments/assets/a6d8b652-6627-4a2b-8c8f-c6f2489c15c6)" alt="Home Screen" width="300" height="300"/>
+
+
+<img src="https://github.com/user-attachments/assets/4589eb1c-2026-46f0-a29e-75e208756681" alt="Home Screen" width="720" height="1480"/>
+<img src="https://github.com/user-attachments/assets/de378058-4cff-422b-bffb-b4f9f84d0af2" alt="Home Screen" width="720" height="1480"/>
+<img src="https://github.com/user-attachments/assets/a6d8b652-6627-4a2b-8c8f-c6f2489c15c6" alt="Home Screen" width="720" height="1480"/>
+<img src="https://github.com/user-attachments/assets/f51459f3-ab43-42c5-b473-a1f5251318d7" alt="Home Screen" width="720" height="1480"/>
 
 
 
