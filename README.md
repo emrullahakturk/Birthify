@@ -3,36 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Reminder App</title>
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        h1 {
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
-        }
-        img {
-            margin: 10px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-        }
-        p, li {
-            color: #555;
-        }
-        ul {
-            list-style-type: disc;
-            margin-left: 20px;
-        }
-    </style>
+  
 </head>
 <body>
 
