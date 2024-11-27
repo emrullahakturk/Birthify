@@ -16,8 +16,6 @@ import java.util.Locale
 class UsersBirthdayViewModel(private val repository: BirthdayRepository) : ViewModel() {
 
 
-
-
     private val _birthdayList = MutableLiveData<List<Birthday>>()
     val birthdayList: LiveData<List<Birthday>> get() = _birthdayList
 

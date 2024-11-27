@@ -3,7 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
     id("androidx.navigation.safeargs")
-
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 
 }
 
@@ -39,6 +40,9 @@ android {
     }
 }
 
+kapt{
+    correctErrorTypes = true
+}
 
 dependencies {
 
@@ -78,7 +82,9 @@ dependencies {
     testImplementation ("androidx.arch.core:core-testing:2.2.0")
 
 
-
+    //hilt implementations
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 
 
 
