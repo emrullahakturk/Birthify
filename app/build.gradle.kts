@@ -45,50 +45,28 @@ kapt{
 }
 
 dependencies {
+    implementation(libs.core.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraintlayout)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+    implementation(libs.lottie)
+    implementation(libs.gson)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.messaging)
+    implementation(libs.work.runtime)
 
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.7")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.7.7")
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.4")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")
+    // Test Dependencies
+    testImplementation(libs.junit)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.core.testing)
 
-    //Lottie Animation
-    implementation ("com.airbnb.android:lottie:6.0.0")
-
-    //Gson
-    implementation ("com.google.code.gson:gson:2.10.1")
-
-    //Firebase
-    implementation ("com.google.firebase:firebase-auth:23.0.0")
-    implementation(platform("com.google.firebase:firebase-bom:33.2.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation ("com.google.firebase:firebase-firestore:25.1.0")
-    implementation ("com.google.firebase:firebase-messaging:24.0.1")
-    implementation ("androidx.appcompat:appcompat:1.7.0")
-    implementation ("androidx.work:work-runtime:2.9.1")
-
-
-    //Test Implementations
-    testImplementation ("junit:junit:4.13.2")
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    testImplementation ("org.mockito:mockito-core:4.11.0")
-    testImplementation ("org.mockito.kotlin:mockito-kotlin:4.1.0")
-    testImplementation ("androidx.arch.core:core-testing:2.2.0")
-
-
-    //hilt implementations
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
-
-
-
-
-
-
+    // Hilt Dependencies
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 }
