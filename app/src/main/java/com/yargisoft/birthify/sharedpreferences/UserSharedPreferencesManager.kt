@@ -2,10 +2,14 @@ package com.yargisoft.birthify.sharedpreferences
 
 import android.content.Context
 import android.content.SharedPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class UserSharedPreferencesManager(context: Context) {
-    val preferences: SharedPreferences = context.getSharedPreferences(UserConstants.PREFS_NAME, Context.MODE_PRIVATE)
 
+class UserSharedPreferencesManager @Inject constructor(
+    @ApplicationContext val context: Context,
+    private val preferences: SharedPreferences
+) {
 
     companion object {
         private const val DARK_THEME_KEY = "dark_theme_enabled"

@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -23,19 +24,16 @@ import com.yargisoft.birthify.UserFrequentlyUsedFunctions.enableViewDisableLotti
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions.isValidPassword
 import com.yargisoft.birthify.databinding.FragmentChangePasswordDialogBinding
 import com.yargisoft.birthify.repositories.AuthRepository
-import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
-import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class ChangePasswordDialogFragment : DialogFragment() {
 
-    private lateinit var authRepository: AuthRepository
-    private lateinit var authViewModel: AuthViewModel
-    private lateinit var authViewModelFactory: AuthViewModelFactory
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
+    private val authViewModel: AuthViewModel by viewModels()
+
     private lateinit var binding: FragmentChangePasswordDialogBinding
 
 
@@ -44,11 +42,6 @@ class ChangePasswordDialogFragment : DialogFragment() {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_change_password_dialog, null, false)
         dialog.setContentView(binding.root)
 
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
-
-        authRepository = AuthRepository(userSharedPreferences.preferences,requireContext())
-        authViewModelFactory = AuthViewModelFactory(authRepository)
-        authViewModel = ViewModelProvider(this, authViewModelFactory)[AuthViewModel::class]
 
         val currentPasswordEditText = binding.currentPasswordEditText
         val newPasswordEditText = binding.newPasswordEditText

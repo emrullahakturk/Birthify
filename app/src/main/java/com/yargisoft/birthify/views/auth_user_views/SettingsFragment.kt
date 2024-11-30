@@ -11,7 +11,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,33 +19,36 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.MainActivity
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.databinding.FragmentAuthSettingsBinding
-import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
-import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
-import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
 import com.yargisoft.birthify.views.dialogs.FrequentlyAskedQuestionsDialogFragment
 import com.yargisoft.birthify.views.dialogs.PrivacyPolicyDialogFragment
 import com.yargisoft.birthify.views.dialogs.WhatIsBirthifyDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
     private lateinit var binding: FragmentAuthSettingsBinding
-    private lateinit var authRepository: AuthRepository
-    private lateinit var usersBirthdayViewModel: UsersBirthdayViewModel
-    private lateinit var authViewModel: AuthViewModel
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
-    private lateinit var authViewModelFactory: AuthViewModelFactory
+     private val usersBirthdayViewModel: UsersBirthdayViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
+    @Inject
+    lateinit var userSharedPreferences: UserSharedPreferencesManager
+    @Inject
+    lateinit var birthdayRepository:BirthdayRepository
+
 
     companion object{
         private const val PREFS_NAME = "AppSettings"
@@ -72,17 +74,6 @@ class SettingsFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_settings, container, false)
 
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
-
-       // val lottieAnimationView = binding.threePointAnimation
-
-        val authRepository = AuthRepository(userSharedPreferences.preferences,requireContext())
-        authViewModelFactory = AuthViewModelFactory(authRepository)
-        authViewModel = ViewModelProvider(this, authViewModelFactory)[AuthViewModel::class]
-
-        val birthdayRepository = BirthdayRepository(requireContext())
-        val birthdayFactory = UsersBirthdayViewModelFactory(birthdayRepository)
-        usersBirthdayViewModel = ViewModelProvider(this, birthdayFactory)[UsersBirthdayViewModel::class]
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView

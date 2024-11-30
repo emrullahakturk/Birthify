@@ -3,12 +3,12 @@ package com.yargisoft.birthify.views.guest_authentication_views
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -16,21 +16,17 @@ import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.databinding.FragmentGuestLoginPageBinding
-import com.yargisoft.birthify.repositories.AuthRepository
-import com.yargisoft.birthify.repositories.GuestRepository
-import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
-import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
-import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
+@AndroidEntryPoint
 class GuestLoginPageFragment : Fragment() {
 
     private lateinit var  binding : FragmentGuestLoginPageBinding
-    private lateinit var authViewModel: AuthViewModel
-    private lateinit var guestViewModel: GuestBirthdayViewModel
-    private lateinit var userSharedPreferences : UserSharedPreferencesManager
+    private val authViewModel: AuthViewModel by viewModels()
+    private val guestViewModel: GuestBirthdayViewModel by viewModels()
     private lateinit var loginEmailTextInput: TextInputLayout
     private lateinit var loginEmailEditText: TextInputEditText
 
@@ -44,17 +40,6 @@ class GuestLoginPageFragment : Fragment() {
         loginEmailEditText = binding.loginEmailEditText
         loginEmailTextInput = binding.loginEmailTextInput
 
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
-
-        //repo factory ve viewmodel tanımlamaları
-        val repository = AuthRepository(userSharedPreferences.preferences,requireContext())
-        val factory = AuthViewModelFactory(repository)
-        authViewModel = ViewModelProvider(this,factory)[AuthViewModel::class.java]
-
-        //repo factory ve viewmodel tanımlamaları
-        val guestRepository = GuestRepository(requireContext())
-        val guestViewModelFactory = GuestViewModelFactory(guestRepository)
-        guestViewModel = ViewModelProvider(this,guestViewModelFactory)[GuestBirthdayViewModel::class.java]
 
         guestViewModel.getBirthdays()
         guestViewModel.getPastBirthdays()

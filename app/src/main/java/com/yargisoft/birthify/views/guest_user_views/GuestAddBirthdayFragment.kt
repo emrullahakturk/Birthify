@@ -4,13 +4,13 @@ import android.app.Activity
 import android.app.AlarmManager
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -21,21 +21,23 @@ import com.yargisoft.birthify.GuestFrequentlyUsedFunctions.requestExactAlarmPerm
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions.scheduleBirthdayReminder
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentGuestAddBirthdayBinding
-import com.yargisoft.birthify.views.dialogs.NotifyTimeBottomSheetDialogFragment
 import com.yargisoft.birthify.models.Birthday
-import com.yargisoft.birthify.repositories.GuestRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
-import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
+import com.yargisoft.birthify.views.dialogs.NotifyTimeBottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.UUID
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class GuestAddBirthdayFragment : Fragment() {
-    private lateinit var guestBirthdayViewModel: GuestBirthdayViewModel
+    private val  guestBirthdayViewModel: GuestBirthdayViewModel by viewModels()
     private lateinit var binding: FragmentGuestAddBirthdayBinding
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
+
+    @Inject
+    lateinit var userSharedPreferences: UserSharedPreferencesManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,18 +63,6 @@ class GuestAddBirthdayFragment : Fragment() {
         // Toolbar üzerindeki menü ikonu ile menüyü açma
         val toolbarMenuButton = binding.menuButtonToolbar
 
-
-
-
-
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
-
-
-        //Guest Birthday ViewModel Tanımlama için gerekenler
-        val guestRepository = GuestRepository(requireContext())
-        val guestFactory = GuestViewModelFactory(guestRepository)
-        guestBirthdayViewModel =
-            ViewModelProvider(this, guestFactory)[GuestBirthdayViewModel::class]
 
 
 

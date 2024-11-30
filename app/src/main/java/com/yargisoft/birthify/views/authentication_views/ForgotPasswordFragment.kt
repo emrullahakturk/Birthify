@@ -3,32 +3,29 @@ package com.yargisoft.birthify.views.authentication_views
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.databinding.FragmentForgotPasswordBinding
-import com.yargisoft.birthify.repositories.AuthRepository
-import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
-import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
-
+@AndroidEntryPoint
 class ForgotPasswordFragment : Fragment() {
     private lateinit var binding: FragmentForgotPasswordBinding
-    private lateinit var viewModel: AuthViewModel
+    private val viewModel: AuthViewModel by viewModels()
     private lateinit var forgotPassTextInputLayout : TextInputLayout
     private lateinit var resetPassEmailEditText: TextInputEditText
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
 
 
     override fun onCreateView(
@@ -42,15 +39,6 @@ class ForgotPasswordFragment : Fragment() {
         val navOptions = NavOptions.Builder()
             .setPopUpTo(R.id.registerFragment, inclusive = true)
             .build()
-
-
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
-
-
-        //viewModel tanımlama için gerekli kodlar
-        val authRepository = AuthRepository(userSharedPreferences.preferences,requireContext())
-        val factory= AuthViewModelFactory(authRepository)
-        viewModel = ViewModelProvider(this, factory )[AuthViewModel::class.java]
 
 
 

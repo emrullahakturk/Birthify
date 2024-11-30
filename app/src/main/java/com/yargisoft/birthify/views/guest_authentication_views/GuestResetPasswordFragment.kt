@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -20,17 +21,16 @@ import com.yargisoft.birthify.databinding.FragmentGuestResetPasswordBinding
 import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
-import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
-
+@AndroidEntryPoint
 class GuestResetPasswordFragment : Fragment() {
 
     private lateinit var binding: FragmentGuestResetPasswordBinding
-    private lateinit var authViewModel: AuthViewModel
+    private val authViewModel: AuthViewModel by viewModels()
     private lateinit var forgotPassTextInputLayout : TextInputLayout
     private lateinit var resetPassEmailEditText: TextInputEditText
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
 
 
     override fun onCreateView(
@@ -44,13 +44,6 @@ class GuestResetPasswordFragment : Fragment() {
             .setPopUpTo(R.id.guestResetPasswordFragment, inclusive = true)
             .build()
 
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
-
-
-        //viewModel tanımlama için gerekli kodlar
-        val repository = AuthRepository(userSharedPreferences.preferences,requireContext())
-        val factory= AuthViewModelFactory(repository)
-        authViewModel = ViewModelProvider(this, factory )[AuthViewModel::class.java]
 
         //Text Change Listener için edittext ve textinputlayout tanımlamaları
         resetPassEmailEditText = binding.resetPassEmailEditText

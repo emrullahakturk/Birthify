@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
@@ -17,28 +17,22 @@ import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.databinding.FragmentGuestRegisterBinding
-import com.yargisoft.birthify.repositories.AuthRepository
-import com.yargisoft.birthify.repositories.GuestRepository
-import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
-import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
-import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
-import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
-
+@AndroidEntryPoint
 class GuestRegisterFragment : Fragment() {
 
     private lateinit var binding : FragmentGuestRegisterBinding
-    private lateinit var authViewModel : AuthViewModel
-    private lateinit var guestViewModel : GuestBirthdayViewModel
+    private val authViewModel: AuthViewModel by viewModels()
+
     private lateinit var emailTextInputLayout: TextInputLayout
     private lateinit var emailEditText: TextInputEditText
     private lateinit var registerPassTextInput: TextInputLayout
     private lateinit var registerPasswordEditText: TextInputEditText
     private lateinit var registerFullNameTextInput: TextInputLayout
     private lateinit var registerFullNameEditText: TextInputEditText
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,20 +41,12 @@ class GuestRegisterFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_guest_register, container, false)
 
-        userSharedPreferences= UserSharedPreferencesManager(requireContext())
 
         val navOptions = NavOptions.Builder()
             .setPopUpTo(R.id.guestRegisterFragment, inclusive = true)
             .build()
 
 
-        val authRepository = AuthRepository(userSharedPreferences.preferences,requireContext())
-        val authFactory= AuthViewModelFactory(authRepository)
-        authViewModel = ViewModelProvider(this,authFactory)[AuthViewModel::class.java]
-
-        val guestRepository = GuestRepository(requireContext())
-        val guestFactory= GuestViewModelFactory(guestRepository)
-        guestViewModel = ViewModelProvider(this,guestFactory)[GuestBirthdayViewModel::class.java]
 
 
         registerPassTextInput = binding.passwordTextInput

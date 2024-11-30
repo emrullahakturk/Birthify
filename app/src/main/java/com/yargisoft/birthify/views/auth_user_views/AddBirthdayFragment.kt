@@ -4,62 +4,56 @@ import android.app.Activity
 import android.app.AlarmManager
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.yargisoft.birthify.R
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions.requestExactAlarmPermission
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions.scheduleBirthdayReminder
-import com.yargisoft.birthify.UserFrequentlyUsedFunctions
-import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentAuthAddBirthdayBinding
-import com.yargisoft.birthify.views.dialogs.NotifyTimeBottomSheetDialogFragment
 import com.yargisoft.birthify.models.Birthday
-import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
-import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
-import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
+import com.yargisoft.birthify.views.dialogs.NotifyTimeBottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.UUID
+import javax.inject.Inject
 
+@AndroidEntryPoint
 
 class AddBirthdayFragment : Fragment() {
-    private lateinit var usersBirthdayViewModel: UsersBirthdayViewModel
-    private lateinit var authViewModel: AuthViewModel
+    
+  
+    
     private lateinit var binding : FragmentAuthAddBirthdayBinding
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
+    private val usersBirthdayViewModel: UsersBirthdayViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
+    
+    @Inject 
+    lateinit var birthdayRepository:BirthdayRepository
+    
+    @Inject
+    lateinit var userSharedPreferences: UserSharedPreferencesManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_auth_add_birthday, container, false)
         val view = (context as Activity).findViewById<View>(android.R.id.content)
-
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
-
-
-
-        val birthdayRepository = BirthdayRepository(requireContext())
-        val birthdayViewModelFactory = UsersBirthdayViewModelFactory(birthdayRepository)
-        usersBirthdayViewModel = ViewModelProvider(this,birthdayViewModelFactory)[UsersBirthdayViewModel::class.java]
-
-
-        val authRepository = AuthRepository(userSharedPreferences.preferences,requireContext())
-        val authViewModelFactory = AuthViewModelFactory(authRepository)
-        authViewModel = ViewModelProvider(this,authViewModelFactory)[AuthViewModel::class.java]
-
 
 
 

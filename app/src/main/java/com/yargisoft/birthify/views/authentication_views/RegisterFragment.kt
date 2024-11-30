@@ -3,36 +3,33 @@ package com.yargisoft.birthify.views.authentication_views
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.databinding.FragmentRegisterBinding
-import com.yargisoft.birthify.repositories.AuthRepository
-import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
-import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
 import java.util.Locale
 
 class RegisterFragment : Fragment() {
 
     private lateinit var binding : FragmentRegisterBinding
-    private lateinit var viewModel : AuthViewModel
+    private val viewModel : AuthViewModel by viewModels()
+
     private lateinit var emailTextInputLayout: TextInputLayout
     private lateinit var emailEditText: TextInputEditText
     private lateinit var registerPassTextInput: TextInputLayout
     private lateinit var registerPasswordEditText: TextInputEditText
     private lateinit var registerFullNameTextInput: TextInputLayout
     private lateinit var registerFullNameEditText: TextInputEditText
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,16 +38,10 @@ class RegisterFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_register, container, false)
 
-        userSharedPreferences= UserSharedPreferencesManager(requireContext())
 
         val navOptions = NavOptions.Builder()
             .setPopUpTo(R.id.registerFragment, inclusive = true)
             .build()
-
-        val repository = AuthRepository(userSharedPreferences.preferences,requireContext())
-        val factory= AuthViewModelFactory(repository)
-        viewModel = ViewModelProvider(this,factory)[AuthViewModel::class.java]
-
 
 
         registerPassTextInput = binding.passwordTextInput

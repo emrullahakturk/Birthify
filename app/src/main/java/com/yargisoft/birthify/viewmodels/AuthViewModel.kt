@@ -4,10 +4,13 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yargisoft.birthify.repositories.AuthRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
+@HiltViewModel
+class AuthViewModel @Inject constructor(private val authRepository: AuthRepository) : ViewModel() {
 
     private var _isLoaded = MutableStateFlow(false)
     val isLoaded: MutableStateFlow<Boolean> get() = _isLoaded

@@ -17,7 +17,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,18 +30,16 @@ import com.yargisoft.birthify.GuestSwipeToDeleteCallback
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentGuestMainPageBinding
-import com.yargisoft.birthify.repositories.GuestRepository
-import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
-import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class GuestMainPageFragment : Fragment() {
     private lateinit var binding: FragmentGuestMainPageBinding
-    private lateinit var guestBirthdayViewModel: GuestBirthdayViewModel
+    private val guestBirthdayViewModel: GuestBirthdayViewModel by viewModels()
+
     private lateinit var adapter: BirthdayAdapter
     private lateinit var itemTouchHelper: ItemTouchHelper
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
 
@@ -78,13 +76,6 @@ class GuestMainPageFragment : Fragment() {
 
 
 
-
-        //Guest Birthday ViewModel Tanımlama için gerekenler
-        val guestRepository = GuestRepository(requireContext())
-        val guestFactory = GuestViewModelFactory(guestRepository)
-        guestBirthdayViewModel = ViewModelProvider(this, guestFactory)[GuestBirthdayViewModel::class]
-
-
         //doğum günlerini liveDataya çekiyoruz
         guestBirthdayViewModel.getBirthdays()
 
@@ -116,8 +107,6 @@ class GuestMainPageFragment : Fragment() {
 
 
 
-        //user SharedPreferences
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
 
         // DrawerLayout ve NavigationView tanımlamaları

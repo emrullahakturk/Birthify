@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
@@ -19,17 +19,14 @@ import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.adapters.PastBirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentGuestPastBirthdaysBinding
-import com.yargisoft.birthify.repositories.GuestRepository
-import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
-import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class GuestPastBirthdaysFragment : Fragment() {
     private lateinit var binding: FragmentGuestPastBirthdaysBinding
-    private lateinit var guestBirthdayViewModel: GuestBirthdayViewModel
+    private val guestBirthdayViewModel: GuestBirthdayViewModel by viewModels()
     private lateinit var adapter: PastBirthdayAdapter
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
 
 
 
@@ -40,17 +37,11 @@ class GuestPastBirthdaysFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_guest_past_birthdays, container, false)
 
-        //Guest Birthday ViewModel Tanımlama için gerekenler
-        val guestRepository = GuestRepository(requireContext())
-        val guestFactory = GuestViewModelFactory(guestRepository)
-        guestBirthdayViewModel = ViewModelProvider(this, guestFactory)[GuestBirthdayViewModel::class]
 
         //doğum günlerini liveDataya çekiyoruz
         guestBirthdayViewModel.getPastBirthdays()
 
 
-        //user SharedPreferences
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
         // DrawerLayout ve NavigationView tanımlamaları
         val drawerLayout: DrawerLayout = binding.drawerLayout

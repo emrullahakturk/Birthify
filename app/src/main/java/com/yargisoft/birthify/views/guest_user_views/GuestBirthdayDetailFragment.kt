@@ -1,12 +1,12 @@
 package com.yargisoft.birthify.views.guest_user_views
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -14,15 +14,15 @@ import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentGuestBirthdayDetailBinding
-import com.yargisoft.birthify.repositories.GuestRepository
-import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class GuestBirthdayDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentGuestBirthdayDetailBinding
     private val detailedBirthday : GuestBirthdayDetailFragmentArgs by navArgs()
-    private lateinit var guestRepository : GuestRepository
-    private lateinit var userSharedPreferences : UserSharedPreferencesManager
+
+
 
     val navOptions = NavOptions.Builder()
         .setPopUpTo(R.id.guestBirthdayDetailFragment, true)
@@ -32,10 +32,8 @@ class GuestBirthdayDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_guest_birthday_detail, container, false)
 
-        guestRepository = GuestRepository(requireContext())
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_guest_birthday_detail, container, false)
 
         binding.birthday = detailedBirthday.birthday
         binding.fabBackButtonDetail.setOnClickListener { findNavController().popBackStack() }

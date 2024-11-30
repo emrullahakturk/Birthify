@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -25,31 +25,34 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions.scheduleBirthdayReminder
 import com.yargisoft.birthify.NetworkConnectionObserver
-import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions.isAlarmScheduled
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions.requestExactAlarmPermission
 import com.yargisoft.birthify.UserSwipeToDeleteCallback
 import com.yargisoft.birthify.adapters.BirthdayAdapter
 import com.yargisoft.birthify.databinding.FragmentAuthMainPageBinding
-import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
-import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
-import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MainPageFragment : Fragment() {
     private lateinit var binding: FragmentAuthMainPageBinding
-    private lateinit var usersBirthdayViewModel: UsersBirthdayViewModel
-    private lateinit var authViewModel: AuthViewModel
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
+    private val usersBirthdayViewModel: UsersBirthdayViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
     private lateinit var adapter: BirthdayAdapter
     private lateinit var itemTouchHelper: ItemTouchHelper
     private lateinit var networkConnectionObserver: NetworkConnectionObserver
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+
+    @Inject
+    lateinit var userSharedPreferences: UserSharedPreferencesManager
+    @Inject
+    lateinit var birthdayRepository:BirthdayRepository
 
 
     override fun onCreateView(
@@ -82,23 +85,6 @@ class MainPageFragment : Fragment() {
             sharedPreferences.edit().putBoolean("isFirstLaunch", false).apply()
         }
 
-
-
-
-
-        //user SharedPreferences
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
-
-
-        //Birthday viewModel Tanımlama için gerekenler
-        val birthdayRepository = BirthdayRepository(requireContext())
-        val birthdayFactory = UsersBirthdayViewModelFactory(birthdayRepository)
-        usersBirthdayViewModel = ViewModelProvider(this, birthdayFactory)[UsersBirthdayViewModel::class]
-
-        //Auth ViewModel Tanımlama için gerekenler
-        val authRepository = AuthRepository(userSharedPreferences.preferences,requireContext())
-        val authFactory = AuthViewModelFactory(authRepository)
-        authViewModel = ViewModelProvider(this, authFactory)[AuthViewModel::class]
 
         authViewModel.getUserCredentials()
 

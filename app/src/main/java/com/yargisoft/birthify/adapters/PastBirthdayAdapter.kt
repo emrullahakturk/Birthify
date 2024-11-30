@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.models.Birthday
+import javax.inject.Inject
 
 class PastBirthdayAdapter(private var pastBirthdayList: List<Birthday>,
                              private val onDetailClick: (Birthday) -> Unit,
@@ -18,7 +19,8 @@ class PastBirthdayAdapter(private var pastBirthdayList: List<Birthday>,
                              private val textView: TextView,
 ) : RecyclerView.Adapter<PastBirthdayAdapter.PastBirthdayViewHolder>() {
 
-    val preferences: SharedPreferences = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+    @Inject
+    lateinit var prefAppSettings: SharedPreferences
 
 
     class PastBirthdayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -36,7 +38,7 @@ class PastBirthdayAdapter(private var pastBirthdayList: List<Birthday>,
     override fun onBindViewHolder(holder: PastBirthdayViewHolder, position: Int) {
         val birthday = pastBirthdayList[position]
         holder.nameTextView.text = birthday.name
-        holder.birthdayDateTextView.text = when (preferences.getString("AppLanguage", null)) {
+        holder.birthdayDateTextView.text = when (prefAppSettings.getString("AppLanguage", null)) {
             "en" -> "Memories from ${birthday.birthdayDate}, a year older and wiser."
             "tr" -> "Doğum Tarihi: ${birthday.birthdayDate}"
             else -> "Memories from ${birthday.birthdayDate}, a year older and wiser."

@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.models.Birthday
+import javax.inject.Inject
 
 class BirthdayAdapter(private var birthdayList: List<Birthday>,
                       private val onEditClick: (Birthday) -> Unit,
@@ -20,7 +21,8 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
                       private val clickToAddTextView: TextView
     ) : RecyclerView.Adapter<BirthdayAdapter.BirthdayViewHolder>() {
 
-    val preferences: SharedPreferences = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+    @Inject
+    lateinit var prefAppSettings: SharedPreferences
 
 
         class BirthdayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -39,7 +41,7 @@ class BirthdayAdapter(private var birthdayList: List<Birthday>,
         override fun onBindViewHolder(holder: BirthdayViewHolder, position: Int) {
             val birthday = birthdayList[position]
             holder.nameTextView.text = birthday.name
-            holder.birthdayDateTextView.text = when (preferences.getString("AppLanguage", null)) {
+            holder.birthdayDateTextView.text = when (prefAppSettings.getString("AppLanguage", null)) {
                 "en" -> "A new chapter begins on ${birthday.birthdayDate}!"
                 "tr" -> "Doğum Tarihi: ${birthday.birthdayDate}"
                 else -> "A fresh start on " + birthday.birthdayDate + " awaits!"

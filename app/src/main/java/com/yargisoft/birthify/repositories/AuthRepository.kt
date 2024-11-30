@@ -1,6 +1,5 @@
 package com.yargisoft.birthify.repositories
 
-import android.content.Context
 import android.content.SharedPreferences
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.EmailAuthProvider
@@ -14,16 +13,16 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.UUID
+import javax.inject.Inject
 
-class AuthRepository(private val sharedPreferences: SharedPreferences, context:Context) {
-
-    private val auth = FirebaseAuth.getInstance()
-    private val firestore = FirebaseFirestore.getInstance()
-    private val credentialPreferences: SharedPreferences = context.getSharedPreferences("user_credentials", Context.MODE_PRIVATE)
+class AuthRepository @Inject constructor(
+    private val auth: FirebaseAuth,
+    private val sharedPreferences: SharedPreferences,
+    private val firestore : FirebaseFirestore) {
 
 
     // Function to register a new user
-     fun registerUser(name: String, email: String, password: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+    fun registerUser(name: String, email: String, password: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
         firestore.collection("users")
             .whereEqualTo("email", email)
             .get()
@@ -282,7 +281,7 @@ class AuthRepository(private val sharedPreferences: SharedPreferences, context:C
                                 "recordedDate" to recordedDate,
                             )
 
-                            val editor = credentialPreferences.edit()
+                            val editor = sharedPreferences.edit()
                             editor.putString("name", name)
                             editor.putString("email", email)
 

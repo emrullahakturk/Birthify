@@ -12,11 +12,14 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Locale
+import javax.inject.Inject
 
 class BirthdayReminderReceiver: BroadcastReceiver() {
+    @Inject
+    lateinit var preferences: SharedPreferences
 
     override fun onReceive(context: Context, intent: Intent) {
-        val preferences: SharedPreferences = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        preferences = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
 
         val birthdayId = intent.getStringExtra("birthdayId") // Doğum günü ID'sini al
         val birthdayName = intent.getStringExtra("birthdayName") // Doğum günü adını al

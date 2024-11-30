@@ -6,9 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yargisoft.birthify.models.Birthday
 import com.yargisoft.birthify.repositories.GuestRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.Locale
+import javax.inject.Inject
 
-class GuestBirthdayViewModel(val repository: GuestRepository): ViewModel() {
+@HiltViewModel
+class GuestBirthdayViewModel @Inject constructor(private val repository: GuestRepository): ViewModel() {
 
     private val _birthdayList = MutableLiveData<List<Birthday>>()
     val birthdayList: LiveData<List<Birthday>> get() = _birthdayList

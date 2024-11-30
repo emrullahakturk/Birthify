@@ -3,13 +3,13 @@ package com.yargisoft.birthify.views.guest_user_views
 import android.app.AlarmManager
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -19,21 +19,16 @@ import com.yargisoft.birthify.GuestFrequentlyUsedFunctions.requestExactAlarmPerm
 import com.yargisoft.birthify.GuestFrequentlyUsedFunctions.updateBirthdayReminder
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentGuestEditBirthdayBinding
-import com.yargisoft.birthify.views.dialogs.NotifyTimeBottomSheetDialogFragment
-import com.yargisoft.birthify.repositories.GuestRepository
-import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.GuestBirthdayViewModel
-import com.yargisoft.birthify.viewmodels.factories.GuestViewModelFactory
+import com.yargisoft.birthify.views.dialogs.NotifyTimeBottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class GuestEditBirthdayFragment : Fragment() {
 
     private lateinit var binding : FragmentGuestEditBirthdayBinding
     private val editedBirthday : GuestEditBirthdayFragmentArgs by navArgs()
-    private lateinit var guestBirthdayViewModel: GuestBirthdayViewModel
-    private lateinit var guestRepository: GuestRepository
-    private lateinit var guestFactory: GuestViewModelFactory
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
+    private val guestBirthdayViewModel: GuestBirthdayViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -46,14 +41,6 @@ class GuestEditBirthdayFragment : Fragment() {
         val navOptions = NavOptions.Builder()
             .setPopUpTo(R.id.guestEditBirthdayFragment, true)
             .build()
-
-        //Guest Birthday ViewModel Tanımlama için gerekenler
-         guestRepository = GuestRepository(requireContext())
-         guestFactory = GuestViewModelFactory(guestRepository)
-         guestBirthdayViewModel = ViewModelProvider(this, guestFactory)[GuestBirthdayViewModel::class]
-
-        //user SharedPreferences
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
 
 
         // DrawerLayout ve NavigationView tanımlamaları

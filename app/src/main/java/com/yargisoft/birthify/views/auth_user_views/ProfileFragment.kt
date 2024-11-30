@@ -2,14 +2,14 @@ package com.yargisoft.birthify.views.auth_user_views
 
 import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -21,23 +21,26 @@ import com.yargisoft.birthify.UserFrequentlyUsedFunctions.cancelBirthdayReminder
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions.disableViewEnableLottie
 import com.yargisoft.birthify.UserFrequentlyUsedFunctions.enableViewDisableLottie
 import com.yargisoft.birthify.databinding.FragmentAuthProfileBinding
-import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
-import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
-import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
 import com.yargisoft.birthify.views.dialogs.ChangePasswordDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@AndroidEntryPoint
 
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentAuthProfileBinding
-    private lateinit var authViewModel: AuthViewModel
-    private lateinit var authViewModelFactory: AuthViewModelFactory
-    private lateinit var usersBirthdayViewModel: UsersBirthdayViewModel
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
+    private val usersBirthdayViewModel: UsersBirthdayViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
+    @Inject
+    lateinit var userSharedPreferences: UserSharedPreferencesManager
+    @Inject
+    lateinit var birthdayRepository:BirthdayRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,16 +50,6 @@ class ProfileFragment : Fragment() {
 
         val lottieAnimationView = binding.threePointAnimation
 
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
-
-
-        val authRepository = AuthRepository(userSharedPreferences.preferences,requireContext())
-        authViewModelFactory = AuthViewModelFactory(authRepository)
-        authViewModel = ViewModelProvider(this, authViewModelFactory)[AuthViewModel::class]
-
-        val birthdayRepository = BirthdayRepository(requireContext())
-        val birthdayFactory = UsersBirthdayViewModelFactory(birthdayRepository)
-        usersBirthdayViewModel = ViewModelProvider(this, birthdayFactory)[UsersBirthdayViewModel::class]
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView

@@ -1,36 +1,42 @@
 package com.yargisoft.birthify.views.auth_user_views
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.navigation.NavigationView
-import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.R
+import com.yargisoft.birthify.UserFrequentlyUsedFunctions
 import com.yargisoft.birthify.databinding.FragmentAuthDeletedBirthdayDetailBinding
-import com.yargisoft.birthify.repositories.AuthRepository
 import com.yargisoft.birthify.repositories.BirthdayRepository
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.viewmodels.AuthViewModel
 import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
-import com.yargisoft.birthify.viewmodels.factories.AuthViewModelFactory
-import com.yargisoft.birthify.viewmodels.factories.UsersBirthdayViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+
+@AndroidEntryPoint
 
 class DeletedBirthdayDetailFragment : Fragment() {
     private lateinit var binding: FragmentAuthDeletedBirthdayDetailBinding
-    private lateinit var usersBirthdayViewModel: UsersBirthdayViewModel
-    private lateinit var authViewModel: AuthViewModel
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
+    private val usersBirthdayViewModel: UsersBirthdayViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
+
+    @Inject
+    lateinit var userSharedPreferences: UserSharedPreferencesManager
+
     private val deletedBirthday : DeletedBirthdayDetailFragmentArgs by navArgs()
 
 
+    @Inject
+    lateinit var birthdayRepository:BirthdayRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,19 +49,6 @@ class DeletedBirthdayDetailFragment : Fragment() {
             .setPopUpTo(R.id.deletedBirthdayDetailFragment, true)
             .build()
 
-        //user SharedPreferences
-        userSharedPreferences = UserSharedPreferencesManager(requireContext())
-
-        //Birthday viewModel Tanımlama için gerekenler
-        val birthdayRepository = BirthdayRepository(requireContext())
-        val birthdayFactory = UsersBirthdayViewModelFactory(birthdayRepository)
-        usersBirthdayViewModel = ViewModelProvider(this,birthdayFactory)[UsersBirthdayViewModel::class]
-
-
-        //Auth ViewModel Tanımlama için gerekenler
-        val authRepository = AuthRepository(userSharedPreferences.preferences,requireContext())
-        val authFactory = AuthViewModelFactory(authRepository)
-        authViewModel = ViewModelProvider(this,authFactory)[AuthViewModel::class]
 
         //detayı gösterilmek istenen doğum gününü kutucuklara yansıtıyoruz
         binding.birthday= deletedBirthday.birthday

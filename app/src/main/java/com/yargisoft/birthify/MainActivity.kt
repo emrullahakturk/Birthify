@@ -5,22 +5,24 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var networkConnectionObserver: NetworkConnectionObserver
-    private lateinit var userSharedPreferences: UserSharedPreferencesManager
-  /*  private lateinit var guestViewModel: GuestBirthdayViewModel
-    private lateinit var guestViewModelFactory: GuestViewModelFactory
-    private lateinit var guestRepository: GuestRepository
-*/
+    @Inject
+    lateinit var networkConnectionObserver: NetworkConnectionObserver
+
+    @Inject
+    lateinit var userSharedPreferences: UserSharedPreferencesManager
 
 
     companion object {
@@ -53,8 +55,6 @@ class MainActivity : AppCompatActivity() {
         guestViewModel = ViewModelProvider(this, guestViewModelFactory)[GuestBirthdayViewModel::class.java]
 
 */
-        userSharedPreferences = UserSharedPreferencesManager(this)
-
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

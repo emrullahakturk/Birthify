@@ -7,8 +7,10 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class NetworkConnectionObserver(context: Context) {
+class NetworkConnectionObserver @Inject constructor(@ApplicationContext val context: Context) {
 
     private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val _isConnected = MutableLiveData<Boolean>()
