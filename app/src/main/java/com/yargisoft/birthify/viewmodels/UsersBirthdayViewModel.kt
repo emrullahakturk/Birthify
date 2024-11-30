@@ -1,6 +1,5 @@
 package com.yargisoft.birthify.viewmodels
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,13 +21,6 @@ class UsersBirthdayViewModel @Inject constructor(private val repository: Birthda
     private val _birthdayList = MutableLiveData<List<Birthday>>()
     val birthdayList: LiveData<List<Birthday>> get() = _birthdayList
 
-    private val _pastBirthdayList = MutableLiveData<List<Birthday>>()
-    val pastBirthdayList: LiveData<List<Birthday>> get() = _pastBirthdayList
-
-    private val _deletedBirthdayList = MutableLiveData<List<Birthday>>()
-    val deletedBirthdayList: LiveData<List<Birthday>> get() = _deletedBirthdayList
-
-
     private val _isLoaded = MutableStateFlow<Boolean?>(null)
     val isLoaded: StateFlow<Boolean?> get() = _isLoaded
 
@@ -36,11 +28,14 @@ class UsersBirthdayViewModel @Inject constructor(private val repository: Birthda
     private var _birthdayViewModelState :Boolean? = null
     val birthdayViewModelState :Boolean? get() = _birthdayViewModelState
 
-
-
+    val monthMap = mapOf(
+        "January" to 1, "February" to 2, "March" to 3, "April" to 4,
+        "May" to 5, "June" to 6, "July" to 7, "August" to 8,
+        "September" to 9, "October" to 10, "November" to 11, "December" to 12
+    )
 
     fun saveBirthday(birthday: Birthday){
-        repository.saveBirthday(birthday)
+        repository.saveBirthdaytoPreferences(birthday,"birthdays")
     }
     fun deleteBirthday(birthdayId:String){
         repository.deleteBirthday(birthdayId )
@@ -59,34 +54,7 @@ class UsersBirthdayViewModel @Inject constructor(private val repository: Birthda
     fun filterPastAndUpcomingBirthdays(birthdays:List<Birthday>){
         repository.filterPastAndUpcomingBirthdays(birthdays)
     }
-   /* fun filterUpcomingBirthdays(pastBirthdays:List<Birthday>){
-        repository.filterPastUpcomingBirthdays(pastBirthdays)
-    }
-*/
 
-
-   /* //Kullanıcı hesabını sildiğinde çalıştırılacak fonksiyonlar (lokalden tüm doğum günlerini siler)
-    fun clearDeletedBirthdays(){
-        repository.clearDeletedBirthdays()
-    }
-    fun clearBirthdays(){
-        repository.clearBirthdays()
-    }
-    fun clearPastBirthdays(){
-        repository.clearPastBirthdays()
-    }
-
-    //Kullanıcı hesabını sildiğinde çalıştırılacak fonksiyonlar (Firebaseden tüm doğum günlerini siler)
-    fun clearDeletedBirthdaysFirebase(){
-        repository.clearDeletedBirthdaysFirebase()
-    }
-    fun clearBirthdaysFirebase(){
-        repository.clearBirthdaysFirebase()
-    }
-    fun clearPastBirthdaysFirebase(){
-        repository.clearPastBirthdaysFirebase()
-    }
-*/
     fun clearAllBirthdays(){
         repository.clearAllBirthdays()
     }
@@ -94,23 +62,18 @@ class UsersBirthdayViewModel @Inject constructor(private val repository: Birthda
 
 
     //shared preferences ile kaydettiğimiz fonksiyonları listelere aktarıyoruz
-    fun getDeletedBirthdays(){
-        _deletedBirthdayList.value =  repository.getDeletedBirthdays().sortedByDescending { it.recordedDate }
+    fun getBirthdays(keyString: String){
+        _birthdayList.value = repository.getBirthdaysFromPreferences(keyString)
+        if(keyString =="past_birthdays"){
+            _birthdayList.value = sortBirthdays("sortBirthdaysByBirthdayDateDsc",_birthdayList.value ?: emptyList())
+        }
     }
-    fun getBirthdays(){
-        _birthdayList.value =  repository.getBirthdays().sortedByDescending { it.recordedDate }
-    }
-    fun getPastBirthdays(){
-        _pastBirthdayList.value = repository.getPastBirthdays()
-        _pastBirthdayList.value = sortWithPage("sortBirthdaysByBirthdayDateDsc","PastBirthdays")
-    }
-
 
     //firebase üzerinden doğum günlerini çekerek preferences'a ve burada tanımladığımız listelere kaydediyoruz
-    fun getUserBirthdaysFromFirebase(userId: String) {
+    fun getBirthdaysFromFirebase(userId: String, keyString: String) {
         viewModelScope.launch {
             try {
-                repository.getUserBirthdaysFromFirebase(userId) { birthdays, isSuccess ->
+                repository.getBirthdaysFromFirebase(keyString,userId) { birthdays, isSuccess ->
                     _birthdayList.value = birthdays.sortedByDescending { it.recordedDate }
                     _birthdayViewModelState = isSuccess
                 }
@@ -126,54 +89,10 @@ class UsersBirthdayViewModel @Inject constructor(private val repository: Birthda
             _birthdayViewModelState = null
         }
     }
-    fun getDeletedBirthdaysFromFirebase(userId: String) {
-        viewModelScope.launch {
-            try {
-                repository.getDeletedBirthdaysFromFirebase(userId) { birthdays, isSuccess ->
-
-                    _deletedBirthdayList.value = birthdays.sortedByDescending { it.recordedDate }
-                    _birthdayViewModelState = isSuccess
-                }
-                _isLoaded.value = true
-
-            } catch (e: Exception) {
-                Log.e("HATA", "$e")
-                _birthdayViewModelState = false
-            }
-            //viewModelScope bittiğinde değerler tekrar null olmalı
-            _isLoaded.value = null
-            _birthdayViewModelState = null
-        }
-    }
-    fun getPastBirthdaysFromFirebase(userId: String) {
-        viewModelScope.launch {
-            try {
-                repository.getPastBirthdaysFromFirebase(userId) { birthdays, isSuccess ->
-
-                    _pastBirthdayList.value = birthdays.sortedByDescending { it.recordedDate }
-                    _birthdayViewModelState = isSuccess
-                }
-                _isLoaded.value = true
-
-            } catch (e: Exception) {
-                Log.e("HATA", "$e")
-                _birthdayViewModelState = false
-            }
-            //viewModelScope bittiğinde değerler tekrar null olmalı
-            _isLoaded.value = null
-            _birthdayViewModelState = null
-        }
-    }
 
 
 
-    @SuppressLint("CheckResult")
-    private fun sortBirthdays(sort: String, sortList: List<Birthday>): List<Birthday> {
-        val monthMap = mapOf(
-            "January" to 1, "February" to 2, "March" to 3, "April" to 4,
-            "May" to 5, "June" to 6, "July" to 7, "August" to 8,
-            "September" to 9, "October" to 10, "November" to 11, "December" to 12
-        )
+    fun sortBirthdays(sort: String, sortList: List<Birthday>): List<Birthday> {
         return when (sort) {
             "sortBirthdaysByNameAsc" -> sortList.sortedBy { it.name.lowercase(Locale.getDefault()) }
             "sortBirthdaysByNameDsc" -> sortList.sortedByDescending { it.name.lowercase(Locale.getDefault()) }
@@ -194,16 +113,5 @@ class UsersBirthdayViewModel @Inject constructor(private val repository: Birthda
             else -> emptyList()
         }
     }
-
-    fun sortWithPage(sort: String, sourcePage : String ):List<Birthday>{
-        var sortList : List<Birthday> = emptyList()
-        when(sourcePage){
-            "PastBirthdays" -> sortList =  _pastBirthdayList.value ?: emptyList()
-            "Main" -> sortList =  _birthdayList.value ?: emptyList()
-            "TrashBin" -> sortList =  _deletedBirthdayList.value ?: emptyList()
-        }
-        return sortBirthdays(sort,sortList)
-    }
-
 
 }

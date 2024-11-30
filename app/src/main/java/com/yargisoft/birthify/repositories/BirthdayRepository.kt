@@ -22,45 +22,110 @@ class BirthdayRepository @Inject constructor(
     }
 
 
-    // Doğum günlerini kaydetme fonksiyonu
-    fun saveBirthday(newBirthday: Birthday) {
-        val birthdays = getBirthdays().toMutableList()
+    private fun saveBirthdayToFirebase(newBirthday: Birthday, keyString: String) {
+        val document = firestore.collection(keyString).document(newBirthday.id)
+        firestore.runTransaction { transaction ->
+            transaction.set(document, newBirthday)
+        }
+//            .addOnSuccessListener { onComplete(true) }
+//            .addOnFailureListener { onComplete(false) }
+    }
+
+    // Doğum gününü kaydetme fonksiyonu
+    fun saveBirthdaytoPreferences(newBirthday: Birthday,keyString: String) {
+        val birthdays = getBirthdaysFromPreferences(keyString).toMutableList()
         birthdays.add(newBirthday)
-        saveBirthdays(birthdays)
+        saveBirthdaysToPreferences(birthdays,keyString)
 
         //doğum gününü firebase'e kaydediyoruz
-        val document = firestore.collection("birthdays").document(newBirthday.id)
-        firestore.runTransaction { transaction ->
-            transaction.set(document, newBirthday)
-        }
-//            .addOnSuccessListener { onComplete(true) }
-//            .addOnFailureListener { onComplete(false) }
-    }
-
-    // Geçmiş doğum günlerini kaydetme fonksiyonu
-    private fun savePastBirthdayToFirebase(newBirthday: Birthday) {
-        val document = firestore.collection("past_birthdays").document(newBirthday.id)
-        firestore.runTransaction { transaction ->
-            transaction.set(document, newBirthday)
-        }
-//            .addOnSuccessListener { onComplete(true) }
-//            .addOnFailureListener { onComplete(false) }
+        saveBirthdayToFirebase(newBirthday,keyString)
     }
 
 
+    // Doğum günü listesini preferences'a kaydetme işlemi
+    private fun saveBirthdaysToPreferences(birthdays: List<Birthday>, keyString: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString(keyString, gson.toJson(birthdays))
+        editor.apply()
+
+    }
+
+    // Doğum günlerini lokalden getirme fonksiyonu
+    fun getBirthdaysFromPreferences(keyString:String): List<Birthday> {
+        val json = sharedPreferences.getString(keyString, null)
+        return if (json != null) {
+            val type = object : TypeToken<List<Birthday>>() {}.type
+            gson.fromJson(json, type)
+        } else {
+            emptyList()
+        }
+    }
+
+    fun getBirthdaysFromFirebase(keyString: String , userId: String, onComplete: (List<Birthday>, Boolean) -> Unit){
+        firestore.collection(keyString)
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val birthdays = snapshot.toObjects(Birthday::class.java)
+
+                //gelen listeyi sharedPreferences'a kaydetme
+                saveBirthdaysToPreferences(birthdays, keyString)
+                onComplete(birthdays, true)
+            }
+            .addOnFailureListener {
+                onComplete(emptyList(), false)
+            }
+    }
+
+
+    //Bu fonksiyonlar kullanıcı hesabını "tamamen"!!! sildiğinde çalıştırılacak
+    // Doğum günlerini temizleme fonksiyonu (local ve firebase)
+    private fun clearBirthdaysFirebase(keyString: String) {
+        //firebase üzerinden deleted_birthdays'i tamamen silme
+        val collection = firestore.collection(keyString)
+        collection.get().addOnSuccessListener { querySnapshot ->
+            val batch = firestore.batch()
+            for (document in querySnapshot.documents) {
+                batch.delete(document.reference)
+            }
+            batch.commit()
+//                .addOnSuccessListener { onComplete(true) }
+//                .addOnFailureListener { onComplete(false) }
+        }
+//      .addOnFailureListener {onComplete(false)}
+    }
+
+    private fun clearBirthdaysPreferences(keyString: String) {
+        val editor = sharedPreferences.edit()
+        editor.remove(keyString)
+        editor.apply()
+    }
+
+    fun clearAllBirthdays() {
+
+        //Localdeki doğum günlerini temizleme
+        clearBirthdaysPreferences("birthdays")
+        clearBirthdaysPreferences("past_birthdays")
+        clearBirthdaysPreferences("deleted_birthdays")
+
+        // Firebase'deki doğum günlerini temizleme
+        clearBirthdaysFirebase("birthdays")
+        clearBirthdaysFirebase("past_birthdays")
+        clearBirthdaysFirebase("deleted_birthdays")
+
+    }
 
     //doğum gününü localden ve firebase'den silme fonksiyonu
     fun deleteBirthday(birthdayId: String) {
-        val birthdays = getBirthdays().toMutableList()
-        val deletedBirthdays = getDeletedBirthdays().toMutableList()
+        val birthdays = getBirthdaysFromPreferences("birthdays").toMutableList()
+        val deletedBirthdays = getBirthdaysFromPreferences("deleted_birthdays").toMutableList()
 
         val birthdayToDelete = birthdays.find { it.id == birthdayId }
         if (birthdayToDelete != null) {
             birthdays.remove(birthdayToDelete)
             deletedBirthdays.add(birthdayToDelete)
-            saveBirthdays(birthdays)
-            saveDeletedBirthdays(deletedBirthdays)
-
+            saveBirthdaysToPreferences(birthdays,"birthdays")
+            saveBirthdaysToPreferences(birthdays,"deleted_birthdays")
 
             //firebase üzerinden doğum gününü silip deleted birthdayse aktarıyoruz
             val birthdayRef = firestore.collection("birthdays").document(birthdayId)
@@ -75,11 +140,9 @@ class BirthdayRepository @Inject constructor(
         }
 
     }
-
-
     //doğum gününü localde ve firebase'de update etme fonksiyonu
     fun updateBirthday(updatedBirthday: Birthday) {
-        val birthdays = getBirthdays().toMutableList()
+        val birthdays = getBirthdaysFromPreferences("birthdays").toMutableList()
         val index = birthdays.indexOfFirst { it.id == updatedBirthday.id }
 
         if (index != -1) {
@@ -94,69 +157,33 @@ class BirthdayRepository @Inject constructor(
 //            .addOnFailureListener { onComplete(false) }
     }
 
-
-
-    // Doğum günlerini kaydetme işlemi
-    private fun saveBirthdays(birthdays: List<Birthday>) {
-        val editor = sharedPreferences.edit()
-        editor.putString("birthdays", gson.toJson(birthdays))
-        editor.apply()
-
-    }
-
-    // Silinen doğum günlerini deleted_birthdays'e kaydetme işlemi
-    private fun saveDeletedBirthdays(deletedBirthdays: List<Birthday>) {
-        val editor = sharedPreferences.edit()
-        editor.putString("deleted_birthdays", gson.toJson(deletedBirthdays))
-        editor.apply()
-    }
-
-    // Geçmiş doğum günlerini kaydetme işlemi
-    private fun savePastBirthdays(birthdays: List<Birthday>) {
-        val editor = sharedPreferences.edit()
-        editor.putString("past_birthdays", gson.toJson(birthdays))
-        editor.apply()
-    }
-
-   /* //doğum gününü silme fonksiyonu
-    private fun removeBirthdayFromBirthdayList(birthdayId: String) {
-        val birthdays = getBirthdays().toMutableList()
-        val birthdayToDelete = birthdays.find { it.id == birthdayId }
-        if (birthdayToDelete != null) {
-            birthdays.remove(birthdayToDelete)
-            saveBirthdays(birthdays)
-        }
-
-    }*/
-
-    // Geçmiş doğum günlerini tek tek kaydetme işlemi
-    private fun savePastBirthday(birthday: Birthday) {
-        val pastBirthdaysJson = sharedPreferences.getString("past_birthdays", null)
-        val pastBirthdays = if (pastBirthdaysJson != null) {
-            gson.fromJson(pastBirthdaysJson, Array<Birthday>::class.java).toMutableList()
+    // Geçmiş doğum gününü tek tek kaydetme işlemi
+    private fun saveBirthdayToPreferences(birthday: Birthday,keyString: String) {
+        val birthdaysJson = sharedPreferences.getString(keyString, null)
+        val birthdays = if (birthdaysJson != null) {
+            gson.fromJson(birthdaysJson, Array<Birthday>::class.java).toMutableList()
         } else {
             mutableListOf()
         }
 
-        pastBirthdays.add(birthday)
+        birthdays.add(birthday)
 
         val editor = sharedPreferences.edit()
-        editor.putString("past_birthdays", gson.toJson(pastBirthdays))
+        editor.putString(keyString, gson.toJson(birthdays))
         editor.apply()
     }
 
 
-
     // Silinen doğum gününü tekrar kaydetme fonksiyonu (local ve firebase'de)
     fun reSaveDeletedBirthday(birthdayId: String) {
-        val deletedBirthdays = getDeletedBirthdays().toMutableList()
-        val birthdays = getBirthdays().toMutableList()
+        val deletedBirthdays = getBirthdaysFromPreferences("deleted_birthdays").toMutableList()
+        val birthdays = getBirthdaysFromPreferences("birthdays").toMutableList()
         val birthdayToReSave = deletedBirthdays.find { it.id == birthdayId }
         if (birthdayToReSave != null) {
             deletedBirthdays.remove(birthdayToReSave)
             birthdays.add(birthdayToReSave)
-            saveBirthdays(birthdays)
-            saveDeletedBirthdays(deletedBirthdays)
+            saveBirthdaysToPreferences(birthdays,"birthdays")
+            saveBirthdaysToPreferences(deletedBirthdays,"deleted_birthdays")
 
             //firebasedeki doğum gününü resave etme
             val birthdayRef = firestore.collection("birthdays").document(birthdayId)
@@ -175,11 +202,11 @@ class BirthdayRepository @Inject constructor(
     }
     // Silinen doğum gününü kalıcı olarak silme fonksiyonu (local ve firebase'de)
     fun permanentlyDeleteBirthday(birthdayId: String) {
-        val deletedBirthdays = getDeletedBirthdays().toMutableList()
+        val deletedBirthdays = getBirthdaysFromPreferences("deleted_birthdays").toMutableList()
         val birthdayToDelete = deletedBirthdays.find { it.id == birthdayId }
         if (birthdayToDelete != null) {
             deletedBirthdays.remove(birthdayToDelete)
-            saveDeletedBirthdays(deletedBirthdays)
+            saveBirthdaysToPreferences(deletedBirthdays,"deleted_birthdays")
         }
 
         //firebase üzerindeki doğum günlerini kalıcı olarak silme
@@ -191,9 +218,6 @@ class BirthdayRepository @Inject constructor(
 //            .addOnFailureListener { onComplete(false) }
 
     }
-
-
-
 
     //geçmiş doğum günlerini ve yaklaşan doğum günlerini ayıran fonksiyon
     fun filterPastAndUpcomingBirthdays(birthdays: List<Birthday>) {
@@ -208,20 +232,20 @@ class BirthdayRepository @Inject constructor(
 
         pastBirthdays.forEach { pastBirthday ->
             //geçmiş doğum günlerini tek tek firebase'e kaydediyoruz
-            savePastBirthdayToFirebase(pastBirthday)
+            saveBirthdayToFirebase(pastBirthday,"past_birthdays")
             //geçmiş doğum günlerini tek tek lokal'e kaydediyoruz
-            savePastBirthday(pastBirthday)
+            saveBirthdayToPreferences(pastBirthday,"past_birthdays")
             //geçmiş doğum günlerini tek tek firebase üzerinden ve local listeden kaldırıyoruz (yukarda past_birthdays olarak halihazırda kaydediyoruz)
             removeBirthdayFromMainList(pastBirthday.id)
         }
     }
 
     private fun removeBirthdayFromMainList(birthdayId: String) {
-        val birthdays = getBirthdays().toMutableList()
+        val birthdays = getBirthdaysFromPreferences("birthdays").toMutableList()
         val birthdayToDelete = birthdays.find { it.id == birthdayId }
         if (birthdayToDelete != null) {
             birthdays.remove(birthdayToDelete)
-            saveBirthdays(birthdays)
+            saveBirthdaysToPreferences(birthdays,"birthdays")
 
             //firebase üzerinden doğum gününü siliyoruz (deleted_birthdaye aktarmadan, çünkü öncesinde pasta aktarıldı)
             val birthdayRef = firestore.collection("birthdays").document(birthdayId)
@@ -233,226 +257,4 @@ class BirthdayRepository @Inject constructor(
         }
 
     }
-
-
-
-
-
-
-
-/*
-
-    //geçmiş doğum günlerini ve yaklaşan doğum günlerini ayıran fonksiyon
-    fun filterPastUpcomingBirthdays(pastBirthdays: List<Birthday>) {
-        val currentDate = LocalDate.now()
-        val upcomingBirthdays = pastBirthdays.filter {
-            val parts = it.birthdayDate.split(" ")
-            val day = parts[0].toInt()
-            val month = Month.valueOf(parts[1].uppercase(Locale.ENGLISH))
-            val birthdayDate = LocalDate.of(currentDate.year, month, day)
-            birthdayDate.isAfter(currentDate)
-        }
-
-        saveBirthdays(upcomingBirthdays)
-
-        upcomingBirthdays.forEach { upcomingBirthday ->
-            //geçmiş doğum günlerini tek tek firebase'e kaydediyoruz
-            saveBirthdayToFirebase(upcomingBirthday)
-
-            //geçmiş doğum günlerini tek tek firebase üzerinden ve local listeden kaldırıyoruz (yukarda past_birthdays olarak halihazırda kaydediyoruz)
-            removeBirthdayFromPastList(upcomingBirthday.id)
-        }
-    }
-
-    private fun removeBirthdayFromPastList(birthdayId: String) {
-        val birthdays = getPastBirthdays().toMutableList()
-        val birthdayToDelete = birthdays.find { it.id == birthdayId }
-        if (birthdayToDelete != null) {
-            birthdays.remove(birthdayToDelete)
-            savePastBirthdays(birthdays)
-
-            //firebase üzerinden doğum gününü siliyoruz (deleted_birthdaye aktarmadan, çünkü öncesinde pasta aktarıldı)
-            val birthdayRef = firestore.collection("past_birthdays").document(birthdayId)
-            firestore.runTransaction { transaction ->
-                transaction.delete(birthdayRef)
-            }
-//                .addOnSuccessListener { onComplete(true) }
-//                .addOnFailureListener { onComplete(false) }
-        }
-
-    }
-
-
-*/
-
-
-
-
-
-    //Bu fonksiyonlar kullanıcı hesabını "tamamen"!!! sildiğinde çalıştırılacak
-    // Doğum günlerini temizleme fonksiyonu (local ve firebase)
-    fun clearBirthdays() {
-        val editor = sharedPreferences.edit()
-        editor.clear()
-        editor.apply()
-    }
-
-    fun clearAllBirthdays() {
-        // Localdeki doğum günlerini temizleme
-        clearBirthdays()
-        clearDeletedBirthdays()
-        clearPastBirthdays()
-
-        // Firebase'deki doğum günlerini temizleme
-        clearBirthdaysFirebase()
-        clearDeletedBirthdaysFirebase()
-        clearPastBirthdaysFirebase()
-    }
-
-
-
-
-    private fun clearBirthdaysFirebase() {
-        //firebase üzerindeki birthdays listesini tamamen silme
-        val collection = firestore.collection("birthdays")
-        collection.get().addOnSuccessListener { querySnapshot ->
-            val batch = firestore.batch()
-            for (document in querySnapshot.documents) {
-                batch.delete(document.reference)
-            }
-
-            batch.commit()
-//                .addOnSuccessListener { onComplete(true) }
-//                .addOnFailureListener { onComplete(false) }
-        }
-//            .addOnFailureListener {onComplete(false)}
-
-    }
-
-
-    // deleted_birthdays listesini tamamen temizleme fonksiyonu
-    fun clearDeletedBirthdays() {
-        val editor = sharedPreferences.edit()
-        editor.clear()
-        editor.apply()
-    }
-
-    // deleted_birthdays listesini tamamen temizleme fonksiyonu (firebaseden)
-    private fun clearDeletedBirthdaysFirebase() {
-        //firebase üzerinden deleted_birthdays'i tamamen silme
-        val collection = firestore.collection("deleted_birthdays")
-        collection.get().addOnSuccessListener { querySnapshot ->
-            val batch = firestore.batch()
-            for (document in querySnapshot.documents) {
-                batch.delete(document.reference)
-            }
-            batch.commit()
-//                .addOnSuccessListener { onComplete(true) }
-//                .addOnFailureListener { onComplete(false) }
-        }
-//      .addOnFailureListener {onComplete(false)}
-
-    }
-
-    // past_birthdays listesini tamamen temizleme fonksiyonu
-    fun clearPastBirthdays() {
-        val editor = sharedPreferences.edit()
-        editor.clear()
-        editor.apply()
-    }
-
-    // past_birthdays listesini tamamen temizleme fonksiyonu
-    private fun clearPastBirthdaysFirebase() {
-        //firebase üzerinden deleted_birthdays'i tamamen silme
-        val collection = firestore.collection("past_birthdays")
-        collection.get().addOnSuccessListener { querySnapshot ->
-            val batch = firestore.batch()
-            for (document in querySnapshot.documents) {
-                batch.delete(document.reference)
-            }
-            batch.commit()
-//                .addOnSuccessListener { onComplete(true) }
-//                .addOnFailureListener { onComplete(false) }
-        }
-//      .addOnFailureListener {onComplete(false)}
-    }
-
-
-    // Doğum günlerini lokalden getirme fonksiyonları
-    fun getBirthdays(): List<Birthday> {
-        val json = sharedPreferences.getString("birthdays", null)
-        return if (json != null) {
-            val type = object : TypeToken<List<Birthday>>() {}.type
-            gson.fromJson(json, type)
-        } else {
-            emptyList()
-        }
-    }
-    fun getDeletedBirthdays(): List<Birthday> {
-        val json = sharedPreferences.getString("deleted_birthdays", null)
-        return if (json != null) {
-            val type= object : TypeToken<List<Birthday>>() {}.type
-            gson.fromJson(json, type)
-        } else {
-            emptyList()
-        }
-    }
-    fun getPastBirthdays(): List<Birthday> {
-        val json = sharedPreferences.getString("past_birthdays", null)
-        return if (json != null) {
-            val type = object : TypeToken<List<Birthday>>() {}.type
-            gson.fromJson(json, type)
-        } else {
-            emptyList()
-        }
-    }
-
-    //Firebase üzerinden doğum günlerini çekme fonksiyonları
-    fun getUserBirthdaysFromFirebase(userId: String, onComplete: (List<Birthday>, Boolean) -> Unit) {
-        firestore.collection("birthdays")
-            .whereEqualTo("userId", userId)
-            .get()
-            .addOnSuccessListener { snapshot ->
-                val birthdays = snapshot.toObjects(Birthday::class.java)
-                //gelen listeyi sharedPreferences'a kaydetme
-                saveBirthdays(birthdays)
-                onComplete(birthdays, true)
-            }
-            .addOnFailureListener {
-                onComplete(emptyList(), false)
-            }
-    }
-    fun getDeletedBirthdaysFromFirebase(userId: String, onComplete: (List<Birthday>,Boolean) -> Unit) {
-        firestore.collection("deleted_birthdays")
-            .whereEqualTo("userId", userId)
-            .get()
-            .addOnSuccessListener { snapshot ->
-                val birthdays = snapshot.toObjects(Birthday::class.java)
-
-                //gelen listeyi sharedPreferences'a kaydetme
-                saveDeletedBirthdays(birthdays)
-                onComplete(birthdays,true)
-            }
-            .addOnFailureListener {
-                onComplete(emptyList(),false)
-            }
-    }
-    fun getPastBirthdaysFromFirebase(userId: String, onComplete: (List<Birthday>, Boolean) -> Unit) {
-        firestore.collection("past_birthdays")
-            .whereEqualTo("userId", userId)
-            .get()
-            .addOnSuccessListener { snapshot ->
-                val birthdays = snapshot.toObjects(Birthday::class.java)
-
-                //gelen listeyi sharedPreferences'a kaydetme
-                savePastBirthdays(birthdays)
-                onComplete(birthdays, true)
-            }
-            .addOnFailureListener {
-                onComplete(emptyList(), false)
-            }
-    }
-
-
-
 }
