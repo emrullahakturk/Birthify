@@ -20,6 +20,7 @@ import com.yargisoft.birthify.databinding.FragmentRegisterBinding
 import com.yargisoft.birthify.ui.viewmodels.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
@@ -27,12 +28,12 @@ class RegisterFragment : Fragment() {
     private lateinit var binding : FragmentRegisterBinding
     private val viewModel : AuthViewModel by viewModels()
 
-    private lateinit var emailTextInputLayout: TextInputLayout
-    private lateinit var emailEditText: TextInputEditText
-    private lateinit var registerPassTextInput: TextInputLayout
-    private lateinit var registerPasswordEditText: TextInputEditText
-    private lateinit var registerFullNameTextInput: TextInputLayout
-    private lateinit var registerFullNameEditText: TextInputEditText
+    @Inject lateinit var emailTextInputLayout: TextInputLayout
+    @Inject lateinit var emailEditText: TextInputEditText
+    @Inject lateinit var registerPassTextInput: TextInputLayout
+    @Inject  lateinit var registerPasswordEditText: TextInputEditText
+    @Inject  lateinit var registerFullNameTextInput: TextInputLayout
+    @Inject  lateinit var registerFullNameEditText: TextInputEditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

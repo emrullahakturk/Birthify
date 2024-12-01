@@ -18,6 +18,7 @@ import com.yargisoft.birthify.databinding.FragmentLoginPageBinding
 import com.yargisoft.birthify.ui.viewmodels.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginPageFragment : Fragment() {
@@ -26,8 +27,10 @@ class LoginPageFragment : Fragment() {
     private val  viewModel: AuthViewModel by viewModels()
 
 
-    private lateinit var loginEmailTextInput: TextInputLayout
-    private lateinit var loginEmailEditText: TextInputEditText
+    @Inject
+    lateinit var loginEmailTextInput: TextInputLayout
+    @Inject
+    lateinit var loginEmailEditText: TextInputEditText
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View {
 
