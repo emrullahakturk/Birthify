@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/bottomNavBirthdays"
+        android:id="@+id/birthdaysFragment"
+        android:contentDescription="@string/birthdays"
         android:icon="@drawable/ic_cake_bottom"
         android:title="@string/birthdays"
-        android:contentDescription="@string/birthdays"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/bottomNavPastBirthdays"
+        android:id="@+id/pastBirthdaysFragment"
         android:icon="@drawable/ic_clock_bottom"
         android:title="@string/past_birthdays"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/bottomNavTrashBin"
+        android:id="@+id/trashBinFragment"
         android:icon="@drawable/ic_delete_bottom"
         android:title="@string/trash_bin"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
 </menu>
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:title="@string/app_name">
+
+        <menu>
+            <item
+                android:id="@+id/mainPageFragment"
+                android:icon="@drawable/ic_cake"
+                android:title="@string/birthdays" />
+            <item
+                android:id="@+id/pastBirthdaysFragment"
+                android:icon="@drawable/ic_clock"
+                android:title="@string/past_birthdays" />
+
+
+            <item
+                android:id="@+id/trashBinFragment"
+                android:icon="@drawable/ic_delete"
+                android:iconTint="@color/green_login"
+                android:title="@string/trash_bin" />
+
+            <item
+                android:id="@+id/accountDetailsFragment"
+                android:icon="@drawable/ic_account"
+                android:title="@string/profile" />
+
+            <item
+                android:id="@+id/settingsFragment"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/settings" />
+            <item
+                android:id="@+id/labelLogOut"
+                android:icon="@drawable/ic_logout"
+                android:title="@string/log_out" />
+        </menu>
+    </item>
+</menu>

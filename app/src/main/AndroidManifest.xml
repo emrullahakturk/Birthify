@@ -43,7 +43,7 @@
             </intent-filter>
 
         </activity>
-        <receiver android:name=".BirthdayReminderReceiver" />
+        <receiver android:name=".utils.reminder.BirthdayReminderReceiver" />
     </application>
 
 </manifest>

@@ -13,15 +13,15 @@ import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
-import com.yargisoft.birthify.adapters.BirthdayAdapter
-import com.yargisoft.birthify.models.Birthday
-import com.yargisoft.birthify.viewmodels.UsersBirthdayViewModel
+import com.yargisoft.birthify.data.models.Birthday
+import com.yargisoft.birthify.ui.adapters.BirthdayAdapter
+import com.yargisoft.birthify.ui.viewmodels.BirthdayViewModel
 
 
 class UserSwipeToDeleteCallback(
     private val adapter: BirthdayAdapter,
     private val context: Context,
-    private val viewModel: UsersBirthdayViewModel,
+    private val viewModel: BirthdayViewModel,
     private val lifeCycleOwner: LifecycleOwner,
     private val deleteLottieAnimationView: LottieAnimationView,
     private val findNavController: NavController,
@@ -44,7 +44,7 @@ class UserSwipeToDeleteCallback(
         val position = viewHolder.adapterPosition
         if (position >= 0 || position < adapter.itemCount) {
 
-            UserFrequentlyUsedFunctions.showDeleteDialogBirthdayAdapter(
+            FrequentlyUsedFunctions.showDeleteDialogBirthdayAdapter(
                 position,
                 fragmentView,
                 context,

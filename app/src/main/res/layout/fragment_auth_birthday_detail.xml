@@ -6,7 +6,7 @@
     <data>
         <variable
             name="birthday"
-            type="com.yargisoft.birthify.models.Birthday" />
+            type="com.yargisoft.birthify.data.models.Birthday" />
     </data>
 
 
@@ -259,7 +259,7 @@
             android:background="@color/navigation_drawer_background"
             app:itemIconTint="@color/ic_navigation_icons_detail"
             app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
-            app:menu="@menu/user_drawer_menu"
+            app:menu="@menu/navigation_drawer_menu"
             app:subheaderColor="@color/nav_drawer_sub_header_tv"
             app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
 

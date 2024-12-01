@@ -42,6 +42,7 @@ android {
 
 kapt{
     correctErrorTypes = true
+    useBuildCache = true  // Daha hızlı derleme için build cache kullanımı
 }
 
 dependencies {

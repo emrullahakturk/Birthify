@@ -7,153 +7,67 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.authentication_views.FirstPageFragment"
         android:background="@drawable/first_page_background">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/wittgenstein_font"
+            android:text="@string/app_name"
+            android:textColor="@color/birthify_first_page_tv"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="220dp"
+            android:layout_marginTop="30dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/save_birthday_animation"
+            tools:ignore="ImageContrastCheck" />
 
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+        <Button
+            android:id="@+id/signInButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="40dp"
+            android:backgroundTint="@color/sign_in_button"
+            android:fontFamily="@font/wittgenstein_font"
+            android:text="@string/sign_in"
+            android:textSize="20sp" />
 
+        <Button
+            android:id="@+id/createAccountButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
+            android:backgroundTint="@color/create_account_button"
+            android:fontFamily="@font/wittgenstein_font"
+            android:text="@string/create_account"
+            android:textColor="@color/create_account_tv"
+            android:textSize="20sp"
 
-            <Button
-                android:id="@+id/signInButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="40dp"
-                android:backgroundTint="@color/sign_in_button"
-                android:fontFamily="@font/wittgenstein_font"
-                android:text="@string/sign_in"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView" />
-
-            <Button
-                android:id="@+id/createAccountButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="40dp"
-                android:backgroundTint="@color/create_account_button"
-                android:fontFamily="@font/wittgenstein_font"
-                android:text="@string/create_account"
-                android:textColor="@color/create_account_tv"
-                android:textSize="20sp"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signInButton" />
-
-            <!--            <TextView-->
-            <!--                android:id="@+id/crAccountTv"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:focusable="true"-->
-            <!--                android:fontFamily="@font/wittgenstein_font"-->
-            <!--                android:gravity="center"-->
-            <!--                android:text="@string/create_account"-->
-            <!--                android:textColor="@color/create_account_tv"-->
-            <!--                android:textSize="25sp"-->
-            <!--                android:textStyle="bold"-->
-            <!--                app:layout_constraintBottom_toTopOf="@+id/signInButton"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintHorizontal_bias="0.548"-->
-            <!--                app:layout_constraintStart_toStartOf="parent" />-->
+            />
 
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/orTv"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginTop="10dp"-->
-            <!--                android:text="@string/or_string"-->
-            <!--                android:textColor="@color/or_tv"-->
-            <!--                android:textSize="20sp"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintHorizontal_bias="0.498"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/createAccountButton" />-->
-
-            <TextView
-                android:id="@+id/continueWithoutTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
-                android:fontFamily="@font/wittgenstein_font"
-                android:text="@string/continue_without_signing_in"
-                android:textColor="@color/continue_without_tv"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/createAccountButton"
-                app:layout_constraintVertical_bias="0.307" />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottieAnimationView"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:layout_marginTop="30dp"
-                android:elevation="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/save_birthday_animation"
-                tools:ignore="ImageContrastCheck" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:fontFamily="@font/wittgenstein_font"
-                android:text="@string/app_name"
-                android:textColor="@color/birthify_first_page_tv"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
 
-            <!--            <com.airbnb.lottie.LottieAnimationView-->
-            <!--                android:id="@+id/lottieCake"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="150dp"-->
-            <!--                android:elevation="10dp"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintHorizontal_bias="0.0"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:lottie_autoPlay="true"-->
-            <!--                app:lottie_loop="true"-->
-            <!--                app:lottie_rawRes="@raw/save_birthday_animation"-->
-            <!--                tools:ignore="ImageContrastCheck" />-->
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>
 
 

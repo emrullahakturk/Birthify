@@ -616,7 +616,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         android:background="@color/navigation_drawer_background"
         app:itemIconTint="@color/ic_navigation_icons_main"
         app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
-        app:menu="@menu/user_drawer_menu"
+        app:menu="@menu/navigation_drawer_menu"
         app:subheaderColor="@color/nav_drawer_sub_header_tv_main"
         app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
 

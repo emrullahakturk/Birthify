@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_auth_nav"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.yargisoft.birthify.ui.views.authfragments.SplashFragment"
+        android:label="SplashFragment" >
+        <action
+            android:id="@+id/splashToFirstPage"
+            app:destination="@id/firstPageFragment" />
+        <action
+            android:id="@+id/splashToMainNavGraph"
+            app:destination="@id/main_nav" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.yargisoft.birthify.ui.views.authfragments.RegisterFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/registerToLogin"
+            app:destination="@id/loginPageFragment"
+             />
+        <action
+            android:id="@+id/registerToFirst"
+            app:destination="@id/firstPageFragment"
+             />
+        <action
+            android:id="@+id/registerToForgot"
+            app:destination="@id/forgotPasswordFragment"
+             />
+    </fragment>
+    <fragment
+        android:id="@+id/loginPageFragment"
+        android:name="com.yargisoft.birthify.ui.views.authfragments.LoginPageFragment"
+        android:label="fragment_login_page"
+        tools:layout="@layout/fragment_login_page" >
+        <action
+            android:id="@+id/loginToRegister"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/loginToFirst"
+            app:destination="@id/firstPageFragment"
+             />
+        <action
+            android:id="@+id/loginToForgot"
+            app:destination="@id/forgotPasswordFragment"
+             />
+        <action
+            android:id="@+id/loginToMain"
+            app:destination="@id/main_nav" />
+    </fragment>
+    <fragment
+        android:id="@+id/firstPageFragment"
+        android:name="com.yargisoft.birthify.ui.views.authfragments.FirstPageFragment"
+        android:label="fragment_main_page"
+        tools:layout="@layout/fragment_first_page" >
+        <action
+            android:id="@+id/firstToLogin"
+            app:destination="@id/loginPageFragment"
+             />
+
+        <action
+            android:id="@+id/firstToRegister"
+            app:destination="@id/registerFragment"
+             />
+
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.yargisoft.birthify.ui.views.authfragments.ForgotPasswordFragment"
+        android:label="ForgotPasswordFragment" >
+        <action
+            android:id="@+id/forgotToLogin"
+            app:destination="@id/loginPageFragment" />
+    </fragment>
+    <include app:graph="@navigation/main_nav" />
+
+</navigation>
+

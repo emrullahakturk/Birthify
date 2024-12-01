@@ -10,7 +10,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import com.yargisoft.birthify.sharedpreferences.UserSharedPreferencesManager
+import com.yargisoft.birthify.utils.NetworkConnectionObserver
+import com.yargisoft.birthify.utils.sharedpreferences.UserSharedPreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 import javax.inject.Inject
@@ -49,13 +50,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.findFragmentById(R.id.mainFragmentHost) as NavHostFragment
 
 
-
-      /*  guestRepository = GuestRepository(this)
-        guestViewModelFactory = GuestViewModelFactory(guestRepository)
-        guestViewModel = ViewModelProvider(this, guestViewModelFactory)[GuestBirthdayViewModel::class.java]
-
-*/
-
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 // Geri tuşuna basıldığında yapılacak işlemler
@@ -70,8 +64,6 @@ class MainActivity : AppCompatActivity() {
 
         onBackPressedDispatcher.addCallback(this, callback)
 
-        networkConnectionObserver = NetworkConnectionObserver(this)
-
         networkConnectionObserver.isConnected.observe(this) { isConnected ->
             if(userSharedPreferences.getUserCredentials().second != "guest"){
                 if (!isConnected) {
@@ -79,8 +71,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-
 
 
     }

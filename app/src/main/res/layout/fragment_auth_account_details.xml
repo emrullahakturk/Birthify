@@ -321,7 +321,7 @@
                 android:background="@color/navigation_drawer_background"
                 app:itemIconTint="@color/update_birthday_button_edit"
                 app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
-                app:menu="@menu/user_drawer_menu"
+                app:menu="@menu/navigation_drawer_menu"
                 app:subheaderColor="@color/white"
                 app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
 

@@ -289,7 +289,7 @@
             app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance"
             app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
             android:background="@color/navigation_drawer_background"
-            app:menu="@menu/user_drawer_menu" />
+            app:menu="@menu/navigation_drawer_menu" />
     </androidx.drawerlayout.widget.DrawerLayout>
 
 
