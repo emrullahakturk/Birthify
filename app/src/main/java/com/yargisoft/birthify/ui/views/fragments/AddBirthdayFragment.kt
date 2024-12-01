@@ -48,6 +48,8 @@ class AddBirthdayFragment : Fragment() {
     @Inject
     lateinit var userSharedPreferences: UserSharedPreferencesManager
 
+    @Inject lateinit var bottomSheet : NotifyTimeBottomSheetDialogFragment
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -87,7 +89,6 @@ class AddBirthdayFragment : Fragment() {
         }
 
         binding.notificationTimeEditText.setOnClickListener{
-            val bottomSheet = NotifyTimeBottomSheetDialogFragment()
             bottomSheet.setOnOptionSelectedListener { selectedOption ->
                 binding.notifyDate = selectedOption
             }

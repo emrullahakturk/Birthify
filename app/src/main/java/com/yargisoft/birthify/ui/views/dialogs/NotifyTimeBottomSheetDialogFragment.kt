@@ -8,8 +8,9 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentNotifyTimeBottomSheetDialogBinding
+import javax.inject.Inject
 
-class NotifyTimeBottomSheetDialogFragment : BottomSheetDialogFragment() {
+class NotifyTimeBottomSheetDialogFragment @Inject constructor() : BottomSheetDialogFragment() {
 
     private lateinit var binding : FragmentNotifyTimeBottomSheetDialogBinding
     private var onOptionSelected: ((String) -> Unit)? = null
