@@ -39,7 +39,6 @@ class AccountDetailsFragment : Fragment() {
 
     @Inject
     lateinit var birthdayRepository: BirthdayRepository
-
     @Inject lateinit var userSharedPreferences: UserSharedPreferencesManager
     @Inject lateinit var credentialPreferences: SharedPreferences
 

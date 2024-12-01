@@ -40,8 +40,10 @@ import javax.inject.Inject
 class SettingsFragment : Fragment() {
 
     private lateinit var binding: FragmentAuthSettingsBinding
-     private val birthdayViewModel: BirthdayViewModel by viewModels()
+
+    private val birthdayViewModel: BirthdayViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
+
     @Inject
     lateinit var userSharedPreferences: UserSharedPreferencesManager
     @Inject
@@ -168,12 +170,6 @@ class SettingsFragment : Fragment() {
 
         return binding.root
     }
-
-
-
-
-
-
 
     private fun getCurrentLanguage(): String {
         val preferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)

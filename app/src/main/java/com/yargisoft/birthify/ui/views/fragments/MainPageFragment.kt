@@ -45,11 +45,12 @@ class MainPageFragment : Fragment() {
     private lateinit var binding: FragmentAuthMainPageBinding
     private val birthdayViewModel: BirthdayViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
-    private lateinit var adapter: BirthdayAdapter
     private lateinit var itemTouchHelper: ItemTouchHelper
     private lateinit var networkConnectionObserver: NetworkConnectionObserver
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
+    @Inject
+    lateinit var adapter: BirthdayAdapter
     @Inject
     lateinit var userSharedPreferences: UserSharedPreferencesManager
     @Inject
@@ -161,19 +162,18 @@ class MainPageFragment : Fragment() {
 
          val adapterList= birthdayViewModel.birthdayList.value ?: emptyList()
 
-        //Adapter'ı initialize etme
-        adapter = BirthdayAdapter(
-            adapterList.sortedByDescending { it.recordedDate },
-            {birthday ->
-                val action =MainPageFragmentDirections.mainToEditBirthday(birthday)
-                findNavController().navigate(action)
-            },
-            { birthday ->
-                val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
-                findNavController().navigate(action)
-            },
-            requireContext(),
-            binding.clickToAddBirthdayTv)
+         adapter.updateData(adapterList.sortedByDescending { it.recordedDate })
+
+         adapter.setOnEditClickListener {birthday ->
+             val action =MainPageFragmentDirections.mainToEditBirthday(birthday)
+             findNavController().navigate(action)
+         }
+        adapter.setOnDetailClickListener { birthday ->
+            val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
+            findNavController().navigate(action)
+        }
+
+
 
         //ItemTouchHelper initialize etme
         itemTouchHelper = ItemTouchHelper(UserSwipeToDeleteCallback(

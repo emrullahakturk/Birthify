@@ -50,6 +50,8 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.findFragmentById(R.id.mainFragmentHost) as NavHostFragment
 
 
+
+
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 // Geri tuşuna basıldığında yapılacak işlemler

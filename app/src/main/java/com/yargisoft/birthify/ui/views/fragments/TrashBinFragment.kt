@@ -35,11 +35,13 @@ class TrashBinFragment : Fragment() {
     private lateinit var binding: FragmentAuthTrashBinBinding
     private val birthdayViewModel: BirthdayViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
+
     @Inject
     lateinit var userSharedPreferences: UserSharedPreferencesManager
-    private lateinit var adapter: DeletedBirthdayAdapter
-    private lateinit var networkConnectionObserver: NetworkConnectionObserver
-
+    @Inject
+    lateinit var adapter: DeletedBirthdayAdapter
+    @Inject
+    lateinit var networkConnectionObserver: NetworkConnectionObserver
     @Inject
     lateinit var birthdayRepository: BirthdayRepository
 
@@ -70,17 +72,10 @@ class TrashBinFragment : Fragment() {
         val toolbarMenuButton = binding.toolbarUserTrashBin.findViewById<View>(R.id.menuButtonToolbar)
 
 
-        //adapter initialization
-        adapter = DeletedBirthdayAdapter(listOf(),
-            { birthday ->
-                val action =
-                   TrashBinFragmentDirections.trashToDeletedDetail(
-                        birthday
-                    )
-                findNavController().navigate(action)
-            },
-            binding.trashBinMainTv
-            )
+
+        adapter.setOnDetailClickListener { birthday ->
+            val action = TrashBinFragmentDirections.trashToDeletedDetail(birthday)
+            findNavController().navigate(action) }
 
 
         //Recyckerview Tanımlamaları
@@ -96,14 +91,10 @@ class TrashBinFragment : Fragment() {
 
             binding.trashBinMainTv.visibility = if (deletedBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
 
-            // Adapter initialization
-            adapter = DeletedBirthdayAdapter(deletedBirthdays,
-                { birthday ->
-                    val action = TrashBinFragmentDirections.trashToDeletedDetail(birthday)
-                    findNavController().navigate(action)
-                },
-                binding.trashBinMainTv
-            )
+            adapter.updateData(deletedBirthdays)
+            adapter.setOnDetailClickListener { birthday ->
+                val action = TrashBinFragmentDirections.trashToDeletedDetail(birthday)
+                findNavController().navigate(action) }
 
             binding.recyclerView.adapter = adapter
         }

@@ -35,8 +35,11 @@ class PastBirthdaysFragment : Fragment() {
     private lateinit var binding: FragmentAuthPastBirthdaysBinding
     private val birthdayViewModel: BirthdayViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
-    private lateinit var adapter: PastBirthdayAdapter
-    private lateinit var networkConnectionObserver: NetworkConnectionObserver
+
+    @Inject
+    lateinit var adapter: PastBirthdayAdapter
+    @Inject
+    lateinit var networkConnectionObserver: NetworkConnectionObserver
     @Inject
     lateinit var birthdayRepository: BirthdayRepository
     @Inject
@@ -50,8 +53,7 @@ class PastBirthdaysFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_past_birthdays, container, false)
 
-        networkConnectionObserver = NetworkConnectionObserver(requireContext())
-        networkConnectionObserver.isConnected.observe(viewLifecycleOwner) { isConnected ->
+         networkConnectionObserver.isConnected.observe(viewLifecycleOwner) { isConnected ->
             if(userSharedPreferences.getUserCredentials().second != "guest"){
                 if (isConnected) {
                     //Main Page Açıldığında firebase üzerindeki doğum günlerini bday shared pref'e aktararak senkronize etmiş oluyoruz
@@ -82,16 +84,7 @@ class PastBirthdaysFragment : Fragment() {
          )
 
         val adapterList= birthdayViewModel.birthdayList.value ?: emptyList()
-        //Adapter'ı initialize etme
-        adapter = PastBirthdayAdapter(
-            adapterList.sortedByDescending { it.recordedDate },
-            {_ ->
-//                val action =MainPageFragmentDirections.mainToEditBirthday(birthday)
-//                findNavController().navigate(action)
-            },
-            requireContext(),
-            binding.thereIsNoPastBirthdays
-            )
+        adapter.updateData(adapterList.sortedByDescending { it.recordedDate })
 
 
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz

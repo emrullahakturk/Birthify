@@ -1,6 +1,7 @@
 package com.yargisoft.birthify.ui.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +11,17 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.data.models.Birthday
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
+class DeletedBirthdayAdapter @Inject constructor(
+    private val prefAppSettings: SharedPreferences,
+    @ApplicationContext private val context: Context,
+    private val textView: TextView
+) : RecyclerView.Adapter<DeletedBirthdayAdapter.DeletedBirthdayViewHolder>(), AdapterInterface {
 
-class DeletedBirthdayAdapter(private var deletedBirthdayList: List<Birthday>,
-                             private val onDetailClick: (Birthday) -> Unit,
-                             private val textView: TextView
-) : RecyclerView.Adapter<DeletedBirthdayAdapter.DeletedBirthdayViewHolder>() , AdapterInterface{
-
-    @Inject
-    lateinit var prefAppSettings: SharedPreferences
+    private var deletedBirthdayList: List<Birthday> = emptyList()
+    private lateinit var onDetailClick: (Birthday) -> Unit
 
 
     class DeletedBirthdayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,8 +31,7 @@ class DeletedBirthdayAdapter(private var deletedBirthdayList: List<Birthday>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeletedBirthdayViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_deleted_birthday, parent, false)
-
+        val view = LayoutInflater.from(context).inflate(R.layout.item_deleted_birthday, parent, false)
         return DeletedBirthdayViewHolder(view)
     }
 
@@ -42,16 +43,12 @@ class DeletedBirthdayAdapter(private var deletedBirthdayList: List<Birthday>,
             "tr" -> "Doğum Tarihi: ${birthday.birthdayDate}"
             else -> "Birthday Date: ${birthday.birthdayDate}"
         }
-        holder.toDetailView.setOnClickListener{
-            onDetailClick(birthday)
-        }
-
+        holder.toDetailView.setOnClickListener { onDetailClick(birthday) }
     }
 
     override fun getItemCount(): Int {
         return deletedBirthdayList.size
     }
-
 
     @SuppressLint("NotifyDataSetChanged")
     override fun updateData(newBirthdays: List<Birthday>) {
@@ -60,6 +57,7 @@ class DeletedBirthdayAdapter(private var deletedBirthdayList: List<Birthday>,
         notifyDataSetChanged()
     }
 
-
-
+    fun setOnDetailClickListener(listener: (Birthday) -> Unit) {
+        onDetailClick = listener
+    }
 }

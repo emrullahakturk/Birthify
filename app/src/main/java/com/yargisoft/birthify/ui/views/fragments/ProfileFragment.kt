@@ -49,8 +49,6 @@ class ProfileFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_profile, container, false)
 
         val lottieAnimationView = binding.threePointAnimation
-
-
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
         val toolbarMenuButton = binding.menuButtonToolbar

@@ -11,17 +11,17 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.data.models.Birthday
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class PastBirthdayAdapter(private var pastBirthdayList: List<Birthday>,
-                          private val onDetailClick: (Birthday) -> Unit,
-                          val context : Context,
-                          private val textView: TextView,
+class PastBirthdayAdapter @Inject constructor(
+    private val prefAppSettings: SharedPreferences,
+    @ApplicationContext private val context: Context,
+    private val textView: TextView
 ) : RecyclerView.Adapter<PastBirthdayAdapter.PastBirthdayViewHolder>(), AdapterInterface {
 
-    @Inject
-    lateinit var prefAppSettings: SharedPreferences
-
+    private var pastBirthdayList: List<Birthday> = emptyList()
+    private lateinit var onDetailClick: (Birthday) -> Unit
 
     class PastBirthdayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameCardTv)
@@ -30,8 +30,7 @@ class PastBirthdayAdapter(private var pastBirthdayList: List<Birthday>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PastBirthdayViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_past_birthday, parent, false)
-
+        val view = LayoutInflater.from(context).inflate(R.layout.item_past_birthday, parent, false)
         return PastBirthdayViewHolder(view)
     }
 
@@ -43,16 +42,12 @@ class PastBirthdayAdapter(private var pastBirthdayList: List<Birthday>,
             "tr" -> "Doğum Tarihi: ${birthday.birthdayDate}"
             else -> "Memories from ${birthday.birthdayDate}, a year older and wiser."
         }
-        holder.toDetailView.setOnClickListener{
-            onDetailClick(birthday)
-        }
-
+        holder.toDetailView.setOnClickListener { onDetailClick(birthday) }
     }
 
     override fun getItemCount(): Int {
         return pastBirthdayList.size
     }
-
 
     @SuppressLint("NotifyDataSetChanged")
     override fun updateData(newBirthdays: List<Birthday>) {
@@ -61,6 +56,7 @@ class PastBirthdayAdapter(private var pastBirthdayList: List<Birthday>,
         notifyDataSetChanged()
     }
 
-
-
+    fun setOnDetailClickListener(listener: (Birthday) -> Unit) {
+        onDetailClick = listener
+    }
 }
