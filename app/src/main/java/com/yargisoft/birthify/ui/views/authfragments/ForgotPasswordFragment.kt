@@ -20,16 +20,17 @@ import com.yargisoft.birthify.databinding.FragmentForgotPasswordBinding
 import com.yargisoft.birthify.ui.viewmodels.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ForgotPasswordFragment : Fragment() {
     private lateinit var binding: FragmentForgotPasswordBinding
     private val viewModel: AuthViewModel by viewModels()
 
-
-
-    private lateinit var forgotPassTextInputLayout : TextInputLayout
-    private lateinit var resetPassEmailEditText: TextInputEditText
+    @Inject
+    lateinit var forgotPassTextInputLayout : TextInputLayout
+    @Inject
+    lateinit var resetPassEmailEditText: TextInputEditText
 
 
     override fun onCreateView(
