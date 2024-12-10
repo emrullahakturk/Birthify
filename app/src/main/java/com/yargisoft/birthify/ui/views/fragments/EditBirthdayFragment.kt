@@ -2,23 +2,22 @@ package com.yargisoft.birthify.ui.views.fragments
 
 import android.app.AlarmManager
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.data.repositories.BirthdayRepository
 import com.yargisoft.birthify.databinding.FragmentAuthEditBirthdayBinding
-import com.yargisoft.birthify.ui.viewmodels.AuthViewModel
 import com.yargisoft.birthify.ui.viewmodels.BirthdayViewModel
 import com.yargisoft.birthify.ui.views.dialogs.NotifyTimeBottomSheetDialogFragment
 import com.yargisoft.birthify.utils.reminder.ReminderFunctions.requestExactAlarmPermission
@@ -33,13 +32,13 @@ class EditBirthdayFragment : Fragment() {
     private lateinit var binding : FragmentAuthEditBirthdayBinding
     private val editedBirthday : EditBirthdayFragmentArgs by navArgs()
     private val birthdayViewModel: BirthdayViewModel by viewModels()
-    private val authViewModel: AuthViewModel by viewModels()
 
     @Inject
     lateinit var birthdayRepository: BirthdayRepository
     @Inject
     lateinit var userSharedPreferences: UserSharedPreferencesManager
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,24 +53,6 @@ class EditBirthdayFragment : Fragment() {
         //editlenen doğum günü bilgilerini ekrana yansıtıyoruz
         binding.birthday = editedBirthday.birthday
 
-
-
-        // DrawerLayout ve NavigationView tanımlamaları
-        val drawerLayout: DrawerLayout = binding.drawerLayout
-        val navigationView: NavigationView = binding.navigationView
-        val toolbarMenuButton = binding.menuButtonToolbar
-
-        //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
-        FrequentlyUsedFunctions.drawerLayoutToggle(
-            drawerLayout,
-            navigationView,
-             toolbarMenuButton,
-            requireActivity(),
-            authViewModel,
-            birthdayViewModel,
-            birthdayRepository,
-            userSharedPreferences,
-         )
 
 
         binding.notifyTimeEditText.setOnClickListener {

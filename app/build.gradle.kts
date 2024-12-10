@@ -1,11 +1,10 @@
-plugins {
+plugins{
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
     id("androidx.navigation.safeargs")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
-
 }
 
 android {
@@ -17,7 +16,7 @@ android {
     }
     defaultConfig {
         applicationId = "com.yargisoft.birthify"
-        minSdk = 31
+        minSdk = 30
         targetSdk = 34
         versionCode = 2
         versionName = "1.0.0"
@@ -59,6 +58,7 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.messaging)
     implementation(libs.work.runtime)
+    implementation(libs.activity)
 
     // Test Dependencies
     testImplementation(libs.junit)
@@ -70,4 +70,8 @@ dependencies {
     // Hilt Dependencies
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
+    // Hilt Worker
+    implementation ("androidx.hilt:hilt-work:1.0.0")
+    kapt ("androidx.hilt:hilt-compiler:1.0.0")
 }

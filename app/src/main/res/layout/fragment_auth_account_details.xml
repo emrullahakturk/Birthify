@@ -17,105 +17,49 @@
 
     </data>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/edit_birthday_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
 
 
-        <androidx.drawerlayout.widget.DrawerLayout
-            android:id="@+id/drawerLayoutDetail"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            app:layout_constraintBottom_toTopOf="@+id/fabBackButton"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/three_point_animation"
+            <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:elevation="5dp"
-                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/three_point_animation">
-
-            </com.airbnb.lottie.LottieAnimationView>
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/edit_birthday_background"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5">
-
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbarUserAccountDetail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/toolbar_background"
-                    android:minHeight="?attr/actionBarSize"
-                    android:theme="?attr/actionBarTheme"
-
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/birthifyTvToolbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:text="@string/app_name"
-                    android:textColor="@color/toolbar_app_name"
-                    android:textSize="40sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/toolbarUserAccountDetail"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/toolbarUserAccountDetail" />
-
-                <ImageView
-                    android:id="@+id/menuButtonToolbarDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:contentDescription="@string/toolbar_menu_three_lines"
-                    android:src="@drawable/ic_menu_line"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:id="@+id/lineView"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@color/line_view"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbarUserAccountDetail" />
-
+                app:layout_constraintTop_toBottomOf="@+id/lineView">
 
                 <TextView
                     android:id="@+id/editBirthdayTv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
+                    android:layout_marginBottom="10dp"
                     android:fontFamily="@font/wittgenstein_font"
                     android:gravity="center"
                     android:paddingStart="10dp"
@@ -123,216 +67,171 @@
                     android:text="@string/account_details"
                     android:textColor="@color/edit_birthday_of_your_tv"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbarUserAccountDetail" />
+                    android:textStyle="bold" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/full_name"
+                    android:textColor="@color/current_password_tv_dialog"
+                    android:textSize="16sp" />
 
-                <ScrollView
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editBirthdayTv">
+                    android:layout_marginBottom="16dp"
+                    app:boxBackgroundMode="outline"
+                    app:startIconDrawable="@drawable/ic_account"
+                    app:startIconTint="@color/ic_account_edit">
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/accountNameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lineView">
+                        android:background="@drawable/rounded_edit_text_edit"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:fontFamily="@font/wittgenstein_font"
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:paddingStart="40dp"
+                        android:paddingEnd="0dp"
+                        android:text="@{name}"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_gravity="start"
-                            android:text="@string/full_name"
-                            android:textColor="@color/current_password_tv_dialog"
-                            android:textSize="16sp" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp"
-                            app:boxBackgroundMode="outline"
-                            app:startIconDrawable="@drawable/ic_account"
-                            app:startIconTint="@color/ic_account_edit">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/accountNameEditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/rounded_edit_text_edit"
-                                android:fontFamily="@font/wittgenstein_font"
-                                android:clickable="false"
-                                android:focusable="false"
-                                android:maxLines="1"
-                                android:maxLength="30"
-                                android:paddingStart="40dp"
-                                android:paddingEnd="0dp"
-                                android:text="@{name}"
-                                tools:ignore="SpeakableTextPresentCheck" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_gravity="start"
-                            android:text="@string/e_mail"
-                            android:textColor="@color/current_password_tv_dialog"
-                            android:textSize="16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/e_mail"
+                    android:textColor="@color/current_password_tv_dialog"
+                    android:textSize="16sp" />
 
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp"
-                            app:boxBackgroundMode="outline"
-                            app:startIconDrawable="@drawable/ic_mail"
-                            app:startIconTint="@color/ic_calendar_edit">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/accountMailEditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/rounded_edit_text_edit"
-                                android:clickable="false"
-                                android:focusable="false"
-                                android:fontFamily="@font/wittgenstein_font"
-                                android:inputType="none"
-                                android:maxLines="1"
-                                android:paddingStart="40dp"
-                                android:paddingEnd="0dp"
-                                android:text="@{mail}"
-                                tools:ignore="SpeakableTextPresentCheck" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_gravity="start"
-                            android:text="@string/recorded_date"
-                            android:textColor="@color/current_password_tv_dialog"
-                            android:textSize="16sp" />
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="16dp"
-                            app:boxBackgroundMode="outline"
-                            app:startIconDrawable="@drawable/ic_date"
-                            app:startIconTint="@color/ic_calendar_edit">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/accountRecordedDateEditText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/rounded_edit_text_edit"
-                                android:clickable="false"
-                                android:focusable="false"
-                                android:fontFamily="@font/wittgenstein_font"
-                                android:inputType="none"
-                                android:maxLines="1"
-                                android:paddingStart="40dp"
-                                android:paddingEnd="0dp"
-                                android:text="@{recordedDate}"
-                                tools:ignore="SpeakableTextPresentCheck" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-
-                        <Button
-                            android:id="@+id/changePasswordButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@color/update_birthday_button_edit"
-                            android:text="@string/change_password"
-                            android:textColor="@color/button_text" />
-
-                        <Button
-                            android:id="@+id/resetPasswordButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:backgroundTint="@color/change_password_button_dialog"
-                            android:text="@string/reset_password"
-                            android:textColor="@color/black" />
-
-                    </LinearLayout>
-                </ScrollView>
-
-
-                <androidx.coordinatorlayout.widget.CoordinatorLayout
-                    android:id="@+id/coordinatorLayout"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent">
+                    android:layout_marginBottom="16dp"
+                    app:boxBackgroundMode="outline"
+                    app:startIconDrawable="@drawable/ic_mail"
+                    app:startIconTint="@color/ic_calendar_edit">
 
-                    <com.google.android.material.bottomappbar.BottomAppBar
-                        android:id="@+id/bottomAppBar"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/accountMailEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="bottom"
-                        android:backgroundTint="@color/bottom_navigation_background"
-                        app:menu="@menu/bottom_nav_menu">
-
-
-                    </com.google.android.material.bottomappbar.BottomAppBar>
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/fabBackButton"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/fab_button_background_edit"
-                        android:clickable="true"
-                        android:src="@drawable/ic_back"
-                        app:layout_anchor="@id/bottomAppBar"
-                        tools:ignore="ContentDescription" />
+                        android:background="@drawable/rounded_edit_text_edit"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:fontFamily="@font/wittgenstein_font"
+                        android:inputType="none"
+                        android:maxLines="1"
+                        android:paddingStart="40dp"
+                        android:paddingEnd="0dp"
+                        android:text="@{mail}"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/recorded_date"
+                    android:textColor="@color/current_password_tv_dialog"
+                    android:textSize="16sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:boxBackgroundMode="outline"
+                    app:startIconDrawable="@drawable/ic_date"
+                    app:startIconTint="@color/ic_calendar_edit">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/accountRecordedDateEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_edit_text_edit"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:fontFamily="@font/wittgenstein_font"
+                        android:inputType="none"
+                        android:maxLines="1"
+                        android:paddingStart="40dp"
+                        android:paddingEnd="0dp"
+                        android:text="@{recordedDate}"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/changePasswordButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/update_birthday_button_edit"
+                    android:text="@string/change_password"
+                    android:textColor="@color/button_text" />
 
-            <com.google.android.material.navigation.NavigationView
-                android:id="@+id/navigationViewDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="start"
-                android:background="@color/navigation_drawer_background"
-                app:itemIconTint="@color/update_birthday_button_edit"
-                app:itemTextAppearance="@style/CustomNavigationViewTextAppearance"
-                app:menu="@menu/navigation_drawer_menu"
-                app:subheaderColor="@color/white"
-                app:subheaderTextAppearance="@style/CustomNavigationViewTextAppearance">
+                <Button
+                    android:id="@+id/resetPasswordButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:backgroundTint="@color/change_password_button_dialog"
+                    android:text="@string/reset_password"
+                    android:textColor="@color/black" />
 
-            </com.google.android.material.navigation.NavigationView>
+            </LinearLayout>
+        </ScrollView>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/fab_button_background_edit"
+            android:clickable="true"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="ContentDescription" />
 
-        </androidx.drawerlayout.widget.DrawerLayout>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/three_point_animation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="5dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/three_point_animation">
 
+        </com.airbnb.lottie.LottieAnimationView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
 
 
 </layout>

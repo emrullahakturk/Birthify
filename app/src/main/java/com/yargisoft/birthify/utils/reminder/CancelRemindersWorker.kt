@@ -4,13 +4,17 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import androidx.hilt.work.HiltWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.yargisoft.birthify.utils.reminder.ReminderFunctions.saveAlarmStatus
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 
-class CancelRemindersWorker(
-    context: Context,
-    workerParams: WorkerParameters
+@HiltWorker
+class CancelRemindersWorker @AssistedInject constructor(
+    @Assisted context: Context,
+    @Assisted workerParams: WorkerParameters
 ) : Worker(context, workerParams) {
 
     override fun doWork(): Result {

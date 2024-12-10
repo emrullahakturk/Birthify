@@ -1,27 +1,22 @@
 package com.yargisoft.birthify.ui.views.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.navigation.NavigationView
 import com.yargisoft.birthify.BirthdaySortFunctions
 import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.data.repositories.BirthdayRepository
 import com.yargisoft.birthify.databinding.FragmentAuthTrashBinBinding
 import com.yargisoft.birthify.ui.adapters.DeletedBirthdayAdapter
-import com.yargisoft.birthify.ui.viewmodels.AuthViewModel
 import com.yargisoft.birthify.ui.viewmodels.BirthdayViewModel
 import com.yargisoft.birthify.utils.NetworkConnectionObserver
 import com.yargisoft.birthify.utils.sharedpreferences.UserSharedPreferencesManager
@@ -34,14 +29,16 @@ class TrashBinFragment : Fragment() {
 
     private lateinit var binding: FragmentAuthTrashBinBinding
     private val birthdayViewModel: BirthdayViewModel by viewModels()
-    private val authViewModel: AuthViewModel by viewModels()
 
     @Inject
     lateinit var userSharedPreferences: UserSharedPreferencesManager
+
     @Inject
     lateinit var adapter: DeletedBirthdayAdapter
+
     @Inject
     lateinit var networkConnectionObserver: NetworkConnectionObserver
+
     @Inject
     lateinit var birthdayRepository: BirthdayRepository
 
@@ -49,33 +46,29 @@ class TrashBinFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_trash_bin, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_auth_trash_bin, container, false)
 
 
         networkConnectionObserver = NetworkConnectionObserver(requireContext())
         networkConnectionObserver.isConnected.observe(viewLifecycleOwner) { isConnected ->
-            if(userSharedPreferences.getUserCredentials().second != "guest"){
+            if (userSharedPreferences.getUserCredentials().second != "guest") {
                 if (isConnected) {
                     //Main Page Açıldığında firebase üzerindeki doğum günlerini bday shared pref'e aktararak senkronize etmiş oluyoruz
-                    birthdayViewModel.getBirthdaysFromFirebase(userSharedPreferences.getUserId(),"deleted_birthdays")
+                    birthdayViewModel.getBirthdaysFromFirebase(
+                        userSharedPreferences.getUserId(),
+                        "deleted_birthdays"
+                    )
                 }
             }
         }
 
         birthdayViewModel.getBirthdays("deleted_birthdays")
 
-        // DrawerLayout ve NavigationView tanımlamaları
-        val drawerLayout: DrawerLayout = binding.drawerLayout
-        val navigationView: NavigationView = binding.navigationView
-
-        // Toolbar üzerindeki menü ikonu
-        val toolbarMenuButton = binding.toolbarUserTrashBin.findViewById<View>(R.id.menuButtonToolbar)
-
-
-
         adapter.setOnDetailClickListener { birthday ->
             val action = TrashBinFragmentDirections.trashToDeletedDetail(birthday)
-            findNavController().navigate(action) }
+            findNavController().navigate(action)
+        }
 
 
         //Recyckerview Tanımlamaları
@@ -89,12 +82,14 @@ class TrashBinFragment : Fragment() {
 
         birthdayViewModel.birthdayList.observe(viewLifecycleOwner) { deletedBirthdays ->
 
-            binding.trashBinMainTv.visibility = if (deletedBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
+            binding.trashBinMainTv.visibility =
+                if (deletedBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
 
             adapter.updateData(deletedBirthdays)
             adapter.setOnDetailClickListener { birthday ->
                 val action = TrashBinFragmentDirections.trashToDeletedDetail(birthday)
-                findNavController().navigate(action) }
+                findNavController().navigate(action)
+            }
 
             binding.recyclerView.adapter = adapter
         }
@@ -112,27 +107,9 @@ class TrashBinFragment : Fragment() {
         })
 
 
-        binding.toolbarUserTrashBin.findViewById<View>(R.id.addButtonToolbar).setOnClickListener {
-            binding.searchEditText.requestFocus()
-            //tıklandıktan sonra klavyenin açılmasını sağlar
-            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT)
+        binding.sortButton.setOnClickListener {
 
-        }
-
-
-
-        binding.bottomAppBar.setNavigationOnClickListener {
-            binding.searchEditText.requestFocus()
-            //tıklandıktan sonra klavyenin açılmasını sağlar
-            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT)
-        }
-
-
-        binding.sortButton.setOnClickListener{
-
-           BirthdaySortFunctions.showSortMenu(it,requireContext(),adapter,birthdayViewModel)
+            BirthdaySortFunctions.showSortMenu(it, requireContext(), adapter, birthdayViewModel)
 
         }
 
@@ -141,17 +118,6 @@ class TrashBinFragment : Fragment() {
         }
 
 
-        //Navigation View'i açıp kapamaya ve menü içindeki elemanlarla başka sayfalara gitmemizi sağlayan fonksiyon
-        FrequentlyUsedFunctions.drawerLayoutToggle(
-            drawerLayout,
-            navigationView,
-             toolbarMenuButton,
-            requireActivity(),
-            authViewModel,
-            birthdayViewModel,
-            birthdayRepository,
-            userSharedPreferences,
-         )
 
 
 
@@ -160,7 +126,10 @@ class TrashBinFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        birthdayViewModel.getBirthdaysFromFirebase(userSharedPreferences.getUserId(),"deleted_birthdays")
+        birthdayViewModel.getBirthdaysFromFirebase(
+            userSharedPreferences.getUserId(),
+            "deleted_birthdays"
+        )
         birthdayViewModel.getBirthdays("deleted_birthdays")
     }
 }

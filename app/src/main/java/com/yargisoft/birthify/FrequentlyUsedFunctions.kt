@@ -10,10 +10,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat.getString
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
@@ -21,20 +18,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import androidx.work.Data
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
 import com.airbnb.lottie.LottieAnimationView
-import com.google.android.material.navigation.NavigationView
 import com.google.android.material.textfield.TextInputEditText
 import com.yargisoft.birthify.data.models.Birthday
-import com.yargisoft.birthify.data.repositories.BirthdayRepository
 import com.yargisoft.birthify.ui.adapters.AdapterInterface
-import com.yargisoft.birthify.ui.viewmodels.AuthViewModel
 import com.yargisoft.birthify.ui.viewmodels.BirthdayViewModel
-import com.yargisoft.birthify.utils.reminder.CancelRemindersWorker
 import com.yargisoft.birthify.utils.reminder.ReminderFunctions.cancelBirthdayReminder
-import com.yargisoft.birthify.utils.sharedpreferences.UserSharedPreferencesManager
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -278,69 +267,6 @@ object FrequentlyUsedFunctions {
     }
 
 
-    fun drawerLayoutToggle(
-        drawerLayout: DrawerLayout,
-        navigationView: NavigationView,
-        menuButtonToolbar: View,
-        activity: Activity,
-        authViewModel: AuthViewModel,
-        userBirthdayViewModel: BirthdayViewModel,
-        birthdayRepository: BirthdayRepository,
-        userSharedPreferences: UserSharedPreferencesManager,
-     ) {
-
-        // ActionBarDrawerToggle ile Drawer'ı ActionBar ile senkronize etme
-        val toggle = ActionBarDrawerToggle(
-            activity,
-            drawerLayout,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
-
-        // NavigationView'deki öğeler için click listener
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            // Menü öğelerine tıklandığında yapılacak işlemler
-            if (menuItem.itemId == R.id.labelLogOut) {
-                authViewModel.logoutUser()
-                userSharedPreferences.clearUserSession()
-                birthdayRepository.clearAllBirthdays()
-
-
-                val birthdayList = userBirthdayViewModel.birthdayList.value ?: emptyList()
-                val birthdayIds = birthdayList.map { it.id }.toTypedArray()
-
-
-                // WorkManager için data oluşturma
-                val inputData = Data.Builder()
-                    .putStringArray("BIRTHDAY_IDS", birthdayIds)
-                    .build()
-
-                // WorkManager işini oluşturma ve başlatma
-                val cancelRemindersWork = OneTimeWorkRequestBuilder<CancelRemindersWorker>()
-                    .setInputData(inputData)
-                    .build()
-
-                WorkManager.getInstance(activity).enqueue(cancelRemindersWork)
-
-                logout(activity)
-            }
-
-            // Drawer'ı kapatmak için
-            drawerLayout.closeDrawer(GravityCompat.START)
-            true
-        }
-
-
-        // Toolbar üzerindeki menü ikonu ile menüyü açma
-        menuButtonToolbar.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
-        }
-
-
-    }
 
     fun navigateToFragmentAndClearStack(
         navController: NavController,

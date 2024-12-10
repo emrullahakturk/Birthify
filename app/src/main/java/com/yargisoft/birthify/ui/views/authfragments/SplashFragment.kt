@@ -1,5 +1,6 @@
 package com.yargisoft.birthify.ui.views.authfragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,6 +14,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
+import com.yargisoft.birthify.MainActivity
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.data.repositories.AuthRepository
 import com.yargisoft.birthify.utils.sharedpreferences.UserSharedPreferencesManager
@@ -30,6 +32,8 @@ class SplashFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_splash, container, false)
+        Log.d("SplashFragment", "onCreateView called")
+
         checkSession()
         return view
     }
@@ -38,14 +42,14 @@ class SplashFragment : Fragment() {
 
     private fun checkSession() {
         Handler(Looper.getMainLooper()).postDelayed({
-
-
             if (userSharedPreferencesManager.getUserId().isNotEmpty()){
                 val userId = userSharedPreferencesManager.getUserId()
                 val storedToken = userSharedPreferencesManager.getToken() ?: ""
                 verifyUserToken(userId, storedToken) { isValid ->
                     if (isValid) {
-                        navigateToFragmentAndClearStack(findNavController(), R.id.splashFragment, R.id.splashToMainNavGraph)
+                        val intent = Intent(requireContext(), MainActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
                     } else {
                         Snackbar.make(requireView(),getString(R.string.logged_another_device),Snackbar.LENGTH_SHORT).show()
                         userSharedPreferencesManager.clearUserSession()

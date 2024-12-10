@@ -27,6 +27,8 @@ junit = "4.13.2"
 
 # Dependency Injection
 hilt = "2.51.1"
+activity = "1.9.3"
+kotlinVersion = "1.9.24"
 
 [libraries]
 # Core Libraries
@@ -63,3 +65,6 @@ core-testing = { module = "androidx.arch.core:core-testing", version.ref = "core
 # Dependency Injection
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+[plugins]
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinVersion" }

@@ -14,14 +14,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.FrequentlyUsedFunctions.disableViewEnableLottie
 import com.yargisoft.birthify.FrequentlyUsedFunctions.enableViewDisableLottie
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.data.repositories.BirthdayRepository
 import com.yargisoft.birthify.databinding.FragmentAuthAccountDetailsBinding
 import com.yargisoft.birthify.ui.viewmodels.AuthViewModel
-import com.yargisoft.birthify.ui.viewmodels.BirthdayViewModel
 import com.yargisoft.birthify.ui.views.dialogs.ChangePasswordDialogFragment
 import com.yargisoft.birthify.utils.sharedpreferences.UserSharedPreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,8 +31,6 @@ class AccountDetailsFragment : Fragment() {
 
 
     private lateinit var binding: FragmentAuthAccountDetailsBinding
-
-    private val birthdayViewModel: BirthdayViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
 
     @Inject lateinit var birthdayRepository: BirthdayRepository
@@ -59,21 +55,6 @@ class AccountDetailsFragment : Fragment() {
         binding.name = name ?: "N/A"
         binding.mail =  email ?: "N/A"
         binding.recordedDate = recordedDate ?: "N/A"
-
-
-
-
-        FrequentlyUsedFunctions.drawerLayoutToggle(
-            binding.drawerLayoutDetail,
-            binding.navigationViewDetails,
-            binding.menuButtonToolbarDetail,
-            requireActivity(),
-            authViewModel,
-            birthdayViewModel,
-            birthdayRepository,
-            userSharedPreferences,
-        )
-
 
         binding.fabBackButton.setOnClickListener {
             findNavController().popBackStack()

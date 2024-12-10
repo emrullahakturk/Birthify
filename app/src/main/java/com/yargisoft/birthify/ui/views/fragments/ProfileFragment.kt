@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.FrequentlyUsedFunctions.disableViewEnableLottie
@@ -49,20 +47,6 @@ class ProfileFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_profile, container, false)
 
         val lottieAnimationView = binding.threePointAnimation
-        val drawerLayout: DrawerLayout = binding.drawerLayout
-        val navigationView: NavigationView = binding.navigationView
-        val toolbarMenuButton = binding.menuButtonToolbar
-
-        FrequentlyUsedFunctions.drawerLayoutToggle(
-            drawerLayout,
-            navigationView,
-            toolbarMenuButton,
-            requireActivity(),
-            authViewModel,
-            birthdayViewModel,
-            birthdayRepository,
-            userSharedPreferences,
-        )
 
         binding.deleteMyAccountCardView.setOnClickListener {
             disableViewEnableLottie(lottieAnimationView, binding.root)

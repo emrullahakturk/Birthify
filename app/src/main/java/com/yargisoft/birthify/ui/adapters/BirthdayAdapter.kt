@@ -18,7 +18,6 @@ import javax.inject.Inject
 class BirthdayAdapter @Inject constructor(
     @ApplicationContext val context: Context,
     private val prefAppSettings: SharedPreferences,
-    private val clickToAddTextView: TextView
 ) : RecyclerView.Adapter<BirthdayAdapter.BirthdayViewHolder>(), AdapterInterface {
 
     private var birthdayList: List<Birthday> = emptyList()
@@ -57,7 +56,7 @@ class BirthdayAdapter @Inject constructor(
 
     @SuppressLint("NotifyDataSetChanged")
     override fun updateData(newBirthdays: List<Birthday>) {
-        clickToAddTextView.visibility = if (newBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
+        //clickToAddTextView.visibility = if (newBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
         birthdayList = newBirthdays
         notifyDataSetChanged()
     }

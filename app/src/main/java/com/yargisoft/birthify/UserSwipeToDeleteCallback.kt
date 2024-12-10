@@ -16,11 +16,13 @@ import com.airbnb.lottie.LottieAnimationView
 import com.yargisoft.birthify.data.models.Birthday
 import com.yargisoft.birthify.ui.adapters.BirthdayAdapter
 import com.yargisoft.birthify.ui.viewmodels.BirthdayViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
 
-class UserSwipeToDeleteCallback(
+class UserSwipeToDeleteCallback @Inject constructor(
     private val adapter: BirthdayAdapter,
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val viewModel: BirthdayViewModel,
     private val lifeCycleOwner: LifecycleOwner,
     private val deleteLottieAnimationView: LottieAnimationView,

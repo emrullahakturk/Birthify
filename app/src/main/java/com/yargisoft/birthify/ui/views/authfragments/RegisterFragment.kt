@@ -1,26 +1,39 @@
 package com.yargisoft.birthify.ui.views.authfragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.yargisoft.birthify.AuthValidationFunctions
+import com.yargisoft.birthify.AuthValidationFunctions.isValidEmail
+import com.yargisoft.birthify.AuthValidationFunctions.isValidFullName
+import com.yargisoft.birthify.AuthValidationFunctions.isValidPassword
 import com.yargisoft.birthify.FrequentlyUsedFunctions
+import com.yargisoft.birthify.FrequentlyUsedFunctions.disableViewEnableLottie
+import com.yargisoft.birthify.FrequentlyUsedFunctions.enableViewDisableLottie
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentRegisterBinding
 import com.yargisoft.birthify.ui.viewmodels.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.util.Locale
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
@@ -28,12 +41,12 @@ class RegisterFragment : Fragment() {
     private lateinit var binding : FragmentRegisterBinding
     private val viewModel : AuthViewModel by viewModels()
 
-    @Inject lateinit var emailTextInputLayout: TextInputLayout
-    @Inject lateinit var emailEditText: TextInputEditText
-    @Inject lateinit var registerPassTextInput: TextInputLayout
-    @Inject  lateinit var registerPasswordEditText: TextInputEditText
-    @Inject  lateinit var registerFullNameTextInput: TextInputLayout
-    @Inject  lateinit var registerFullNameEditText: TextInputEditText
+    private lateinit var emailTextInputLayout: TextInputLayout
+    private lateinit var emailEditText: TextInputEditText
+    private lateinit var registerPassTextInput: TextInputLayout
+    private lateinit var registerPasswordEditText: TextInputEditText
+    private lateinit var registerFullNameTextInput: TextInputLayout
+    private lateinit var registerFullNameEditText: TextInputEditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,7 +88,7 @@ class RegisterFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val email = s.toString()
-                if (AuthValidationFunctions.isValidEmail(email)) {
+                if (isValidEmail(email)) {
                     emailTextInputLayout.error = null
                     emailTextInputLayout.isErrorEnabled = false //error yazıdı gittiğinde yazıdan kalan boşluk bu kod ile gider
                 } else {
@@ -109,7 +122,7 @@ class RegisterFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val password = s.toString()
-                if (AuthValidationFunctions.isValidPassword(password)) {
+                if (isValidPassword(password)) {
                     registerPassTextInput.error = ""
                     registerPassTextInput.isErrorEnabled = false
                 } else {
@@ -136,7 +149,7 @@ class RegisterFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val fullName = s.toString()
-                if (AuthValidationFunctions.isValidFullName(fullName)) {
+                if (isValidFullName(fullName)) {
                     registerFullNameTextInput.error = ""
                     registerFullNameTextInput.isErrorEnabled = false
                 } else {
@@ -174,20 +187,71 @@ class RegisterFragment : Fragment() {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
-            AuthValidationFunctions.registerValidation(
+           registerValidation(
                 email,
                 password,
                 name,
                 viewModel,
                 binding.registerAnimation,
                 viewLifecycleOwner,
-                binding.root,
-                findNavController(),
                 R.id.registerToLogin,
-                navOptions,
-                requireContext()
-                )
+                navOptions)
         }
         return binding.root
+    }
+
+
+    private fun registerValidation(
+        email: String,
+        password: String,
+        name: String,
+        viewModel: AuthViewModel,
+        lottieAnimationView: LottieAnimationView,
+        viewLifecycleOwner: LifecycleOwner,
+        action: Int,
+        navOptions: NavOptions,
+
+    ) {
+        if (isValidPassword(password) && isValidEmail(email) && isValidFullName(name)) {
+
+            viewModel.registerUser(name, email, password)
+
+            disableViewEnableLottie(lottieAnimationView, requireView())
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                viewLifecycleOwner.lifecycleScope.launch {
+                    var isLoadedEmitted = false // Kontrol değişkeni
+
+                    viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel.isLoaded.collect { isLoaded ->
+                            if (isLoaded && !isLoadedEmitted) {
+                                isLoadedEmitted = true // Tekrar çalışmasını engellemek için işaretler
+
+                                val isSuccess = viewModel.authSuccess.value
+                                val errorMessage = viewModel.authError.value
+
+                                if (isSuccess) {
+                                    Snackbar.make(requireView(),
+                                        ContextCompat.getString(
+                                            requireContext(),
+                                            R.string.registration_successful
+                                        ), Snackbar.LENGTH_SHORT).show()
+                                    findNavController().navigate(action, null, navOptions)
+                                } else {
+                                    Snackbar.make(requireView(), errorMessage ?: "Unknown error", Snackbar.LENGTH_SHORT).show()
+                                }
+
+                                enableViewDisableLottie(lottieAnimationView, requireView())
+                            }
+                        }
+                    }
+                }
+            },1500)
+
+
+        } else {
+            Snackbar.make(requireView(),
+                ContextCompat.getString(requireContext(), R.string.fill_in_fields_correctly), Snackbar.LENGTH_SHORT).show()
+        }
     }
 }

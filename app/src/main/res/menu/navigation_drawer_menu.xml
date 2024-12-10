@@ -14,7 +14,6 @@
                 android:icon="@drawable/ic_clock"
                 android:title="@string/past_birthdays" />
 
-
             <item
                 android:id="@+id/trashBinFragment"
                 android:icon="@drawable/ic_delete"

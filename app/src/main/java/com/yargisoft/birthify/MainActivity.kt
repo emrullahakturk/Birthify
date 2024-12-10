@@ -3,14 +3,23 @@ package com.yargisoft.birthify
 import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Bundle
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
+import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
+import com.yargisoft.birthify.databinding.ActivityMainBinding
 import com.yargisoft.birthify.utils.NetworkConnectionObserver
+import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.LANGUAGE_KEY
+import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.PREFS_NAME
 import com.yargisoft.birthify.utils.sharedpreferences.UserSharedPreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
@@ -19,17 +28,22 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     @Inject
     lateinit var networkConnectionObserver: NetworkConnectionObserver
 
     @Inject
     lateinit var userSharedPreferences: UserSharedPreferencesManager
 
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navigationView: NavigationView
+    private lateinit var bottomNav: BottomNavigationView
+    private lateinit var navHostFragment: NavHostFragment
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var toolbar: Toolbar
 
-    companion object {
-        private const val PREFS_NAME = "AppSettings"
-        private const val LANGUAGE_KEY = "AppLanguage"
-    }
+
 
 
 
@@ -41,30 +55,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding  = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
-        supportFragmentManager.findFragmentById(R.id.mainFragmentHost) as NavHostFragment
-
-
-
-
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                // Geri tuşuna basıldığında yapılacak işlemler
-                // Örneğin, bir önceki fragment'e geri gitmek:
-                val navController = findNavController(R.id.mainFragmentHost)
-                if (!navController.popBackStack()) {
-                    // Eğer navController ile geri gidilecek bir yer yoksa, activity'i kapat
-                    finish()
-                }
-            }
-        }
-
-        onBackPressedDispatcher.addCallback(this, callback)
 
         networkConnectionObserver.isConnected.observe(this) { isConnected ->
             if(userSharedPreferences.getUserCredentials().second != "guest"){
@@ -75,7 +68,41 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        toolbar = binding.toolbar
+        drawerLayout = binding.drawerLayout
+        navigationView = binding.navigationView
+        bottomNav = binding.bottomNavigation
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.mainPageFragment,
+                R.id.pastBirthdaysFragment,
+                R.id.trashBinFragment,
+                R.id.accountDetailsFragment,
+                R.id.settingsFragment,
+                R.id.labelLogOut
+            ),
+            drawerLayout
+        )
+
+        setSupportActionBar(toolbar)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navigationView.setupWithNavController(navController)
+
+       /* navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.labelLogOut -> {
+                    Toast.makeText(this, "Çıkış Yapıldı", Toast.LENGTH_SHORT).show()
+                    //performLogout()
+                    true
+                }
+                else -> NavigationUI.onNavDestinationSelected(menuItem, navController)
+            }
+        }*/
     }
+
 
     private fun updateLocale(context: Context, localeCode: String): Context {
         val locale = Locale(localeCode)
@@ -99,5 +126,8 @@ class MainActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return navHostFragment.navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
 
 }

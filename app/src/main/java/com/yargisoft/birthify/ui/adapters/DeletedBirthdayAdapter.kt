@@ -17,7 +17,6 @@ import javax.inject.Inject
 class DeletedBirthdayAdapter @Inject constructor(
     private val prefAppSettings: SharedPreferences,
     @ApplicationContext private val context: Context,
-    private val textView: TextView
 ) : RecyclerView.Adapter<DeletedBirthdayAdapter.DeletedBirthdayViewHolder>(), AdapterInterface {
 
     private var deletedBirthdayList: List<Birthday> = emptyList()
@@ -52,7 +51,7 @@ class DeletedBirthdayAdapter @Inject constructor(
 
     @SuppressLint("NotifyDataSetChanged")
     override fun updateData(newBirthdays: List<Birthday>) {
-        textView.visibility = if (newBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
+        //textView.visibility = if (newBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
         deletedBirthdayList = newBirthdays
         notifyDataSetChanged()
     }

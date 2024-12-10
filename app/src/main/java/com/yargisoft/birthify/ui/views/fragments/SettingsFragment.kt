@@ -18,17 +18,13 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.android.material.navigation.NavigationView
-import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.MainActivity
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.data.repositories.BirthdayRepository
 import com.yargisoft.birthify.databinding.FragmentAuthSettingsBinding
 import com.yargisoft.birthify.ui.viewmodels.AuthViewModel
-import com.yargisoft.birthify.ui.viewmodels.BirthdayViewModel
 import com.yargisoft.birthify.ui.views.dialogs.PrivacyPolicyDialogFragment
 import com.yargisoft.birthify.ui.views.dialogs.WhatIsBirthifyDialogFragment
 import com.yargisoft.birthify.utils.sharedpreferences.UserSharedPreferencesManager
@@ -41,7 +37,6 @@ class SettingsFragment : Fragment() {
 
     private lateinit var binding: FragmentAuthSettingsBinding
 
-    private val birthdayViewModel: BirthdayViewModel by viewModels()
     private val authViewModel: AuthViewModel by viewModels()
 
     @Inject
@@ -74,21 +69,6 @@ class SettingsFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_settings, container, false)
 
-
-        val drawerLayout: DrawerLayout = binding.drawerLayout
-        val navigationView: NavigationView = binding.navigationView
-        val toolbarMenuButton = binding.menuButtonToolbar
-
-        FrequentlyUsedFunctions.drawerLayoutToggle(
-            drawerLayout,
-            navigationView,
-             toolbarMenuButton,
-            requireActivity(),
-            authViewModel,
-            birthdayViewModel,
-            birthdayRepository,
-            userSharedPreferences,
-         )
 
 
         // Bildirim izinlerini kontrol et ve Switch'i ayarla
