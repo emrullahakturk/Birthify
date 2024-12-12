@@ -74,6 +74,8 @@ class PastBirthdaysFragment : Fragment() {
         adapter.updateData(adapterList.sortedByDescending { it.recordedDate })
 
 
+
+
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
         birthdayViewModel.birthdayList.observe(viewLifecycleOwner) { birthdays ->
             adapter.updateData(birthdays)
@@ -104,7 +106,7 @@ class PastBirthdaysFragment : Fragment() {
 
 
         binding.sortButton.setOnClickListener {
-            showSortMenu(it, requireContext(), adapter, birthdayViewModel)
+            showSortMenu(it, requireContext(), adapter, birthdayViewModel, birthdayViewModel.birthdayList.value ?: emptyList())
         }
 
 

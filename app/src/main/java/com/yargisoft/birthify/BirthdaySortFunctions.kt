@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import com.yargisoft.birthify.data.models.Birthday
 import com.yargisoft.birthify.ui.adapters.AdapterInterface
 import com.yargisoft.birthify.ui.viewmodels.BirthdayViewModel
 
@@ -40,7 +41,8 @@ object BirthdaySortFunctions {
         view: View,
         context: Context,
         adapter: AdapterInterface,
-        userBirthdayViewModel: BirthdayViewModel
+        birthdayViewModel: BirthdayViewModel,
+        sortList: List<Birthday>
     ) {
         val contextThemeWrapper = ContextThemeWrapper(context, R.style.CustomPopupMenu)
         val popupMenu = PopupMenu(contextThemeWrapper, view)
@@ -71,55 +73,46 @@ object BirthdaySortFunctions {
         }
 
         popupMenu.setOnMenuItemClickListener { menuItem: MenuItem ->
-            handleSortOptionSelected(menuItem, adapter, userBirthdayViewModel)
+            val sortedList = when (menuItem.itemId) {
+                R.id.sort_by_name_asc -> birthdayViewModel.sortBirthdays(
+                    "sortBirthdaysByNameAsc",
+                    sortList
+                )
+
+                R.id.sort_by_birth_date_asc -> birthdayViewModel.sortBirthdays(
+                    "sortBirthdaysByBirthdayDateAsc",
+                    sortList
+                )
+
+                R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortBirthdays(
+                    "sortBirthdaysByRecordedDateAsc",
+                    sortList
+                )
+
+                R.id.sort_by_name_dsc -> birthdayViewModel.sortBirthdays(
+                    "sortBirthdaysByNameDsc",
+                    sortList
+                )
+
+                R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortBirthdays(
+                    "sortBirthdaysByBirthdayDateDsc",
+                    sortList
+                )
+
+                R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortBirthdays(
+                    "sortBirthdaysByRecordedDateDsc",
+                    sortList
+                )
+
+                else -> emptyList()
+            }
+            adapter.updateData(sortedList)
             true
         }
         popupMenu.show()
     }
 
-    private fun handleSortOptionSelected(
-        menuItem: MenuItem,
-        adapter: AdapterInterface,
-        birthdayViewModel: BirthdayViewModel
-    ) {
-/*
-        val sortedList = when (menuItem.itemId) {
-            R.id.sort_by_name_asc -> birthdayViewModel.sortWithPage(
-                "sortBirthdaysByNameAsc",
-                "PastBirthdays"
-            )
 
-            R.id.sort_by_birth_date_asc -> birthdayViewModel.sortWithPage(
-                "sortBirthdaysByBirthdayDateAsc",
-                "PastBirthdays"
-            )
-
-            R.id.sort_by_recorded_date_asc -> birthdayViewModel.sortWithPage(
-                "sortBirthdaysByRecordedDateAsc",
-                "PastBirthdays"
-            )
-
-            R.id.sort_by_name_dsc -> birthdayViewModel.sortWithPage(
-                "sortBirthdaysByNameDsc",
-                "PastBirthdays"
-            )
-
-            R.id.sort_by_birth_date_dsc -> birthdayViewModel.sortWithPage(
-                "sortBirthdaysByBirthdayDateDsc",
-                "PastBirthdays"
-            )
-
-            R.id.sort_by_recorded_date_dsc -> birthdayViewModel.sortWithPage(
-                "sortBirthdaysByRecordedDateDsc",
-                "PastBirthdays"
-            )
-
-            else -> emptyList()
-        }
-
-
-        adapter.updateData(sortedList) */
-    }
 
 
 }

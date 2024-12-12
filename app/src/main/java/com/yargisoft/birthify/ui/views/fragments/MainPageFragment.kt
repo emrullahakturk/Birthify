@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -60,6 +61,7 @@ class MainPageFragment : Fragment() {
 
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -120,6 +122,7 @@ class MainPageFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun loadAndSyncBirthdays() {
         birthdayViewModel.getBirthdays("birthdays")
         birthdayViewModel.filterPastAndUpcomingBirthdays(birthdayViewModel.birthdayList.value ?: emptyList())
@@ -188,7 +191,7 @@ class MainPageFragment : Fragment() {
         })
 
         binding.sortButton.setOnClickListener {
-            showSortMenu(it, requireContext(), adapter, birthdayViewModel)
+            showSortMenu(it, requireContext(), adapter, birthdayViewModel, birthdayViewModel.birthdayList.value ?: emptyList())
         }
     }
 
@@ -198,6 +201,7 @@ class MainPageFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onResume() {
         super.onResume()
         loadAndSyncBirthdays()

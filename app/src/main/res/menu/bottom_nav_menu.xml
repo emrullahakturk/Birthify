@@ -6,19 +6,19 @@
         android:id="@+id/mainPageFragment"
         android:contentDescription="@string/birthdays"
         android:icon="@drawable/ic_cake_bottom"
-        android:showAsAction="ifRoom"
-        android:title="@string/birthdays" />
+        android:title="@string/birthdays"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/pastBirthdaysFragment"
         android:icon="@drawable/ic_clock_bottom"
-        android:showAsAction="ifRoom"
-        android:title="@string/past_birthdays" />
+        android:title="@string/past_birthdays"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/trashBinFragment"
         android:icon="@drawable/ic_delete_bottom"
-        android:showAsAction="ifRoom"
-        android:title="@string/trash_bin" />
+        android:title="@string/trash_bin"
+        app:showAsAction="ifRoom" />
 
 </menu>
 

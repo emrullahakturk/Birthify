@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentContainerView
@@ -53,6 +54,9 @@ class AuthActivity : AppCompatActivity() {
 
 
 
+        onBackPressedDispatcher.addCallback(this){
+            navHostFragment.navController.popBackStack()
+        }
     }
 
     override fun attachBaseContext(newBase: Context) {

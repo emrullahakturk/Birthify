@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.data.models.Birthday
@@ -20,13 +19,11 @@ class PastBirthdayAdapter @Inject constructor(
 ) : RecyclerView.Adapter<PastBirthdayAdapter.PastBirthdayViewHolder>(), AdapterInterface {
 
     private var pastBirthdayList: List<Birthday> = emptyList()
-    private lateinit var onDetailClick: (Birthday) -> Unit
 
     class PastBirthdayViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameCardTv)
         val birthdayDateTextView: TextView = itemView.findViewById(R.id.birthdayDateCardTv)
-        val toDetailView: CardView = itemView.findViewById(R.id.birthdayCardView)
-    }
+     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PastBirthdayViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_past_birthday, parent, false)
@@ -41,8 +38,7 @@ class PastBirthdayAdapter @Inject constructor(
             "tr" -> "Doğum Tarihi: ${birthday.birthdayDate}"
             else -> "Memories from ${birthday.birthdayDate}, a year older and wiser."
         }
-        holder.toDetailView.setOnClickListener { onDetailClick(birthday) }
-    }
+     }
 
     override fun getItemCount(): Int {
         return pastBirthdayList.size
@@ -55,7 +51,5 @@ class PastBirthdayAdapter @Inject constructor(
         notifyDataSetChanged()
     }
 
-    fun setOnDetailClickListener(listener: (Birthday) -> Unit) {
-        onDetailClick = listener
-    }
+
 }

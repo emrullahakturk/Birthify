@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -44,23 +46,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
 
 
-
-
-
     override fun attachBaseContext(newBase: Context) {
-        val preferences: SharedPreferences = newBase.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        val language = preferences.getString(LANGUAGE_KEY, Locale.getDefault().language) ?: Locale.getDefault().language
+        val preferences: SharedPreferences =
+            newBase.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val language = preferences.getString(LANGUAGE_KEY, Locale.getDefault().language)
+            ?: Locale.getDefault().language
         val localeUpdatedContext = updateLocale(newBase, language)
         super.attachBaseContext(localeUpdatedContext)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding  = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
 
         networkConnectionObserver.isConnected.observe(this) { isConnected ->
-            if(userSharedPreferences.getUserCredentials().second != "guest"){
+            if (userSharedPreferences.getUserCredentials().second != "guest") {
                 if (!isConnected) {
                     showNetworkAlertDialog()
                 }
@@ -68,39 +69,59 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+
         toolbar = binding.toolbar
         drawerLayout = binding.drawerLayout
         navigationView = binding.navigationView
         bottomNav = binding.bottomNavigation
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
-        val navController = navHostFragment.navController
+        navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
+                R.id.labelLogOut,
+                R.id.addBirthdayFragment,
                 R.id.mainPageFragment,
-                R.id.pastBirthdaysFragment,
-                R.id.trashBinFragment,
+                R.id.birthdayDetailFragment,
+                R.id.birthdayEditFragment,
+                R.id.deletedBirthdayDetailFragment,
+                R.id.profileFragment,
                 R.id.accountDetailsFragment,
                 R.id.settingsFragment,
-                R.id.labelLogOut
+                R.id.trashBinFragment,
+                R.id.pastBirthdaysFragment,
             ),
             drawerLayout
         )
 
         setSupportActionBar(toolbar)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navigationView.setupWithNavController(navController)
+        setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
+        navigationView.setupWithNavController(navHostFragment.navController)
+        bottomNav.setupWithNavController(navHostFragment.navController)
 
-       /* navigationView.setNavigationItemSelectedListener { menuItem ->
+
+
+        navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.labelLogOut -> {
                     Toast.makeText(this, "Çıkış Yapıldı", Toast.LENGTH_SHORT).show()
                     //performLogout()
                     true
                 }
-                else -> NavigationUI.onNavDestinationSelected(menuItem, navController)
+
+                else -> {
+                    true
+                }
             }
-        }*/
+        }
+
+
+        onBackPressedDispatcher.addCallback(this) {
+            navHostFragment.navController.popBackStack()
+        }
+
+
     }
 
 

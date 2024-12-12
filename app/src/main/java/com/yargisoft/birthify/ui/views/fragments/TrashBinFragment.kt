@@ -109,7 +109,7 @@ class TrashBinFragment : Fragment() {
 
         binding.sortButton.setOnClickListener {
 
-            BirthdaySortFunctions.showSortMenu(it, requireContext(), adapter, birthdayViewModel)
+            BirthdaySortFunctions.showSortMenu(it, requireContext(), adapter, birthdayViewModel, birthdayViewModel.birthdayList.value ?: emptyList())
 
         }
 
