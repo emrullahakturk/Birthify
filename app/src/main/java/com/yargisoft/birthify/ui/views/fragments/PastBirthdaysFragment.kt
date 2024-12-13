@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yargisoft.birthify.BirthdaySortFunctions.showSortMenu
 import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.R
+import com.yargisoft.birthify.data.models.Birthday
 import com.yargisoft.birthify.data.repositories.BirthdayRepository
 import com.yargisoft.birthify.databinding.FragmentAuthPastBirthdaysBinding
 import com.yargisoft.birthify.ui.adapters.PastBirthdayAdapter
@@ -24,7 +25,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-
 class PastBirthdaysFragment : Fragment() {
 
     private lateinit var binding: FragmentAuthPastBirthdaysBinding
@@ -46,8 +46,6 @@ class PastBirthdaysFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_auth_past_birthdays,
@@ -55,38 +53,58 @@ class PastBirthdaysFragment : Fragment() {
             false
         )
 
+        setupNetworkObserver()
+        setupRecyclerView()
+        observeBirthdayList()
+        setupSearchFunctionality()
+        setupSortButton()
+        setupBackButton()
+        synchronizeBirthdaysWithFirebase()
+        birthdayViewModel.getBirthdays("past_birthdays")
+
+        return binding.root
+    }
+
+    // Ağ bağlantısını gözlemlemek için işlev
+    private fun setupNetworkObserver() {
         networkConnectionObserver.isConnected.observe(viewLifecycleOwner) { isConnected ->
             if (userSharedPreferences.getUserCredentials().second != "guest") {
                 if (isConnected) {
-                    //Main Page Açıldığında firebase üzerindeki doğum günlerini bday shared pref'e aktararak senkronize etmiş oluyoruz
-                    birthdayViewModel.getBirthdaysFromFirebase(
-                        userSharedPreferences.getUserId(),
-                        "past_birthdays"
-                    )
+                    synchronizeBirthdaysWithFirebase()
                 }
             }
         }
+    }
 
-        birthdayViewModel.getBirthdays("past_birthdays")
+    private fun synchronizeBirthdaysWithFirebase() {
+        birthdayViewModel.getBirthdaysFromFirebase(
+            userSharedPreferences.getUserId(),
+            "past_birthdays"
+        )
+    }
 
-
-        val adapterList = birthdayViewModel.birthdayList.value ?: emptyList()
-        adapter.updateData(adapterList.sortedByDescending { it.recordedDate })
-
-
-
-
-        //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
-        birthdayViewModel.birthdayList.observe(viewLifecycleOwner) { birthdays ->
-            binding.thereIsNoPastBirthdays.visibility =
-                if (birthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
-            adapter.updateData(birthdays)
-        }
-
+    // RecyclerView ayarları
+    private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
+    }
 
-        //Search edittext'i ile doğum günü arama ekliyoruz
+    // Doğum günü listesini gözlemlemek için işlev
+    private fun observeBirthdayList() {
+        birthdayViewModel.getBirthdays("past_birthdays")
+        birthdayViewModel.birthdayList.observe(viewLifecycleOwner) { birthdays ->
+            updateUIBasedOnBirthdays(birthdays)
+        }
+    }
+
+    private fun updateUIBasedOnBirthdays(birthdays: List<Birthday>) {
+        binding.thereIsNoPastBirthdays.visibility =
+            if (birthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
+        adapter.updateData(birthdays)
+    }
+
+    // Arama işlevini ayarlamak için işlev
+    private fun setupSearchFunctionality() {
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -96,31 +114,31 @@ class PastBirthdaysFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {}
         })
+    }
 
+    // Sıralama menüsü için işlev
+    private fun setupSortButton() {
+        binding.sortButton.setOnClickListener {
+            showSortMenu(
+                it,
+                requireContext(),
+                adapter,
+                birthdayViewModel,
+                birthdayViewModel.birthdayList.value ?: emptyList()
+            )
+        }
+    }
 
-
-
-
+    // Geri buton işlevi
+    private fun setupBackButton() {
         binding.fabBackPastBirthdays.setOnClickListener {
             findNavController().popBackStack()
         }
-
-
-
-        binding.sortButton.setOnClickListener {
-            showSortMenu(it, requireContext(), adapter, birthdayViewModel, birthdayViewModel.birthdayList.value ?: emptyList())
-        }
-
-
-        return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-        birthdayViewModel.getBirthdaysFromFirebase(
-            userSharedPreferences.getUserId(),
-            "past_birthdays"
-        )
+        synchronizeBirthdaysWithFirebase()
         birthdayViewModel.getBirthdays("past_birthdays")
     }
 }
