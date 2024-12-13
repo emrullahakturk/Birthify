@@ -283,7 +283,7 @@ object FrequentlyUsedFunctions {
     // Logout fonksiyonu
     fun logout(activity: Activity) {
         // Mevcut aktiviteyi kapatır ve yeni bir aktivite başlatır yani uygulama sıfırdan başlamış gibi olur
-        val intent = Intent(activity, MainActivity::class.java)
+        val intent = Intent(activity, AuthActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         activity.startActivity(intent)
         activity.finish()

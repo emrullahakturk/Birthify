@@ -532,7 +532,7 @@
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="60dp"
+                                android:layout_height="match_parent"
                                 android:orientation="vertical"
                                 android:padding="16dp"
                                 tools:layout_editor_absoluteX="0dp"
@@ -575,10 +575,10 @@
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabBackButtonDetail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_width="51dp"
+                android:layout_height="52dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/fab_button_background_detail"
                 app:srcCompat="@drawable/ic_back_bottom"
                 card_view:layout_constraintBottom_toBottomOf="parent"

@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.MenuItem
+import android.view.View
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -15,6 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var userSharedPreferences: UserSharedPreferencesManager
 
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var navigationView: NavigationRailView
+    private lateinit var navigationRailView: NavigationRailView
     private lateinit var bottomNav: BottomNavigationView
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -75,7 +76,7 @@ class MainActivity : AppCompatActivity() {
 
         toolbar = binding.toolbar
         drawerLayout = binding.drawerLayout
-        navigationView = binding.navigationRailView
+        navigationRailView = binding.navigationRailView
         bottomNav = binding.bottomNavigation
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
@@ -84,14 +85,8 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.labelLogOut,
-                R.id.addBirthdayFragment,
                 R.id.mainPageFragment,
-                R.id.birthdayDetailFragment,
-                R.id.birthdayEditFragment,
-                R.id.deletedBirthdayDetailFragment,
                 R.id.profileFragment,
-                R.id.accountDetailsFragment,
                 R.id.settingsFragment,
                 R.id.trashBinFragment,
                 R.id.pastBirthdaysFragment,
@@ -101,32 +96,38 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
-        navigationView.setupWithNavController(navHostFragment.navController)
+        navigationRailView.setupWithNavController(navHostFragment.navController)
         bottomNav.setupWithNavController(navHostFragment.navController)
 
 
-/*
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.labelLogOut -> {
-                    Toast.makeText(this, "Çıkış Yapıldı", Toast.LENGTH_SHORT).show()
-                    //performLogout()
-                    true
-                }
-
-                else -> {
-                    true
-                }
-            }
-        }*/
+        val logoutMenuItem = navigationRailView.menu.findItem(R.id.labelLogOut)
+        logoutMenuItem.setOnMenuItemClickListener {
+            FrequentlyUsedFunctions.logout(this)
+            true
+        }
 
 
         onBackPressedDispatcher.addCallback(this) {
-            navHostFragment.navController.popBackStack()
+            if (navigationRailView.visibility == View.GONE) {
+                navigationRailView.visibility = View.VISIBLE
+            } else {
+                navHostFragment.navController.popBackStack()
+            }
         }
         // Navigation Button (Hamburger)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_line) // Özel bir ikon belirtebilirsiniz
+
+
+        navigationRailView.setOnItemSelectedListener { item ->
+            val handled = NavigationUI.onNavDestinationSelected(item, navController)
+            if (handled) {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                }
+            }
+            handled
+        }
 
     }
 
@@ -157,14 +158,5 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                binding.drawerLayout.openDrawer(GravityCompat.START)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 
 }

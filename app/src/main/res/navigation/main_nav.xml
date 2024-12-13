@@ -55,6 +55,9 @@
         <action
             android:id="@+id/profileToAccountDetails"
             app:destination="@id/accountDetailsFragment" />
+        <action
+            android:id="@+id/profileToMainPage"
+            app:destination="@id/mainPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"

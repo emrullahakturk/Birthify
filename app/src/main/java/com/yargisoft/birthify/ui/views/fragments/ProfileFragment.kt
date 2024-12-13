@@ -114,7 +114,7 @@ class ProfileFragment : Fragment() {
                 .setMessage(getString(R.string.confirm_deletion_all_birthdays))
                 .setPositiveButton(getString(R.string.yes)) { _, _ ->
                     birthdayViewModel.clearAllBirthdays()
-                    findNavController().navigate(R.id.settingsToMainPage)
+                    findNavController().navigate(R.id.profileToMainPage)
                 }
                 .setNegativeButton(getString(R.string.no)) { _, _ -> }
                 .show()

@@ -11,7 +11,7 @@
         android:icon="@drawable/ic_delete"
         android:iconTint="@color/green_login" />
     <item
-        android:id="@+id/accountDetailsFragment"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/ic_account" />
     <item
         android:id="@+id/settingsFragment"
