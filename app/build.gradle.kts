@@ -16,7 +16,7 @@ android {
     }
     defaultConfig {
         applicationId = "com.yargisoft.birthify"
-        minSdk = 30
+        minSdk = 29
         targetSdk = 34
         versionCode = 2
         versionName = "1.0.0"
@@ -72,6 +72,6 @@ dependencies {
     kapt(libs.hilt.compiler)
 
     // Hilt Worker
-    implementation ("androidx.hilt:hilt-work:1.0.0")
-    kapt ("androidx.hilt:hilt-compiler:1.0.0")
+    implementation ("androidx.hilt:hilt-work:1.2.0")
+    kapt ("androidx.hilt:hilt-compiler:1.2.0")
 }

@@ -78,6 +78,8 @@ class PastBirthdaysFragment : Fragment() {
 
         //Doğum günlerini viewmodel içindeki live datadan observe ederek ekrana yansıtıyoruz
         birthdayViewModel.birthdayList.observe(viewLifecycleOwner) { birthdays ->
+            binding.thereIsNoPastBirthdays.visibility =
+                if (birthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
             adapter.updateData(birthdays)
         }
 

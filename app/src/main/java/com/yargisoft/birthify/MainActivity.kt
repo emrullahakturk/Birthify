@@ -5,19 +5,21 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import android.widget.Toast
+import android.view.MenuItem
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
+import com.google.android.material.navigationrail.NavigationRailView
 import com.yargisoft.birthify.databinding.ActivityMainBinding
 import com.yargisoft.birthify.utils.NetworkConnectionObserver
 import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.LANGUAGE_KEY
@@ -39,11 +41,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var userSharedPreferences: UserSharedPreferencesManager
 
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var navigationView: NavigationView
+    private lateinit var navigationView: NavigationRailView
     private lateinit var bottomNav: BottomNavigationView
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var toolbar: Toolbar
+    private lateinit var navController: NavController
 
 
     override fun attachBaseContext(newBase: Context) {
@@ -72,10 +75,11 @@ class MainActivity : AppCompatActivity() {
 
         toolbar = binding.toolbar
         drawerLayout = binding.drawerLayout
-        navigationView = binding.navigationView
+        navigationView = binding.navigationRailView
         bottomNav = binding.bottomNavigation
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        navController = navHostFragment.navController
 
 
         appBarConfiguration = AppBarConfiguration(
@@ -101,7 +105,7 @@ class MainActivity : AppCompatActivity() {
         bottomNav.setupWithNavController(navHostFragment.navController)
 
 
-
+/*
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.labelLogOut -> {
@@ -114,13 +118,15 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
             }
-        }
+        }*/
 
 
         onBackPressedDispatcher.addCallback(this) {
             navHostFragment.navController.popBackStack()
         }
-
+        // Navigation Button (Hamburger)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu_line) // Özel bir ikon belirtebilirsiniz
 
     }
 
@@ -148,7 +154,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navHostFragment.navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                binding.drawerLayout.openDrawer(GravityCompat.START)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 }

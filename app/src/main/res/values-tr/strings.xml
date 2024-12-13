@@ -7,9 +7,9 @@
     <string name="already_have_an_account">Bir hesabım var</string>
     <string name="register">Kayıt</string>
     <string name="full_name">Ad Soyad</string>
-    <string name="register_new_account">Register your new account</string>
+    <string name="register_new_account">Hesabınızı oluşturun</string>
     <string name="login_string1">The best app to remember birthdays </string>
-    <string name="login_to_account">Login to your account</string>
+    <string name="login_to_account">Hesabınıza giriş yapın</string>
     <string name="remember_me">Beni Hatırla</string>
     <string name="forgot_password">Şifremi Unuttum</string>
     <string name="forgot_password_settings">Şifremi Unuttum</string>
@@ -46,8 +46,8 @@
     <string name="trash_bin">Silinenler</string>
     <string name="account_menu">Hesap Menüsü</string>
     <string name="search">Ara</string>
-    <string name="add_a_birthday_of_your_dear_one">Click "+"\nTo Add a Birthday of\nYour Dear One</string>
-    <string name="trash_bin_main_textView">There is no deleted birthdays</string>
+    <string name="add_a_birthday_of_your_dear_one">Doğum günü eklemek için "+" tuşuna basın</string>
+    <string name="trash_bin_main_textView">Silinmiş bir doğum günü yok</string>
     <string name="re_save_birthday">Yeniden Kaydet</string>
     <string name="delete_permanently">Kalıcı Olarak Sil</string>
     <string name="continue_without_signing_in">Misafir Olarak Giriş Yap</string>
@@ -60,7 +60,7 @@
     <string name="sort_by_birth_date_dsc">Doğum Tarihine Göre Sırala (Azalan)</string>
     <string name="back_button">Geri Butonu</string>
     <string name="edit">Düzenle</string>
-    <string name="add_a_new_birthday">Add A New Birthday</string>
+    <string name="add_a_new_birthday">Doğum günü ekle</string>
     <string name="toolbar_menu_three_lines">Toolbar Menu Three Lines</string>
     <string name="past_birthdays">Geçmiş Doğum Günleri</string>
     <string name="item_birthday_name">Emrullah Akturk</string>
@@ -84,7 +84,7 @@
     <string name="current_password">Mevcut Şifreniz:</string>
     <string name="new_password">Yeni Şifte:</string>
     <string name="confirm_password">Yeni Şifre (tekrar):</string>
-    <string name="there_is_no_past_birthdays">Silinmiş bir doğum günü yok</string>
+    <string name="there_is_no_past_birthdays">Tarihi geçmiş bir doğum günü yok</string>
     <string name="send_reset_e_mail">Sıfırlama e-postası gönder</string>
     <string name="notification_time">Hatırlatma Zamanı</string>
     <string name="necessary_permission">Uygulamanın düzgün çalışabilmesi ve size bildirim gönderebilmesi için gerekli izinleri vermeniz gerekiyor.</string>
@@ -123,10 +123,10 @@
     <string name="connection_error">İnternet bağlantınız kesildi. İnternet bağlantısı olmadan doğum günleriniz veritabanına kaydedilmeyecek. Lütfen internet bağlantınızı kontrol edin.</string>
     <string name="ok">Tamam</string>
 
-    <string name="on_the_day">On the day</string>
-    <string name="_1_day_before">1 day ago</string>
-    <string name="_1_week_before">1 week ago</string>
-    <string name="_1_hour_before">1 month ago</string>
+    <string name="on_the_day">Aynı gün</string>
+    <string name="_1_day_before">1 gün önce</string>
+    <string name="_1_week_before">1 hafta önce</string>
+    <string name="_1_hour_before">1 saat önce</string>
     <string name="frequently_asked_questions">SSS</string>
     <string name="privacy_amp_policy"><![CDATA[Gizlilik ve Politika]]></string>
     <string name="contact_us">Bize Ulaşın</string>

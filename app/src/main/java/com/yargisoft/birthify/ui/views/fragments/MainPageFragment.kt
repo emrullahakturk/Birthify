@@ -149,6 +149,8 @@ class MainPageFragment : Fragment() {
         binding.recyclerView.adapter = adapter
 
         birthdayViewModel.birthdayList.observe(viewLifecycleOwner) { birthdays ->
+            binding.clickToAddBirthdayTv.visibility =
+                if (birthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
             adapter.updateData(birthdays)
         }
 
