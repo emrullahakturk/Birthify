@@ -123,6 +123,7 @@ class MainPageFragment : Fragment() {
     }
 
     private fun loadAndSyncBirthdays() {
+        birthdayViewModel.getBirthdaysFromFirebase(userSharedPreferences.getUserId(), "birthdays")
         birthdayViewModel.getBirthdays("birthdays")
         birthdayViewModel.filterPastAndUpcomingBirthdays(birthdayViewModel.birthdayList.value ?: emptyList())
         birthdayViewModel.getBirthdays("birthdays")
