@@ -13,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -61,7 +60,6 @@ class MainPageFragment : Fragment() {
 
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
-    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -78,8 +76,7 @@ class MainPageFragment : Fragment() {
         // Ağ bağlantısını gözlemleme
         observeNetworkConnection()
 
-        // Doğum günlerini yükleme ve senkronizasyon
-        loadAndSyncBirthdays()
+
 
         // RecyclerView ve Adapter yapılandırması
         setupRecyclerView()
@@ -92,6 +89,9 @@ class MainPageFragment : Fragment() {
 
         // Floating Action Button ile doğum günü ekleme
         setupFab()
+
+        // Doğum günlerini yükleme ve senkronizasyon
+        loadAndSyncBirthdays()
 
         return binding.root
     }
@@ -122,7 +122,6 @@ class MainPageFragment : Fragment() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.S)
     private fun loadAndSyncBirthdays() {
         birthdayViewModel.getBirthdays("birthdays")
         birthdayViewModel.filterPastAndUpcomingBirthdays(birthdayViewModel.birthdayList.value ?: emptyList())
@@ -203,7 +202,6 @@ class MainPageFragment : Fragment() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.S)
     override fun onResume() {
         super.onResume()
         loadAndSyncBirthdays()

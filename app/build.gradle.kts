@@ -16,7 +16,7 @@ android {
     }
     defaultConfig {
         applicationId = "com.yargisoft.birthify"
-        minSdk = 29
+        minSdk = 32
         targetSdk = 34
         versionCode = 2
         versionName = "1.0.0"

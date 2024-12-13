@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yargisoft.birthify.BirthdaySortFunctions
 import com.yargisoft.birthify.FrequentlyUsedFunctions
 import com.yargisoft.birthify.R
+import com.yargisoft.birthify.data.models.Birthday
 import com.yargisoft.birthify.data.repositories.BirthdayRepository
 import com.yargisoft.birthify.databinding.FragmentAuthTrashBinBinding
 import com.yargisoft.birthify.ui.adapters.DeletedBirthdayAdapter
@@ -46,56 +47,54 @@ class TrashBinFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_auth_trash_bin, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth_trash_bin, container, false)
+        setupNetworkObserver()
+        setupRecyclerView()
+        setupSearchFunctionality()
+        setupSortButton()
+        setupBackButton()
+        observeDeletedBirthdays()
+        syncBirthdaysWithFirebase()
+        fetchDeletedBirthdays()
+        return binding.root
+    }
 
+    override fun onResume() {
+        super.onResume()
+        syncBirthdaysWithFirebase()
+        fetchDeletedBirthdays()
+    }
 
+    // Ağ bağlantısını kontrol eder ve gerekli işlemleri yapar
+    private fun setupNetworkObserver() {
         networkConnectionObserver = NetworkConnectionObserver(requireContext())
         networkConnectionObserver.isConnected.observe(viewLifecycleOwner) { isConnected ->
-            if (userSharedPreferences.getUserCredentials().second != "guest") {
-                if (isConnected) {
-                    //Main Page Açıldığında firebase üzerindeki doğum günlerini bday shared pref'e aktararak senkronize etmiş oluyoruz
-                    birthdayViewModel.getBirthdaysFromFirebase(
-                        userSharedPreferences.getUserId(),
-                        "deleted_birthdays"
-                    )
-                }
+            if (userSharedPreferences.getUserCredentials().second != "guest" && isConnected) {
+                birthdayViewModel.getBirthdaysFromFirebase(
+                    userSharedPreferences.getUserId(),
+                    "deleted_birthdays"
+                )
             }
         }
+    }
 
-        birthdayViewModel.getBirthdays("deleted_birthdays")
-
-        adapter.setOnDetailClickListener { birthday ->
-            val action = TrashBinFragmentDirections.trashToDeletedDetail(birthday)
-            findNavController().navigate(action)
-        }
-
-
-        //Recyckerview Tanımlamaları
+    // RecyclerView'ı kurar
+    private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
-
-
-        //deletedBirthdays' listesini güncelleme
-        birthdayViewModel.getBirthdays("deleted_birthdays")
-
-
-        birthdayViewModel.birthdayList.observe(viewLifecycleOwner) { deletedBirthdays ->
-
-            binding.trashBinMainTv.visibility =
-                if (deletedBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
-
-            adapter.updateData(deletedBirthdays)
-            adapter.setOnDetailClickListener { birthday ->
-                val action = TrashBinFragmentDirections.trashToDeletedDetail(birthday)
-                findNavController().navigate(action)
-            }
-
-            binding.recyclerView.adapter = adapter
+        adapter.setOnDetailClickListener { birthday ->
+            navigateToBirthdayDetail(birthday)
         }
+    }
 
+    // Doğum günü detay ekranına yönlendirir
+    private fun navigateToBirthdayDetail(birthday: Birthday) {
+        val action = TrashBinFragmentDirections.trashToDeletedDetail(birthday)
+        findNavController().navigate(action)
+    }
 
-        //Search edittext'i ile doğum günü arama ekliyoruz
+    // Doğum günlerini arama işlevi
+    private fun setupSearchFunctionality() {
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -105,31 +104,50 @@ class TrashBinFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {}
         })
+    }
 
-
+    // Sıralama menüsünü ayarlar
+    private fun setupSortButton() {
         binding.sortButton.setOnClickListener {
-
-            BirthdaySortFunctions.showSortMenu(it, requireContext(), adapter, birthdayViewModel, birthdayViewModel.birthdayList.value ?: emptyList())
-
+            BirthdaySortFunctions.showSortMenu(
+                it,
+                requireContext(),
+                adapter,
+                birthdayViewModel,
+                birthdayViewModel.birthdayList.value ?: emptyList()
+            )
         }
+    }
 
+    // Geri butonu işlevi
+    private fun setupBackButton() {
         binding.fabBackButtonTrash.setOnClickListener {
             findNavController().popBackStack()
         }
-
-
-
-
-
-        return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
+    // Silinen doğum günlerini gözlemler ve adapter'ı günceller
+    private fun observeDeletedBirthdays() {
+        birthdayViewModel.birthdayList.observe(viewLifecycleOwner) { deletedBirthdays ->
+            binding.trashBinMainTv.visibility =
+                if (deletedBirthdays.isEmpty()) View.VISIBLE else View.INVISIBLE
+            adapter.updateData(deletedBirthdays)
+            adapter.setOnDetailClickListener { birthday ->
+                navigateToBirthdayDetail(birthday)
+            }
+        }
+    }
+
+    // Firebase'den doğum günlerini senkronize eder
+    private fun syncBirthdaysWithFirebase() {
         birthdayViewModel.getBirthdaysFromFirebase(
             userSharedPreferences.getUserId(),
             "deleted_birthdays"
         )
+    }
+
+    // Silinen doğum günlerini yerel olarak getirir
+    private fun fetchDeletedBirthdays() {
         birthdayViewModel.getBirthdays("deleted_birthdays")
     }
 }
