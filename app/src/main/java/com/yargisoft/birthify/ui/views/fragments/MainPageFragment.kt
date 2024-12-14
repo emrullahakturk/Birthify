@@ -33,6 +33,8 @@ import com.yargisoft.birthify.utils.NetworkConnectionObserver
 import com.yargisoft.birthify.utils.reminder.ReminderFunctions.isAlarmScheduled
 import com.yargisoft.birthify.utils.reminder.ReminderFunctions.requestExactAlarmPermission
 import com.yargisoft.birthify.utils.reminder.ReminderFunctions.scheduleBirthdayReminder
+import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.IS_FIRST_LAUNCH_KEY
+import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.PREFS_SETTINGS
 import com.yargisoft.birthify.utils.sharedpreferences.UserSharedPreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -97,8 +99,8 @@ class MainPageFragment : Fragment() {
     }
 
     private fun handleNotificationPermission() {
-        val sharedPreferences = requireContext().getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
-        val isFirstLaunch = sharedPreferences.getBoolean("isFirstLaunch", true)
+        val sharedPreferences = requireContext().getSharedPreferences(PREFS_SETTINGS, Context.MODE_PRIVATE)
+        val isFirstLaunch = sharedPreferences.getBoolean(IS_FIRST_LAUNCH_KEY, true)
 
         requestPermissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestPermission()
@@ -108,7 +110,7 @@ class MainPageFragment : Fragment() {
 
         if (isFirstLaunch) {
             requestNotificationPermission()
-            sharedPreferences.edit().putBoolean("isFirstLaunch", false).apply()
+            sharedPreferences.edit().putBoolean(IS_FIRST_LAUNCH_KEY, false).apply()
         }
     }
 
@@ -204,8 +206,8 @@ class MainPageFragment : Fragment() {
     }
 
     override fun onResume() {
-        super.onResume()
         loadAndSyncBirthdays()
+        super.onResume()
     }
 
     private fun requestNotificationPermission() {

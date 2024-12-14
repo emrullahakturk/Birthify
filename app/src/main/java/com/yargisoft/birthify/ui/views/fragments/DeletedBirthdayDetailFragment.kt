@@ -15,7 +15,6 @@ import com.yargisoft.birthify.R
 import com.yargisoft.birthify.data.repositories.BirthdayRepository
 import com.yargisoft.birthify.databinding.FragmentAuthDeletedBirthdayDetailBinding
 import com.yargisoft.birthify.ui.viewmodels.BirthdayViewModel
-import com.yargisoft.birthify.utils.sharedpreferences.UserSharedPreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -26,9 +25,6 @@ class DeletedBirthdayDetailFragment : Fragment() {
 
     private val birthdayViewModel: BirthdayViewModel by viewModels()
     private val deletedBirthday: DeletedBirthdayDetailFragmentArgs by navArgs()
-
-    @Inject
-    lateinit var userSharedPreferences: UserSharedPreferencesManager
 
     @Inject
     lateinit var birthdayRepository: BirthdayRepository

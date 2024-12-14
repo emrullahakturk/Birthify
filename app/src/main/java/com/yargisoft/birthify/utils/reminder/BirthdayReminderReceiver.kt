@@ -10,18 +10,17 @@ import android.content.SharedPreferences
 import androidx.core.app.NotificationCompat
 import com.yargisoft.birthify.MainActivity
 import com.yargisoft.birthify.R
+import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.LANGUAGE_KEY
+import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.PREFS_SETTINGS
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Locale
-import javax.inject.Inject
 
 class BirthdayReminderReceiver: BroadcastReceiver() {
-    @Inject
-    lateinit var preferences: SharedPreferences
 
     override fun onReceive(context: Context, intent: Intent) {
-        preferences = context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        val preferences:SharedPreferences = context.getSharedPreferences(PREFS_SETTINGS, Context.MODE_PRIVATE)
 
         val birthdayId = intent.getStringExtra("birthdayId") // Doğum günü ID'sini al
         val birthdayName = intent.getStringExtra("birthdayName") // Doğum günü adını al
@@ -80,7 +79,7 @@ class BirthdayReminderReceiver: BroadcastReceiver() {
         }
 
 
-        notificationText = when(preferences.getString("AppLanguage", null)){
+        notificationText = when(preferences.getString(LANGUAGE_KEY, null)){
             "en" -> notificationTextEnglish
             "tr" -> notificationTextTurkish
             else -> notificationTextEnglish

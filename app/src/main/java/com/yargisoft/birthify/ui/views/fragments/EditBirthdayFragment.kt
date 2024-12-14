@@ -21,7 +21,6 @@ import com.yargisoft.birthify.ui.viewmodels.BirthdayViewModel
 import com.yargisoft.birthify.ui.views.dialogs.NotifyTimeBottomSheetDialogFragment
 import com.yargisoft.birthify.utils.reminder.ReminderFunctions.requestExactAlarmPermission
 import com.yargisoft.birthify.utils.reminder.ReminderFunctions.updateBirthdayReminder
-import com.yargisoft.birthify.utils.sharedpreferences.UserSharedPreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -34,9 +33,6 @@ class EditBirthdayFragment : Fragment() {
 
     @Inject
     lateinit var birthdayRepository: BirthdayRepository
-
-    @Inject
-    lateinit var userSharedPreferences: UserSharedPreferencesManager
 
     private lateinit var navOptions: NavOptions
 

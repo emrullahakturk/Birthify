@@ -1,7 +1,9 @@
 package com.yargisoft.birthify
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
@@ -24,7 +26,7 @@ import com.google.android.material.navigationrail.NavigationRailView
 import com.yargisoft.birthify.databinding.ActivityMainBinding
 import com.yargisoft.birthify.utils.NetworkConnectionObserver
 import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.LANGUAGE_KEY
-import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.PREFS_NAME
+import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.PREFS_SETTINGS
 import com.yargisoft.birthify.utils.sharedpreferences.UserSharedPreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context) {
         val preferences: SharedPreferences =
-            newBase.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            newBase.getSharedPreferences(PREFS_SETTINGS, Context.MODE_PRIVATE)
         val language = preferences.getString(LANGUAGE_KEY, Locale.getDefault().language)
             ?: Locale.getDefault().language
         val localeUpdatedContext = updateLocale(newBase, language)
@@ -65,10 +67,8 @@ class MainActivity : AppCompatActivity() {
 
 
         networkConnectionObserver.isConnected.observe(this) { isConnected ->
-            if (userSharedPreferences.getUserCredentials().second != "guest") {
-                if (!isConnected) {
-                    showNetworkAlertDialog()
-                }
+            if (!isConnected) {
+                showNetworkAlertDialog()
             }
         }
 
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
 
         val logoutMenuItem = navigationRailView.menu.findItem(R.id.labelLogOut)
         logoutMenuItem.setOnMenuItemClickListener {
-            FrequentlyUsedFunctions.logout(this)
+            logout(this)
             true
         }
 
@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
 
 
         navigationRailView.setOnItemSelectedListener { item ->
-            val handled = NavigationUI.onNavDestinationSelected(item, navController)
+            val handled  = NavigationUI.onNavDestinationSelected(item, navController)
             if (handled) {
                 if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                     drawerLayout.closeDrawer(GravityCompat.START)
@@ -156,6 +156,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun logout(activity: Activity) {
+        userSharedPreferences.clearUserSession()
+        val intent = Intent(activity, AuthActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        activity.startActivity(intent)
+        activity.finish()
     }
 
 

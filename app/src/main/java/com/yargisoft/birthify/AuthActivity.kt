@@ -13,8 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.yargisoft.birthify.databinding.ActivityAuthBinding
 import com.yargisoft.birthify.utils.NetworkConnectionObserver
 import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.LANGUAGE_KEY
-import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.PREFS_NAME
-import com.yargisoft.birthify.utils.sharedpreferences.UserSharedPreferencesManager
+import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.PREFS_SETTINGS
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 import javax.inject.Inject
@@ -27,9 +26,6 @@ class AuthActivity : AppCompatActivity() {
     @Inject
     lateinit var networkConnectionObserver: NetworkConnectionObserver
 
-    @Inject
-    lateinit var userSharedPreferences: UserSharedPreferencesManager
-
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var fragmentContainerView: FragmentContainerView
     private lateinit var binding: ActivityAuthBinding
@@ -38,30 +34,31 @@ class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_auth)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_auth)
 
-        fragmentContainerView= binding.navHostFragment
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        fragmentContainerView = binding.navHostFragment
+        navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
 
 
         networkConnectionObserver.isConnected.observe(this) { isConnected ->
-            if(userSharedPreferences.getUserCredentials().second != "guest"){
-                if (!isConnected) {
-                    showNetworkAlertDialog()
-                }
+            if (!isConnected) {
+                showNetworkAlertDialog()
             }
         }
 
 
 
-        onBackPressedDispatcher.addCallback(this){
+        onBackPressedDispatcher.addCallback(this) {
             navHostFragment.navController.popBackStack()
         }
     }
 
     override fun attachBaseContext(newBase: Context) {
-        val preferences: SharedPreferences = newBase.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        val language = preferences.getString(LANGUAGE_KEY, Locale.getDefault().language) ?: Locale.getDefault().language
+        val preferences: SharedPreferences =
+            newBase.getSharedPreferences(PREFS_SETTINGS, Context.MODE_PRIVATE)
+        val language = preferences.getString(LANGUAGE_KEY, Locale.getDefault().language)
+            ?: Locale.getDefault().language
         val localeUpdatedContext = updateLocale(newBase, language)
         super.attachBaseContext(localeUpdatedContext)
     }
@@ -74,7 +71,6 @@ class AuthActivity : AppCompatActivity() {
         config.setLayoutDirection(locale)
         return context.createConfigurationContext(config)
     }
-
 
 
     private fun showNetworkAlertDialog() {

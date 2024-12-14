@@ -2,12 +2,10 @@ package com.yargisoft.birthify.ui.views.fragments
 
 import android.app.AlarmManager
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -48,7 +46,6 @@ class AddBirthdayFragment : Fragment() {
 
     @Inject lateinit var bottomSheet : NotifyTimeBottomSheetDialogFragment
 
-    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {

@@ -2,10 +2,15 @@ package com.yargisoft.birthify.utils.sharedpreferences
 
 
 object UserConstants {
-    const val PREFS_NAME = "user_prefs"
-    const val PREF_EMAIL = "email"
-    const val KEY_USER_ID = "userId"
-    const val USER_TOKEN = "token"
-    const val APP_SETTINGS = "AppSettings"
+    const val PREFS_USER = "UserPrefs"
+    const val PREFS_SETTINGS = "AppSettings"
+    const val PREFS_BIRTHDAYS = "Birthdays"
+    const val EMAIL_KEY = "Email"
+    const val NAME_KEY = "Name"
+    const val IS_LOGGED_IN_KEY = "IsLoggedIn"
+    const val USER_ID_KEY = "UserId"
+    const val USER_TOKEN_KEY = "Token"
     const val LANGUAGE_KEY = "AppLanguage"
+    const val DARK_THEME_KEY = "DarkThemeEnabled"
+    const val IS_FIRST_LAUNCH_KEY = "IsFirstLaunch"
 }

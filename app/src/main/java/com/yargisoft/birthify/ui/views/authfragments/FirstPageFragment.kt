@@ -11,14 +11,10 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentFirstPageBinding
-import com.yargisoft.birthify.utils.sharedpreferences.UserSharedPreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class FirstPageFragment : Fragment() {
-
-    @Inject lateinit var userSharedPreferences: UserSharedPreferencesManager
 
     val navOptions = NavOptions.Builder()
         .setPopUpTo(R.id.firstPageFragment, true)

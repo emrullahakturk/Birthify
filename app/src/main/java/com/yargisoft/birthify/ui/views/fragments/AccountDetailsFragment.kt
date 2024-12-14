@@ -35,8 +35,7 @@ class AccountDetailsFragment : Fragment() {
 
     @Inject lateinit var birthdayRepository: BirthdayRepository
     @Inject lateinit var userSharedPreferences: UserSharedPreferencesManager
-    @Inject lateinit var credentialPreferences: SharedPreferences
-
+    private lateinit var credentialPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +43,8 @@ class AccountDetailsFragment : Fragment() {
     ): View {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_auth_account_details,container,false)
+
+        credentialPreferences = requireContext().getSharedPreferences(com.yargisoft.birthify.utils.sharedpreferences.UserConstants.PREFS_USER, android.content.Context.MODE_PRIVATE)
 
 
         val lottieAnimationView =  binding.threePointAnimation

@@ -1,6 +1,8 @@
 package com.yargisoft.birthify.ui.views.fragments
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +16,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.snackbar.Snackbar
-import com.yargisoft.birthify.FrequentlyUsedFunctions
+import com.yargisoft.birthify.AuthActivity
 import com.yargisoft.birthify.FrequentlyUsedFunctions.disableViewEnableLottie
 import com.yargisoft.birthify.FrequentlyUsedFunctions.enableViewDisableLottie
 import com.yargisoft.birthify.R
@@ -100,7 +102,7 @@ class ProfileFragment : Fragment() {
         val errorMessage = authViewModel.authError.value
 
         if (isSuccess) {
-            FrequentlyUsedFunctions.logout(requireActivity())
+            logout(requireActivity())
         } else {
             Snackbar.make(binding.root, errorMessage ?: "Unknown Error", Snackbar.LENGTH_SHORT).show()
         }
@@ -114,7 +116,7 @@ class ProfileFragment : Fragment() {
             userSharedPreferences.clearUserSession()
             birthdayRepository.clearAllBirthdays()
             cancelAllReminders()
-            FrequentlyUsedFunctions.logout(requireActivity())
+            logout(requireActivity())
         }
     }
 
@@ -206,5 +208,13 @@ class ProfileFragment : Fragment() {
         binding.fabBackButtonDetail.setOnClickListener {
             findNavController().popBackStack()
         }
+    }
+
+    private fun logout(activity: Activity) {
+        userSharedPreferences.clearUserSession()
+        val intent = Intent(activity, AuthActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        activity.startActivity(intent)
+        activity.finish()
     }
 }

@@ -46,7 +46,7 @@
     <string name="trash_bin">Silinenler</string>
     <string name="account_menu">Hesap Menüsü</string>
     <string name="search">Ara</string>
-    <string name="add_a_birthday_of_your_dear_one">Doğum günü eklemek için "+" tuşuna basın</string>
+    <string name="add_a_birthday_of_your_dear_one">Doğum günü\n eklemek için\n "+" tuşuna basın</string>
     <string name="trash_bin_main_textView">Silinmiş bir doğum günü yok</string>
     <string name="re_save_birthday">Yeniden Kaydet</string>
     <string name="delete_permanently">Kalıcı Olarak Sil</string>

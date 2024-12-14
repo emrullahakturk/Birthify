@@ -12,7 +12,6 @@ import androidx.navigation.fragment.navArgs
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.data.repositories.BirthdayRepository
 import com.yargisoft.birthify.databinding.FragmentAuthBirthdayDetailBinding
-import com.yargisoft.birthify.utils.sharedpreferences.UserSharedPreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -26,9 +25,6 @@ class BirthdayDetailFragment : Fragment() {
 
     @Inject
     lateinit var birthdayRepository: BirthdayRepository
-    @Inject
-    lateinit var userSharedPreferences: UserSharedPreferencesManager
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,12 +47,6 @@ class BirthdayDetailFragment : Fragment() {
             )
             findNavController().navigate(action, navOptions)
         }
-
-
-
         return binding.root
     }
-
-
-
 }

@@ -1,6 +1,6 @@
 package com.yargisoft.birthify.data.repositories
 
-import android.content.SharedPreferences
+import android.content.Context
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -8,6 +8,13 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.EMAIL_KEY
+import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.IS_LOGGED_IN_KEY
+import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.NAME_KEY
+import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.PREFS_USER
+import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.USER_ID_KEY
+import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.USER_TOKEN_KEY
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -17,11 +24,11 @@ import javax.inject.Inject
 
 class AuthRepository @Inject constructor(
     private val auth: FirebaseAuth,
-    private val sharedPreferences: SharedPreferences,
-    private val firestore: FirebaseFirestore
+    private val firestore: FirebaseFirestore,
+    @ApplicationContext private val context: Context,
 ) {
 
-
+    private val sharedPreferences = context.getSharedPreferences(PREFS_USER, Context.MODE_PRIVATE)
 
 
     // Function to register a new user
@@ -122,20 +129,20 @@ class AuthRepository @Inject constructor(
     // Function to save the user session in SharedPreferences
     private fun saveUserSession(userId: String, email: String, token: String) {
         val editor = sharedPreferences.edit()
-        editor.putString("userId", userId)
-        editor.putString("email", email)
-        editor.putString("token", token)
-        editor.putBoolean("isLoggedIn", true)
+        editor.putString(USER_ID_KEY, userId)
+        editor.putString(EMAIL_KEY, email)
+        editor.putString(USER_TOKEN_KEY, token)
+        editor.putBoolean(IS_LOGGED_IN_KEY, true)
         editor.apply()
     }
 
     // Function to clear the user session from SharedPreferences
     private fun clearUserSession() {
         val editor = sharedPreferences.edit()
-        editor.remove("userId")
-        editor.remove("email")
-        editor.remove("token")
-        editor.putBoolean("isLoggedIn", false)
+        editor.remove(USER_ID_KEY)
+        editor.remove(EMAIL_KEY)
+        editor.remove(USER_TOKEN_KEY)
+        editor.putBoolean(IS_LOGGED_IN_KEY, false)
         editor.apply()
     }
 
@@ -158,7 +165,7 @@ class AuthRepository @Inject constructor(
 
     // Function to check if the user is logged in
     fun isUserLoggedIn(): Boolean {
-        return auth.currentUser != null && sharedPreferences.getBoolean("isLoggedIn", false)
+        return auth.currentUser != null && sharedPreferences.getBoolean(IS_LOGGED_IN_KEY, false)
     }
 
     fun updateUserPassword(
@@ -270,8 +277,8 @@ class AuthRepository @Inject constructor(
                         )
 
                         val editor = sharedPreferences.edit()
-                        editor.putString("name", name)
-                        editor.putString("email", email)
+                        editor.putString(NAME_KEY, name)
+                        editor.putString(EMAIL_KEY, email)
 
                         val instant = Instant.ofEpochSecond(
                             recordedDate.seconds, recordedDate.nanoseconds.toLong()

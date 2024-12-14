@@ -1,21 +1,25 @@
 package com.yargisoft.birthify.data.repositories
 
+import android.content.Context
 import android.content.SharedPreferences
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.yargisoft.birthify.data.models.Birthday
+import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.PREFS_BIRTHDAYS
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.LocalDate
 import java.time.Month
 import java.util.Locale
 import javax.inject.Inject
 
 class BirthdayRepository @Inject constructor(
+    @ApplicationContext val context: Context,
     private val gson: Gson,
-    private val sharedPreferences: SharedPreferences,
     private val firestore: FirebaseFirestore
 ) {
 
+    private val preferences: SharedPreferences = context.getSharedPreferences(PREFS_BIRTHDAYS, Context.MODE_PRIVATE)
 
     private fun <T> SharedPreferences.putList(key: String, list: List<T>) {
         edit().putString(key, gson.toJson(list)).apply()
@@ -44,7 +48,7 @@ class BirthdayRepository @Inject constructor(
 
     // Doğum günü listesini preferences'a kaydetme işlemi
     private fun saveBirthdaysToPreferences(birthdays: List<Birthday>, keyString: String) {
-        val editor = sharedPreferences.edit()
+        val editor = preferences.edit()
         editor.putString(keyString, gson.toJson(birthdays))
         editor.apply()
 
@@ -52,7 +56,7 @@ class BirthdayRepository @Inject constructor(
 
     // Doğum günlerini lokalden getirme fonksiyonu
     fun getBirthdaysFromPreferences(keyString: String): List<Birthday> {
-        val json = sharedPreferences.getString(keyString, null)
+        val json = preferences.getString(keyString, null)
         return if (json != null) {
             val type = object : TypeToken<List<Birthday>>() {}.type
             gson.fromJson(json, type)
@@ -100,7 +104,7 @@ class BirthdayRepository @Inject constructor(
     }
 
     private fun clearBirthdaysPreferences(keyString: String) {
-        val editor = sharedPreferences.edit()
+        val editor = preferences.edit()
         editor.remove(keyString)
         editor.apply()
     }
@@ -152,7 +156,7 @@ class BirthdayRepository @Inject constructor(
 
         if (index != -1) {
             birthdays[index] = updatedBirthday
-            sharedPreferences.putList("birthdays", birthdays)
+            preferences.putList("birthdays", birthdays)
         }
 
         //firebase'deki dg update ediliyor
@@ -164,7 +168,7 @@ class BirthdayRepository @Inject constructor(
 
     // Geçmiş doğum gününü tek tek kaydetme işlemi
     private fun saveBirthdayToPreferences(birthday: Birthday, keyString: String) {
-        val birthdaysJson = sharedPreferences.getString(keyString, null)
+        val birthdaysJson = preferences.getString(keyString, null)
         val birthdays = if (birthdaysJson != null) {
             gson.fromJson(birthdaysJson, Array<Birthday>::class.java).toMutableList()
         } else {
@@ -173,7 +177,7 @@ class BirthdayRepository @Inject constructor(
 
         birthdays.add(birthday)
 
-        val editor = sharedPreferences.edit()
+        val editor = preferences.edit()
         editor.putString(keyString, gson.toJson(birthdays))
         editor.apply()
     }
