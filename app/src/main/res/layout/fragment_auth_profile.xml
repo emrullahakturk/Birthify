@@ -1,501 +1,489 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/settings_background"
+    card_view:layout_constraintEnd_toEndOf="parent"
+    card_view:layout_constraintStart_toStartOf="parent"
+    card_view:layout_constraintTop_toTopOf="parent">
 
-    <data>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/three_point_animation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/three_point_animation" />
 
-        <variable
-            name="full_name"
-            type="String" />
-
-    </data>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/settings_background"
-        card_view:layout_constraintEnd_toEndOf="parent"
-        card_view:layout_constraintStart_toStartOf="parent"
-        card_view:layout_constraintTop_toTopOf="parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/fabBackButtonDetail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/three_point_animation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="5dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            app:lottie_autoPlay="false"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/three_point_animation" />
-
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/fabBackButtonDetail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/wittgenstein_font"
+                android:text="@string/profile"
+                android:textColor="@color/fab_button_background_detail"
+                android:textSize="25sp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.5"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/myAccountCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                card_view:cardBackgroundColor="#FFFFFF"
+                card_view:cardCornerRadius="35dp"
+                card_view:cardElevation="8dp">
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:text="@string/profile"
-                    android:textColor="@color/fab_button_background_detail"
-                    android:textSize="25sp"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    card_view:layout_constraintHorizontal_bias="0.5"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    card_view:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/myAccountCardView"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="5dp"
-                    card_view:cardBackgroundColor="#FFFFFF"
-                    card_view:cardCornerRadius="35dp"
-                    card_view:cardElevation="8dp">
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="61dp">
 
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        tools:layout_editor_absoluteX="0dp"
-                        tools:layout_editor_absoluteY="61dp">
+                    <TextView
+                        android:id="@+id/accountDetailsTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/wittgenstein_font"
+                        android:text="@string/account_details"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toEndOf="@+id/imageView66"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:layout_constraintVertical_bias="0.5" />
 
 
-                        <TextView
-                            android:id="@+id/accountDetailsTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:fontFamily="@font/wittgenstein_font"
-                            android:text="@string/account_details"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toEndOf="@+id/imageView66"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:layout_constraintVertical_bias="0.5" />
+                    <ImageView
+                        android:id="@+id/imageView66"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:srcCompat="@drawable/ic_account_settings" />
 
 
-                        <ImageView
-                            android:id="@+id/imageView66"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toStartOf="parent"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:srcCompat="@drawable/ic_account_settings" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/changePasswordCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                card_view:cardBackgroundColor="#FFFFFF"
+                card_view:cardCornerRadius="35dp"
+                card_view:cardElevation="8dp">
 
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/changePasswordCardView"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="5dp"
-                    card_view:cardBackgroundColor="#FFFFFF"
-                    card_view:cardCornerRadius="35dp"
-                    card_view:cardElevation="8dp">
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="61dp">
 
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        tools:layout_editor_absoluteX="0dp"
-                        tools:layout_editor_absoluteY="61dp">
+                    <TextView
+                        android:id="@+id/changePasswordTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/wittgenstein_font"
+                        android:text="@string/change_password"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toEndOf="@+id/changePasswordImageView"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:layout_constraintVertical_bias="0.5" />
 
 
-                        <TextView
-                            android:id="@+id/changePasswordTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:fontFamily="@font/wittgenstein_font"
-                            android:text="@string/change_password"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toEndOf="@+id/changePasswordImageView"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:layout_constraintVertical_bias="0.5" />
+                    <ImageView
+                        android:id="@+id/changePasswordImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:srcCompat="@drawable/ic_lock_profile" />
 
 
-                        <ImageView
-                            android:id="@+id/changePasswordImageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toStartOf="parent"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:srcCompat="@drawable/ic_lock_profile" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/forgotPasswordCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                card_view:cardBackgroundColor="#FFFFFF"
+                card_view:cardCornerRadius="35dp"
+                card_view:cardElevation="8dp">
 
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/forgotPasswordCardView"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="5dp"
-                    card_view:cardBackgroundColor="#FFFFFF"
-                    card_view:cardCornerRadius="35dp"
-                    card_view:cardElevation="8dp">
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="61dp">
 
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        tools:layout_editor_absoluteX="0dp"
-                        tools:layout_editor_absoluteY="61dp">
+                    <TextView
+                        android:id="@+id/forgotPasswordTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/wittgenstein_font"
+                        android:text="@string/forgot_password_settings"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toEndOf="@+id/forgotPasswordImageView"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:layout_constraintVertical_bias="0.5" />
 
 
-                        <TextView
-                            android:id="@+id/forgotPasswordTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:fontFamily="@font/wittgenstein_font"
-                            android:text="@string/forgot_password_settings"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toEndOf="@+id/forgotPasswordImageView"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:layout_constraintVertical_bias="0.5" />
+                    <ImageView
+                        android:id="@+id/forgotPasswordImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:srcCompat="@drawable/ic_lock_reset" />
 
 
-                        <ImageView
-                            android:id="@+id/forgotPasswordImageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toStartOf="parent"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:srcCompat="@drawable/ic_lock_reset" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </androidx.cardview.widget.CardView>
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/notificationsCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                card_view:cardBackgroundColor="#FFFFFF"
+                card_view:cardCornerRadius="35dp"
+                card_view:cardElevation="8dp">
 
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/notificationsCardView"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="5dp"
-                    card_view:cardBackgroundColor="#FFFFFF"
-                    card_view:cardCornerRadius="35dp"
-                    card_view:cardElevation="8dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        tools:layout_editor_absoluteX="0dp"
-                        tools:layout_editor_absoluteY="61dp">
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="61dp">
 
 
-                        <TextView
-                            android:id="@+id/notificationsTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:fontFamily="@font/wittgenstein_font"
-                            android:text="@string/archive_my_birthdays"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toEndOf="@+id/notificationsImageView"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:layout_constraintVertical_bias="0.5" />
+                    <TextView
+                        android:id="@+id/notificationsTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/wittgenstein_font"
+                        android:text="@string/archive_my_birthdays"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toEndOf="@+id/notificationsImageView"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:layout_constraintVertical_bias="0.5" />
 
 
-                        <ImageView
-                            android:id="@+id/notificationsImageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toStartOf="parent"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:srcCompat="@drawable/ic_download" />
+                    <ImageView
+                        android:id="@+id/notificationsImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:srcCompat="@drawable/ic_download" />
 
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/darkThemeCardView"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/darkThemeCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                card_view:cardBackgroundColor="#FFFFFF"
+                card_view:cardCornerRadius="35dp"
+                card_view:cardElevation="8dp">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="5dp"
-                    card_view:cardBackgroundColor="#FFFFFF"
-                    card_view:cardCornerRadius="35dp"
-                    card_view:cardElevation="8dp">
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="61dp">
 
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        tools:layout_editor_absoluteX="0dp"
-                        tools:layout_editor_absoluteY="61dp">
+                    <TextView
+                        android:id="@+id/darkThemeTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/wittgenstein_font"
+                        android:text="@string/reload_my_archived_birthdays"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toEndOf="@+id/darkThemeImageView"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:layout_constraintVertical_bias="0.5" />
 
 
-                        <TextView
-                            android:id="@+id/darkThemeTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:fontFamily="@font/wittgenstein_font"
-                            android:text="@string/reload_my_archived_birthdays"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toEndOf="@+id/darkThemeImageView"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:layout_constraintVertical_bias="0.5" />
+                    <ImageView
+                        android:id="@+id/darkThemeImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:srcCompat="@drawable/ic_upload" />
 
 
-                        <ImageView
-                            android:id="@+id/darkThemeImageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toStartOf="parent"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:srcCompat="@drawable/ic_upload" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/deleteAllBirthdaysCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                card_view:cardBackgroundColor="#FFFFFF"
+                card_view:cardCornerRadius="35dp"
+                card_view:cardElevation="8dp">
 
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/deleteAllBirthdaysCardView"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="5dp"
-                    card_view:cardBackgroundColor="#FFFFFF"
-                    card_view:cardCornerRadius="35dp"
-                    card_view:cardElevation="8dp">
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="61dp">
 
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        tools:layout_editor_absoluteX="0dp"
-                        tools:layout_editor_absoluteY="61dp">
+                    <ImageView
+                        android:id="@+id/deleteAllBirthdaysImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:srcCompat="@drawable/ic_cake_settings"
+                        tools:ignore="ContentDescription" />
 
 
-                        <ImageView
-                            android:id="@+id/deleteAllBirthdaysImageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toStartOf="parent"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:srcCompat="@drawable/ic_cake_settings"
-                            tools:ignore="ContentDescription" />
+                    <TextView
+                        android:id="@+id/deleteAllBirthdaysTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/wittgenstein_font"
+                        android:text="@string/delete_all_birthdays"
+                        android:textColor="@color/red"
+                        android:textStyle="bold"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toEndOf="@+id/deleteAllBirthdaysImageView"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:layout_constraintVertical_bias="0.5" />
 
 
-                        <TextView
-                            android:id="@+id/deleteAllBirthdaysTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:fontFamily="@font/wittgenstein_font"
-                            android:text="@string/delete_all_birthdays"
-                            android:textColor="@color/red"
-                            android:textStyle="bold"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toEndOf="@+id/deleteAllBirthdaysImageView"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:layout_constraintVertical_bias="0.5" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/deleteMyAccountCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                card_view:cardBackgroundColor="#FFFFFF"
+                card_view:cardCornerRadius="35dp"
+                card_view:cardElevation="8dp">
 
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/deleteMyAccountCardView"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="5dp"
-                    card_view:cardBackgroundColor="#FFFFFF"
-                    card_view:cardCornerRadius="35dp"
-                    card_view:cardElevation="8dp">
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="61dp">
+
+                    <TextView
+                        android:id="@+id/deleteMyAccountTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/wittgenstein_font"
+                        android:text="@string/delete_my_account"
+                        android:textColor="@color/red"
+                        android:textStyle="bold"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toEndOf="@+id/deleteMyAccountImageView"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:layout_constraintVertical_bias="0.5" />
+
+                    <ImageView
+                        android:id="@+id/deleteMyAccountImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:srcCompat="@drawable/ic_delete_settings" />
 
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        tools:layout_editor_absoluteX="0dp"
-                        tools:layout_editor_absoluteY="61dp">
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <TextView
-                            android:id="@+id/deleteMyAccountTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:fontFamily="@font/wittgenstein_font"
-                            android:text="@string/delete_my_account"
-                            android:textColor="@color/red"
-                            android:textStyle="bold"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toEndOf="@+id/deleteMyAccountImageView"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:layout_constraintVertical_bias="0.5" />
+            </androidx.cardview.widget.CardView>
 
-                        <ImageView
-                            android:id="@+id/deleteMyAccountImageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toStartOf="parent"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:srcCompat="@drawable/ic_delete_settings" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/logoutCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                card_view:cardBackgroundColor="#FFFFFF"
+                card_view:cardCornerRadius="35dp"
+                card_view:cardElevation="8dp">
 
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/logoutCardView"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="5dp"
-                    card_view:cardBackgroundColor="#FFFFFF"
-                    card_view:cardCornerRadius="35dp"
-                    card_view:cardElevation="8dp">
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="61dp">
+
+                    <TextView
+                        android:id="@+id/logoutTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/wittgenstein_font"
+                        android:text="@string/logout"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toEndOf="@+id/logoutImageView"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:layout_constraintVertical_bias="0.5" />
+
+                    <ImageView
+                        android:id="@+id/logoutImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:layout_constraintStart_toStartOf="parent"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:srcCompat="@drawable/ic_logout_profile" />
 
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        tools:layout_editor_absoluteX="0dp"
-                        tools:layout_editor_absoluteY="61dp">
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <TextView
-                            android:id="@+id/logoutTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:fontFamily="@font/wittgenstein_font"
-                            android:text="@string/logout"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toEndOf="@+id/logoutImageView"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:layout_constraintVertical_bias="0.5" />
+            </androidx.cardview.widget.CardView>
 
-                        <ImageView
-                            android:id="@+id/logoutImageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            card_view:layout_constraintBottom_toBottomOf="parent"
-                            card_view:layout_constraintStart_toStartOf="parent"
-                            card_view:layout_constraintTop_toTopOf="parent"
-                            card_view:srcCompat="@drawable/ic_logout_profile" />
+        </LinearLayout>
+    </ScrollView>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabBackButtonDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/fab_button_background_detail"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_back_bottom"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
-        </ScrollView>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabBackButtonDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/fab_button_background_detail"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_back_bottom"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

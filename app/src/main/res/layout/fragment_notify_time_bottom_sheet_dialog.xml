@@ -1,59 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/dialog_fragment_background"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    </data>
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/option1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:fontFamily="@font/wittgenstein_font"
+        android:gravity="center"
         android:padding="16dp"
-        android:background="@color/dialog_fragment_background">
+        android:text="@string/on_the_day"
+        android:textColor="@color/dialog_fragment_tv"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/option1"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:fontFamily="@font/wittgenstein_font"
-            android:textStyle="bold"
-            android:textColor="@color/dialog_fragment_tv"
-            android:text="@string/on_the_day" />
+    <TextView
+        android:id="@+id/option2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/wittgenstein_font"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/_1_day_before"
+        android:textColor="@color/dialog_fragment_tv"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/option2"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:fontFamily="@font/wittgenstein_font"
-            android:textStyle="bold"
-            android:textColor="@color/dialog_fragment_tv"
-            android:text="@string/_1_day_before" />
+    <TextView
+        android:id="@+id/option3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/wittgenstein_font"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/_1_week_before"
+        android:textColor="@color/dialog_fragment_tv"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/option3"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:fontFamily="@font/wittgenstein_font"
-            android:textStyle="bold"
-            android:textColor="@color/dialog_fragment_tv"
-            android:text="@string/_1_week_before" />
-
-        <TextView
-            android:id="@+id/option4"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:fontFamily="@font/wittgenstein_font"
-            android:textStyle="bold"
-            android:textColor="@color/dialog_fragment_tv"
-            android:text="@string/_1_hour_before" />
-    </LinearLayout>
-</layout>
+    <TextView
+        android:id="@+id/option4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/wittgenstein_font"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/_1_hour_before"
+        android:textColor="@color/dialog_fragment_tv"
+        android:textStyle="bold" />
+</LinearLayout>

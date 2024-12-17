@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.yargisoft.birthify.ui.views.authfragments.SplashFragment"
+        android:name="com.yargisoft.birthify.ui.views.auth.SplashFragment"
         android:label="SplashFragment" >
         <action
             android:id="@+id/splashToFirstPage"
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.yargisoft.birthify.ui.views.authfragments.RegisterFragment"
+        android:name="com.yargisoft.birthify.ui.views.auth.RegisterFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_register" >
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginPageFragment"
-        android:name="com.yargisoft.birthify.ui.views.authfragments.LoginPageFragment"
+        android:name="com.yargisoft.birthify.ui.views.auth.LoginPageFragment"
         android:label="fragment_login_page"
         tools:layout="@layout/fragment_login_page" >
         <action
@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/firstPageFragment"
-        android:name="com.yargisoft.birthify.ui.views.authfragments.FirstPageFragment"
+        android:name="com.yargisoft.birthify.ui.views.auth.FirstPageFragment"
         android:label="fragment_main_page"
         tools:layout="@layout/fragment_first_page" >
         <action
@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.yargisoft.birthify.ui.views.authfragments.ForgotPasswordFragment"
+        android:name="com.yargisoft.birthify.ui.views.auth.ForgotPasswordFragment"
         android:label="ForgotPasswordFragment" >
         <action
             android:id="@+id/forgotToLogin"

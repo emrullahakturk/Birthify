@@ -11,8 +11,8 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.data.models.Birthday
-import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.LANGUAGE_KEY
-import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.PREFS_SETTINGS
+import com.yargisoft.birthify.data.sharedpreferences.UserConstants.LANGUAGE_KEY
+import com.yargisoft.birthify.data.sharedpreferences.UserConstants.PREFS_SETTINGS
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

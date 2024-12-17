@@ -1,197 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
 
-    </data>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dialog_fragment_background">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/dialog_fragment_background">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ScrollView
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_marginBottom="16dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp">
-
-                    <ImageButton
-                        android:id="@+id/closeButton"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:background="@color/dialog_fragment_background"
-                        android:src="@drawable/ic_close" />
-                </RelativeLayout>
+                <ImageButton
+                    android:id="@+id/closeButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/dialog_fragment_background"
+                    android:src="@drawable/ic_close" />
+            </RelativeLayout>
 
 
-                <TextView
-                    android:id="@+id/tvFaqTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="@string/frequently_asked_questions"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/dialog_fragment_tv"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvFaqTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="@string/frequently_asked_questions"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvQuestion1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="8dp"
-                    android:text="@string/_1_how_do_i_add_a_new_birthday"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/dialog_fragment_tv"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvQuestion1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="8dp"
+                android:text="@string/_1_how_do_i_add_a_new_birthday"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvAnswer1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="@string/to_add_a_new_birthday_simply_navigate_to_the_add_birthday_screen_enter_the_name_and_date_and_choose_when_you_d_like_to_be_reminded_then_click_save"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/dialog_fragment_tv"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvAnswer1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="@string/to_add_a_new_birthday_simply_navigate_to_the_add_birthday_screen_enter_the_name_and_date_and_choose_when_you_d_like_to_be_reminded_then_click_save"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvQuestion2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="8dp"
-                    android:text="@string/_2_how_can_i_set_a_reminder_for_a_birthday"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/dialog_fragment_tv"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvQuestion2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="8dp"
+                android:text="@string/_2_how_can_i_set_a_reminder_for_a_birthday"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvAnswer2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="@string/while_adding_or_editing_a_birthday_you_can_choose_when_you_want_to_receive_a_reminder_e_g_one_day_before_one_week_before_etc_the_reminder_will_be_sent_to_your_device_based_on_the_selected_date_and_time"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/dialog_fragment_tv"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvAnswer2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="@string/while_adding_or_editing_a_birthday_you_can_choose_when_you_want_to_receive_a_reminder_e_g_one_day_before_one_week_before_etc_the_reminder_will_be_sent_to_your_device_based_on_the_selected_date_and_time"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <!-- Question 3 -->
-                <TextView
-                    android:id="@+id/tvQuestion3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="8dp"
-                    android:text="@string/_3_what_happens_if_i_log_in_on_a_new_device"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/dialog_fragment_tv"
-                    android:textStyle="bold" />
+            <!-- Question 3 -->
+            <TextView
+                android:id="@+id/tvQuestion3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="8dp"
+                android:text="@string/_3_what_happens_if_i_log_in_on_a_new_device"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvAnswer3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="@string/if_you_log_in_on_a_new_device_all_your_saved_birthdays_will_be_synced_from_firebase_any_reminders_you_set_will_be_reconfigured_on_the_new_device_automatically"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/dialog_fragment_tv"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvAnswer3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="@string/if_you_log_in_on_a_new_device_all_your_saved_birthdays_will_be_synced_from_firebase_any_reminders_you_set_will_be_reconfigured_on_the_new_device_automatically"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <!-- Question 4 -->
-                <TextView
-                    android:id="@+id/tvQuestion4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="8dp"
-                    android:text="@string/_4_can_i_use_the_app_without_creating_an_account"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/dialog_fragment_tv"
-                    android:textStyle="bold" />
+            <!-- Question 4 -->
+            <TextView
+                android:id="@+id/tvQuestion4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="8dp"
+                android:text="@string/_4_can_i_use_the_app_without_creating_an_account"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvAnswer4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="@string/yes_you_can_use_the_app_as_a_guest_however_your_data_will_only_be_saved_on_your_device_and_not_synced_with_firebase_if_you_create_an_account_later_your_local_data_will_be_merged_with_the_cloud"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/dialog_fragment_tv"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvAnswer4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="@string/yes_you_can_use_the_app_as_a_guest_however_your_data_will_only_be_saved_on_your_device_and_not_synced_with_firebase_if_you_create_an_account_later_your_local_data_will_be_merged_with_the_cloud"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <!-- Question 5 -->
-                <TextView
-                    android:id="@+id/tvQuestion5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="8dp"
-                    android:text="@string/_5_how_do_i_delete_a_birthday"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/dialog_fragment_tv"
-                    android:textStyle="bold" />
+            <!-- Question 5 -->
+            <TextView
+                android:id="@+id/tvQuestion5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="8dp"
+                android:text="@string/_5_how_do_i_delete_a_birthday"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvAnswer5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="@string/to_delete_a_birthday_go_to_the_edit_birthday_screen_scroll_down_and_click_on_the_delete_button_you_will_be_asked_to_confirm_before_the_birthday_is_permanently_removed"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/dialog_fragment_tv"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvAnswer5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="@string/to_delete_a_birthday_go_to_the_edit_birthday_screen_scroll_down_and_click_on_the_delete_button_you_will_be_asked_to_confirm_before_the_birthday_is_permanently_removed"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <!-- Question 6 -->
-                <TextView
-                    android:id="@+id/tvQuestion6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="8dp"
-                    android:text="@string/_6_how_do_i_contact_support"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/dialog_fragment_tv"
-                    android:textStyle="bold" />
+            <!-- Question 6 -->
+            <TextView
+                android:id="@+id/tvQuestion6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="8dp"
+                android:text="@string/_6_how_do_i_contact_support"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvAnswer6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="@string/if_you_need_further_assistance_you_can_contact_us_via_the_help_center_in_the_app_just_click_on_the_contact_us_button_and_it_will_open_your_email_client_with_our_support_email_pre_filled"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/dialog_fragment_tv"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvAnswer6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="@string/if_you_need_further_assistance_you_can_contact_us_via_the_help_center_in_the_app_just_click_on_the_contact_us_button_and_it_will_open_your_email_client_with_our_support_email_pre_filled"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
 
-            </LinearLayout>
-        </ScrollView>
+        </LinearLayout>
+    </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

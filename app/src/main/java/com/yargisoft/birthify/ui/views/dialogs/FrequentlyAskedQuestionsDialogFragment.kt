@@ -2,31 +2,29 @@ package com.yargisoft.birthify.ui.views.dialogs
 
 import android.app.Dialog
 import android.os.Bundle
-import android.widget.ImageButton
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentFrequentlyAskedQuestionsDialogBinding
 
 
 class FrequentlyAskedQuestionsDialogFragment : DialogFragment() {
 
-
-    private lateinit var binding: FragmentFrequentlyAskedQuestionsDialogBinding
-
+    private var _binding: FragmentFrequentlyAskedQuestionsDialogBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = Dialog(requireContext(), android.R.style.Theme_Black_NoTitleBar_Fullscreen)
-        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_frequently_asked_questions_dialog, null, false)
+        _binding = FragmentFrequentlyAskedQuestionsDialogBinding.inflate(layoutInflater)
         dialog.setContentView(binding.root)
 
-        val closeButton = dialog.findViewById<ImageButton>(R.id.closeButton)
-        closeButton.setOnClickListener {
+        binding.closeButton.setOnClickListener {
             dialog.dismiss()
         }
-
 
         return dialog
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

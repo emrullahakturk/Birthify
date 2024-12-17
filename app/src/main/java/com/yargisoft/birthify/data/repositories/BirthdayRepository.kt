@@ -6,7 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.yargisoft.birthify.data.models.Birthday
-import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.PREFS_BIRTHDAYS
+import com.yargisoft.birthify.data.sharedpreferences.UserConstants.PREFS_BIRTHDAYS
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.LocalDate
 import java.time.Month

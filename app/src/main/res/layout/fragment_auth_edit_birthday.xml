@@ -1,211 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/edit_birthday_background"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintHorizontal_bias="0.5"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+app:layout_constraintVertical_bias="0.5">
 
-    <data>
 
-        <variable
-            name="birthday"
-            type="com.yargisoft.birthify.data.models.Birthday" />
-    </data>
+<com.airbnb.lottie.LottieAnimationView
+    android:id="@+id/three_point_animation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="5dp"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.5"
+    app:lottie_autoPlay="true"
+    app:lottie_loop="true"
+    app:lottie_rawRes="@raw/three_point_animation">
+
+</com.airbnb.lottie.LottieAnimationView>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    app:layout_constraintBottom_toTopOf="@+id/fabBackButton"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/edit_birthday_background"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintTop_toBottomOf="@+id/lineView">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/three_point_animation"
+        <TextView
+            android:id="@+id/editBirthdayTv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="5dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/three_point_animation">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/wittgenstein_font"
+            android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/edit_birthday"
+            android:textColor="@color/edit_birthday_of_your_tv"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-        </com.airbnb.lottie.LottieAnimationView>
-
-
-        <ScrollView
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/fabBackButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:boxBackgroundMode="outline"
+            app:startIconDrawable="@drawable/ic_account"
+            app:startIconTint="@color/ic_account_edit">
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/birthdayNameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lineView">
-
-                <TextView
-                    android:id="@+id/editBirthdayTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:gravity="center"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:text="@string/edit_birthday"
-                    android:textColor="@color/edit_birthday_of_your_tv"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:boxBackgroundMode="outline"
-                    app:startIconDrawable="@drawable/ic_account"
-                    app:startIconTint="@color/ic_account_edit">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/birthdayNameEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_edit_text_edit"
-                        android:fontFamily="@font/wittgenstein_font"
-                        android:maxLength="30"
-                        android:maxLines="1"
-                        android:paddingStart="40dp"
-                        android:paddingEnd="0dp"
-                        android:text="@{birthday.name}"
-                        tools:ignore="SpeakableTextPresentCheck" />
-                </com.google.android.material.textfield.TextInputLayout>
+                android:background="@drawable/rounded_edit_text_edit"
+                android:fontFamily="@font/wittgenstein_font"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:paddingStart="40dp"
+                android:paddingEnd="0dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:boxBackgroundMode="outline"
-                    app:startIconDrawable="@drawable/ic_date"
-                    app:startIconTint="@color/ic_calendar_edit">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/birthdayDateEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_edit_text_edit"
-                        android:clickable="true"
-                        android:focusable="false"
-                        android:fontFamily="@font/wittgenstein_font"
-                        android:inputType="none"
-                        android:maxLines="1"
-                        android:paddingStart="40dp"
-                        android:paddingEnd="0dp"
-                        android:text="@{birthday.birthdayDate}"
-                        tools:ignore="SpeakableTextPresentCheck" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:boxBackgroundMode="outline"
-                    app:startIconDrawable="@drawable/ic_notifications"
-                    app:startIconTint="@color/ic_calendar_edit">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/notifyTimeEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_edit_text_edit"
-                        android:clickable="true"
-                        android:focusable="false"
-                        android:fontFamily="@font/wittgenstein_font"
-                        android:inputType="none"
-                        android:maxLines="1"
-                        android:paddingStart="40dp"
-                        android:paddingEnd="0dp"
-                        android:text="@{birthday.notifyDate}"
-                        tools:ignore="SpeakableTextPresentCheck" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:boxBackgroundMode="outline"
-                    app:startIconDrawable="@drawable/ic_note"
-                    app:startIconTint="@color/ic_note_edit">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/birthdayNoteEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_edit_text_edit"
-                        android:fontFamily="@font/wittgenstein_font"
-                        android:maxLines="7"
-                        android:minLines="7"
-                        android:paddingStart="40dp"
-                        android:paddingEnd="0dp"
-                        android:text="@{birthday.note}"
-                        tools:ignore="SpeakableTextPresentCheck" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Button
-                    android:id="@+id/updateBirthdayButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/update_birthday_button_edit"
-                    android:text="@string/update_birthday"
-                    android:textColor="@color/button_text" />
-
-                <Button
-                    android:id="@+id/deleteBirthdayButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:backgroundTint="@color/delete_birthday_button_edit"
-                    android:text="@string/delete_birthday"
-                    android:textColor="@color/button_text" />
-
-            </LinearLayout>
-        </ScrollView>
-
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabBackButton"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/fab_button_background_edit"
-            android:clickable="true"
-            android:src="@drawable/ic_back"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="ContentDescription" />
+            android:layout_marginBottom="16dp"
+            app:boxBackgroundMode="outline"
+            app:startIconDrawable="@drawable/ic_date"
+            app:startIconTint="@color/ic_calendar_edit">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/birthdayDateEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edit_text_edit"
+                android:clickable="true"
+                android:focusable="false"
+                android:fontFamily="@font/wittgenstein_font"
+                android:inputType="none"
+                android:maxLines="1"
+                android:paddingStart="40dp"
+                android:paddingEnd="0dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:boxBackgroundMode="outline"
+            app:startIconDrawable="@drawable/ic_notifications"
+            app:startIconTint="@color/ic_calendar_edit">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/notifyTimeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edit_text_edit"
+                android:clickable="true"
+                android:focusable="false"
+                android:fontFamily="@font/wittgenstein_font"
+                android:inputType="none"
+                android:maxLines="1"
+                android:paddingStart="40dp"
+                android:paddingEnd="0dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:boxBackgroundMode="outline"
+            app:startIconDrawable="@drawable/ic_note"
+            app:startIconTint="@color/ic_note_edit">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/birthdayNoteEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edit_text_edit"
+                android:fontFamily="@font/wittgenstein_font"
+                android:maxLines="7"
+                android:minLines="7"
+                android:paddingStart="40dp"
+                android:paddingEnd="0dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/updateBirthdayButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/update_birthday_button_edit"
+            android:text="@string/update_birthday"
+            android:textColor="@color/button_text" />
+
+        <Button
+            android:id="@+id/deleteBirthdayButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:backgroundTint="@color/delete_birthday_button_edit"
+            android:text="@string/delete_birthday"
+            android:textColor="@color/button_text" />
+
+    </LinearLayout>
+</ScrollView>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/fabBackButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="20dp"
+    android:layout_marginBottom="20dp"
+    android:backgroundTint="@color/fab_button_background_edit"
+    android:clickable="true"
+    android:src="@drawable/ic_back"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    tools:ignore="ContentDescription" />
 
 
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

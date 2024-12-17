@@ -1,76 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dialog_fragment_background">
 
-    <data>
+    <ImageButton
+        android:id="@+id/closeButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:background="@color/dialog_fragment_background"
+        android:contentDescription="@string/close_btn"
+        android:elevation="2dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ImageContrastCheck" />
 
-    </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/dialog_fragment_background">
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
 
-        <ImageButton
-            android:id="@+id/closeButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentEnd="true"
-            android:background="@color/dialog_fragment_background"
-            android:elevation="2dp"
-            android:src="@drawable/ic_close"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ImageContrastCheck"
-            android:contentDescription="@string/close_btn"/>
-
-
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/dialog_fragment_background"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvWhatIsBirthifyTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/dialog_fragment_background"
-                android:orientation="vertical">
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="@string/what_is_birthify"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/dialog_fragment_tv" />
 
-                <!-- Title -->
-                <TextView
-                    android:id="@+id/tvWhatIsBirthifyTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="@string/what_is_birthify"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/dialog_fragment_tv" />
+            <!-- Content -->
+            <TextView
+                android:id="@+id/tvWhatIsBirthifyContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:text="@string/what_is_birthify_paragraph"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/dialog_fragment_tv" />
 
-                <!-- Content -->
-                <TextView
-                    android:id="@+id/tvWhatIsBirthifyContent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:textColor="@color/dialog_fragment_tv"
-                    android:text="@string/what_is_birthify_paragraph"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </ScrollView>
 
-            </LinearLayout>
-        </ScrollView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-</layout>

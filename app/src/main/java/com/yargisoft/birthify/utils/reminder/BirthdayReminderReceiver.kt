@@ -8,10 +8,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.core.app.NotificationCompat
-import com.yargisoft.birthify.MainActivity
+import com.yargisoft.birthify.ui.activities.MainActivity
 import com.yargisoft.birthify.R
-import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.LANGUAGE_KEY
-import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.PREFS_SETTINGS
+import com.yargisoft.birthify.data.sharedpreferences.UserConstants.LANGUAGE_KEY
+import com.yargisoft.birthify.data.sharedpreferences.UserConstants.PREFS_SETTINGS
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit

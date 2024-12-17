@@ -12,8 +12,9 @@ android {
     compileSdk = 34
 
     buildFeatures{
-        dataBinding = true
+        viewBinding = true
     }
+
     defaultConfig {
         applicationId = "com.yargisoft.birthify"
         minSdk = 32

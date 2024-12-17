@@ -6,8 +6,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
-import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.DARK_THEME_KEY
-import com.yargisoft.birthify.utils.sharedpreferences.UserConstants.PREFS_SETTINGS
+import com.yargisoft.birthify.data.sharedpreferences.UserConstants.DARK_THEME_KEY
+import com.yargisoft.birthify.data.sharedpreferences.UserConstants.PREFS_SETTINGS
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 

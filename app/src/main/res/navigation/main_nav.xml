@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/addBirthdayFragment"
-        android:name="com.yargisoft.birthify.ui.views.fragments.AddBirthdayFragment">
+        android:name="com.yargisoft.birthify.ui.views.main.AddBirthdayFragment">
         <action
             android:id="@+id/addToMain"
             app:destination="@id/mainPageFragment" />
@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/mainPageFragment"
-        android:name="com.yargisoft.birthify.ui.views.fragments.MainPageFragment">
+        android:name="com.yargisoft.birthify.ui.views.main.MainPageFragment">
         <action
             android:id="@+id/mainToAddBirthday"
             app:destination="@id/addBirthdayFragment" />
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/birthdayEditFragment"
-        android:name="com.yargisoft.birthify.ui.views.fragments.EditBirthdayFragment">
+        android:name="com.yargisoft.birthify.ui.views.main.EditBirthdayFragment">
         <argument
             android:name="birthday"
             app:argType="com.yargisoft.birthify.data.models.Birthday" />
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/birthdayDetailFragment"
-        android:name="com.yargisoft.birthify.ui.views.fragments.BirthdayDetailFragment">
+        android:name="com.yargisoft.birthify.ui.views.main.BirthdayDetailFragment">
         <action
             android:id="@+id/detailToEdit"
             app:destination="@id/birthdayEditFragment" />
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.yargisoft.birthify.ui.views.fragments.ProfileFragment">
+        android:name="com.yargisoft.birthify.ui.views.settings.ProfileFragment">
         <action
             android:id="@+id/profileToAccountDetails"
             app:destination="@id/accountDetailsFragment" />
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.yargisoft.birthify.ui.views.fragments.SettingsFragment">
+        android:name="com.yargisoft.birthify.ui.views.settings.SettingsFragment">
         <action
             android:id="@+id/settingsToMainPage"
             app:destination="@id/mainPageFragment" />
@@ -69,14 +69,14 @@
     </fragment>
     <fragment
         android:id="@+id/trashBinFragment"
-        android:name="com.yargisoft.birthify.ui.views.fragments.TrashBinFragment">
+        android:name="com.yargisoft.birthify.ui.views.main.TrashBinFragment">
         <action
             android:id="@+id/trashToDeletedDetail"
             app:destination="@id/deletedBirthdayDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/deletedBirthdayDetailFragment"
-        android:name="com.yargisoft.birthify.ui.views.fragments.DeletedBirthdayDetailFragment">
+        android:name="com.yargisoft.birthify.ui.views.main.DeletedBirthdayDetailFragment">
         <argument
             android:name="birthday"
             app:argType="com.yargisoft.birthify.data.models.Birthday" />
@@ -86,11 +86,11 @@
     </fragment>
     <fragment
         android:id="@+id/pastBirthdaysFragment"
-        android:name="com.yargisoft.birthify.ui.views.fragments.PastBirthdaysFragment">
+        android:name="com.yargisoft.birthify.ui.views.main.PastBirthdaysFragment">
 
     </fragment>
     <fragment
         android:id="@+id/accountDetailsFragment"
-        android:name="com.yargisoft.birthify.ui.views.fragments.AccountDetailsFragment">
+        android:name="com.yargisoft.birthify.ui.views.settings.AccountDetailsFragment">
     </fragment>
 </navigation>

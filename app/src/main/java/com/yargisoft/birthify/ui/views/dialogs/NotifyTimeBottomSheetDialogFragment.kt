@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentNotifyTimeBottomSheetDialogBinding
 import javax.inject.Inject
 
 class NotifyTimeBottomSheetDialogFragment @Inject constructor() : BottomSheetDialogFragment() {
 
-    private lateinit var binding : FragmentNotifyTimeBottomSheetDialogBinding
+    private var _binding: FragmentNotifyTimeBottomSheetDialogBinding? = null
+    private val binding get() = _binding!!
+
     private var onOptionSelected: ((String) -> Unit)? = null
 
     fun setOnOptionSelectedListener(listener: (String) -> Unit) {
@@ -23,17 +23,14 @@ class NotifyTimeBottomSheetDialogFragment @Inject constructor() : BottomSheetDia
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_notify_time_bottom_sheet_dialog, container, false)
-
-
-
+        _binding = FragmentNotifyTimeBottomSheetDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       binding.option1.setOnClickListener {
+        binding.option1.setOnClickListener {
             onOptionSelected?.invoke("On the day")
             dismiss()
         }
@@ -49,5 +46,10 @@ class NotifyTimeBottomSheetDialogFragment @Inject constructor() : BottomSheetDia
             onOptionSelected?.invoke("1 month ago")
             dismiss()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

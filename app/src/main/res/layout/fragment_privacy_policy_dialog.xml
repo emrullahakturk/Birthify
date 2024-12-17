@@ -1,240 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dialog_fragment_background">
 
-    <data>
-
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/dialog_fragment_background">
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:layout_marginBottom="16dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp">
+                <ImageButton
+                    android:id="@+id/closeButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/dialog_fragment_background"
+                    android:src="@drawable/ic_close" />
+            </RelativeLayout>
 
-                    <ImageButton
-                        android:id="@+id/closeButton"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@color/dialog_fragment_background"
-                        android:layout_alignParentEnd="true"
-                        android:src="@drawable/ic_close" />
-                </RelativeLayout>
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvPrivacyPolicyTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="Privacy Policy"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
+            <!-- Section 1 -->
+            <TextView
+                android:id="@+id/tvSection1Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="8dp"
+                android:text="1. Introduction"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <!-- Title -->
-                <TextView
-                    android:layout_gravity="center"
-                    android:id="@+id/tvPrivacyPolicyTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/dialog_fragment_tv"
-                    android:text="Privacy Policy"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-                <!-- Section 1 -->
-                <TextView
-                    android:id="@+id/tvSection1Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="8dp"
-                    android:textStyle="bold"
-                    android:text="1. Introduction"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/dialog_fragment_tv"/>
+            <TextView
+                android:id="@+id/tvSection1Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="Welcome to Birthify! Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our application."
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/dialog_fragment_tv" />
 
-                <TextView
-                    android:id="@+id/tvSection1Content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="Welcome to Birthify! Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our application."
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/dialog_fragment_tv"/>
+            <!-- Section 2 -->
+            <TextView
+                android:id="@+id/tvSection2Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="8dp"
+                android:text="2. Information Collection"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <!-- Section 2 -->
-                <TextView
-                    android:id="@+id/tvSection2Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="8dp"
-                    android:textStyle="bold"
-                    android:text="2. Information Collection"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/dialog_fragment_tv" />
+            <TextView
+                android:id="@+id/tvSection2Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="We collect the following types of information:\n\n- Personal Information: When you create an account or use the app, we may collect personal details such as your name, email address, and birthday information.\n- Device Information: We collect information about your device, including hardware model, operating system, and unique device identifiers.\n- Usage Data: We collect data about how you use our app, such as the features you access and the actions you take."
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/dialog_fragment_tv" />
 
-                <TextView
-                    android:id="@+id/tvSection2Content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="We collect the following types of information:\n\n- Personal Information: When you create an account or use the app, we may collect personal details such as your name, email address, and birthday information.\n- Device Information: We collect information about your device, including hardware model, operating system, and unique device identifiers.\n- Usage Data: We collect data about how you use our app, such as the features you access and the actions you take."
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/dialog_fragment_tv" />
+            <!-- Section 3 -->
+            <TextView
+                android:id="@+id/tvSection3Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="8dp"
+                android:text="3. Use of Information"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <!-- Section 3 -->
-                <TextView
-                    android:id="@+id/tvSection3Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="8dp"
-                    android:textStyle="bold"
-                    android:text="3. Use of Information"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/dialog_fragment_tv"/>
+            <TextView
+                android:id="@+id/tvSection3Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="We use the collected information to:\n\n- Provide and improve our services.\n- Send you notifications and updates related to your birthdays.\n- Analyze app usage to enhance functionality and user experience."
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/dialog_fragment_tv" />
 
-                <TextView
-                    android:id="@+id/tvSection3Content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="We use the collected information to:\n\n- Provide and improve our services.\n- Send you notifications and updates related to your birthdays.\n- Analyze app usage to enhance functionality and user experience."
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/dialog_fragment_tv" />
+            <!-- Section 4 -->
+            <TextView
+                android:id="@+id/tvSection4Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="8dp"
+                android:text="4. Data Sharing and Disclosure"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <!-- Section 4 -->
-                <TextView
-                    android:id="@+id/tvSection4Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="8dp"
-                    android:textStyle="bold"
-                    android:text="4. Data Sharing and Disclosure"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/dialog_fragment_tv" />
+            <TextView
+                android:id="@+id/tvSection4Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="We do not share your personal information with third parties except:\n\n- With Your Consent: If you give us permission to share information.\n- For Legal Reasons: If required by law or to protect our rights and safety."
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/dialog_fragment_tv" />
 
-                <TextView
-                    android:id="@+id/tvSection4Content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="We do not share your personal information with third parties except:\n\n- With Your Consent: If you give us permission to share information.\n- For Legal Reasons: If required by law or to protect our rights and safety."
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/dialog_fragment_tv" />
+            <!-- Section 5 -->
+            <TextView
+                android:id="@+id/tvSection5Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="8dp"
+                android:text="5. Security"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <!-- Section 5 -->
-                <TextView
-                    android:id="@+id/tvSection5Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="8dp"
-                    android:text="5. Security"
-                    android:textStyle="bold"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/dialog_fragment_tv" />
+            <TextView
+                android:id="@+id/tvSection5Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="We implement reasonable security measures to protect your information from unauthorized access, alteration, disclosure, or destruction."
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/dialog_fragment_tv" />
 
-                <TextView
-                    android:id="@+id/tvSection5Content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="We implement reasonable security measures to protect your information from unauthorized access, alteration, disclosure, or destruction."
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/dialog_fragment_tv" />
+            <!-- Section 6 -->
+            <TextView
+                android:id="@+id/tvSection6Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="8dp"
+                android:text="6. Your Rights"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <!-- Section 6 -->
-                <TextView
-                    android:id="@+id/tvSection6Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="8dp"
-                    android:text="6. Your Rights"
-                    android:textStyle="bold"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/dialog_fragment_tv"/>
+            <TextView
+                android:id="@+id/tvSection6Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="You have the right to:\n\n- Access and update your personal information.\n- Delete your account and personal data.\n- Opt-out of receiving notifications."
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/dialog_fragment_tv" />
 
-                <TextView
-                    android:id="@+id/tvSection6Content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="You have the right to:\n\n- Access and update your personal information.\n- Delete your account and personal data.\n- Opt-out of receiving notifications."
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/dialog_fragment_tv" />
+            <!-- Section 7 -->
+            <TextView
+                android:id="@+id/tvSection7Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="8dp"
+                android:text="7. Changes to This Privacy Policy"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <!-- Section 7 -->
-                <TextView
-                    android:id="@+id/tvSection7Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="8dp"
-                    android:textStyle="bold"
-                    android:text="7. Changes to This Privacy Policy"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/dialog_fragment_tv" />
+            <TextView
+                android:id="@+id/tvSection7Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy in the app."
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/dialog_fragment_tv" />
 
-                <TextView
-                    android:id="@+id/tvSection7Content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy in the app."
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/dialog_fragment_tv" />
+            <!-- Section 8 -->
+            <TextView
+                android:id="@+id/tvSection8Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="8dp"
+                android:text="8. Contact Us"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/dialog_fragment_tv"
+                android:textStyle="bold" />
 
-                <!-- Section 8 -->
-                <TextView
-                    android:id="@+id/tvSection8Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="8dp"
-                    android:text="8. Contact Us"
-                    android:textStyle="bold"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/dialog_fragment_tv" />
+            <TextView
+                android:id="@+id/tvSection8Content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/wittgenstein_font"
+                android:paddingBottom="16dp"
+                android:text="If you have any questions or concerns about this Privacy Policy, please contact us at support@birthfiy.com"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/dialog_fragment_tv" />
 
-                <TextView
-                    android:id="@+id/tvSection8Content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/wittgenstein_font"
-                    android:paddingBottom="16dp"
-                    android:text="If you have any questions or concerns about this Privacy Policy, please contact us at support@birthfiy.com"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/dialog_fragment_tv" />
-
-            </LinearLayout>
-        </ScrollView>
+        </LinearLayout>
+    </ScrollView>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
