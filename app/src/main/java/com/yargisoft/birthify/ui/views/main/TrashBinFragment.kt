@@ -1,5 +1,7 @@
 package com.yargisoft.birthify.ui.views.main
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,15 +12,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yargisoft.birthify.utils.helpers.BirthdaySortFunctions
-import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions
 import com.yargisoft.birthify.data.models.Birthday
 import com.yargisoft.birthify.data.repositories.BirthdayRepository
+import com.yargisoft.birthify.data.sharedpreferences.UserConstants.LANGUAGE_KEY
+import com.yargisoft.birthify.data.sharedpreferences.UserConstants.PREFS_SETTINGS
+import com.yargisoft.birthify.data.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.databinding.FragmentAuthTrashBinBinding
 import com.yargisoft.birthify.ui.adapters.DeletedBirthdayAdapter
 import com.yargisoft.birthify.ui.viewmodels.BirthdayViewModel
+import com.yargisoft.birthify.utils.helpers.BirthdaySortFunctions
+import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions
 import com.yargisoft.birthify.utils.helpers.NetworkConnectionObserver
-import com.yargisoft.birthify.data.sharedpreferences.UserSharedPreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -29,6 +33,9 @@ class TrashBinFragment : Fragment() {
     private var _binding: FragmentAuthTrashBinBinding? = null
     private val binding get() = _binding!!
     private val birthdayViewModel: BirthdayViewModel by viewModels()
+    private val deletedBirthdayList = birthdayViewModel.birthdayList.value ?: emptyList()
+    val preferences: SharedPreferences = requireContext().getSharedPreferences(PREFS_SETTINGS, Context.MODE_PRIVATE)
+    private val languageInfo = preferences.getString(LANGUAGE_KEY, "en") ?: "en"
 
     @Inject
     lateinit var userSharedPreferences: UserSharedPreferencesManager
@@ -47,8 +54,9 @@ class TrashBinFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAuthTrashBinBinding.inflate(inflater, container, false)
+        
         setupNetworkObserver()
-        setupRecyclerView()
+        setupRecyclerView(languageInfo, deletedBirthdayList)
         setupSearchFunctionality()
         setupSortButton()
         setupBackButton()
@@ -76,9 +84,11 @@ class TrashBinFragment : Fragment() {
         }
     }
 
-    private fun setupRecyclerView() {
+    private fun setupRecyclerView(languageInfo:String, deletedBirthdayList: List<Birthday>) {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
+        adapter.languageInfo = languageInfo
+        adapter.deletedBirthdayList = deletedBirthdayList
         adapter.setOnDetailClickListener { birthday ->
             navigateToBirthdayDetail(birthday)
         }
