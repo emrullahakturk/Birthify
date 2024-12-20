@@ -3,6 +3,7 @@ package com.yargisoft.birthify.ui.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yargisoft.birthify.data.repositories.AuthRepository
+import com.yargisoft.birthify.utils.helpers.AuthValidationFunctions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -24,6 +25,9 @@ class AuthViewModel @Inject constructor(private val authRepository: AuthReposito
     val userCredentials: MutableStateFlow<Map<String, Any>?> get() = _userCredentials
 
 
+    fun isEmailValid(email: String): Boolean {
+        return AuthValidationFunctions.isEmailValid(email)
+    }
 
     fun updatePassword(currentPassword: String, newPassword:String){
         viewModelScope.launch {

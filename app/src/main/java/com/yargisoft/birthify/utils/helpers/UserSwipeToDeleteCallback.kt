@@ -96,7 +96,7 @@ class UserSwipeToDeleteCallback @Inject constructor(
             val cornerRadius = 40f  // Border radius değerini burada ayarlayabilirsiniz
             c.drawRoundRect(background, cornerRadius, cornerRadius, paint)
 
-            val deleteIcon = ContextCompat.getDrawable(adapter.context, R.drawable.ic_delete)!!
+            val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_delete)!!
 
             val iconMargin = (itemView.height - deleteIcon.intrinsicHeight) / 2
             val iconTop = itemView.top + (itemView.height - deleteIcon.intrinsicHeight) / 2

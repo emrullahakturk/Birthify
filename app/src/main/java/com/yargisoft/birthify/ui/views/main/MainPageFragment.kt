@@ -3,6 +3,7 @@ package com.yargisoft.birthify.ui.views.main
 import android.Manifest
 import android.app.AlarmManager
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -19,22 +20,24 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yargisoft.birthify.utils.helpers.BirthdaySortFunctions.showSortMenu
-import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions
 import com.yargisoft.birthify.R
-import com.yargisoft.birthify.utils.helpers.UserSwipeToDeleteCallback
+import com.yargisoft.birthify.data.models.Birthday
 import com.yargisoft.birthify.data.repositories.BirthdayRepository
+import com.yargisoft.birthify.data.sharedpreferences.UserConstants.IS_FIRST_LAUNCH_KEY
+import com.yargisoft.birthify.data.sharedpreferences.UserConstants.LANGUAGE_KEY
+import com.yargisoft.birthify.data.sharedpreferences.UserConstants.PREFS_SETTINGS
+import com.yargisoft.birthify.data.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.databinding.FragmentAuthMainPageBinding
 import com.yargisoft.birthify.ui.adapters.BirthdayAdapter
 import com.yargisoft.birthify.ui.viewmodels.AuthViewModel
 import com.yargisoft.birthify.ui.viewmodels.BirthdayViewModel
+import com.yargisoft.birthify.utils.helpers.BirthdaySortFunctions.showSortMenu
+import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions
 import com.yargisoft.birthify.utils.helpers.NetworkConnectionObserver
+import com.yargisoft.birthify.utils.helpers.UserSwipeToDeleteCallback
 import com.yargisoft.birthify.utils.reminder.ReminderFunctions.isAlarmScheduled
 import com.yargisoft.birthify.utils.reminder.ReminderFunctions.requestExactAlarmPermission
 import com.yargisoft.birthify.utils.reminder.ReminderFunctions.scheduleBirthdayReminder
-import com.yargisoft.birthify.data.sharedpreferences.UserConstants.IS_FIRST_LAUNCH_KEY
-import com.yargisoft.birthify.data.sharedpreferences.UserConstants.PREFS_SETTINGS
-import com.yargisoft.birthify.data.sharedpreferences.UserSharedPreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -47,6 +50,7 @@ class MainPageFragment : Fragment() {
     private val authViewModel: AuthViewModel by viewModels()
 
     private lateinit var itemTouchHelper: ItemTouchHelper
+
 
     @Inject
     lateinit var networkConnectionObserver: NetworkConnectionObserver
@@ -61,6 +65,7 @@ class MainPageFragment : Fragment() {
     lateinit var birthdayRepository: BirthdayRepository
 
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,10 +73,13 @@ class MainPageFragment : Fragment() {
     ): View {
         _binding = FragmentAuthMainPageBinding.inflate(inflater, container, false)
 
+        preferences  = requireContext().getSharedPreferences(PREFS_SETTINGS, Context.MODE_PRIVATE)
+        val languageInfo = preferences.getString(LANGUAGE_KEY, "en") ?: "en"
+        val birthdayList = birthdayViewModel.birthdayList.value ?: emptyList()
         handleNotificationPermission()
         authViewModel.getUserCredentials()
         observeNetworkConnection()
-        setupRecyclerView()
+        setupRecyclerView(languageInfo, birthdayList )
         setupItemTouchHelper()
         setupSearchAndSort()
         setupFab()
@@ -128,9 +136,10 @@ class MainPageFragment : Fragment() {
         }
     }
 
-    private fun setupRecyclerView() {
+    private fun setupRecyclerView(languageInfo:String, birthdayList: List<Birthday>) {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.adapter = adapter
+        adapter.languageInfo = languageInfo
+        adapter.birthdayList = birthdayList
 
         birthdayViewModel.birthdayList.observe(viewLifecycleOwner) { birthdays ->
             binding.clickToAddBirthdayTv.visibility =
@@ -147,6 +156,7 @@ class MainPageFragment : Fragment() {
             val action = MainPageFragmentDirections.mainToDetailBirthday(birthday)
             findNavController().navigate(action)
         }
+        binding.recyclerView.adapter = adapter
     }
 
     private fun setupItemTouchHelper() {

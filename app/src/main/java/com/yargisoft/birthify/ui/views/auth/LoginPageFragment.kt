@@ -21,13 +21,12 @@ import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.yargisoft.birthify.utils.helpers.AuthValidationFunctions.isValidEmail
-import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions.disableViewEnableLottie
-import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions.enableViewDisableLottie
-import com.yargisoft.birthify.ui.activities.MainActivity
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentLoginPageBinding
+import com.yargisoft.birthify.ui.activities.MainActivity
 import com.yargisoft.birthify.ui.viewmodels.AuthViewModel
+import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions.disableViewEnableLottie
+import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions.enableViewDisableLottie
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -47,15 +46,11 @@ class LoginPageFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View {
 
         _binding = FragmentLoginPageBinding.inflate(inflater , container, false)
-
-
+         
 
         //Validation için mail input kutularını tanımlıyoruz
         loginEmailTextInput = binding.loginEmailTextInput
         loginEmailEditText = binding.loginEmailEditText
-
-
-
 
         // Login fragment sayfasında girilen e-mail formatını kontrol ediyoruz
         loginEmailEditText.addTextChangedListener(object : TextWatcher {
@@ -63,7 +58,7 @@ class LoginPageFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val email = s.toString()
-                if (isValidEmail(email)) {
+                if (viewModel.isEmailValid(email)) {
                     loginEmailTextInput.error = null
                     loginEmailTextInput.isErrorEnabled = false //error yazıdı gittiğinde yazıdan kalan boşluk bu kod ile gider
                 } else {
@@ -122,7 +117,7 @@ class LoginPageFragment : Fragment() {
         lottieAnimationView: LottieAnimationView,
         viewLifecycleOwner: LifecycleOwner,
     ) {
-        if (isValidEmail(email) && password.isNotEmpty()) {
+        if (viewModel.isEmailValid(email) && password.isNotEmpty()) {
 
             authViewModel.loginUser(email, password)
 

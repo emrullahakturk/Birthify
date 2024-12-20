@@ -5,7 +5,7 @@ import android.util.Patterns
 object AuthValidationFunctions {
 
     //Email, password ve fullname validation için kullanılan fonksiyonlar
-    fun isValidEmail(email: String): Boolean {
+    fun isEmailValid(email: String): Boolean {
         if (email.isBlank()) {
             return false
         }

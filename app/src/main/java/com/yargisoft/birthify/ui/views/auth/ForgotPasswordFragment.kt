@@ -21,13 +21,12 @@ import com.airbnb.lottie.LottieAnimationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.yargisoft.birthify.utils.helpers.AuthValidationFunctions.isValidEmail
-import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions
-import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions.disableViewEnableLottie
-import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions.enableViewDisableLottie
 import com.yargisoft.birthify.R
 import com.yargisoft.birthify.databinding.FragmentForgotPasswordBinding
 import com.yargisoft.birthify.ui.viewmodels.AuthViewModel
+import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions
+import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions.disableViewEnableLottie
+import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions.enableViewDisableLottie
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -69,7 +68,7 @@ class ForgotPasswordFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val email = s.toString()
-                if (isValidEmail(email)) {
+                if (viewModel.isEmailValid(email)) {
                     forgotPassTextInputLayout.error = null
                     forgotPassTextInputLayout.isErrorEnabled = false //error yazıdı gittiğinde yazıdan kalan boşluk bu kod ile gider
                 } else {
@@ -138,7 +137,7 @@ class ForgotPasswordFragment : Fragment() {
         action: Int,
         navOptions: NavOptions,
     ) {
-        if (isValidEmail(email)) {
+        if (viewModel.isEmailValid(email)) {
 
             viewModel.resetPassword(email)
 
