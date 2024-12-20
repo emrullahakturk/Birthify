@@ -1,5 +1,7 @@
 package com.yargisoft.birthify.ui.views.main
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,15 +12,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yargisoft.birthify.utils.helpers.BirthdaySortFunctions.showSortMenu
-import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions
 import com.yargisoft.birthify.data.models.Birthday
 import com.yargisoft.birthify.data.repositories.BirthdayRepository
+import com.yargisoft.birthify.data.sharedpreferences.UserConstants.LANGUAGE_KEY
+import com.yargisoft.birthify.data.sharedpreferences.UserConstants.PREFS_SETTINGS
+import com.yargisoft.birthify.data.sharedpreferences.UserSharedPreferencesManager
 import com.yargisoft.birthify.databinding.FragmentAuthPastBirthdaysBinding
 import com.yargisoft.birthify.ui.adapters.PastBirthdayAdapter
 import com.yargisoft.birthify.ui.viewmodels.BirthdayViewModel
+import com.yargisoft.birthify.utils.helpers.BirthdaySortFunctions.showSortMenu
+import com.yargisoft.birthify.utils.helpers.FrequentlyUsedFunctions
 import com.yargisoft.birthify.utils.helpers.NetworkConnectionObserver
-import com.yargisoft.birthify.data.sharedpreferences.UserSharedPreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -28,6 +32,10 @@ class PastBirthdaysFragment : Fragment() {
     private var _binding: FragmentAuthPastBirthdaysBinding? = null
     private val binding get() = _binding!!
     private val birthdayViewModel: BirthdayViewModel by viewModels()
+
+    private val pastBirthdayList: List<Birthday> = birthdayViewModel.birthdayList.value ?: emptyList()
+    private val preferences: SharedPreferences = requireContext().getSharedPreferences(PREFS_SETTINGS, Context.MODE_PRIVATE)
+    private val languageInfo = preferences.getString(LANGUAGE_KEY, "en") ?: "en"
 
     @Inject
     lateinit var adapter: PastBirthdayAdapter
@@ -48,7 +56,7 @@ class PastBirthdaysFragment : Fragment() {
         _binding = FragmentAuthPastBirthdaysBinding.inflate(inflater, container, false)
 
         setupNetworkObserver()
-        setupRecyclerView()
+        setupRecyclerView(languageInfo, pastBirthdayList)
         observeBirthdayList()
         setupSearchFunctionality()
         setupSortButton()
@@ -76,9 +84,12 @@ class PastBirthdaysFragment : Fragment() {
         )
     }
 
-    private fun setupRecyclerView() {
+    private fun setupRecyclerView(languageInfo: String, pastBirthdayList: List<Birthday>) {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        adapter.languageInfo = languageInfo
+        adapter.pastBirthdayList = pastBirthdayList
         binding.recyclerView.adapter = adapter
+
     }
 
     private fun observeBirthdayList() {

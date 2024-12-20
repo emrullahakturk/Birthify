@@ -34,7 +34,7 @@ class TrashBinFragment : Fragment() {
     private val binding get() = _binding!!
     private val birthdayViewModel: BirthdayViewModel by viewModels()
     private val deletedBirthdayList = birthdayViewModel.birthdayList.value ?: emptyList()
-    val preferences: SharedPreferences = requireContext().getSharedPreferences(PREFS_SETTINGS, Context.MODE_PRIVATE)
+    private val preferences: SharedPreferences = requireContext().getSharedPreferences(PREFS_SETTINGS, Context.MODE_PRIVATE)
     private val languageInfo = preferences.getString(LANGUAGE_KEY, "en") ?: "en"
 
     @Inject
